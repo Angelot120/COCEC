@@ -86,7 +86,7 @@
                                         <img src="assets/images/notification/profile-2.png" alt="">
                                     </span>
                                     <div>
-                                        <h6 class="text-md fw-semibold mb-4">Robiul Hasan</h6>
+                                        <h6 class="text-md fw-semibold mb-4">{{ Auth::user()->email }}</h6>
                                         <p class="mb-0 text-sm text-secondary-light text-w-200-px">Invite you to prototyping</p>
                                     </div>
                                 </div>
@@ -116,12 +116,12 @@
 
                 <div class="dropdown">
                     <button class="d-flex justify-content-center align-items-center rounded-circle" type="button" data-bs-toggle="dropdown">
-                        <img src="assets/images/user.png" alt="image" class="w-40-px h-40-px object-fit-cover rounded-circle">
+                        <img src="{{ URL::asset('assets/images/user.png') }}" alt="image" class="w-40-px h-40-px object-fit-cover rounded-circle">
                     </button>
                     <div class="dropdown-menu to-top dropdown-menu-sm">
                         <div class="py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2">
                             <div>
-                                <h6 class="text-lg text-primary-light fw-semibold mb-2">Robiul Hasan</h6>
+                                <h6 class="text-lg text-primary-light fw-semibold mb-2">{{ Auth::user()->email }}</h6>
                                 <span class="text-secondary-light fw-medium text-sm">Admin</span>
                             </div>
                             <button type="button" class="hover-text-danger">
@@ -142,8 +142,12 @@
                                     <iconify-icon icon="icon-park-outline:setting-two" class="icon text-xl"></iconify-icon> Setting</a>
                             </li>
                             <li>
-                                <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3" href="javascript:void(0)">
-                                    <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon> Log Out</a>
+                                <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon>Déconnexion
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </li>
                         </ul>
                     </div>

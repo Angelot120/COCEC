@@ -4,6 +4,7 @@ use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ViewsController;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,7 +17,11 @@ Route::get('/admin', [ViewsController::class, 'login'])->name('login');
 
 // Blog Details
 Route::get('/admin/blogs', [ViewsController::class, 'blogs'])->name('admin.blogs');
+Route::get('/admin/announcements', [ViewsController::class, 'announcements'])->name('admin.announcements');
+
 // Route::get('/admin/blogs/create', [BlogController::class,'create'])->name('admin.blogs.create');
+
+
 Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/announcements/{id}', [AnnouncementsController::class, 'show'])->name('announcements.show');
 
@@ -44,7 +49,10 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
     });
     
 
-    Route::get('/logout', [ViewsController::class, 'logout'])->name('logout');
+});
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 

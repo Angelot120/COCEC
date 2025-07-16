@@ -22,12 +22,12 @@
 
         </div>
 
-       <div class="card-header border-bottom bg-base py-16 px-24 d-flex justify-content-end">
-    <a href="{{ route('blog.create') }}" class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
-        <iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
-        Ajouter un blog
-    </a>
-</div>
+        <div class="card-header border-bottom bg-base py-16 px-24 d-flex justify-content-end">
+            <a href="{{ route('blog.create') }}" class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
+                <iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
+                Ajouter un blog
+            </a>
+        </div>
 
 
         @if ($message = Session::get('success'))
@@ -99,11 +99,6 @@
             </div>
             @endforeach
         </div>
-
-        <!-- Floating Action Button -->
-        <button type="button" class="btn btn-primary fab-button" data-bs-toggle="modal" data-bs-target="#addBlogModal">
-            <iconify-icon icon="ri:add-line" class="text-white fs-4"></iconify-icon>
-        </button>
 
         <!-- Add Blog Modal -->
         <!-- <div class="modal fade" id="addBlogModal" tabindex="-1" aria-labelledby="addBlogModalLabel" aria-hidden="true">

@@ -25,7 +25,7 @@ class AuthController extends Controller
         //
     }
 
-        public function register(RegistrationRequest $registrationRequest)
+    public function register(RegistrationRequest $registrationRequest)
     {
 
         $data = [
@@ -77,6 +77,16 @@ class AuthController extends Controller
             return false;
         }
     }
+
+    public function logout()
+    {
+        $result = $this->authInterface->logout();
+        if ($result) {
+            return redirect()->route('index')->with('success', 'Déconnexion réussie.');
+        }
+        return back()->with('error', 'Déconnexion échouée.');
+    }
+
 
     /**
      * Show the form for creating a new resource.
