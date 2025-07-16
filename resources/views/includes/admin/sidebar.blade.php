@@ -17,7 +17,14 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+
             <li class="sidebar-menu-group-title">Actions</li>
+            <li>
+                <a href="{{ route('admin.announcements') }}">
+                    <iconify-icon icon="mdi:bullhorn-outline" class="menu-icon"></iconify-icon>
+                    <span>Annonces</span>
+                </a>
+            </li>
             <li class="dropdown">
 
                 <a href="javascript:void(0)">

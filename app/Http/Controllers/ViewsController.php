@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcements;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,14 @@ class ViewsController extends Controller
         $blogs = Blog::all();
 
         return view('admin.blog.index', ['blogs' => $blogs]);
-        
+    }
+
+    public function announcements()
+    {
+
+        $announcements = Announcements::all();
+
+        return view('admin.announcement.index', ['announcements' => $announcements]);
     }
 
     public function locality()
