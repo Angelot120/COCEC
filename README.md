@@ -2,7 +2,7 @@
 
 ## 📌 Description
 
-Ce projet est une **refonte du site web de la COCEC** ([https://www.cocectogo.org/](https://www.cocectogo.org/)), développé par **DIGITALIS TOGO**.  
+Ce projet est une **refonte du site web de la COCEC** ([https://www.cocectogo.org/](https://www.cocectogo.org/)).  
 L'objectif est de :
 - Moderniser l'interface utilisateur (UX/UI)
 - Assurer la compatibilité multi-support (mobile, tablette, desktop)
@@ -37,8 +37,8 @@ Avant d’installer le projet, assurez-vous d’avoir :
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/[votre-nom-utilisateur]/cocec-website.git
-cd cocec-website
+git clone https://github.com/[votre-nom-utilisateur]/cocec.git
+cd cocec
 ```
 
 ### 2. Installer les dépendances PHP
@@ -71,7 +71,7 @@ php artisan key:generate
 
 ### 5. Créer la base de données
 
-Créer une base nommée `cocec_website` et mettre à jour `.env` en conséquence.
+Créer une base nommée `cocec_db` et mettre à jour `.env` en conséquence.
 
 ### 6. Exécuter les migrations
 
