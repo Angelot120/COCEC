@@ -23,7 +23,9 @@ Route::get('/announcements/{id}', [AnnouncementsController::class, 'show'])->nam
 // Routes protégées par Sanctum
 Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 
+    // Admin Routes
     Route::get('/dashboard', [ViewsController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/localities', [ViewsController::class, 'locality'])->name('admin.localities');
 
     // Blog routes
     Route::prefix('blog')->controller(BlogController::class)->group(function () {
@@ -37,6 +39,7 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
         Route::patch('/edit/{id}', 'edit')->name('announcements.edit');
         Route::delete('/destroy/{id}', 'destroy')->name('announcements.destroy');
     });
+    
 
     Route::get('/logout', [ViewsController::class, 'logout'])->name('logout');
 });

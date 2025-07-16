@@ -33,4 +33,9 @@ class ViewsController extends Controller
 
         return view('admin.blog.index', ['blogs' => $blogs]);
     }
+
+    public function locality()
+    {
+        return view('admin.settings.localities');
+    }
 }
