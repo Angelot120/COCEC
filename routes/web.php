@@ -16,6 +16,7 @@ Route::get('/admin', [ViewsController::class, 'login'])->name('login');
 
 // Blog Details
 Route::get('/admin/blogs', [ViewsController::class, 'blogs'])->name('admin.blogs');
+// Route::get('/admin/blogs/create', [BlogController::class,'create'])->name('admin.blogs.create');
 Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/announcements/{id}', [AnnouncementsController::class, 'show'])->name('announcements.show');
 
@@ -29,7 +30,9 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 
     // Blog routes
     Route::prefix('blog')->controller(BlogController::class)->group(function () {
-        Route::post('/create', 'create')->name('blog.create');
+        Route::get('/create', 'create')->name('blog.create');
+        Route::post('/store', 'store')->name('blog.store');
+
         Route::patch('/edit/{id}', 'edit')->name('blog.edit');
         Route::delete('/destroy/{id}', 'destroy')->name('blog.destroy');
     });

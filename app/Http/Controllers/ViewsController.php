@@ -32,6 +32,7 @@ class ViewsController extends Controller
         $blogs = Blog::all();
 
         return view('admin.blog.index', ['blogs' => $blogs]);
+        
     }
 
     public function locality()

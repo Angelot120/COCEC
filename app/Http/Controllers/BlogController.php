@@ -28,34 +28,10 @@ class BlogController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
-            'short_description' => 'required|string|max:500',
-            'long_description' => 'required|string',
-        ]);
-
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('blog', 'public');
-        }
-
-        $data = [
-            "title" => $request->title,
-            "short_description" => $request->short_description,
-            "long_description" => $request->long_description,
-            "image" => $imagePath,
-        ];
-
-        $response = $this->blogInterface->create($data);
-        if (!$response) {
-            return back()->with('error', 'Erreur lors de la création du blog !');
-        }
-
-        return back()->with('success', 'Blog créé avec succès !');
+        return view('admin.blog.create');
     }
 
     /**
@@ -63,7 +39,33 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'image' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
+        'short_description' => 'required|string|max:500',
+        'long_description' => 'required|string',
+        'is_published' => 'required|boolean',
+    ]);
+
+    $imagePath = null;
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('blog', 'public');
+    }
+
+    $data = [
+        "title" => $request->title,
+        "short_description" => $request->short_description,
+        "long_description" => $request->long_description,
+        "image" => $imagePath,
+        "is_published" => $request->is_published,
+    ];
+
+    $response = $this->blogInterface->create($data);
+    if (!$response) {
+        return back()->with('error', 'Erreur lors de la création du blog !');
+    }
+
+    return redirect()->route('admin.blogs')->with('success', 'Blog créé avec succès !');
     }
 
     /**

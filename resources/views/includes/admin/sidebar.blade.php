@@ -18,11 +18,33 @@
                 </a>
             </li>
             <li class="sidebar-menu-group-title">Actions</li>
-            <li>
-                <a href="{{ route('admin.blogs') }}">
+            <li class="dropdown">
+
+                <a href="javascript:void(0)">
                     <iconify-icon icon="mage:email" class="menu-icon"></iconify-icon>
+
                     <span>Blog</span>
                 </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('admin.blogs') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Liste des blogs
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="{{ route('blog.create') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Ajouter un blog
+                        </a>
+
+                    </li>
+                </ul>
+                <!-- <a href="{{ route('admin.blogs') }}">
+                    <iconify-icon icon="mage:email" class="menu-icon"></iconify-icon>
+                    <span>Blog</span>
+                </a> -->
             </li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
