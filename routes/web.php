@@ -16,6 +16,7 @@ Route::get('/admin', [ViewsController::class, 'login'])->name('login');
 
 // Blog Details
 Route::get('/admin/blogs', [ViewsController::class, 'blogs'])->name('admin.blogs');
+// Route::get('/admin/blogs/create', [BlogController::class,'create'])->name('admin.blogs.create');
 Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/announcements/{id}', [AnnouncementsController::class, 'show'])->name('announcements.show');
 
@@ -23,11 +24,15 @@ Route::get('/announcements/{id}', [AnnouncementsController::class, 'show'])->nam
 // Routes protégées par Sanctum
 Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 
+    // Admin Routes
     Route::get('/dashboard', [ViewsController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/localities', [ViewsController::class, 'locality'])->name('admin.localities');
 
     // Blog routes
     Route::prefix('blog')->controller(BlogController::class)->group(function () {
-        Route::post('/create', 'create')->name('blog.create');
+        Route::get('/create', 'create')->name('blog.create');
+        Route::post('/store', 'store')->name('blog.store');
+
         Route::patch('/edit/{id}', 'edit')->name('blog.edit');
         Route::delete('/destroy/{id}', 'destroy')->name('blog.destroy');
     });
@@ -37,6 +42,7 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
         Route::patch('/edit/{id}', 'edit')->name('announcements.edit');
         Route::delete('/destroy/{id}', 'destroy')->name('announcements.destroy');
     });
+    
 
     Route::get('/logout', [ViewsController::class, 'logout'])->name('logout');
 });

@@ -18,25 +18,47 @@
                 </a>
             </li>
             <li class="sidebar-menu-group-title">Actions</li>
-            <li>
-                <a href="{{ route('admin.blogs') }}">
-                    <iconify-icon icon="mage:email" class="menu-icon"></iconify-icon>
-                    <span>Blog</span>
-                </a>
-            </li>
-            <!-- <li class="dropdown">
+            <li class="dropdown">
+
                 <a href="javascript:void(0)">
-                    <iconify-icon icon="flowbite:users-group-outline" class="menu-icon"></iconify-icon>
-                    <span>Utilisateurs</span>
+                    <iconify-icon icon="mage:email" class="menu-icon"></iconify-icon>
+
+                    <span>Blog</span>
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="route('users.index') }}">
+                        <a href="{{ route('admin.blogs') }}">
                             <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
-                            Liste des utilisateurs
+                            Liste des blogs
                         </a>
+
                     </li>
                     <li>
+                        <a href="{{ route('blog.create') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Ajouter un blog
+                        </a>
+
+                    </li>
+                </ul>
+                <!-- <a href="{{ route('admin.blogs') }}">
+                    <iconify-icon icon="mage:email" class="menu-icon"></iconify-icon>
+                    <span>Blog</span>
+                </a> -->
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:cog-outline" class="menu-icon"></iconify-icon>
+                    <span>Système</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('admin.localities') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Localités
+                        </a>
+                    </li>
+                    <!-- <li>
                         <a href="route('users.create') }}">
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Ajouter un utilisateur
@@ -47,9 +69,9 @@
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Rôle et permissions des utilisateurs
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
-            </li> -->
+            </li>
         </ul>
     </div>
 </aside>

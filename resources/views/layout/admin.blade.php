@@ -57,7 +57,7 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('assets/datatable/datatables.min.css') }}"> -->
     <link rel="stylesheet" href="{{ URL::asset('assets/admin/summernote/summernote.min.css') }}">
-    <title>DIGITALIS TOGO</title>
+    <title>COCEC</title>
 </head>
 
 <body>
