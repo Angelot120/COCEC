@@ -40,7 +40,7 @@
                 <div class="card h-100 p-0 radius-12 overflow-hidden">
                     <div class="card-body p-24">
                         <a href="{{ route('blogs.show', $blog->id) }}" class="w-100 max-h-194-px radius-8 overflow-hidden">
-                            <img src="{{ $blog->image ? asset('storage/blog/' . $blog->image) : asset('assets/images/blog.jpg') }}" alt="{{ $blog->title }}" class="w-100 h-100 object-fit-cover">
+                            <img src="{{ $blog->image ? asset('storage/' . $blog->image) : asset('assets/images/blog.jpg') }}" alt="{{ $blog->title }}" class="w-100 h-100 object-fit-cover">
                         </a>
                         <div class="mt-20">
                             <div class="d-flex align-items-center gap-6 justify-content-between flex-wrap mb-16">
