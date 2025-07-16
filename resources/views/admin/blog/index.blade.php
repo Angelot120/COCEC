@@ -101,9 +101,9 @@
         </div>
 
         <!-- Floating Action Button -->
-        <button type="button" class="btn btn-primary fab-button" data-bs-toggle="modal" data-bs-target="#addBlogModal">
+        <!-- <button type="button" class="btn btn-primary fab-button" data-bs-toggle="modal" data-bs-target="#addBlogModal">
             <iconify-icon icon="ri:add-line" class="text-white fs-4"></iconify-icon>
-        </button>
+        </button> -->
 
         <!-- Add Blog Modal -->
         <!-- <div class="modal fade" id="addBlogModal" tabindex="-1" aria-labelledby="addBlogModalLabel" aria-hidden="true">
