@@ -7,7 +7,7 @@
 
     <div class="dashboard-main-body">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
-            <h6 class="fw-semibold mb-0">Blog</h6>
+            <h6 class="fw-semibold mb-0">Liste des Blogs</h6>
             <ul class="d-flex align-items-center gap-2">
                 <li class="fw-medium">
                     <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">
@@ -18,7 +18,17 @@
                 <li>-</li>
                 <li class="fw-medium">Blog</li>
             </ul>
+
+
         </div>
+
+       <div class="card-header border-bottom bg-base py-16 px-24 d-flex justify-content-end">
+    <a href="{{ route('blog.create') }}" class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
+        <iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
+        Ajouter un blog
+    </a>
+</div>
+
 
         @if ($message = Session::get('success'))
         <ul class="alert alert-success">
@@ -40,7 +50,7 @@
                 <div class="card h-100 p-0 radius-12 overflow-hidden">
                     <div class="card-body p-24">
                         <a href="{{ route('blogs.show', $blog->id) }}" class="w-100 max-h-194-px radius-8 overflow-hidden">
-                            <img src="{{ $blog->image ? asset('storage/blog/' . $blog->image) : asset('assets/images/blog.jpg') }}" alt="{{ $blog->title }}" class="w-100 h-100 object-fit-cover">
+                            <img src="{{ $blog->image ? asset('storage/' . $blog->image) : asset('assets/images/blog.jpg') }}" alt="{{ $blog->title }}" class="w-100 h-100 object-fit-cover">
                         </a>
                         <div class="mt-20">
                             <div class="d-flex align-items-center gap-6 justify-content-between flex-wrap mb-16">
@@ -96,7 +106,7 @@
         </button>
 
         <!-- Add Blog Modal -->
-        <div class="modal fade" id="addBlogModal" tabindex="-1" aria-labelledby="addBlogModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="addBlogModal" tabindex="-1" aria-labelledby="addBlogModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -137,7 +147,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Edit Blog Modal -->
         <div class="modal fade" id="editBlogModal" tabindex="-1" aria-labelledby="editBlogModalLabel" aria-hidden="true">
