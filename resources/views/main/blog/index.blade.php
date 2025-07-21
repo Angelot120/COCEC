@@ -8,8 +8,6 @@
 
     @include('includes.main.header')
 
-    <br><br><br><br>
-
     <div id="popup-search-box">
         <div class="box-inner-wrap d-flex align-items-center">
             <form id="form" action="#" method="get" role="search">
@@ -90,32 +88,24 @@
     </div>
     <!--/.sidebar-area-->
 
-
-
-    <section class="page-header">
-        <div class="bg-img" data-background="assets/img/bg-img/page-header-bg.jpg"></div>
-        <div class="overlay"></div>
-        <div class="shapes">
-            <div class="shape shape-1"><img src="assets/img/shapes/pager-header-shape-1.png" alt="shape"></div>
-            <div class="shape shape-2"><img src="assets/img/shapes/pager-header-shape-2.png" alt="shape"></div>
-        </div>
+    <section class="page-header-pro">
+        {{-- L'image de fond est appliquée via CSS pour plus de flexibilité --}}
+        <div class="page-header-overlay"></div>
         <div class="container">
-            <div class="page-header-content">
-                <h1 class="title">Blog</h1>
-                <h4 class="sub-title">
-                    <span class="home">
-                        <a href="{{ route('index') }}">
-                            <span>Accueil</span>
-                        </a>
-                    </span>
-                    <span class="icon">/</span>
-                    <span class="inner">
-                        <span>Blog</span>
-                    </span>
-                </h4>
+            <div class="page-header-content-pro" data-aos="fade-up">
+                <h1 class="title-pro">Blog</h1>
+
+                {{-- Utilisation d'une structure sémantique pour le fil d'Ariane --}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb-pro">
+                        <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </section>
+
     <!-- ./ page-header -->
 
     <section class="blog-section pt-120 pb-120 fade-wrapper">

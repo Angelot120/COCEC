@@ -9,68 +9,84 @@
                         <div class="footer-widget">
                             <div class="widget-header header-2">
                                 <div class="footer-logo">
-                                    <a href="index.html"><img src="{{ URL::asset('assets/images/Logo.png') }}" alt="logo"" alt="img"></a>
+                                    <a href="index.html"><img src="{{ URL::asset('assets/images/Logo.png') }}" alt="logo"" alt=" img"></a>
                                 </div>
                             </div>
-                            <p>1234, Restaurant St, South City <br>New York 0124</p>
+                            <p>Quartier KANYIKOPE à 50m du Lycée FOLLY-BEBE en allant vers KAGOME</p>
+                            <p>
+                                <b>Tél:</b>
+                                <a href="tel:+22822270551">(+228) 22 27 05 51</a> /
+                                <a href="tel:+22898422473">98 42 24 73</a>
+                                <br>
+                                <b>Email:</b>
+                                <a href="mailto:cocec@cocectogo.org">cocec@cocectogo.org</a>
+                            </p>
                             <ul class="footer-social">
-                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-behance"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-pinterest-p"></i></a></li>
+                                <li><a href="https://www.facebook.com/COCEC-105458737978835"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                <li><a href="https://api.whatsapp.com/send?phone=22891126471" target="_blank"><i class="fa-brands fa-whatsapp"></i></a></li>
                             </ul>
                         </div>
                     </div>
+
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-widget widget-space">
                             <div class="widget-header header-2">
-                                <h3 class="widget-title">Quick Links</h3>
+                                <h3 class="widget-title">Liens Rapides</h3>
                             </div>
                             <ul class="footer-list">
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="project.html">Portfolio</a></li>
-                                <li><a href="about.html">Testimonials</a></li>
-                                <li><a href="blog-grid.html">Blog</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
+                                {{-- Les pages les plus consultées et les actions principales --}}
+                                <li><a href="{{ route("index") }}">Accueil</a></li>
+                                <li><a href="{{ route("products") }}">Nos Produits</a></li>
+                                <li><a href="{{ route('main.finance')}}">Finance Digitale</a></li>
+                                <li><a href="{{ route("agencies") }}">Nos Agences</a></li>
+                                <li><a href="{{ route('contact') }}">Contactez-nous</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-6">
                         <div class="footer-widget">
                             <div class="widget-header header-2">
-                                <h3 class="widget-title">Information</h3>
+                                {{-- Titre plus spécifique et engageant --}}
+                                <h3 class="widget-title">À Propos de Nous</h3>
                             </div>
                             <ul class="footer-list">
-                                <li><a href="service.html">Request Service</a></li>
-                                <li><a href="project.html">Our Work</a></li>
-                                <li><a href="about.html">What We Do</a></li>
-                                <li><a href="about.html">Our Process</a></li>
-                                <li><a href="contact.html">Reviews</a></li>
+                                {{-- Les pages d'information sur l'entreprise et les ressources --}}
+                                <li><a href="{{ route('about')}}">Nous connaitre</a></li>
+                                <li><a href="{{ route("blogs") }}">Actualités (Blog)</a></li>
+                                <li><a href="{{ route('career') }}">Carrières</a></li>
+                                <li><a href="{{ route('main.faq') }}">Aide & FAQ</a></li>
                             </ul>
                         </div>
+
                     </div>
+
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-widget widget-space">
                             <div class="widget-header header-2">
-                                <h3 class="widget-title">Our Newsletter</h3>
+                                {{-- Titre traduit --}}
+                                <h3 class="widget-title">Notre Newsletter</h3>
                             </div>
-                            <p>Sign up to Private's weekly newsletter to get the latest updates.</p>
+                            {{-- Paragraphe traduit et adapté à COCEC --}}
+                            <p class="text-justify">Inscrivez-vous à notre newsletter pour ne rien manquer de nos actualités et de nos offres.</p>
                             <div class="footer-form form-2 mb-20">
                                 <form action="#" class="rr-subscribe-form">
-                                    <input class="form-control" type="email" name="email" placeholder="Email address">
+                                    {{-- Placeholder traduit --}}
+                                    <input class="form-control" type="email" name="email" placeholder="Votre adresse e-mail">
                                     <input type="hidden" name="action" value="mailchimpsubscribe">
-                                    <button class="submit">Subscribe</button>
+                                    {{-- Bouton traduit --}}
+                                    <button class="submit">S'inscrire</button>
                                 </form>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="copyright-area area-2">
                 <div class="container">
                     <div class="row copyright-content">
                         <div class="col-md-6">
-                            <p>© 2024 Bizan. All Rights Reserved.</p>
+                            <p>© 2025 COCEC. All Rights Reserved. | Powered by <a href="mailto:douvonangelotadn@gmail.com" style="color: inherit; text-decoration: none;">douvonangelotadn@gmail.com</a></p>
                         </div>
                         <div class="col-md-6">
                             <ul class="copy-list">
