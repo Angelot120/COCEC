@@ -67,7 +67,7 @@
             </div>
 
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <button type="submit" class="btn btn-danger">Enregistrer</button>
             </div>
         </form>
     </div>

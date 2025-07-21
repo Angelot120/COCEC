@@ -66,18 +66,24 @@
                         </a>
                     </li>
 
+
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:briefcase-outline" class="menu-icon"></iconify-icon>
+                    <span>Emploi</span>
+                </a>
+                <ul class="sidebar-submenu">
                     <li>
-                        <a href="{} ">
-                            <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
-                                    Offres d'emploi
-                        </a>
+                        <a href="{{ route('career.index') }}">Liste des offres</a>
                     </li>
-                    <!-- <li>
-                        <a href="route('users.roles') }}">
-                            <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
-                            Rôle et permissions des utilisateurs
-                        </a>
-                    </li>  -->
+
+                    <li>
+                        <a href="{{ route('career.create') }}">Ajouter une offre</a>
+                    </li>
+
                 </ul>
             </li>
         </ul>

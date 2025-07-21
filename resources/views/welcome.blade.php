@@ -1,7 +1,11 @@
 @extends('layout.main')
 
 @section('content')
+
 <body>
+    @include('includes.main.loading')
+    <!-- ./ preloader -->
+
     @include('includes.main.header')
     <div id="popup-search-box">
         <div class="box-inner-wrap d-flex align-items-center">
@@ -44,32 +48,32 @@
         </button>
         <div class="side-menu-content">
             <div class="side-menu-logo">
-                <a href="index.html"><img src="assets/main/img/logo/logo-3.png" alt="logo"></a>
+                <a href="index.html"><img src="{{ URL::asset('assets/images/Logo.png') }}" alt="logo"></a>
             </div>
             <div class="side-menu-wrap"></div>
             <div class="side-menu-about">
                 <div class="side-menu-header">
-                    <h3>About Us</h3>
+                    <h3>À Propos</h3>
                 </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud nisi ut aliquip ex ea commodo consequat.</p>
-                <a href="contact.html" class="bz-primary-btn">Contact Us</a>
+                <a href="contact.html" class="bz-primary-btn">Contactez-nous</a>
             </div>
             <div class="side-menu-contact">
                 <div class="side-menu-header">
-                    <h3>Contact Us</h3>
+                    <h3>Contactez-nous</h3>
                 </div>
                 <ul class="side-menu-list">
                     <li>
                         <i class="fas fa-map-marker-alt"></i>
-                        <p>Valentin, Street Road 24, New York, </p>
+                        <p>Quartier KANYIKOPE à 50m du Lycée FOLLY-BEBE en allant vers KAGOME </p>
                     </li>
                     <li>
                         <i class="fas fa-phone"></i>
-                        <a href="tel:+000123456789">+000 123 (456) 789</a>
+                        <a href="tel:+22822270551">(00228) 22 27 05 51 / 98 42 24 73</a>
                     </li>
                     <li>
                         <i class="fas fa-envelope-open-text"></i>
-                        <a href="mailto:runokcontact@gmail.com">bizancontact@gmail.com</a>
+                        <a href="mailto:cocec@cocectogo.org">cocec@cocectogo.org</a>
                     </li>
                 </ul>
             </div>
@@ -83,69 +87,66 @@
     </div>
     <!--/.sidebar-area-->
 
-    <div id="preloader">
-        <div class="loading" data-loading-text="Bizan"></div>
-    </div>
-    <!-- ./ preloader -->
-
-    <section class="hero-section-3" data-background="assets/main/img/bg-img/hero-bg-3.jpg">
+    <!-- hero-section-3 -->
+    <section class="hero-section-3" data-background="{{ asset('assets/main/img/bg-img/hero-bg-3.jpg') }}">
         <div class="shapes">
-            <div class="shape shape-1"><img src="assets/main/img/shapes/hero-bg-shape-2.png" alt="shape"></div>
-            <div class="shape shape-2"><img src="assets/main/img/shapes/hero-bg-shape-3.png" alt="shape"></div>
+            <div class="shape shape-1"><img src="{{ asset('assets/main/img/shapes/hero-bg-shape-2.png') }}" alt="forme"></div>
+            <div class="shape shape-2"><img src="{{ asset('assets/main/img/shapes/hero-bg-shape-3.png') }}" alt="forme"></div>
         </div>
         <div class="container-2">
             <div class="hero-content hero-content-3">
                 <div class="section-heading mb-40 red-content">
-                    <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Most Innovative Business Solution</h4>
-                    <h2 class="section-title text-animation-effect">The Best Solution For Run <br>Successful Business</h2>
-                    <p>We specialize in providing comprehensive solutions to help businesses tackle their most pressing issues and unlock new opportunities for growth.</p>
+                    <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Votre Partenaire Financier</h4>
+                    <h2 class="section-title text-animation-effect text-justify">Des Solutions Financières <br>pour Votre Avenir</h2>
+                    <p class="text-justify">La COCEC vous accompagne avec des services d’épargne, de crédit et d’accompagnement personnalisé pour réaliser vos projets et assurer votre sécurité financière.</p>
                 </div>
                 <div class="hero-btn-wrap" style="--bz-color-theme-primary: #EC281C">
-                    <a href="contact.html" class="bz-primary-btn">Contact With Us <i class="fa-regular fa-arrow-right"></i></a>
-                    <a href="service.html" class="bz-primary-btn hero-btn">Our Services</a>
+                    <a href="{{ route('contact') }}" class="bz-primary-btn">Nous Contacter <i class="fa-regular fa-arrow-right"></i></a>
+                    <a href="route('services') }}" class="bz-primary-btn hero-btn">Nos Services</a>
                 </div>
             </div>
         </div>
     </section>
     <!-- ./ hero-section -->
 
+    <!-- promo-section -->
     <section class="promo-section pb-120">
         <div class="container-2">
             <div class="row gy-lg-0 gy-4 justify-content-center fade-wrapper">
                 <div class="col-lg-4 col-md-6">
                     <div class="promo-item white-content">
                         <div class="bg-items">
-                            <div class="bg-img"><img src="assets/main/img/images/promo-1.png" alt="promo"></div>
+                            <div class="bg-img"><img src="{{ asset('assets/main/img/images/savings.png') }}" alt="Épargne"></div>
                             <div class="overlay"></div>
                             <div class="overlay-2"></div>
                         </div>
-                        <h3 class="title">Customized Methodologies</h3>
-                        <p>Libero feugiat erat pharetra, que molestie fames leo quam nec magnis malesda. Inceptos sodales magna nunc scelerisque convallis.</p>
-                        <a href="about.html" class="bz-primary-btn red-btn">Read Details <i class="fa-regular fa-arrow-right"></i></a>
+                        <h3 class="title">Épargne Sécurisée</h3>
+                        <p class="text-justify">Épargnez en toute tranquillité avec nos comptes d’épargne flexibles, conçus pour répondre à vos besoins à court et long terme, avec des options comme l’épargne à vue ou à terme.</p>
+                        <a href="route('services') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="promo-item white-content">
                         <div class="bg-items">
-                            <div class="bg-img"><img src="assets/main/img/images/promo-2.png" alt="promo"></div>
+                            <div class="bg-img"><img src="{{ asset('assets/main/img/images/credit.png') }}" alt="Crédit"></div>
                             <div class="overlay"></div>
                             <div class="overlay-2"></div>
                         </div>
-                        <h3 class="title">Integrated Solutions</h3>
-                        <p>Libero feugiat erat pharetra, que molestie fames leo quam nec magnis malesda. Inceptos sodales magna nunc scelerisque convallis.</p>
-                        <a href="about.html" class="bz-primary-btn red-btn">Read Details <i class="fa-regular fa-arrow-right"></i></a>
+                        <h3 class="title">Crédits Adaptés</h3>
+                        <p class="text-justify">Financez vos projets avec nos solutions de crédit sur mesure : prêts scolaires, commerciaux, ou agricoles pour soutenir vos ambitions personnelles et professionnelles.</p>
+                        <a href="route('services') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="promo-item white-content">
                         <div class="bg-items">
-                            <div class="bg-img"><img src="assets/main/img/images/promo-3.png" alt="promo"></div>
+                            <div class="bg-img"><img src="{{ asset('assets/main/img/images/support.png') }}" alt="Services Financiers"></div>
                             <div class="overlay"></div>
                             <div class="overlay-2"></div>
                         </div>
-                        <h3 class="title">Continuous Support</h3>
-                        <p>Libero feugiat erat pharetra, que molestie fames leo quam nec magnis malesda. Inceptos sodales magna nunc scelerisque convallis.</p>
-                        <a href="about.html" class="bz-primary-btn red-btn">Read Details <i class="fa-regular fa-arrow-right"></i></a>
+                        <h3 class="title">Accompagnement Financier</h3>
+                        <p class="text-justify">Bénéficiez de conseils personnalisés et de services comme le transfert d’argent pour gérer efficacement vos finances avec le soutien de la COCEC.</p>
+                        <a href="route('services') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -377,7 +378,7 @@
     <section class="team-section-3 pt-120 pb-120">
         <div class="container-2">
             <div class="section-heading text-center red-content">
-                <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Team Members</h4>
+                <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Notre équipe</h4>
                 <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">Meet The Expert Team Members</h2>
             </div>
             <div class="row gy-xl-0 gy-4 justify-content-center fade-wrapper">
@@ -490,6 +491,72 @@
     </section>
     <!-- ./ team-section -->
 
+
+    <section class="home-agencies-section">
+        <div class="container">
+            {{-- En-tête de la section --}}
+            <div class="section-heading text-center">
+                <h4 class="sub-heading"><span class="left-shape"></span>Notre Réseau</h4>
+                <h2>Trouvez un point de service proche de vous</h2>
+                <p>Avec un réseau en pleine expansion, la COCEC est toujours à vos côtés. Découvrez nos agences principales.</p>
+            </div>
+
+            {{-- Grille des agences --}}
+            <div class="agency-grid">
+
+                <!-- Carte Agence 1 -->
+                <a href="{{ route('agencies') }}" class="mini-agency-card">
+                    <div class="card-icon-wrapper">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="card-status">
+                        <span class="status-dot open"></span> Ouvert
+                    </div>
+                    <h3 class="card-title">Siège Social</h3>
+                    <p class="card-address">Boulvard Jean-Paul II, face station d'essence, Lomé</p>
+                    <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <!-- Carte Agence 2 -->
+                <a href="{{ route('agencies') }}" class="mini-agency-card">
+                    <div class="card-icon-wrapper">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="card-status">
+                        <span class="status-dot open"></span> Ouvert
+                    </div>
+                    <h3 class="card-title">Agence de l'Étoile Rouge</h3>
+                    <p class="card-address">Non loin de la Douane, Lomé</p>
+                    <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <!-- Carte Agence 3 -->
+                <a href="{{ route('agencies') }}" class="mini-agency-card">
+                    <div class="card-icon-wrapper">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="card-status">
+                        <span class="status-dot open"></span> Ouvert
+                    </div>
+                    <h3 class="card-title">Agence de Kpalimé</h3>
+                    <p class="card-address">Route de Lomé, face station d'essence</p>
+                    <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+            </div>
+
+            {{-- Bouton "Tout Voir" --}}
+            <div class="text-center" style="margin-top: 50px;">
+                {{-- Assurez-vous que la route 'agences.index' existe dans votre fichier web.php --}}
+                {{-- Exemple: Route::get('/agences', [AgenceController::class, 'index'])->name('agences.index'); --}}
+                <a href="{{ route('agencies') }}" class="btn-see-all">
+                    Voir toutes nos agences <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
     <section class="cta-section-3">
         <div class="container-2">
             <div class="cta-wrap-3">
@@ -585,44 +652,31 @@
         <div class="container-2">
             <div class="blog-top heading-space">
                 <div class="section-heading red-content mb-0">
-                    <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Our Blog Posts</h4>
+                    <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Nos actualités</h4>
                     <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">Insights from our experts & <br>newsz from the industry</h2>
                 </div>
-                <a href="blog-grid.html" class="bz-primary-btn red-btn">View All Posts <i class="fa-regular fa-arrow-right"></i></a>
+                <a href="{{ route('blogs') }}" class="bz-primary-btn red-btn">Voir tous les Posts <i class="fa-regular fa-arrow-right"></i></a>
             </div>
             <div class="row gy-lg-0 gy-4 fade-wrapper">
+                @foreach ($blogs as $blog)
                 <div class="col-md-6">
                     <div class="post-card-3 fade-top" style="--bz-color-theme-primary: #EC281C">
                         <div class="post-thumb img-reveal">
                             <div class="img-overlay"></div>
-                            <img src="assets/main/img/blog/post-6.png" alt="post">
+                            <img src="{{ $blog->image ? asset('storage/' . $blog->image) : asset('assets/images/blog.jpg') }}" alt="{{ $blog->title }}">
                         </div>
                         <div class="post-content">
                             <ul class="post-meta">
                                 <li><i class="fa-regular fa-calendar"></i>24 Feb, 2024</li>
                                 <li><i class="fa-regular fa-user"></i>by admin</li>
                             </ul>
-                            <h3 class="title"><a href="blog-details.html">The Transformative Journey of Crafting Unique and Impactful Brand</a></h3>
-                            <a href="blog-details.html" class="blog-btn"><i class="fa-regular fa-arrow-right"></i>Read More</a>
+                            <h3 class="title"><a href="blog-details.html">{{ $blog->title }}</a></h3>
+                            <a href="blog-details.html" class="blog-btn"><i class="fa-regular fa-arrow-right"></i>Lire plus</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="post-card-3 fade-top" style="--bz-color-theme-primary: #EC281C">
-                        <div class="post-thumb img-reveal">
-                            <div class="img-overlay"></div>
-                            <img src="assets/main/img/blog/post-7.jpg" alt="post">
-                        </div>
-                        <div class="post-content">
-                            <ul class="post-meta">
-                                <li><i class="fa-regular fa-calendar"></i>24 Feb, 2024</li>
-                                <li><i class="fa-regular fa-user"></i>by admin</li>
-                            </ul>
-                            <h3 class="title"><a href="blog-details.html">The Transformative Journey of Crafting Unique and Impactful Brand</a></h3>
-                            <a href="blog-details.html" class="blog-btn"><i class="fa-regular fa-arrow-right"></i>Read More</a>
-                        </div>
-                    </div>
-                </div>
+
+                @endforeach
             </div>
         </div>
     </section>
@@ -666,7 +720,11 @@
             </div>
         </div>
     </div>
+
+    @include('includes.main.scroll')
+
     <!-- ./ sponsor-section -->
     @include('includes.main.footer')
 
 </body>
+@endsection

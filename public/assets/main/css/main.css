@@ -361,7 +361,7 @@ ul {
   }
 }
 .section-heading .sub-heading {
-  color: var(--bz-color-theme-primary);
+  color: var(--bz-color-theme-red);
   font-size: 16px;
   font-weight: 600;
   display: inline-block;
@@ -377,7 +377,7 @@ ul {
   }
 }
 .section-heading .sub-heading .left-shape {
-  background-color: var(--bz-color-theme-primary);
+  background-color: var(--bz-color-theme-red);
   height: 13px;
   width: 15px;
   position: absolute;
@@ -387,7 +387,7 @@ ul {
           transform: translateY(-50%) skew(-15deg);
 }
 .section-heading .sub-heading .left-shape:after {
-  background-color: var(--bz-color-theme-primary);
+  background-color: var(--bz-color-theme-red);
   content: "";
   height: 100%;
   width: 4px;
@@ -2586,7 +2586,7 @@ ul {
 }
 /** Buttons CSS */
 .bz-primary-btn {
-  background-color: var(--bz-color-theme-primary);
+  background-color: var(--bz-color-theme-red);
   font-family: var(--bz-ff-heading);
   color: var(--bz-color-common-white);
   display: -webkit-inline-box;
@@ -2912,7 +2912,7 @@ START: Header CSS
 .header .middle-header .middle-header-inner .header-items-wrap .header-item .content .address,
 .header .middle-header .middle-header-inner .header-items-wrap .header-item .content a {
   font-family: var(--bz-ff-heading);
-  color: var(--bz-color-heading-primary);
+  color: var(--bz-color-heading-red);
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 0;
@@ -2961,21 +2961,21 @@ START: Header CSS
   }
 }
 .header .primary-header-inner .header-logo img {
-  max-width: 150px;
+  max-width: 100px;
 }
 @media (max-width: 1399px) {
   .header .primary-header-inner .header-logo img {
-    max-width: 150px;
+    max-width: 100px;
   }
 }
 @media (max-width: 1200px) {
   .header .primary-header-inner .header-logo img {
-    max-width: 150px;
+    max-width: 100px;
   }
 }
 @media only screen and (max-width: 767px) {
   .header .primary-header-inner .header-logo img {
-    max-width: 100px;
+    max-width: 50px;
   }
 }
 .header .primary-header-inner .header-menu-wrap {
@@ -4907,7 +4907,7 @@ START: Header CSS
   border: 1px solid #E2E4E8;
   -webkit-box-shadow: 0px 12px 29px rgba(21, 29, 40, 0.08);
           box-shadow: 0px 12px 29px rgba(21, 29, 40, 0.08);
-  color: var(--bz-color-theme-primary);
+  color: var(--bz-color-theme-red);
   height: 60px;
   width: 60px;
   display: -webkit-box;
@@ -4923,7 +4923,7 @@ START: Header CSS
 }
 .about-content-4 .about-contact-items .about-contact .content span {
   font-family: var(--bz-ff-heading);
-  color: var(--bz-color-heading-primary);
+  color: var(--bz-color-heading-red);
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
@@ -4932,7 +4932,7 @@ START: Header CSS
 }
 .about-content-4 .about-contact-items .about-contact .content a {
   font-family: var(--bz-ff-heading);
-  color: var(--bz-color-theme-primary);
+  color: var(--bz-color-theme-red);
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 0;
@@ -6300,13 +6300,20 @@ START: Header CSS
   display: block;
   margin-bottom: 20px;
 }
-.team-details-wrap .team-auhtor-area .team-author-content .author-info-items {
+/* .team-details-wrap .team-auhtor-area .team-author-content .author-info-items {
   display: -ms-grid;
   display: grid;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   -ms-grid-columns: (1fr)[2];
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 40px;
+  margin-top: 30px;
+} */
+ .team-details-wrap .team-author-area .team-author-content .author-info-items {
+  display: grid;
+  align-items: center;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 40px;
   margin-top: 30px;
@@ -7765,7 +7772,7 @@ START: Contact CSS
 }
 .contact-content .contact-list .list-item .icon {
   background-color: var(--bz-color-common-white);
-  color: var(--bz-color-theme-primary);
+  color: var(--bz-color-theme-red);
   font-size: 18px;
   height: 60px;
   width: 60px;
@@ -7798,7 +7805,7 @@ START: Contact CSS
   display: block;
 }
 .contact-content .contact-list .list-item:hover .icon {
-  background-color: var(--bz-color-theme-primary);
+  background-color: var(--bz-color-theme-red);
   color: var(--bz-color-common-white);
 }
 
@@ -12918,10 +12925,10 @@ START: Footer CSS
 }
 .footer-5 .footer-widget .footer-contact .footer-contact-item .content .address:hover,
 .footer-5 .footer-widget .footer-contact .footer-contact-item .content a:hover {
-  color: var(--bz-color-theme-primary);
+  color: var(--bz-color-theme-red);
 }
 .footer-5 .footer-widget .footer-contact .footer-contact-item .content .address:hover {
-  color: var(--bz-color-heading-primary);
+  color: var(--bz-color-heading-red);
 }
 
 .copyright-area.area-5 {
@@ -14929,13 +14936,13 @@ START: Footer CSS
   }
 }
 .hero-content-6 .section-heading .sub-heading {
-  color: var(--bz-color-theme-primary);
+  color: var(--bz-color-theme-red);
 }
 .hero-content-6 .section-heading .sub-heading .left-shape {
-  background-color: var(--bz-color-theme-primary);
+  background-color: var(--bz-color-theme-red);
 }
 .hero-content-6 .section-heading .sub-heading .left-shape::after {
-  background-color: var(--bz-color-theme-primary);
+  background-color: var(--bz-color-theme-red);
 }
 .hero-content-6 .section-heading .section-title {
   font-size: 54px;
@@ -17183,6 +17190,380 @@ START: Footer CSS
 .team-member-6 .team-wrapper .team-content div .team-position {
   font-size: 16px;
   font-weight: 400;
-  color: #1E6EE7;
+  color: #EC281C;
   font-family: var(--bz-ff-heading);
 }
+.text-justify {
+  text-align: justify;
+}
+
+
+
+/* ===================================================================
+   DÉBUT DE LA MINI-SECTION "NOS AGENCES" POUR LA PAGE D'ACCUEIL
+   Copiez et collez ce bloc complet sur votre page d'accueil.
+=================================================================== */
+
+    /* Styles spécifiques pour la mini-section des agences (version sans images) */
+    .home-agencies-section {
+        padding: 80px 0;
+        background-color: #F7FAFC; /* --light-gray-bg */
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .home-agencies-section .section-heading h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2D3748; /* --dark-charcoal */
+    }
+
+    .home-agencies-section .section-heading p {
+        color: #4A5568; /* --text-color */
+        max-width: 600px;
+        margin: 15px auto 50px auto;
+    }
+
+    .agency-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .mini-agency-card {
+        position: relative;
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0; /* --border-color */
+        border-radius: 12px;
+        padding: 35px 30px;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    }
+    
+    .mini-agency-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
+        border-color: #EC281C; /* --primary-color */
+    }
+    
+    .mini-agency-card .card-icon-wrapper {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 25px auto;
+        border-radius: 50%;
+        background-color: #ec281c1a; /* Fond léger de la couleur primaire */
+        display: grid;
+        place-items: center;
+        transition: all 0.3s ease;
+    }
+    
+    .mini-agency-card .card-icon-wrapper i {
+        font-size: 2rem;
+        color: #EC281C; /* --primary-color */
+    }
+
+    .mini-agency-card .card-status {
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    
+    .mini-agency-card .status-dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+    .status-dot.open { background-color: #38A169; }
+    .status-dot.closed { background-color: #E53E3E; }
+
+    .mini-agency-card .card-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #2D3748; /* --dark-charcoal */
+        margin-bottom: 8px;
+    }
+
+    .mini-agency-card .card-address {
+        font-size: 0.95rem;
+        color: #4A5568; /* --text-color */
+        line-height: 1.6;
+    }
+    
+    .mini-agency-card .card-arrow {
+        position: absolute;
+        top: 50%;
+        right: 25px;
+        transform: translateY(-50%);
+        font-size: 1.2rem;
+        color: #CBD5E0;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .mini-agency-card:hover .card-arrow {
+        opacity: 1;
+        right: 20px;
+    }
+
+    .btn-see-all {
+        display: inline-block;
+        background: transparent;
+        color: #EC281C; /* --primary-color */
+        border: 2px solid #EC281C;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-see-all:hover {
+        background: #EC281C;
+        color: #FFFFFF;
+        transform: translateY(-2px);
+    }
+    
+    /* Responsive pour la grille */
+    @media (max-width: 991px) {
+        .agency-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media (max-width: 768px) {
+        .agency-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+
+
+/* ------------------------------------------- */
+/*      CSS POUR LA SECTION "À PROPOS"         */
+/* ------------------------------------------- */
+
+    /* === STYLE "PRESTIGE" DE LA PAGE À PROPOS === */
+    :root {
+        --primary-color: #EC281C;
+        --dark-charcoal: #1A202C;
+        --text-color: #4A5568;
+        --light-gray-bg: #F7FAFC;
+        --border-color: #E2E8F0;
+        --font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        font-family: var(--font-family);
+        background-color: #FFFFFF;
+    }
+
+    .page-section {
+        padding: 80px 0;
+        overflow-x: hidden;
+    }
+
+    /* --- Section Héros --- */
+    .about-hero-section {
+        background-color: var(--dark-charcoal);
+        padding: 80px 0;
+        text-align: center;
+        color: #FFFFFF;
+    }
+
+    .about-hero-section .sub-heading {
+        color: rgba(255,255,255,0.7);
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+    .about-hero-section .section-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        letter-spacing: -1.5px;
+        max-width: 800px;
+        margin: 10px auto 0 auto;
+    }
+
+    /* --- Section "Mot du Directeur" --- */
+    .director-section {
+        background-color: #FFFFFF;
+    }
+    .director-layout {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 60px;
+        align-items: center;
+    }
+    .director-photo-wrapper {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    }
+    .director-photo-wrapper img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .director-quote h3 {
+        color: var(--dark-charcoal);
+        font-weight: 600;
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+    .director-quote .quote-text {
+        font-size: 1.05rem;
+        color: var(--text-color);
+        line-height: 1.8;
+        border-left: 3px solid var(--primary-color);
+        padding-left: 25px;
+        margin-bottom: 30px;
+    }
+    .director-signature .director-name {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--dark-charcoal);
+    }
+    .director-signature .director-title {
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+    /* --- Section "Qui Sommes-Nous" & Mission/Vision --- */
+    .history-mission-section {
+        background-color: var(--light-gray-bg);
+    }
+    .history-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 60px;
+    }
+    .history-content .section-heading-sm {
+        color: var(--dark-charcoal);
+        font-weight: 600;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    .history-content p {
+        color: var(--text-color);
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+    .history-content ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    .history-content ul li {
+        color: var(--text-color);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: flex-start;
+    }
+    .history-content ul li i {
+        color: var(--primary-color);
+        margin-right: 15px;
+        margin-top: 5px;
+    }
+
+    .mission-vision-stack .mission-vision-box {
+        background-color: #FFFFFF;
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+    }
+    .mission-vision-stack .mission-vision-box:first-child { margin-bottom: 25px; }
+    
+    .mission-vision-box h4 {
+        font-weight: 600;
+        color: var(--dark-charcoal);
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+    }
+    .mission-vision-box p { font-size: 0.95rem; line-height: 1.6; margin: 0; }
+    
+    /* --- Section "Nos Valeurs" --- */
+    .values-section {
+        background-color: #FFFFFF;
+        text-align: center;
+    }
+    .values-section .section-title {
+        color: var(--dark-charcoal);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 50px;
+    }
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        text-align: left;
+    }
+    .value-card-detailed {
+        padding: 30px;
+        background-color: var(--light-gray-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+    .value-card-detailed:hover {
+        transform: translateY(-8px);
+        background-color: #FFFFFF;
+        box-shadow: 0 10px 30px rgba(45, 55, 72, 0.08);
+        border-color: var(--primary-color);
+    }
+    .value-card-detailed .value-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .value-card-detailed .value-icon {
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        margin-right: 15px;
+    }
+    .value-card-detailed .value-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark-charcoal);
+    }
+    .value-card-detailed .value-description {
+        color: var(--text-color);
+        line-height: 1.7;
+    }
+
+    /* --- Section "Organigramme" --- */
+    .org-chart-section {
+        background-color: var(--light-gray-bg);
+        text-align: center;
+    }
+    .org-chart-section .section-title {
+        color: var(--dark-charcoal);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 50px;
+    }
+    .org-chart-image-wrapper {
+        padding: 30px;
+        background-color: #FFFFFF;
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(45, 55, 72, 0.08);
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+    .org-chart-image-wrapper img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* --- Responsive --- */
+    @media (max-width: 991px) {
+        .page-section { padding: 60px 0; }
+        .director-layout, .history-layout { grid-template-columns: 1fr; }
+        .about-hero-section .section-title { font-size: 2.5rem; }
+        .director-photo-wrapper { max-width: 350px; margin: 0 auto 30px auto; }
+        .history-layout { gap: 40px; }
+    }
