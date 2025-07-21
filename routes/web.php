@@ -4,6 +4,8 @@ use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ViewsController;
+use App\Http\Controllers\LocalityController;
+
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +33,13 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 
     // Admin Routes
     Route::get('/dashboard', [ViewsController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/localities', [ViewsController::class, 'locality'])->name('admin.localities');
+    // Route::get('/localities', [ViewsController::class, 'locality'])->name('admin.localities');
+
+    Route::get('/admin/localities', [LocalityController::class, 'index'])->name('settings.localities');
+Route::post('/admin/localities', [LocalityController::class, 'store'])->name('admin.locality.store');
+Route::delete('/admin/localities/{id}', [LocalityController::class, 'destroy'])->name('admin.locality.delete');
+Route::put('/admin/localities/{id}', [LocalityController::class, 'update'])->name('admin.locality.update');
+
 
     // Blog routes
     Route::prefix('blog')->controller(BlogController::class)->group(function () {

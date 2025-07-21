@@ -60,23 +60,24 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{ route('admin.localities') }}">
+                        <a href="{{ route('settings.localities') }}">
                             <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Localités
                         </a>
                     </li>
-                    <!-- <li>
-                        <a href="route('users.create') }}">
+
+                    <li>
+                        <a href="{} ">
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
-                            Ajouter un utilisateur
+                                    Offres d'emploi
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="route('users.roles') }}">
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Rôle et permissions des utilisateurs
                         </a>
-                    </li> -->
+                    </li>  -->
                 </ul>
             </li>
         </ul>
