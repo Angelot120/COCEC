@@ -7,15 +7,26 @@
     @include('includes.main.loading')
     @include('includes.main.header')
 
-    <br><br><br><br>
-
     <!-- Section Héros -->
-    <section class="about-hero-section">
+
+    <section class="page-header-pro">
+        {{-- L'image de fond est appliquée via CSS pour plus de flexibilité --}}
+        <div class="page-header-overlay"></div>
         <div class="container">
-            <h4 class="sub-heading" data-aos="fade-up">À PROPOS DE LA COCEC</h4>
-            <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Bâtir la confiance, financer l'avenir.</h2>
+            <div class="page-header-content-pro" data-aos="fade-up">
+                <h1 class="title-pro">À Propos</h1>
+
+                {{-- Utilisation d'une structure sémantique pour le fil d'Ariane --}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb-pro">
+                        <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">À Propos</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </section>
+    <!-- ./ page-header -->
 
     <!-- Section Mot du Directeur -->
     <section class="director-section page-section">

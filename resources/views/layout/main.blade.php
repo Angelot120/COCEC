@@ -9,7 +9,7 @@
     <meta name="description" content="">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/main/img/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/Logo.png') }}">
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{{ asset('assets/main/css/bootstrap.min.css') }}">

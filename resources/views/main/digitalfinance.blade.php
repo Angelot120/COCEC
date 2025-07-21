@@ -21,9 +21,19 @@
         overflow: hidden;
     }
 
-    .df-light-section .section-heading .sub-heading { color: var(--primary-color); }
-    .df-light-section .section-heading .section-title { color: var(--dark-charcoal); }
-    .df-light-section .section-heading .lead { color: var(--text-color); max-width: 800px; margin: 15px auto 0; }
+    .df-light-section .section-heading .sub-heading {
+        color: var(--primary-color);
+    }
+
+    .df-light-section .section-heading .section-title {
+        color: var(--dark-charcoal);
+    }
+
+    .df-light-section .section-heading .lead {
+        color: var(--text-color);
+        max-width: 800px;
+        margin: 15px auto 0;
+    }
 
     .df-light-layout {
         margin-top: 60px;
@@ -34,7 +44,11 @@
     }
 
     /* --- Colonne des Fonctionnalités (Gauche) --- */
-    .df-features-list { display: flex; flex-direction: column; gap: 20px; }
+    .df-features-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
 
     .df-feature-item {
         display: flex;
@@ -73,20 +87,30 @@
         margin-bottom: 5px;
         font-size: 1.1rem;
     }
-    .df-feature-text p { margin: 0; color: var(--text-color); font-size: 0.95rem; line-height: 1.6; }
+
+    .df-feature-text p {
+        margin: 0;
+        color: var(--text-color);
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
 
     /* --- Colonne Visuelle (Droite) avec Maquette "Clay" --- */
-    .df-visuals-column { display: grid; place-items: center; }
+    .df-visuals-column {
+        display: grid;
+        place-items: center;
+    }
 
     .df-light-phone-mockup {
         width: 320px;
         height: 650px;
-        background: #F7FAFC; /* Couleur argile claire */
+        background: #F7FAFC;
+        /* Couleur argile claire */
         border-radius: 45px;
         padding: 12px;
         box-shadow: 0 25px 50px -12px rgba(45, 55, 72, 0.15),
-                    inset 0 4px 6px -1px rgba(0,0,0,0.1),
-                    inset 0 -4px 6px -1px rgba(255,255,255,0.7);
+            inset 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            inset 0 -4px 6px -1px rgba(255, 255, 255, 0.7);
         position: relative;
     }
 
@@ -101,7 +125,11 @@
 
     /* --- Contenu des Écrans (Interfaces pour thème clair) --- */
     .df-screen-content-light {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         opacity: 0;
         transform: scale(1.05);
         transition: opacity 0.4s ease, transform 0.4s ease;
@@ -110,30 +138,97 @@
         font-size: 0.9rem;
     }
 
-    .df-screen-content-light.active { opacity: 1; transform: scale(1); }
+    .df-screen-content-light.active {
+        opacity: 1;
+        transform: scale(1);
+    }
 
     /* Style pour l'interface COCEC Mobile (thème clair) */
-    .screen-app-ui .balance-card { background: var(--light-gray-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 15px; text-align: center; }
-    .screen-app-ui .balance-label { font-size: 0.8rem; color: var(--text-color); }
-    .screen-app-ui .balance-amount { font-size: 2rem; font-weight: 600; margin: 5px 0 0 0; color: var(--dark-charcoal); }
-    .screen-app-ui .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-    .screen-app-ui .action-btn { background: #FFFFFF; border: 1px solid var(--border-color); padding: 15px 10px; border-radius: 10px; text-align: center; }
-    .screen-app-ui .action-btn i { font-size: 1.5rem; margin-bottom: 8px; color: var(--primary-color); }
-    
+    .screen-app-ui .balance-card {
+        background: var(--light-gray-bg);
+        border: 1px solid var(--border-color);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+    }
+
+    .screen-app-ui .balance-label {
+        font-size: 0.8rem;
+        color: var(--text-color);
+    }
+
+    .screen-app-ui .balance-amount {
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 5px 0 0 0;
+        color: var(--dark-charcoal);
+    }
+
+    .screen-app-ui .action-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .screen-app-ui .action-btn {
+        background: #FFFFFF;
+        border: 1px solid var(--border-color);
+        padding: 15px 10px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .screen-app-ui .action-btn i {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+        color: var(--primary-color);
+    }
+
     /* Style pour l'interface USSD (thème clair) */
-    .screen-ussd-ui { font-family: 'Courier New', Courier, monospace; background-color: #fff; color: #000; padding-top: 20px; }
-    .screen-ussd-ui p { margin-bottom: 10px; }
-    
+    .screen-ussd-ui {
+        font-family: 'Courier New', Courier, monospace;
+        background-color: #fff;
+        color: #000;
+        padding-top: 20px;
+    }
+
+    .screen-ussd-ui p {
+        margin-bottom: 10px;
+    }
+
     /* Style pour l'interface Mobile Money (thème clair) */
-    .screen-momo-ui { text-align: center; padding-top: 100px; }
-    .screen-momo-ui .icon-success { font-size: 4rem; color: #2ecc71; margin-bottom: 20px; }
-    .screen-momo-ui .momo-title { font-size: 1.2rem; font-weight: 600; color: var(--dark-charcoal); }
-    .screen-momo-ui .momo-text { color: var(--text-color); }
+    .screen-momo-ui {
+        text-align: center;
+        padding-top: 100px;
+    }
+
+    .screen-momo-ui .icon-success {
+        font-size: 4rem;
+        color: #2ecc71;
+        margin-bottom: 20px;
+    }
+
+    .screen-momo-ui .momo-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark-charcoal);
+    }
+
+    .screen-momo-ui .momo-text {
+        color: var(--text-color);
+    }
 
     /* --- Responsive --- */
     @media (max-width: 991px) {
-        .df-light-layout { grid-template-columns: 1fr; }
-        .df-visuals-column { order: -1; margin-bottom: 50px; }
+        .df-light-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .df-visuals-column {
+            order: -1;
+            margin-bottom: 50px;
+        }
     }
 </style>
 @endsection
@@ -144,7 +239,25 @@
     @include('includes.main.loading')
     @include('includes.main.header')
 
-    <br><br><br><br>
+
+    <section class="page-header-pro">
+        {{-- L'image de fond est appliquée via CSS pour plus de flexibilité --}}
+        <div class="page-header-overlay"></div>
+        <div class="container">
+            <div class="page-header-content-pro" data-aos="fade-up">
+                <h1 class="title-pro">Finance Digitale</h1>
+
+                {{-- Utilisation d'une structure sémantique pour le fil d'Ariane --}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb-pro">
+                        <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Finance Digitale</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+    <!-- ./ page-header -->
 
     <section class="df-light-section">
         <div class="container">
@@ -184,7 +297,7 @@
                 <div class="df-visuals-column" data-aos="fade-left" data-aos-delay="400">
                     <div class="df-light-phone-mockup">
                         <div class="df-light-phone-screen">
-                            
+
                             <!-- Écran 1: COCEC Mobile -->
                             <div class="df-screen-content-light screen-app-ui active" data-tab-content="mobile">
                                 <div class="balance-card">
@@ -192,10 +305,18 @@
                                     <h3 class="balance-amount">1,250,750 F CFA</h3>
                                 </div>
                                 <div class="action-grid">
-                                    <div class="action-btn"><i class="fas fa-paper-plane"></i><div>Virement</div></div>
-                                    <div class="action-btn"><i class="fas fa-history"></i><div>Historique</div></div>
-                                    <div class="action-btn"><i class="fas fa-money-bill-wave"></i><div>Paiement</div></div>
-                                    <div class="action-btn"><i class="fas fa-user-circle"></i><div>Profil</div></div>
+                                    <div class="action-btn"><i class="fas fa-paper-plane"></i>
+                                        <div>Virement</div>
+                                    </div>
+                                    <div class="action-btn"><i class="fas fa-history"></i>
+                                        <div>Historique</div>
+                                    </div>
+                                    <div class="action-btn"><i class="fas fa-money-bill-wave"></i>
+                                        <div>Paiement</div>
+                                    </div>
+                                    <div class="action-btn"><i class="fas fa-user-circle"></i>
+                                        <div>Profil</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -249,4 +370,4 @@
         }
     });
 </script>
-@endsection 
+@endsection

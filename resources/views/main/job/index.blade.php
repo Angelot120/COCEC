@@ -120,13 +120,11 @@
         color: #EC281C;
     }
 
-    .file-upload-wrapper {
-        /* ... (styles de la page précédente si nécessaire) ... */
-    }
+    /* .file-upload-wrapper {
+    } */
 
-    .btn-submit-form {
-        /* ... (styles de la page précédente) ... */
-    }
+    /* .btn-submit-form {
+    } */
 </style>
 @endsection
 
@@ -139,7 +137,26 @@
 
     @include('includes.main.header')
 
-    <br><br><br><br>
+
+    <section class="page-header-pro">
+        {{-- L'image de fond est appliquée via CSS pour plus de flexibilité --}}
+        <div class="page-header-overlay"></div>
+        <div class="container">
+            <div class="page-header-content-pro" data-aos="fade-up">
+                <h1 class="title-pro">Carrière & Emploi</h1>
+
+                {{-- Utilisation d'une structure sémantique pour le fil d'Ariane --}}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb-pro">
+                        <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Carrière & Emploi</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+    <!-- ./ page-header -->
+
     <!-- Section Héros -->
     <section class="career-section text-center">
         <div class="container">
