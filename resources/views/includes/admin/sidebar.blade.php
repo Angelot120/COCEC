@@ -19,12 +19,33 @@
             </li>
 
             <li class="sidebar-menu-group-title">Actions</li>
-            <li>
-                <a href="{{ route('admin.announcements') }}">
+
+
+            <li class="dropdown">
+                {{-- {{ route('admin.announcements') }} --}}
+                <a href="javascript:void(0)">
                     <iconify-icon icon="mdi:bullhorn-outline" class="menu-icon"></iconify-icon>
                     <span>Annonces</span>
                 </a>
+
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('announcement.index') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Liste des annonces
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="{{ route('announcement.create') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Ajouter une annonce
+                        </a>
+
+                    </li>
+                </ul>
             </li>
+
             <li class="dropdown">
 
                 <a href="javascript:void(0)">
@@ -86,6 +107,24 @@
 
                 </ul>
             </li>
+
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:map-marker-outline" class="menu-icon"></iconify-icon>
+                    <span>Localisation agence</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('agency.index') }}">Liste des agences</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('agency.create') }}">Ajouter une agence</a>
+                    </li>
+
+                </ul>
+            </li>
+
         </ul>
     </div>
 </aside>

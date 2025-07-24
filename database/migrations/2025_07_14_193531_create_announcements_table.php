@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
-            $table->string('title'); // Title of the announcement
-            $table->text('content')->nullable(); // Content of the announcement
-            $table->string('image')->nullable(); // Image of announcement
-            $table->boolean('is_published')->default(true); // Whether the announcement is published or not
+            $table->string('title');
+            $table->text('description')->nullable(); 
+            $table->string('image')->nullable(); 
+            $table->enum('status',['publier','non publier','expirer'])->default('publier');
             $table->timestamps();
         });
     }

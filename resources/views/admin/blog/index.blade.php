@@ -23,7 +23,7 @@
         </div>
 
         <div class="card-header border-bottom bg-base py-16 px-24 d-flex justify-content-end">
-            <a href="{{ route('blog.create') }}" class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
+            <a href="{{ route('blog.create') }}" class="btn btn-danger text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
                 <iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
                 Ajouter un blog
             </a>
@@ -100,54 +100,7 @@
             @endforeach
         </div>
 
-        <!-- Floating Action Button -->
-        <!-- <button type="button" class="btn btn-primary fab-button" data-bs-toggle="modal" data-bs-target="#addBlogModal">
-            <iconify-icon icon="ri:add-line" class="text-white fs-4"></iconify-icon>
-        </button> -->
-
-        <!-- Add Blog Modal -->
-        <!-- <div class="modal fade" id="addBlogModal" tabindex="-1" aria-labelledby="addBlogModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addBlogModalLabel">Ajouter un nouveau blog</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('blog.create') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="blogTitle" class="form-label">Titre</label>
-                                <input type="text" class="form-control" id="blogTitle" name="title" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="blogIsPublished" class="form-label">Statut</label>
-                                <select class="form-select" id="blogIsPublished" name="is_published" required>
-                                    <option value="1">Publié</option>
-                                    <option value="0" selected>Non publié</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="blogImage" class="form-label">Image</label>
-                                <input type="file" class="form-control" id="blogImage" name="image" accept="image/*" required>
-                                <div class="mt-3 text-center">
-                                    <img id="imagePreview" src="#" alt="Prévisualisation de l'image" class="img-fluid" style="display: none; max-height: 200px;">
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="blogShortDescription" class="form-label">Brève description</label>
-                                <textarea class="form-control" id="blogShortDescription" name="short_description" rows="3" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="blogLongDescription" class="form-label">Longue description</label>
-                                <textarea class="form-control" id="blogLongDescription" name="long_description" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+       
 
         <!-- Edit Blog Modal -->
         <div class="modal fade" id="editBlogModal" tabindex="-1" aria-labelledby="editBlogModalLabel" aria-hidden="true">
@@ -188,7 +141,7 @@
                                 <label for="editBlogLongDescription" class="form-label">Longue description</label>
                                 <textarea class="form-control" id="editBlogLongDescription" name="long_description" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                            <button type="submit" class="btn btn-danger">Mettre à jour</button>
                         </form>
                     </div>
                 </div>
