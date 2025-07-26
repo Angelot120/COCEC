@@ -4,6 +4,7 @@
 
 <body>
     @include('includes.main.loading')
+    @include('includes.main.popup')
     <!-- ./ preloader -->
 
     @include('includes.main.header')

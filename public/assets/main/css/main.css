@@ -47,7 +47,7 @@ START: Template Default CSS
     --bz-color-common-dark: #232323;
     --bz-color-heading-primary: #191f29;
     --bz-color-text-body: #74787c;
-    --bz-color-theme-primary: #1e6ee7;
+    --bz-color-theme-primary: #ec281c;
     --bz-color-theme-secondary: #191f29;
     --bz-color-theme-red: #ec281c;
     --bz-color-bg-1: #191f30;
@@ -57,6 +57,7 @@ START: Template Default CSS
     --bz-color-grey-4: #f3f4f6;
     --bz-color-border-1: #eaeaea;
     --primary-color: #ec281c;
+    --secondary-color: #d3a400;
     --dark-charcoal: #1a202c;
     --light-text: #f7fafc;
     --font-family: "Poppins", sans-serif;
@@ -645,7 +646,7 @@ ul {
     height: 100%;
     left: 0;
     top: 0;
-    background-color: #02050a;
+    background-color: var(--secondary-color);
     z-index: 999;
 }
 
@@ -661,6 +662,7 @@ ul {
     -webkit-transform: translate(-50%, -60%);
     transform: translate(-50%, -60%);
 }
+
 @media only screen and (max-width: 767px) {
     .loading {
         font-size: 50px;
@@ -720,7 +722,7 @@ ul {
         transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
     .mt-cursor:before {
-        background: var(--bz-color-theme-primary);
+        background: var(--primary-color);
         opacity: 1;
         content: "";
         width: 100%;
@@ -18553,5 +18555,178 @@ body {
     }
     .about-content-3 .section-title {
         font-size: 2rem;
+    }
+}
+
+
+/* --- Variables pour une personnalisation facile --- */
+:root {
+    --popup-primary-color: #EC281C; /* Rouge de votre bouton */
+    --popup-primary-hover: #c91e13; /* Rouge plus foncé pour le survol */
+    --popup-text-dark: #2d3748;      /* Texte principal (presque noir) */
+    --popup-text-light: #718096;     /* Texte secondaire (gris) */
+    --popup-background: #ffffff;
+    --popup-border-radius: 12px;
+    --popup-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Style de l'arrière-plan (Overlay) --- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+
+    /* Centrage parfait avec Flexbox */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Animation d'apparition */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+/* --- Style de la boîte de dialogue (Container) --- */
+.popup-container {
+    background: var(--popup-background);
+    padding: 30px 40px;
+    border-radius: var(--popup-border-radius);
+    box-shadow: var(--popup-box-shadow);
+    position: relative;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+
+    /* Animation d'apparition */
+    transform: scale(0.9);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.popup-overlay.active .popup-container {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* --- Style du bouton de fermeture --- */
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: #a0aec0;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.popup-close:hover {
+    color: var(--popup-text-dark);
+    transform: rotate(90deg);
+}
+
+/* --- Style du contenu (commun aux deux popups) --- */
+.popup-content h2 {
+    color: var(--popup-text-dark);
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.popup-content p {
+    color: var(--popup-text-light);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 25px 0;
+}
+
+/* --- Style spécifique à l'annonce --- */
+#popup-announcement img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* Coins arrondis pour l'image */
+    margin-bottom: 20px;
+}
+
+/* --- Style spécifique à la newsletter --- */
+#popup-newsletter-form .form-group {
+    display: flex;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden; /* Pour que le bouton colle bien */
+    transition: box-shadow 0.2s ease;
+}
+
+#popup-newsletter-form .form-group:focus-within {
+    box-shadow: 0 0 0 3px rgba(236, 40, 28, 0.2);
+}
+
+#popup-newsletter-form input[type="email"] {
+    flex-grow: 1; /* Prend tout l'espace disponible */
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    outline: none; /* On gère le focus sur le parent .form-group */
+    color: var(--popup-text-dark);
+}
+
+#popup-newsletter-form button[type="submit"] {
+    background: var(--popup-primary-color);
+    color: #fff;
+    border: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    white-space: nowrap; /* Empêche le texte d'aller à la ligne */
+}
+
+#popup-newsletter-form button[type="submit"]:hover {
+    background: var(--popup-primary-hover);
+}
+
+#popup-newsletter-form button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* --- Responsive pour les petits écrans --- */
+@media (max-width: 600px) {
+    .popup-container {
+        padding: 25px 20px;
+    }
+
+    .popup-content h2 {
+        font-size: 22px;
+    }
+
+    #popup-newsletter-form .form-group {
+        flex-direction: column;
+        border: none;
+        background: transparent;
+    }
+
+    #popup-newsletter-form input[type="email"] {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    #popup-newsletter-form button[type="submit"] {
+        width: 100%;
+        border-radius: 8px;
     }
 }

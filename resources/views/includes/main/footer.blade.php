@@ -69,11 +69,10 @@
                             {{-- Paragraphe traduit et adapté à COCEC --}}
                             <p class="text-justify">Inscrivez-vous à notre newsletter pour ne rien manquer de nos actualités et de nos offres.</p>
                             <div class="footer-form form-2 mb-20">
-                                <form action="#" class="rr-subscribe-form">
-                                    {{-- Placeholder traduit --}}
+                                <form action="{{ route('newsletter.subscribe') }}" method="POST" class="rr-subscribe-form" id="footer-newsletter-form">
+                                    @csrf
                                     <input class="form-control" type="email" name="email" placeholder="Votre adresse e-mail">
                                     <input type="hidden" name="action" value="mailchimpsubscribe">
-                                    {{-- Bouton traduit --}}
                                     <button class="submit">S'inscrire</button>
                                 </form>
                             </div>

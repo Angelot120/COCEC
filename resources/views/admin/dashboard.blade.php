@@ -1,489 +1,402 @@
 @extends('layout.admin')
 
-<body>
-    @include('includes.admin.sidebar')
+@section('css')
+<style>
+    .bg-cocec-red {
+        background-color: #EC281C !important;
+    }
 
+    .bg-cocec-yellow {
+        background-color: #FFCC00 !important;
+    }
 
-    <main class="dashboard-main">
+    /* Styles pour les graphiques */
+    .chart-container {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 24px;
+        transition: all 0.3s ease;
+    }
 
-        <!-- <table width="100%">
-            <tbody>
-                <tr>
-                    <td>
-                        <h1>Tableau de bord</h1>
-                    </td>
+    .chart-container:hover {
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    }
 
-                    <td>
-                        <h4>Bienvenue Auth::user()->name }}</h4>
-                    </td>
+    .chart-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 15px;
+    }
 
-                    <td>
-                        <a href="{{ route('logout') }}">Se déconnecter</a>
-                    </td>
+    .chart-selector {
+        margin-bottom: 15px;
+    }
 
-                </tr>
-            </tbody>
-        </table>
-        <div class="dashboard-main-body">
-            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
-                <h6 class="fw-semibold mb-0">Dashboard</h6>
-                <ul class="d-flex align-items-center gap-2">
-                    <li class="fw-medium">
-                        <a href="index.html" class="d-flex align-items-center gap-1 hover-text-primary">
-                            <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li>-</li>
-                    <li class="fw-medium">AI</li>
-                </ul>
-            </div>
+    .chart-selector select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        color: #333;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+</style>
+@endsection
 
-            <div class="row row-cols-xxxl-5 row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-4">
-                <div class="col">
-                    <div class="card shadow-none border bg-gradient-start-1 h-100">
-                        <div class="card-body p-20">
-                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                                <div>
-                                    <p class="fw-medium text-primary-light mb-1">Total Users</p>
-                                    <h6 class="mb-0">20,000</h6>
-                                </div>
-                                <div class="w-50-px h-50-px bg-cyan rounded-circle d-flex justify-content-center align-items-center">
-                                    <iconify-icon icon="gridicons:multiple-users" class="text-white text-2xl mb-0"></iconify-icon>
-                                </div>
+@section('content')
+
+@include('includes.admin.sidebar')
+<main class="dashboard-main">
+    @include('includes.admin.appbar')
+    @include('includes.main.loading')
+
+    <div class="dashboard-main-body">
+
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+            <h6 class="fw-semibold mb-0">Dashboard</h6>
+            <ul class="d-flex align-items-center gap-2">
+                <li class="fw-medium">
+                    <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">
+                        <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
+                        Dashboard
+                    </a>
+                </li>
+                <li>-</li>
+                <li class="fw-medium">AI</li>
+            </ul>
+        </div>
+
+        <div class="row row-cols-xxxl-5 row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-4">
+            <!-- Total des visiteurs -->
+            <div class="col">
+                <div class="card shadow-none border h-100">
+                    <div class="card-body p-20">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="fw-medium text-muted mb-1">Visiteurs totaux</p>
+                                <h6 class="mb-0">{{ number_format($totalVisitors) }}</h6>
                             </div>
-                            <p class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2">
-                                <span class="d-inline-flex align-items-center gap-1 text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +5000</span>
-                                Last 30 days users
-                            </p>
-                        </div>
-                    </div> card end -->
-        @include('includes.admin.appbar')
-
-        </div>
-
-        <div class="col">
-            <div class="card shadow-none border bg-gradient-start-2 h-100">
-                <div class="card-body p-20">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                        <div>
-                            <p class="fw-medium text-primary-light mb-1">Total Subscription</p>
-                            <h6 class="mb-0">15,000</h6>
-                        </div>
-                        <div class="w-50-px h-50-px bg-purple rounded-circle d-flex justify-content-center align-items-center">
-                            <iconify-icon icon="fa-solid:award" class="text-white text-2xl mb-0"></iconify-icon>
-                        </div>
-                    </div>
-                    <p class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2">
-                        <span class="d-inline-flex align-items-center gap-1 text-danger-main"><iconify-icon icon="bxs:down-arrow" class="text-xs"></iconify-icon> -800</span>
-                        Last 30 days subscription
-                    </p>
-                </div>
-            </div><!-- card end -->
-        </div>
-        <div class="col">
-            <div class="card shadow-none border bg-gradient-start-3 h-100">
-                <div class="card-body p-20">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                        <div>
-                            <p class="fw-medium text-primary-light mb-1">Total Free Users</p>
-                            <h6 class="mb-0">5,000</h6>
-                        </div>
-                        <div class="w-50-px h-50-px bg-info rounded-circle d-flex justify-content-center align-items-center">
-                            <iconify-icon icon="fluent:people-20-filled" class="text-white text-2xl mb-0"></iconify-icon>
-                        </div>
-                    </div>
-                    <p class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2">
-                        <span class="d-inline-flex align-items-center gap-1 text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +200</span>
-                        Last 30 days users
-                    </p>
-                </div>
-            </div><!-- card end -->
-        </div>
-        <div class="col">
-            <div class="card shadow-none border bg-gradient-start-4 h-100">
-                <div class="card-body p-20">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                        <div>
-                            <p class="fw-medium text-primary-light mb-1">Total Income</p>
-                            <h6 class="mb-0">$42,000</h6>
-                        </div>
-                        <div class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
-                            <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
-                        </div>
-                    </div>
-                    <p class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2">
-                        <span class="d-inline-flex align-items-center gap-1 text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +$20,000</span>
-                        Last 30 days income
-                    </p>
-                </div>
-            </div><!-- card end -->
-        </div>
-        <div class="col">
-            <div class="card shadow-none border bg-gradient-start-5 h-100">
-                <div class="card-body p-20">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                        <div>
-                            <p class="fw-medium text-primary-light mb-1">Total Expense</p>
-                            <h6 class="mb-0">$30,000</h6>
-                        </div>
-                        <div class="w-50-px h-50-px bg-red rounded-circle d-flex justify-content-center align-items-center">
-                            <iconify-icon icon="fa6-solid:file-invoice-dollar" class="text-white text-2xl mb-0"></iconify-icon>
-                        </div>
-                    </div>
-                    <p class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2">
-                        <span class="d-inline-flex align-items-center gap-1 text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +$5,000</span>
-                        Last 30 days expense
-                    </p>
-                </div>
-            </div><!-- card end -->
-        </div>
-        </div>
-
-        <div class="row gy-4 mt-1">
-            <div class="col-xxl-6 col-xl-12">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap align-items-center justify-content-between">
-                            <h6 class="text-lg mb-0">Sales Statistic</h6>
-                            <select class="form-select bg-base form-select-sm w-auto radius-8">
-                                <option>Yearly</option>
-                                <option>Monthly</option>
-                                <option>Weekly</option>
-                                <option>Today</option>
-                            </select>
-                        </div>
-                        <div class="d-flex flex-wrap align-items-center gap-2 mt-8">
-                            <h6 class="mb-0">$27,200</h6>
-                            <span class="text-sm fw-semibold rounded-pill bg-success-focus text-success-main border br-success px-8 py-4 line-height-1 d-flex align-items-center gap-1">
-                                10% <iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon>
-                            </span>
-                            <span class="text-xs fw-medium">+ $1500 Per Day</span>
-                        </div>
-                        <div id="chart" class="pt-28 apexcharts-tooltip-style-1"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-6">
-                <div class="card h-100 radius-8 border">
-                    <div class="card-body p-24">
-                        <h6 class="mb-12 fw-semibold text-lg mb-16">Total Subscriber</h6>
-                        <div class="d-flex align-items-center gap-2 mb-20">
-                            <h6 class="fw-semibold mb-0">5,000</h6>
-                            <p class="text-sm mb-0">
-                                <span class="bg-danger-focus border br-danger px-8 py-2 rounded-pill fw-semibold text-danger-main text-sm d-inline-flex align-items-center gap-1">
-                                    10%
-                                    <iconify-icon icon="iconamoon:arrow-down-2-fill" class="icon"></iconify-icon>
-                                </span>
-                                - 20 Per Day
-                            </p>
-                        </div>
-
-                        <div id="barChart" class="barChart"></div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-6">
-                <div class="card h-100 radius-8 border-0 overflow-hidden">
-                    <div class="card-body p-24">
-                        <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
-                            <h6 class="mb-2 fw-bold text-lg">Users Overview</h6>
-                            <div class="">
-                                <select class="form-select form-select-sm w-auto bg-base border text-secondary-light radius-8">
-                                    <option>Today</option>
-                                    <option>Weekly</option>
-                                    <option>Monthly</option>
-                                    <option>Yearly</option>
-                                </select>
-                            </div>
-                        </div>
-
-
-                        <div id="userOverviewDonutChart" class="apexcharts-tooltip-z-none"></div>
-
-                        <ul class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3">
-                            <li class="d-flex align-items-center gap-2">
-                                <span class="w-12-px h-12-px radius-2 bg-primary-600"></span>
-                                <span class="text-secondary-light text-sm fw-normal">New:
-                                    <span class="text-primary-light fw-semibold">500</span>
-                                </span>
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
-                                <span class="w-12-px h-12-px radius-2 bg-yellow"></span>
-                                <span class="text-secondary-light text-sm fw-normal">Subscribed:
-                                    <span class="text-primary-light fw-semibold">300</span>
-                                </span>
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-9 col-xl-12">
-                <div class="card h-100">
-                    <div class="card-body p-24">
-
-                        <div class="d-flex flex-wrap align-items-center gap-1 justify-content-between mb-16">
-                            <ul class="nav border-gradient-tab nav-pills mb-0" id="pills-tab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link d-flex align-items-center active" id="pills-to-do-list-tab" data-bs-toggle="pill" data-bs-target="#pills-to-do-list" type="button" role="tab" aria-controls="pills-to-do-list" aria-selected="true">
-                                        Latest Registered
-                                        <span class="text-sm fw-semibold py-6 px-12 bg-neutral-500 rounded-pill text-white line-height-1 ms-12 notification-alert">35</span>
-                                    </button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link d-flex align-items-center" id="pills-recent-leads-tab" data-bs-toggle="pill" data-bs-target="#pills-recent-leads" type="button" role="tab" aria-controls="pills-recent-leads" aria-selected="false" tabindex="-1">
-                                        Latest Subscribe
-                                        <span class="text-sm fw-semibold py-6 px-12 bg-neutral-500 rounded-pill text-white line-height-1 ms-12 notification-alert">35</span>
-                                    </button>
-                                </li>
-                            </ul>
-                            <a href="javascript:void(0)" class="text-primary-600 hover-text-primary d-flex align-items-center gap-1">
-                                View All
-                                <iconify-icon icon="solar:alt-arrow-right-linear" class="icon"></iconify-icon>
-                            </a>
-                        </div>
-
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-to-do-list" role="tabpanel" aria-labelledby="pills-to-do-list-tab" tabindex="0">
-                                <div class="table-responsive scroll-sm">
-                                    <table class="table bordered-table sm-table mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Users </th>
-                                                <th scope="col">Registered On</th>
-                                                <th scope="col">Plan</th>
-                                                <th scope="col" class="text-center">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/user1.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                                        <div class="flex-grow-1">
-                                                            <h6 class="text-md mb-0 fw-medium">Dianne Russell</h6>
-                                                            <span class="text-sm text-secondary-light fw-medium">redaniel@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>27 Mar 2024</td>
-                                                <td>Free</td>
-                                                <td class="text-center">
-                                                    <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/user2.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                                        <div class="flex-grow-1">
-                                                            <h6 class="text-md mb-0 fw-medium">Wade Warren</h6>
-                                                            <span class="text-sm text-secondary-light fw-medium">xterris@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>27 Mar 2024</td>
-                                                <td>Basic</td>
-                                                <td class="text-center">
-                                                    <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/user3.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                                        <div class="flex-grow-1">
-                                                            <h6 class="text-md mb-0 fw-medium">Albert Flores</h6>
-                                                            <span class="text-sm text-secondary-light fw-medium">seannand@mail.ru</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>27 Mar 2024</td>
-                                                <td>Standard</td>
-                                                <td class="text-center">
-                                                    <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/user4.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                                        <div class="flex-grow-1">
-                                                            <h6 class="text-md mb-0 fw-medium">Bessie Cooper </h6>
-                                                            <span class="text-sm text-secondary-light fw-medium">igerrin@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>27 Mar 2024</td>
-                                                <td>Business</td>
-                                                <td class="text-center">
-                                                    <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/user5.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                                        <div class="flex-grow-1">
-                                                            <h6 class="text-md mb-0 fw-medium">Arlene McCoy</h6>
-                                                            <span class="text-sm text-secondary-light fw-medium">fellora@mail.ru</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>27 Mar 2024</td>
-                                                <td>Enterprise </td>
-                                                <td class="text-center">
-                                                    <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="pills-recent-leads" role="tabpanel" aria-labelledby="pills-recent-leads-tab" tabindex="0">
-                                <div class="table-responsive scroll-sm">
-                                    <table class="table bordered-table sm-table mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Users </th>
-                                                <th scope="col">Registered On</th>
-                                                <th scope="col">Plan</th>
-                                                <th scope="col" class="text-center">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/user1.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                                        <div class="flex-grow-1">
-                                                            <h6 class="text-md mb-0 fw-medium">Dianne Russell</h6>
-                                                            <span class="text-sm text-secondary-light fw-medium">redaniel@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>27 Mar 2024</td>
-                                                <td>Free</td>
-                                                <td class="text-center">
-                                                    <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/user2.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                                        <div class="flex-grow-1">
-                                                            <h6 class="text-md mb-0 fw-medium">Wade Warren</h6>
-                                                            <span class="text-sm text-secondary-light fw-medium">xterris@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>27 Mar 2024</td>
-                                                <td>Basic</td>
-                                                <td class="text-center">
-                                                    <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/user3.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                                        <div class="flex-grow-1">
-                                                            <h6 class="text-md mb-0 fw-medium">Albert Flores</h6>
-                                                            <span class="text-sm text-secondary-light fw-medium">seannand@mail.ru</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>27 Mar 2024</td>
-                                                <td>Standard</td>
-                                                <td class="text-center">
-                                                    <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/user4.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                                        <div class="flex-grow-1">
-                                                            <h6 class="text-md mb-0 fw-medium">Bessie Cooper </h6>
-                                                            <span class="text-sm text-secondary-light fw-medium">igerrin@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>27 Mar 2024</td>
-                                                <td>Business</td>
-                                                <td class="text-center">
-                                                    <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/user5.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                                        <div class="flex-grow-1">
-                                                            <h6 class="text-md mb-0 fw-medium">Arlene McCoy</h6>
-                                                            <span class="text-sm text-secondary-light fw-medium">fellora@mail.ru</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>27 Mar 2024</td>
-                                                <td>Enterprise </td>
-                                                <td class="text-center">
-                                                    <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Active</span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="w-50-px h-50-px bg-cocec-red rounded-circle d-flex justify-content-center align-items-center">
+                                <iconify-icon icon="ph:users-three-fill" class="text-white text-2xl"></iconify-icon>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xxl-6">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
-                            <h6 class="mb-2 fw-bold text-lg mb-0">Generated Content</h6>
-                            <select class="form-select form-select-sm w-auto bg-base border text-secondary-light radius-8">
-                                <option>Today</option>
-                                <option>Weekly</option>
-                                <option>Monthly</option>
-                                <option>Yearly</option>
-                            </select>
+            <!-- Abonnés à la newsletter -->
+            <div class="col">
+                <div class="card shadow-none border h-100">
+                    <div class="card-body p-20">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="fw-medium text-muted mb-1">Abonnés newsletter</p>
+                                <h6 class="mb-0">{{ number_format($totalSubscribers) }}</h6>
+                            </div>
+                            <div class="w-50-px h-50-px bg-cocec-yellow rounded-circle d-flex justify-content-center align-items-center">
+                                <iconify-icon icon="mdi:email-newsletter" class="text-white text-2xl"></iconify-icon>
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        <ul class="d-flex flex-wrap align-items-center mt-3 gap-3">
-                            <li class="d-flex align-items-center gap-2">
-                                <span class="w-12-px h-12-px rounded-circle bg-primary-600"></span>
-                                <span class="text-secondary-light text-sm fw-semibold">Word:
-                                    <span class="text-primary-light fw-bold">500</span>
-                                </span>
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
-                                <span class="w-12-px h-12-px rounded-circle bg-yellow"></span>
-                                <span class="text-secondary-light text-sm fw-semibold">Image:
-                                    <span class="text-primary-light fw-bold">300</span>
-                                </span>
-                            </li>
-                        </ul>
-
-                        <div class="mt-40">
-                            <div id="paymentStatusChart" class="margin-16-minus"></div>
+            <!-- Offres d'emploi -->
+            <div class="col">
+                <div class="card shadow-none border h-100">
+                    <div class="card-body p-20">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="fw-medium text-muted mb-1">Offres d'emploi</p>
+                                <h6 class="mb-0">{{ number_format($jobOffers) }}</h6>
+                            </div>
+                            <div class="w-50-px h-50-px bg-cocec-red rounded-circle d-flex justify-content-center align-items-center">
+                                <iconify-icon icon="fa-solid:briefcase" class="text-white text-2xl"></iconify-icon>
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Candidatures -->
+            <div class="col">
+                <div class="card shadow-none border h-100">
+                    <div class="card-body p-20">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="fw-medium text-muted mb-1">Candidatures</p>
+                                <h6 class="mb-0">{{ number_format($jobApplications) }}</h6>
+                            </div>
+                            <div class="w-50-px h-50-px bg-cocec-yellow rounded-circle d-flex justify-content-center align-items-center">
+                                <iconify-icon icon="fluent:people-queue-24-filled" class="text-white text-2xl"></iconify-icon>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <br><br>
+
+        <!-- Graphiques -->
+        <div class="row mt-4">
+            <!-- Graphique des visiteurs -->
+            <div class="col-12">
+                <div class="chart-container">
+                    <div class="chart-title">Visiteurs par période</div>
+                    <div class="chart-selector">
+                        <select id="visitorsChartSelector">
+                            <option value="month">Par mois</option>
+                            <option value="week">Par semaine</option>
+                            <option value="day">Par jour</option>
+                        </select>
+                    </div>
+                    <canvas id="visitorsChart"></canvas>
+                </div>
+            </div>
+            <!-- Graphique des abonnés newsletter -->
+            <div class="col-12">
+                <div class="chart-container">
+                    <div class="chart-title">Abonnés newsletter par mois</div>
+                    <canvas id="subscribersChart"></canvas>
+                </div>
+            </div>
         </div>
 
         @include('includes.admin.footer')
-    </main>
+    </div>
+</main>
+@endsection
 
-</body>
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Données pour les graphiques
+    const visitorsByMonth = @json($visitorsByMonth);
+    const visitorsByDay = @json($visitorsByDay);
+    const visitorsByWeek = @json($visitorsByWeek);
+    const subscribersByMonth = @json($subscribersByMonth);
 
-</html>
+    // Créer un dégradé pour le graphique des visiteurs
+    function createGradient(ctx, chartArea, colorStart, colorEnd) {
+        const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+        gradient.addColorStop(0, colorStart);
+        gradient.addColorStop(1, colorEnd);
+        return gradient;
+    }
+
+    // Graphique des visiteurs
+    let visitorsChartInstance;
+    const visitorsCtx = document.getElementById('visitorsChart').getContext('2d');
+
+    function updateVisitorsChart(period) {
+        if (visitorsChartInstance) {
+            visitorsChartInstance.destroy();
+        }
+
+        let labels, data, labelText;
+        if (period === 'month') {
+            labels = Object.keys(visitorsByMonth);
+            data = Object.values(visitorsByMonth);
+            labelText = 'Visiteurs par mois';
+        } else if (period === 'week') {
+            labels = Object.keys(visitorsByWeek);
+            data = Object.values(visitorsByWeek);
+            labelText = 'Visiteurs par semaine';
+        } else {
+            labels = Object.keys(visitorsByDay);
+            data = Object.values(visitorsByDay);
+            labelText = 'Visiteurs par jour';
+        }
+
+        visitorsChartInstance = new Chart(visitorsCtx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: labelText,
+                    data: data,
+                    borderColor: '#EC281C',
+                    backgroundColor: (context) => {
+                        const chart = context.chart;
+                        const {
+                            ctx,
+                            chartArea
+                        } = chart;
+                        if (!chartArea) return;
+                        return createGradient(ctx, chartArea, 'rgba(236, 40, 28, 0.2)', 'rgba(236, 40, 28, 0.8)');
+                    },
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 14,
+                                weight: '500'
+                            },
+                            color: '#333'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleFont: {
+                            size: 14
+                        },
+                        bodyFont: {
+                            size: 12
+                        },
+                        padding: 10,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y} visiteurs`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Nombre de visiteurs',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: period === 'month' ? 'Mois' : period === 'week' ? 'Semaine' : 'Jour',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeOutQuart'
+                }
+            }
+        });
+    }
+
+    // Initialiser le graphique des visiteurs avec la période "mois"
+    updateVisitorsChart('month');
+
+    // Gestion du sélecteur de période
+    document.getElementById('visitorsChartSelector').addEventListener('change', function() {
+        updateVisitorsChart(this.value);
+    });
+
+    // Graphique des abonnés newsletter
+    const subscribersCtx = document.getElementById('subscribersChart').getContext('2d');
+    new Chart(subscribersCtx, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(subscribersByMonth),
+            datasets: [{
+                label: 'Abonnés par mois',
+                data: Object.values(subscribersByMonth),
+                backgroundColor: (context) => {
+                    const chart = context.chart;
+                    const {
+                        ctx,
+                        chartArea
+                    } = chart;
+                    if (!chartArea) return;
+                    return createGradient(ctx, chartArea, 'rgba(255, 204, 0, 0.5)', 'rgba(255, 204, 0, 0.9)');
+                },
+                borderColor: '#FFCC00',
+                borderWidth: 1,
+                borderRadius: 8,
+                barThickness: 'flex',
+                maxBarThickness: 30
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14,
+                            weight: '500'
+                        },
+                        color: '#333'
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        size: 14
+                    },
+                    bodyFont: {
+                        size: 12
+                    },
+                    padding: 10,
+                    cornerRadius: 8,
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.parsed.y} abonnés`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Nombre d\'abonnés',
+                        font: {
+                            size: 14
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Mois',
+                        font: {
+                            size: 14
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeOutQuart'
+            }
+        }
+    });
+</script>
+@endsection
