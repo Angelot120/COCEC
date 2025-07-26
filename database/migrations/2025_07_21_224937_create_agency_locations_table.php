@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('announcements', function (Blueprint $table) {
+        Schema::create('agency_locations', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description')->nullable(); 
-            $table->string('image')->nullable(); 
-            $table->enum('status',['publier','non publier','expirer'])->default('publier');
             $table->timestamps();
+            $table->string('name');
+            $table->decimal('latitude',10, 7);
+            $table->decimal('longitude',10, 7);
+            $table->string('address');
+            $table->string('phone');
+            $table->enum('status',['Open','Close'])->nullable();
+
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('announcements');
+        Schema::dropIfExists('agency_locations');
     }
 };

@@ -2,13 +2,11 @@
 
 namespace App\Providers;
 
-use App\Interfaces\AnnouncementInterface;
-
-use App\Repositories\AnnouncementRepository;
-
+use App\Interfaces\AgencyLocationInterface;
+use App\Repositories\AgencyLocationRepository;
 use Illuminate\Support\ServiceProvider;
 
-class AnnouncementsServiceProvider extends ServiceProvider
+class AgencyLocationServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -16,7 +14,8 @@ class AnnouncementsServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
-        $this->app->bind(AnnouncementInterface::class, AnnouncementRepository::class);
+         $this->app->bind(AgencyLocationInterface::class, AgencyLocationRepository::class);
+
     }
 
     /**

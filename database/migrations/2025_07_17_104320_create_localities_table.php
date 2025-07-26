@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('announcements', function (Blueprint $table) {
+        Schema::create('localities', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description')->nullable(); 
-            $table->string('image')->nullable(); 
-            $table->enum('status',['publier','non publier','expirer'])->default('publier');
             $table->timestamps();
+          $table->string('name')->unique();
+        $table->enum('status', ['active', 'inactive'])->default('active');
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('announcements');
+        Schema::dropIfExists('localities');
     }
 };

@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/icon/flaticon_digicom.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('assets/admin/vendor/splide/splide.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('assets/admin/vendor/swiper/swiper-bundle.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('assets/admin/vendor/animate-wow/animate.min.css') }}">ù
+    <link rel="stylesheet" href="{{ URL::asset('assets/admin/vendor/animate-wow/animate.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 

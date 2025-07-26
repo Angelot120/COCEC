@@ -2,148 +2,146 @@
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\AnnouncementsInterface;
-use App\Models\Announcements;
+use App\Interfaces\AnnouncementInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class AnnouncementsController extends Controller
 {
-    private AnnouncementsInterface $announcementsInterface;
+    protected $announcementRepo;
 
-    public function __construct(AnnouncementsInterface $announcementsInterface)
+    public function __construct(AnnouncementInterface $announcementRepo)
     {
-        $this->announcementsInterface = $announcementsInterface;
+        $this->announcementRepo = $announcementRepo;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->query('search');
+        $perPage = $request->query('per_page', 8); // Changé de 10 à 8 pour correspondre au nouvel affichage
+        $announcements = $this->announcementRepo->searchAndPaginate($search, $perPage);
+        return view('admin.announcement.index', compact('announcements'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    public function create()
     {
-
-        $validated = $request->validate([
-            'title' => 'string|max:255',
-            'content' => 'string|max:255',
-            'image' => 'required|string|max:10240',
-        ]);
-
-        /*
-        |--------------------------------------------------------------------------
-        | Image Upload
-        |--------------------------------------------------------------------------
-        |
-        | Here we handle the image upload for the announcement. If an image is
-        | provided, we store it in the 'public' disk and save the path.
-        |
-        */
-
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('blog', 'public');
-        }
-
-        $data = [
-            "title" => $request->title,
-            "content" => $request->content,
-            "image" => $imagePath,
-        ];
-
-        $response = $this->announcementsInterface->create($data);
-        if (!$response) {
-            return back()->with('error', 'Erreur lors de la création de l\'annonce !');
-        }
-
-        return back()->with('success', 'Annonce créée avec succès !');
+        return view('admin.announcement.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+        try {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'status' => 'required|in:publier,non publier,expirer',
+            ], [
+                'title.required' => 'Le titre est obligatoire.',
+                'title.string' => 'Le titre doit être une chaîne de caractères.',
+                'title.max' => 'Le titre ne peut pas dépasser 255 caractères.',
+                'image.image' => 'Le fichier doit être une image.',
+                'image.mimes' => 'L\'image doit être au format jpeg, png, jpg ou gif.',
+                'image.max' => 'L\'image ne peut pas dépasser 2 Mo.',
+                'status.required' => 'Le statut est obligatoire.',
+                'status.in' => 'Le statut doit être "publier", "non publier" ou "expirer".',
+            ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        // Récupère l'annonce affichée
-        $announcement = Announcements::findOrFail($id);
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                // Utilisation du même dossier "announcements" pour la cohérence
+                $imagePath = $request->file('image')->store('announcements', 'public');
+            }
 
-        // Récupère 4 autres annonces récentes, excluant celle en cours
-        $announcements = Announcements::where('id', '!=', $id)
-            ->where('is_published', true)
-            ->latest() // équivalent à orderBy('created_at', 'desc')
-            ->take(4)
-            ->get();
+            $data = [
+                'title' => trim($request->title),
+                'description' => $request->description,
+                'status' => $request->status,
+                'image' => $imagePath,
+            ];
 
+            $this->announcementRepo->create($data);
 
-        return view('blogs.details', compact('blog', 'blogs'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request, $id)
-    {
-        $announcement = Announcements::findOrFail($id);
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'short_description' => 'required|string|max:500',
-            'long_description' => 'required|string',
-        ]);
-
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('blog', 'public');
-        } else {
-            $imagePath = $announcement->image; // Keep the existing image if no new one is uploaded
+            return redirect()->route('announcement.index')->with('success', 'Annonce ajoutée avec succès.');
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Une erreur est survenue lors de la création de l\'annonce.'])->withInput();
         }
-
-        $data = [
-            "title" => $request->title,
-            "short_description" => $request->short_description,
-            "long_description" => $request->long_description,
-            "image" => $imagePath,
-            "is_published" => $request->is_published,
-        ];
-
-        $response = $this->announcementsInterface->edit($id, $data);
-        if (!$response)
-            return back()->with('error', 'Erreur lors de la modification de l\'annonce!');
-
-        return back()->with('success', 'Annonce modifiée avec succès!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $announcement = $this->announcementRepo->find($id);
+            if (!$announcement) {
+                return redirect()->route('announcement.index')->withErrors(['error' => 'Annonce introuvable.']);
+            }
+
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'status' => 'required|in:publier,non publier,expirer',
+            ], [
+                'title.required' => 'Le titre est obligatoire.',
+                'title.string' => 'Le titre doit être une chaîne de caractères.',
+                'title.max' => 'Le titre ne peut pas dépasser 255 caractères.',
+                'image.image' => 'Le fichier doit être une image.',
+                'image.mimes' => 'L\'image doit être au format jpeg, png, jpg ou gif.',
+                'image.max' => 'L\'image ne peut pas dépasser 2 Mo.',
+                'status.required' => 'Le statut est obligatoire.',
+                'status.in' => 'Le statut doit être "publier", "non publier" ou "expirer".',
+            ]);
+
+            $data = [
+                'title' => trim($request->title),
+                'description' => $request->description,
+                'status' => $request->status,
+            ];
+
+            if ($request->hasFile('image')) {
+                // Supprimer l'ancienne image si elle existe
+                if ($announcement->image) {
+                    Storage::disk('public')->delete($announcement->image);
+                }
+                // Utilisation cohérente du dossier "announcements"
+                $data['image'] = $request->file('image')->store('announcements', 'public');
+            }
+
+            $this->announcementRepo->update($announcement, $data);
+
+            return redirect()->route('announcement.index')->with('success', 'Annonce mise à jour avec succès.');
+        } catch (ValidationException $e) {
+            return redirect()->route('announcement.index')
+                ->withErrors($e->errors())
+                ->withInput()
+                ->with('edit_announcement_id', $id);
+        } catch (\Exception $e) {
+            return redirect()->route('announcement.index')
+                ->withErrors(['error' => 'Une erreur est survenue lors de la mise à jour.'])
+                ->with('edit_announcement_id', $id);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        $response = $this->announcementsInterface->destroy($id);
-        if (!$response)
-            return back()->with('error', 'Erreur lors de la suppression de l\'annonce!');
-
-        return back()->with('success', 'Annonce supprimée avec succès');
+        try {
+            $announcement = $this->announcementRepo->find($id);
+            if (!$announcement) {
+                return redirect()->route('announcement.index')->withErrors(['error' => 'Annonce introuvable.']);
+            }
+            
+            // Supprimer l'image si elle existe
+            if ($announcement->image) {
+                Storage::disk('public')->delete($announcement->image);
+            }
+            
+            $this->announcementRepo->delete($announcement);
+            return redirect()->route('announcement.index')->with('success', 'Annonce supprimée avec succès.');
+        } catch (\Exception $e) {
+            return redirect()->route('announcement.index')->withErrors(['error' => 'Une erreur est survenue lors de la suppression.']);
+        }
     }
 }
