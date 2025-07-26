@@ -2,10 +2,25 @@
 
 <body>
 
+    <style>
+.auth-left {
+    height: 100vh; /* Toute la hauteur de l'écran */
+    width: 50%;     /* Ajuste selon ton design */
+    position: relative;
+}
+
+.auth-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Remplit sans déformer */
+    display: block;
+}
+</style>
+
     <section class="auth bg-base d-flex flex-wrap">
         <div class="auth-left d-lg-block d-none">
             <div class="d-flex align-items-center flex-column h-100 justify-content-center">
-                <img src="assets/images/auth/auth-img.png" alt="">
+                <img src="{{ URL::asset('assets/images/LoginImage.jpg') }}" alt="" >
             </div>
         </div>
         <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
