@@ -118,7 +118,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="promo-item white-content">
                         <div class="bg-items">
-                            <div class="bg-img"><img src="{{ asset('assets/main/img/images/savings.png') }}" alt="Épargne"></div>
+                            <div class="bg-img"><img src="{{ asset('assets/images/epargne.jpg') }}" alt="Épargne"></div>
                             <div class="overlay"></div>
                             <div class="overlay-2"></div>
                         </div>
@@ -130,7 +130,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="promo-item white-content">
                         <div class="bg-items">
-                            <div class="bg-img"><img src="{{ asset('assets/main/img/images/credit.png') }}" alt="Crédit"></div>
+                            <div class="bg-img"><img src="{{ asset('assets/images/credit.jpg') }}" alt="Crédit"></div>
                             <div class="overlay"></div>
                             <div class="overlay-2"></div>
                         </div>
@@ -142,7 +142,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="promo-item white-content">
                         <div class="bg-items">
-                            <div class="bg-img"><img src="{{ asset('assets/main/img/images/support.png') }}" alt="Services Financiers"></div>
+                            <div class="bg-img"><img src="{{ asset('assets/images/accompagnement.jpg') }}" alt="Services Financiers"></div>
                             <div class="overlay"></div>
                             <div class="overlay-2"></div>
                         </div>
@@ -229,7 +229,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item-3 fade-top">
                         <div class="service-thumb">
-                            <img class="img-item" src="{{ asset('assets/main/img/service/service-img-1.png') }}" alt="Épargne">
+                            <img class="img-item" src="{{ asset('assets/images/account1.jpg') }}" alt="Épargne">
                             {{-- Icône adaptée avec classe de taille --}}
                             <div class="icon"><i class="fas fa-piggy-bank fa-3x"></i></div>
                         </div>
@@ -245,7 +245,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item-3 fade-top">
                         <div class="service-thumb">
-                            <img class="img-item" src="{{ asset('assets/main/img/service/service-img-2.png') }}" alt="Compte Courant">
+                            <img class="img-item" src="{{ asset('assets/images/account2.jpg') }}" alt="Compte Courant">
                             {{-- Icône adaptée avec classe de taille --}}
                             <div class="icon"><i class="fas fa-wallet fa-3x"></i></div>
                         </div>
@@ -261,7 +261,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item-3 fade-top">
                         <div class="service-thumb">
-                            <img class="img-item" src="{{ asset('assets/main/img/service/service-img-3.png') }}" alt="Crédits">
+                            <img class="img-item" src="{{ asset('assets/images/account3.jpg') }}" alt="Crédits">
                             {{-- Icône adaptée avec classe de taille --}}
                             <div class="icon"><i class="fas fa-chart-line fa-3x"></i></div>
                         </div>
@@ -279,7 +279,7 @@
     <!-- ./ service-section -->
 
     <section class="cta-section cta-2 pt-120 pb-120">
-        <div class="bg-img"><img src="{{ asset('assets/main/img/bg-img/cta-bg.jpg') }}" alt="img"></div>
+        <div class="bg-img"><img src="{{ asset('assets/images/products.jpeg') }}" alt="img"></div>
         <div class="overlay"></div>
         <div class="overlay-2"></div>
         <div class="container-2">
@@ -376,15 +376,17 @@
 
     <section class="strength-section">
         <div class="bg-item">
-            <div class="bg-img" data-background="{{ asset('assets/main/img/bg-img/strength-bg.png') }}"></div>
+            <div class="bg-img" data-background="{{ asset('assets/images/strength-bg.jpg') }}"></div>
             <div class="overlay"></div>
             <div class="shapes">
-                <div class="shape"><img src="{{ asset('assets/main/img/shapes/strength-shape-1.png') }}" alt="img"></div>
+                <div class="shape">
+                    <img src="{{ asset('assets/main/img/shapes/strength-shape-1.png') }}" alt="img">
+                </div>
                 <div class="shape-2"></div>
             </div>
             <div class="strength-mask-img">
                 <div class="mask-overlay"></div>
-                <img src="{{ asset('assets/main/img/images/strength-img-1.png') }}" alt="img">
+                <img src="{{ asset('assets/images/strength-img-1.jpeg') }}" alt="img">
             </div>
         </div>
         <div class="container-2">
@@ -414,7 +416,7 @@
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="strength-man">
-                        <img class="men" src="{{ asset('assets/main/img/images/strength-man.png') }}" alt="man">
+                        <img class="men" src="{{ asset('assets/images/forces.png') }}" alt="man">
                     </div>
                 </div>
             </div>
@@ -436,7 +438,7 @@
                     <div class="team-card fade-top">
                         <div class="overlay"></div>
                         <div class="team-member">
-                            <img src="{{ asset('assets/main/img/team/team-5.png') }}" alt="Photo de membre d'équipe">
+                            <img src="{{ asset('assets/images/team.jpg') }}" alt="Photo de membre d'équipe">
                         </div>
                         <div class="team-content">
                             <h4 class="title"><a href="#">M. Kokou GABIAM</a></h4>
@@ -462,7 +464,7 @@
                     <div class="team-card fade-top">
                         <div class="overlay"></div>
                         <div class="team-member">
-                            <img src="{{ asset('assets/main/img/team/team-6.png') }}" alt="Photo de membre d'équipe">
+                            <img src="{{ asset('assets/images/team.jpg') }}" alt="Photo de membre d'équipe">
                         </div>
                         <div class="team-content">
                             <h4 class="title"><a href="#">Adjoa AKOUETE</a></h4>
@@ -488,7 +490,7 @@
                     <div class="team-card fade-top">
                         <div class="overlay"></div>
                         <div class="team-member">
-                            <img src="{{ asset('assets/main/img/team/team-7.png') }}" alt="Photo de membre d'équipe">
+                            <img src="{{ asset('assets/images/team.jpg') }}" alt="Photo de membre d'équipe">
                         </div>
                         <div class="team-content">
                             <h4 class="title"><a href="#">Koffi LAWSON</a></h4>
@@ -514,7 +516,7 @@
                     <div class="team-card fade-top">
                         <div class="overlay"></div>
                         <div class="team-member">
-                            <img src="{{ asset('assets/main/img/team/team-8.png') }}" alt="Photo de membre d'équipe">
+                            <img src="{{ asset('assets/images/team.jpg') }}" alt="Photo de membre d'équipe">
                         </div>
                         <div class="team-content">
                             <h4 class="title"><a href="#">Fati BAMBA</a></h4>
@@ -619,7 +621,7 @@
                 </div>
                 <div class="cta-mask-img">
                     <div class="overlay"></div>
-                    <img src="{{ asset('assets/main/img/images/cta-img-1.png') }}" alt="cta">
+                    <img src="{{ asset('assets/images/job-offer.jpg') }}" alt="cta">
                 </div>
 
                 {{-- Contenu mis à jour en français et adapté pour COCEC --}}

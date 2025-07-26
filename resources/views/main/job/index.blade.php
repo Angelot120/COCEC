@@ -199,7 +199,7 @@
     <section class="form-section">
         <div class="container">
             <div class="section-heading text-center mb-5">
-                <h2 class="section-title">Candidature Spontanée (Demande de TAF)</h2>
+                <h2 class="section-title">Candidature Spontanée</h2>
                 <p>Aucune offre ne correspond à votre profil ? Envoyez-nous votre candidature et nous vous contacterons si une opportunité se présente.</p>
             </div>
 
@@ -227,7 +227,7 @@
                         <!-- FIN DU NOUVEAU CHAMP -->
 
                         <div class="col-12 mb-3 input-group-custom">
-                            <label class="form-label">Type de TAF souhaité</label><i class="icon fas fa-briefcase"></i>
+                            <label class="form-label">Type de Poste souhaité</label><i class="icon fas fa-briefcase"></i>
                             <select class="form-control" name="application_type" style="padding-left: 50px;" required>
                                 <option value="">Sélectionnez une option...</option>
                                 <option value="emploi">Emploi</option>
