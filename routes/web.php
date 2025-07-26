@@ -36,7 +36,9 @@ Route::post('/create-account/physical/processing', [AccountController::class, 's
 Route::post('/create-account/moral/processing', [AccountController::class, 'storeMoral'])->name('account.store.moral');
 
 Route::get('/career', [ViewsController::class, 'job'])->name('career');
+Route::get('/career/details/{id}', [JobController::class, 'show'])->name('career.details');
 Route::post('/career/apply', [JobController::class, 'store'])->name('career.apply');
+Route::post('/career/apply/{id}', [JobController::class, 'applyOffer'])->name('career.apply.offer');
 Route::get('/products', [ViewsController::class, 'products'])->name('products');
 Route::get('/contact', [ViewsController::class, 'contact'])->name('contact');
 

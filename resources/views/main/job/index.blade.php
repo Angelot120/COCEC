@@ -119,12 +119,6 @@
     .input-group-custom:focus-within .icon {
         color: #EC281C;
     }
-
-    /* .file-upload-wrapper {
-    } */
-
-    /* .btn-submit-form {
-    } */
 </style>
 @endsection
 
@@ -181,9 +175,16 @@
                         <div>
                             <span class="job-type-badge mb-2 {{ $offer->type }}">{{ $offer->type }}</span>
                             <h3 class="job-title">{{ $offer->title }}</h3>
+
+                            {{-- NOUVEL ÉLÉMENT AJOUTÉ --}}
+                            <p class="text-muted small mb-2">
+                                <i class="fas fa-calendar-alt me-2"></i>Publié {{ $offer->created_at->diffForHumans() }}
+                            </p>
+                            {{-- FIN DE L'ÉLÉMENT AJOUTÉ --}}
+
                             <p class="job-description">{{ \Illuminate\Support\Str::limit($offer->description, 150) }}</p>
                         </div>
-                        <a href="#" class="btn btn-primary bz-primary-btn red-btn">Voir l'offre</a>
+                        <a href="{{ route('career.details', $offer->id) }}" class="btn btn-primary bz-primary-btn red-btn">Voir l'offre</a>
                     </div>
                 </div>
                 @empty
