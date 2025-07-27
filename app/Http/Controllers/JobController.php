@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\JobInterface;
 use App\Models\JobApplication;
+use App\Models\JobOffer;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -75,14 +76,52 @@ class JobController extends Controller
     public function show(string $id)
     {
         //
+        $jobOffer = JobOffer::findOrFail($id);
+        return view('main.job.details', ['offer' => $jobOffer]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function applyOffer(string $id, Request $request)
     {
-        //
+        if(!JobOffer::findOrFail($id)) {
+            return back()->withErrors(['error' => 'Offre d\'emploi non trouvée.']);
+        }
+
+        $validated = $request->validate([
+            'last_name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+            'intitule' => 'required|string|max:255', // <-- Validation pour l'intitulé
+            'application_type' => 'required|in:emploi,stage',
+            'cv' => 'required|file|mimes:pdf|max:2048', // 2MB Max
+            'motivation_letter' => 'required|file|mimes:pdf|max:2048', // 2MB Max
+        ]);
+
+        // Gérer le téléversement des fichiers
+        // N'oubliez pas de lancer `php artisan storage:link`
+        $cvPath = $request->file('cv')->store('resumes', 'public');
+        $motivationLetterPath = $request->file('motivation_letter')->store('motivation_letters', 'public');
+
+        $response = $this->jobInterface->create([
+            'last_name' => $validated['last_name'],
+            'first_name' => $validated['first_name'],
+            'phone' => $validated['phone'],
+            'email' => $validated['email'],
+            'intitule' => $validated['intitule'],
+            'application_type' => $validated['application_type'],
+            'cv_path' => $cvPath,
+            'motivation_letter_path' => $motivationLetterPath,
+            'job_offer_id' => $id,
+        ]);
+
+        if (!$response) {
+            return back()->withErrors(['error' => 'Une erreur est survenue lors de l\'envoi de votre candidature.']);
+        }
+
+        return back()->with('success', 'Votre candidature a bien été envoyée. Nous vous remercions !');
     }
 
     /**

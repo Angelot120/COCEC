@@ -9,6 +9,7 @@
 
 <main class="dashboard-main">
     @include('includes.admin.appbar')
+    @include('includes.main.loading')
 
     <div class="dashboard-main-body">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
@@ -26,13 +27,13 @@
         </div>
 
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
-            </div>
+        <div class="alert alert-danger">
+            <ul class="mb-0">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
+        </div>
         @endif
 
         @if (session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
+        <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
         <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data" class="row g-4">
@@ -95,4 +96,3 @@
     });
 </script>
 @endsection
-

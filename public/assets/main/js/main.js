@@ -2,16 +2,15 @@
 
 (function ($) {
     "use strict";
-    
-        //Toggle Js
-		$('.rr-checkout-login-form-reveal-btn').on('click', function () {
-			$('#rrReturnCustomerLoginForm').slideToggle(400);
-		});
 
-        $('.rr-checkout-coupon-form-reveal-btn').on('click', function () {
-			$('#rrCheckoutCouponForm').slideToggle(400);
-		});
+    //Toggle Js
+    $(".rr-checkout-login-form-reveal-btn").on("click", function () {
+        $("#rrReturnCustomerLoginForm").slideToggle(400);
+    });
 
+    $(".rr-checkout-coupon-form-reveal-btn").on("click", function () {
+        $("#rrCheckoutCouponForm").slideToggle(400);
+    });
 
     /*======================================
         Preloader activation
@@ -20,23 +19,23 @@
         $("#preloader").delay(1000).fadeOut(500);
         // Text Animation
         setTimeout(() => {
-        var hasAnim = $(".anim-text");
+            var hasAnim = $(".anim-text");
             hasAnim.each(function () {
                 var $this = $(this);
                 var splitto = new SplitType($this, {
-                types: "lines, chars",
-                className: "char",
+                    types: "lines, chars",
+                    className: "char",
                 });
                 var chars = $this.find(".char");
                 gsap.fromTo(
-                chars,
-                { y: "100%" },
-                {
-                    y: "0%",
-                    duration: 0.9,
-                    stagger: 0.03,
-                    ease: "power2.out",
-                }
+                    chars,
+                    { y: "100%" },
+                    {
+                        y: "0%",
+                        duration: 0.9,
+                        stagger: 0.03,
+                        ease: "power2.out",
+                    }
                 );
             });
         }, 1000);
@@ -47,18 +46,15 @@
     });
 
     $(document).ready(function () {
-
-
-        if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-            $('body').addClass('firefox');
+        if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
+            $("body").addClass("firefox");
         }
-        
+
         var header = $(".header"),
             stickyHeader = $(".primary-header");
 
         function menuSticky(w) {
             if (w.matches) {
-                
                 $(window).on("scroll", function () {
                     var scroll = $(window).scrollTop();
                     if (scroll >= 110) {
@@ -67,12 +63,12 @@
                         stickyHeader.removeClass("fixed");
                     }
                 });
-                if ($(".header").length > 0) {    
-                    var  headerHeight = document.querySelector(".header"),
-                        setHeaderHeight = headerHeight.offsetHeight;	
+                if ($(".header").length > 0) {
+                    var headerHeight = document.querySelector(".header"),
+                        setHeaderHeight = headerHeight.offsetHeight;
                     header.each(function () {
                         $(this).css({
-                            'height' : setHeaderHeight + 'px'
+                            height: setHeaderHeight + "px",
                         });
                     });
                 }
@@ -95,12 +91,19 @@
 
         // Mobile Sidemenu
         $(".mobile-side-menu-toggle").on("click", function () {
-            $(".mobile-side-menu, .mobile-side-menu-overlay").toggleClass("is-open");
+            $(".mobile-side-menu, .mobile-side-menu-overlay").toggleClass(
+                "is-open"
+            );
         });
 
-        $(".mobile-side-menu-close, .mobile-side-menu-overlay").on("click", function () {
-            $(".mobile-side-menu, .mobile-side-menu-overlay").removeClass("is-open");
-        });
+        $(".mobile-side-menu-close, .mobile-side-menu-overlay").on(
+            "click",
+            function () {
+                $(".mobile-side-menu, .mobile-side-menu-overlay").removeClass(
+                    "is-open"
+                );
+            }
+        );
 
         // Popup Search Box
         $(function () {
@@ -128,25 +131,32 @@
                 e.preventDefault();
                 $("body").toggleClass("open-sidebar");
             });
-            $(document).on("click", ".sidebar-trigger.close, #sidebar-overlay", function (e) {
-                e.preventDefault();
-                $("body.open-sidebar").removeClass("open-sidebar");
-            });
+            $(document).on(
+                "click",
+                ".sidebar-trigger.close, #sidebar-overlay",
+                function (e) {
+                    e.preventDefault();
+                    $("body.open-sidebar").removeClass("open-sidebar");
+                }
+            );
         }
 
         sideBox();
 
         // Venobox Active
-        $('.venobox').venobox({
-            bgcolor: 'transparent',
-            spinner: 'spinner-pulse',
+        $(".venobox").venobox({
+            bgcolor: "transparent",
+            spinner: "spinner-pulse",
             numeration: true,
-            infinigall: true
+            infinigall: true,
         });
-        
+
         // Data Background
         $("[data-background").each(function () {
-            $(this).css("background-image", "url( " + $(this).attr("data-background") + "  )");
+            $(this).css(
+                "background-image",
+                "url( " + $(this).attr("data-background") + "  )"
+            );
         });
 
         // Custom Cursor
@@ -157,7 +167,12 @@
 
         $(window).on("mousemove", function (e) {
             cursor.css({
-                transform: "translate(" + (e.clientX - 15) + "px," + (e.clientY - 15) + "px)",
+                transform:
+                    "translate(" +
+                    (e.clientX - 15) +
+                    "px," +
+                    (e.clientY - 15) +
+                    "px)",
                 visibility: "inherit",
             });
         });
@@ -210,7 +225,7 @@
                 },
             });
         });
-        
+
         // Service Carousel
         var swiperProject = new Swiper(".project-carousel", {
             slidesPerView: 2,
@@ -379,7 +394,7 @@
         });
 
         // Testi Carousel
-        var swiperPostthumb= new Swiper(".post-thumb-carousel", {
+        var swiperPostthumb = new Swiper(".post-thumb-carousel", {
             slidesPerView: 1,
             spaceBetween: 10,
             slidesPerGroup: 1,
@@ -422,7 +437,10 @@
                 },
                 function (start, end, label) {
                     console.log(
-                        "A new date selection was made: " + start.format("YYYY-MM-DD") + " to " + end.format("YYYY-MM-DD")
+                        "A new date selection was made: " +
+                            start.format("YYYY-MM-DD") +
+                            " to " +
+                            end.format("YYYY-MM-DD")
                     );
                 }
             );
@@ -434,7 +452,6 @@
                 showDropdowns: true,
             });
         });
-
 
         //Swiper Slider For Shop
         var swiper = new Swiper(".product-gallary-thumb", {
@@ -457,43 +474,59 @@
 
         // Stroke Text
 
-        $(function(){
-            let container_svg = $('.container-svg');
-            let that, svg, text, bbox, width, height, calc_ratio, stroke_dasharray, new_value_stroke;
-            let is_safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        $(function () {
+            let container_svg = $(".container-svg");
+            let that,
+                svg,
+                text,
+                bbox,
+                width,
+                height,
+                calc_ratio,
+                stroke_dasharray,
+                new_value_stroke;
+            let is_safari = /^((?!chrome|android).)*safari/i.test(
+                navigator.userAgent
+            );
             let is_retina = false;
-            if (matchMedia("(-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi)").matches){
+            if (
+                matchMedia(
+                    "(-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi)"
+                ).matches
+            ) {
                 is_retina = true;
             }
-            container_svg.each(function(){
+            container_svg.each(function () {
                 that = $(this);
                 // Set viewBox size
-                svg = $('svg', that);
-                text = $('text', that);
+                svg = $("svg", that);
+                text = $("text", that);
                 bbox = text[0].getBBox();
                 width = that.width();
                 height = bbox.height;
-                svg.attr('viewBox', '0 0 '+width+' '+height);
+                svg.attr("viewBox", "0 0 " + width + " " + height);
                 // Set container height with ratio
-                calc_ratio = (height*100/width);
-                that.css('padding-bottom', calc_ratio+'%');
-                if(is_safari){ // Safari fix
-                    text.attr('y', '1em');
+                calc_ratio = (height * 100) / width;
+                that.css("padding-bottom", calc_ratio + "%");
+                if (is_safari) {
+                    // Safari fix
+                    text.attr("y", "1em");
                 }
-                    if(is_retina){
-                    stroke_dasharray = text.css('stroke-dasharray');
-                    new_value_stroke = retina_stroke_dasharray(stroke_dasharray);
-                    text.css('stroke-dasharray', new_value_stroke);
+                if (is_retina) {
+                    stroke_dasharray = text.css("stroke-dasharray");
+                    new_value_stroke =
+                        retina_stroke_dasharray(stroke_dasharray);
+                    text.css("stroke-dasharray", new_value_stroke);
                 }
-            })
-        })
-        
-        function retina_stroke_dasharray(value){
+            });
+        });
+
+        function retina_stroke_dasharray(value) {
             let array = value.split(",");
-            for(let i = 0; i < array.length; i++){
-                array[i] = (parseInt(array[i])*2)+'px';
+            for (let i = 0; i < array.length; i++) {
+                array[i] = parseInt(array[i]) * 2 + "px";
             }
-            return array.join(', ');
+            return array.join(", ");
         }
 
         //Running Animated Text
@@ -507,7 +540,8 @@
             scrollers.forEach((scroller) => {
                 scroller.setAttribute("data-animated", true);
 
-                const scrollerInner = scroller.querySelector(".scroller__inner");
+                const scrollerInner =
+                    scroller.querySelector(".scroller__inner");
                 const scrollerContent = Array.from(scrollerInner.children);
 
                 scrollerContent.forEach((item) => {
@@ -519,91 +553,88 @@
         }
 
         // Image Reveal
-        
+
         gsap.registerPlugin(ScrollTrigger);
 
         let revealContainers = document.querySelectorAll(".reveal");
 
         revealContainers.forEach((container) => {
-        let image = container.querySelector("img");
-        let tl = gsap.timeline({
-            scrollTrigger: {
-            trigger: container,
-            toggleActions: "restart none none reset"
-            }
-        });
+            let image = container.querySelector("img");
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: container,
+                    toggleActions: "restart none none reset",
+                },
+            });
 
-        tl.set(container, { autoAlpha: 1 });
-        tl.from(container, 1.5, {
-            xPercent: -100,
-            ease: Power2.out
-        });
-        tl.from(image, 1.5, {
-            xPercent: 100,
-            scale: 1.3,
-            delay: -1.5,
-            ease: Power2.out
-        });
+            tl.set(container, { autoAlpha: 1 });
+            tl.from(container, 1.5, {
+                xPercent: -100,
+                ease: Power2.out,
+            });
+            tl.from(image, 1.5, {
+                xPercent: 100,
+                scale: 1.3,
+                delay: -1.5,
+                ease: Power2.out,
+            });
         });
 
         const images = document.querySelectorAll(".img-reveal");
 
-        const removeOverlay = overlay => {
+        const removeOverlay = (overlay) => {
             let tl = gsap.timeline();
 
             tl.to(overlay, {
                 duration: 1.4,
                 ease: "Power2.easeInOut",
-                width: "0%"
+                width: "0%",
             });
 
             return tl;
         };
 
-        const scaleInImage = image => {
+        const scaleInImage = (image) => {
             let tl = gsap.timeline();
 
             tl.from(image, {
                 duration: 1.4,
                 scale: 1.4,
-                ease: "Power2.easeInOut"
+                ease: "Power2.easeInOut",
             });
 
             return tl;
         };
 
-        images.forEach(image => {
-        
+        images.forEach((image) => {
             gsap.set(image, {
-                visibility: "visible"
+                visibility: "visible",
             });
-        
-            const overlay = image.querySelector('.img-overlay');
+
+            const overlay = image.querySelector(".img-overlay");
             const img = image.querySelector("img");
 
             const masterTL = gsap.timeline({ paused: true });
             masterTL
-            .add(removeOverlay(overlay))
-            .add(scaleInImage(img), "-=1.4");
-        
-        
-        let options = {
-            threshold: 0
-        }
+                .add(removeOverlay(overlay))
+                .add(scaleInImage(img), "-=1.4");
+
+            let options = {
+                threshold: 0,
+            };
 
             const io = new IntersectionObserver((entries, options) => {
-                entries.forEach(entry => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         masterTL.play();
                     } else {
-                masterTL.progress(0).pause()
-            }
+                        masterTL.progress(0).pause();
+                    }
                 });
             }, options);
 
             io.observe(image);
         });
-
 
         // Scroll Animation
 
@@ -613,245 +644,251 @@
         });
         var text_animations = document.querySelectorAll(
             "[data-text-animation]"
-            );
-            
-            function createScrollTrigger(triggerElement, timeline) {
+        );
+
+        function createScrollTrigger(triggerElement, timeline) {
             // Play tl when scrolled into view (60% from top of screen)
             ScrollTrigger.create({
                 trigger: triggerElement,
                 start: "top 80%",
                 onEnter: () => timeline.play(),
-                toggleClass: {targets: triggerElement, className: "active"} 
+                toggleClass: { targets: triggerElement, className: "active" },
             });
         }
 
-            text_animations.forEach((animation) => {
+        text_animations.forEach((animation) => {
             let type = "slide-up",
-            duration = 0.75,
-            offset = 80,
-            stagger = 0.6,
-            delay = 0,
-            scroll = 1,
-            split = "line",
-            ease = "power2.out";
-        // Set attribute
-        if (animation.getAttribute("data-stagger")) {
-            stagger = animation.getAttribute("data-stagger");
-        }
-        if (animation.getAttribute("data-duration")) {
-            duration = animation.getAttribute("data-duration");
-        }
-        if (animation.getAttribute("data-text-animation")) {
-            type = animation.getAttribute("data-text-animation");
-        }
-        if (animation.getAttribute("data-delay")) {
-            delay = animation.getAttribute("data-delay");
-        }
-        if (animation.getAttribute("data-ease")) {
-            ease = animation.getAttribute("data-ease");
-        }
-        if (animation.getAttribute("data-scroll")) {
-            scroll = animation.getAttribute("data-scroll");
-        }
-        if (animation.getAttribute("data-offset")) {
-            offset = animation.getAttribute("data-offset");
-        }
-        if (animation.getAttribute("data-split")) {
-            split = animation.getAttribute("data-split");
-        }
-        if (scroll == 1) {
-            if (type == "slide-up") {
-            let tl = gsap.timeline({ paused: true });
-            tl.from(animation.querySelectorAll(`.${split}`), {
-                yPercent: offset,
-                duration,
-                ease,
-                opacity: 0,
-                stagger: { amount: stagger },
-            });
-            createScrollTrigger(animation, tl);
+                duration = 0.75,
+                offset = 80,
+                stagger = 0.6,
+                delay = 0,
+                scroll = 1,
+                split = "line",
+                ease = "power2.out";
+            // Set attribute
+            if (animation.getAttribute("data-stagger")) {
+                stagger = animation.getAttribute("data-stagger");
             }
-            if (type == "slide-down") {
-            let tl = gsap.timeline({ paused: true });
-            tl.from(animation.querySelectorAll(`.${split}`), {
-                yPercent: -offset,
-                duration,
-                ease,
-                opacity: 0,
-                stagger: { amount: stagger },
-            });
-            createScrollTrigger(animation, tl);
+            if (animation.getAttribute("data-duration")) {
+                duration = animation.getAttribute("data-duration");
             }
-            if (type == "rotate-in") {
-                let tl = gsap.timeline({ paused: true });
-                tl.set(animation.querySelectorAll(`.${split}`), {
-                    transformPerspective: 400,
-                });
-            tl.from(animation.querySelectorAll(`.${split}`), {
-                rotationX: -offset,
-                duration,
-                ease,
-                force3D: true,
-                opacity: 0,
-                transformOrigin: "top center -50",
-                stagger: { amount: stagger },
-            });
-            createScrollTrigger(animation, tl);
+            if (animation.getAttribute("data-text-animation")) {
+                type = animation.getAttribute("data-text-animation");
             }
-            if (type == "slide-from-left") {
-                let tl = gsap.timeline({ paused: true });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    opacity: 0,
-                    xPercent: -offset,
-                    duration,
-                    opacity: 0,
-                    ease,
-                    stagger: { amount: stagger },
-                });
-            createScrollTrigger(animation, tl);
+            if (animation.getAttribute("data-delay")) {
+                delay = animation.getAttribute("data-delay");
             }
-            if (type == "slide-from-right") {
-                let tl = gsap.timeline({ paused: true });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    opacity: 0,
-                    xPercent: offset,
-                    duration,
-                    opacity: 0,
-                    ease,
-                    stagger: { amount: stagger },
-                });
-            createScrollTrigger(animation, tl);
+            if (animation.getAttribute("data-ease")) {
+                ease = animation.getAttribute("data-ease");
             }
-            if (type == "fade-in") {
-                let tl = gsap.timeline({ paused: true });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    opacity: 0,
-                    duration,
-                    ease,
-                    opacity: 0,
-                    stagger: { amount: stagger },
-                });
-                createScrollTrigger(animation, tl);
+            if (animation.getAttribute("data-scroll")) {
+                scroll = animation.getAttribute("data-scroll");
             }
-            if (type == "fade-in-random") {
-                let tl = gsap.timeline({ paused: true });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    opacity: 0,
-                    duration,
-                    ease,
-                    opacity: 0,
-                    stagger: { amount: stagger, from: "random" },
-                });
-            createScrollTrigger(animation, tl);
+            if (animation.getAttribute("data-offset")) {
+                offset = animation.getAttribute("data-offset");
             }
-            if (type == "scrub") {
-                let tl = gsap.timeline({
-                    scrollTrigger: {
-                    trigger: animation,
-                    start: "top 90%",
-                    end: "top center",
-                    scrub: true,
-                    },
-                });
-            tl.from(animation.querySelectorAll(`.${split}`), {
-                opacity: 0.2,
-                duration,
-                ease,
-                stagger: { amount: stagger },
-            });
+            if (animation.getAttribute("data-split")) {
+                split = animation.getAttribute("data-split");
             }
+            if (scroll == 1) {
+                if (type == "slide-up") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        yPercent: offset,
+                        duration,
+                        ease,
+                        opacity: 0,
+                        stagger: { amount: stagger },
+                    });
+                    createScrollTrigger(animation, tl);
+                }
+                if (type == "slide-down") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        yPercent: -offset,
+                        duration,
+                        ease,
+                        opacity: 0,
+                        stagger: { amount: stagger },
+                    });
+                    createScrollTrigger(animation, tl);
+                }
+                if (type == "rotate-in") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.set(animation.querySelectorAll(`.${split}`), {
+                        transformPerspective: 400,
+                    });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        rotationX: -offset,
+                        duration,
+                        ease,
+                        force3D: true,
+                        opacity: 0,
+                        transformOrigin: "top center -50",
+                        stagger: { amount: stagger },
+                    });
+                    createScrollTrigger(animation, tl);
+                }
+                if (type == "slide-from-left") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        opacity: 0,
+                        xPercent: -offset,
+                        duration,
+                        opacity: 0,
+                        ease,
+                        stagger: { amount: stagger },
+                    });
+                    createScrollTrigger(animation, tl);
+                }
+                if (type == "slide-from-right") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        opacity: 0,
+                        xPercent: offset,
+                        duration,
+                        opacity: 0,
+                        ease,
+                        stagger: { amount: stagger },
+                    });
+                    createScrollTrigger(animation, tl);
+                }
+                if (type == "fade-in") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        opacity: 0,
+                        duration,
+                        ease,
+                        opacity: 0,
+                        stagger: { amount: stagger },
+                    });
+                    createScrollTrigger(animation, tl);
+                }
+                if (type == "fade-in-random") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        opacity: 0,
+                        duration,
+                        ease,
+                        opacity: 0,
+                        stagger: { amount: stagger, from: "random" },
+                    });
+                    createScrollTrigger(animation, tl);
+                }
+                if (type == "scrub") {
+                    let tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: animation,
+                            start: "top 90%",
+                            end: "top center",
+                            scrub: true,
+                        },
+                    });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        opacity: 0.2,
+                        duration,
+                        ease,
+                        stagger: { amount: stagger },
+                    });
+                }
 
-            // Avoid flash of unstyled content
-            gsap.set("[data-text-animation]", { opacity: 1 });
-        } else {
-            if (type == "slide-up") {
-                let tl = gsap.timeline({ paused: true });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    yPercent: offset,
-                    duration,
-                    ease,
-                    opacity: 0,
-                });
+                // Avoid flash of unstyled content
+                gsap.set("[data-text-animation]", { opacity: 1 });
+            } else {
+                if (type == "slide-up") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        yPercent: offset,
+                        duration,
+                        ease,
+                        opacity: 0,
+                    });
+                }
+                if (type == "slide-down") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        yPercent: -offset,
+                        duration,
+                        ease,
+                        opacity: 0,
+                    });
+                }
+                if (type == "rotate-in") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.set(animation.querySelectorAll(`.${split}`), {
+                        transformPerspective: 400,
+                    });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        rotationX: -offset,
+                        duration,
+                        ease,
+                        force3D: true,
+                        opacity: 0,
+                        transformOrigin: "top center -50",
+                    });
+                }
+                if (type == "slide-from-right") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        opacity: 0,
+                        xPercent: offset,
+                        duration,
+                        opacity: 0,
+                        ease,
+                    });
+                }
+                if (type == "fade-in") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        opacity: 0,
+                        duration,
+                        ease,
+                        opacity: 0,
+                    });
+                }
+                if (type == "text-slide-effect") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        opacity: 0,
+                        duration,
+                        ease,
+                        opacity: 0,
+                    });
+                }
+                if (type == "fade-in-random") {
+                    let tl = gsap.timeline({ paused: true });
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        opacity: 0,
+                        duration,
+                        ease,
+                        opacity: 0,
+                        stagger: { amount: stagger, from: "random" },
+                    });
+                }
+                if (type == "scrub") {
+                    tl.from(animation.querySelectorAll(`.${split}`), {
+                        opacity: 0.2,
+                        duration,
+                        ease,
+                    });
+                }
             }
-            if (type == "slide-down") {
-                let tl = gsap.timeline({ paused: true });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    yPercent: -offset,
-                    duration,
-                    ease,
-                    opacity: 0,
-                });
-            }
-            if (type == "rotate-in") {
-                let tl = gsap.timeline({ paused: true });
-                tl.set(animation.querySelectorAll(`.${split}`), {
-                    transformPerspective: 400,
-                });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    rotationX: -offset,
-                    duration,
-                    ease,
-                    force3D: true,
-                    opacity: 0,
-                    transformOrigin: "top center -50",
-                });
-            }
-            if (type == "slide-from-right") {
-                let tl = gsap.timeline({ paused: true });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    opacity: 0,
-                    xPercent: offset,
-                    duration,
-                    opacity: 0,
-                    ease,
-                });
-            }
-            if (type == "fade-in") {
-                let tl = gsap.timeline({ paused: true });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    opacity: 0,
-                    duration,
-                    ease,
-                    opacity: 0,
-                });
-            }
-            if (type == "text-slide-effect") {
-                let tl = gsap.timeline({ paused: true });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    opacity: 0,
-                    duration,
-                    ease,
-                    opacity: 0,
-                });
-            }
-            if (type == "fade-in-random") {
-                let tl = gsap.timeline({ paused: true });
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    opacity: 0,
-                    duration,
-                    ease,
-                    opacity: 0,
-                    stagger: { amount: stagger, from: "random" },
-                });
-            }
-            if (type == "scrub") {
-                tl.from(animation.querySelectorAll(`.${split}`), {
-                    opacity: 0.2,
-                    duration,
-                    ease,
-                });
-            }
-        }
         });
 
-        function textAnimationEffect(){
+        function textAnimationEffect() {
             let TextAnim = gsap.timeline();
-            let splitText = new SplitType( ".text-animation-effect", { types: 'chars' });
-            if( $('.text-animation-effect .char').length ){
-                TextAnim.from(".text-animation-effect .char", { duration: 1, x: 100, autoAlpha: 0, stagger: 0.1 }, "-=1");
+            let splitText = new SplitType(".text-animation-effect", {
+                types: "chars",
+            });
+            if ($(".text-animation-effect .char").length) {
+                TextAnim.from(
+                    ".text-animation-effect .char",
+                    { duration: 1, x: 100, autoAlpha: 0, stagger: 0.1 },
+                    "-=1"
+                );
             }
         }
-        
+
         window.addEventListener("load", (event) => {
             textAnimationEffect();
         });
@@ -860,30 +897,30 @@
             $(".fade-wrapper").each(function () {
                 var section = $(this);
                 var fadeItems = section.find(".fade-top");
-        
+
                 fadeItems.each(function (index, element) {
-                var delay = index * 0.15;
-        
-                gsap.set(element, {
-                    opacity: 0,
-                    y: 100,
-                });
-        
-                ScrollTrigger.create({
-                    trigger: element,
-                    start: "top 100%",
-                    end: "bottom 20%",
-                    scrub: 0.5,
-                    onEnter: function () {
-                    gsap.to(element, {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1,
-                        delay: delay,
+                    var delay = index * 0.15;
+
+                    gsap.set(element, {
+                        opacity: 0,
+                        y: 100,
                     });
-                    },
-                    once: true,
-                });
+
+                    ScrollTrigger.create({
+                        trigger: element,
+                        start: "top 100%",
+                        end: "bottom 20%",
+                        scrub: 0.5,
+                        onEnter: function () {
+                            gsap.to(element, {
+                                opacity: 1,
+                                y: 0,
+                                duration: 1,
+                                delay: delay,
+                            });
+                        },
+                        once: true,
+                    });
                 });
             });
         }
@@ -892,25 +929,34 @@
         function scrollTopPercentage() {
             const scrollPercentage = () => {
                 const scrollTopPos = document.documentElement.scrollTop;
-                const calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrollValue = Math.round((scrollTopPos / calcHeight) * 100);
+                const calcHeight =
+                    document.documentElement.scrollHeight -
+                    document.documentElement.clientHeight;
+                const scrollValue = Math.round(
+                    (scrollTopPos / calcHeight) * 100
+                );
                 const scrollElementWrap = $("#scroll-percentage");
 
-                scrollElementWrap.css("background", `conic-gradient( var(--bz-color-theme-primary) ${scrollValue}%, var(--bz-color-common-white) ${scrollValue}%)`);
-                
+                scrollElementWrap.css(
+                    "background",
+                    `conic-gradient( var(--bz-color-theme-primary) ${scrollValue}%, var(--bz-color-common-white) ${scrollValue}%)`
+                );
+
                 // ScrollProgress
-                if ( scrollTopPos > 100 ) {
+                if (scrollTopPos > 100) {
                     scrollElementWrap.addClass("active");
                 } else {
                     scrollElementWrap.removeClass("active");
                 }
 
-                if( scrollValue < 96 ) {
+                if (scrollValue < 96) {
                     $("#scroll-percentage-value").text(`${scrollValue}%`);
                 } else {
-                    $("#scroll-percentage-value").html('<i class="fa-sharp fa-regular fa-arrow-up-long"></i>');
+                    $("#scroll-percentage-value").html(
+                        '<i class="fa-sharp fa-regular fa-arrow-up-long"></i>'
+                    );
                 }
-            }
+            };
             window.onscroll = scrollPercentage;
             window.onload = scrollPercentage;
 
@@ -918,18 +964,15 @@
             function scrollToTop() {
                 document.documentElement.scrollTo({
                     top: 0,
-                    behavior: "smooth"
+                    behavior: "smooth",
                 });
             }
-            
+
             $("#scroll-percentage").on("click", scrollToTop);
         }
         scrollTopPercentage();
     });
 
-   
-
-    
     $(".popup-image").magnificPopup({
         type: "image",
         gallery: {
@@ -938,7 +981,7 @@
     });
 
     // testimonial-4__active start
-    var testimonial = new Swiper('.testimonial-4__active', {
+    var testimonial = new Swiper(".testimonial-4__active", {
         slidesPerView: 3,
         loop: true,
         autoplay: true,
@@ -969,7 +1012,7 @@
     });
 
     // feedback-5__active start
-    var services = new Swiper('.feedback-5__active', {
+    var services = new Swiper(".feedback-5__active", {
         slidesPerView: 2,
         loop: true,
         autoplay: true,
@@ -1018,12 +1061,12 @@
                 slidesPerView: 3,
             },
         },
-      });
+    });
 
-   //client-testimonial start
+    //client-testimonial start
     $(function () {
         var galleryTop, galleryThumbs;
-    
+
         function initSwiper() {
             // Destroy existing Swiper instances if they exist
             if (galleryTop) {
@@ -1032,15 +1075,19 @@
             if (galleryThumbs) {
                 galleryThumbs.destroy(true, true);
             }
-    
+
             // Check if the required elements exist
-            if ($(".mySwiperDesktop").length || $(".mySwiper").length || $(".mySwiper2").length) {
+            if (
+                $(".mySwiperDesktop").length ||
+                $(".mySwiper").length ||
+                $(".mySwiper2").length
+            ) {
                 if ($(window).width() > 768) {
                     // Initialize Swiper for desktop
                     galleryTop = new Swiper(".mySwiperDesktop", {
                         spaceBetween: 10,
                         slidesPerView: 9,
-                        direction: 'horizontal', // Default slides per view for desktop
+                        direction: "horizontal", // Default slides per view for desktop
                         centeredSlides: true,
                         loop: true,
                         watchSlidesProgress: true,
@@ -1092,7 +1139,7 @@
                         thumbs: { swiper: galleryTop },
                     });
                 }
-    
+
                 // Sync the slide change between galleryTop and galleryThumbs
                 galleryTop.on("slideChangeTransitionStart", function () {
                     galleryThumbs.slideTo(galleryTop.activeIndex);
@@ -1102,15 +1149,156 @@
                 });
             }
         }
-    
+
         initSwiper();
-    
+
         // Reinitialize Swiper on window resize
         $(window).resize(function () {
             initSwiper();
         });
     });
-    
-      
 
+    // =========================================================================
+    // SCRIPT 1 : GESTION DU FORMULAIRE DANS LE FOOTER
+    // Comportement : Affiche un NOUVEAU popup de confirmation/erreur.
+    // =========================================================================
+    $("#footer-newsletter-form").on("submit", function (e) {
+        e.preventDefault();
+
+        const $form = $(this);
+        const $emailInput = $form.find('input[name="email"]');
+
+        $.ajax({
+            url: $form.attr("action"),
+            method: "POST",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            headers: {
+                "X-CSRF-TOKEN": $form.find('input[name="_token"]').val(),
+            },
+            success: function (data) {
+                // Affiche un popup simple de succès
+                Swal.fire({
+                    icon: "success",
+                    title: "Inscription réussie 🎉",
+                    text: data.message || "Merci pour votre inscription !",
+                    confirmButtonColor: "#EC281C",
+                });
+                $emailInput.val(""); // Vide le champ après succès
+            },
+            error: function (jqXHR) {
+                let errorMessage =
+                    "Une erreur est survenue. Veuillez réessayer.";
+                if (
+                    jqXHR.status === 422 &&
+                    jqXHR.responseJSON &&
+                    jqXHR.responseJSON.message
+                ) {
+                    errorMessage = jqXHR.responseJSON.message;
+                }
+                // Affiche un popup simple d'erreur
+                Swal.fire({
+                    icon: "warning",
+                    title: "Oups...",
+                    text: errorMessage,
+                    confirmButtonColor: "#EC281C",
+                });
+            },
+        });
+    });
+
+    // =========================================================================
+    // SCRIPT 2 : AFFICHAGE ET GESTION DU POPUP INITIAL
+    // Comportement : S'affiche une fois par session et gère son propre formulaire.
+    // =========================================================================
+
+    $(document).ready(function () {
+        let $announcement = $("#popup-announcement");
+        let $newsletter = $("#popup-newsletter");
+        let contentHtml = "";
+
+        if ($announcement.length) {
+            contentHtml = $announcement.html();
+        } else if ($newsletter.length) {
+            contentHtml = $newsletter.html();
+        }
+
+        // Vérifie si le popup a déjà été vu dans cette session
+        if (contentHtml !== "" && !sessionStorage.getItem("popupShown")) {
+            Swal.fire({
+                html: contentHtml,
+                showConfirmButton: false,
+                showCloseButton: true,
+                width: 600,
+                background: "#fff",
+                didOpen: () => {
+                    // Formulaire dans le popup
+                    let $popupForm = $(".swal2-html-container").find(
+                        "#popup-newsletter-form"
+                    );
+                    if ($popupForm.length) {
+                        $popupForm.on("submit", function (e) {
+                            e.preventDefault();
+
+                            let $email = $popupForm.find('input[name="email"]');
+                            let $button = $popupForm.find(
+                                'button[type="submit"]'
+                            );
+                            let csrf = $popupForm
+                                .find('input[name="_token"]')
+                                .val();
+
+                            $button.prop("disabled", true).text("Envoi...");
+
+                            $.ajax({
+                                url: $popupForm.attr("action"),
+                                method: "POST",
+                                headers: { "X-CSRF-TOKEN": csrf },
+                                data: $popupForm.serialize(),
+                                success: function (response) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Inscription réussie 🎉",
+                                        text:
+                                            response.message ||
+                                            "Merci pour votre inscription !",
+                                        confirmButtonColor: "#EC281C",
+                                    });
+                                    $email.val("");
+                                    sessionStorage.setItem(
+                                        "popupShown",
+                                        "true"
+                                    );
+                                },
+                                error: function (xhr) {
+                                    let errorMsg = "Une erreur est survenue.";
+                                    if (
+                                        xhr.status === 422 &&
+                                        xhr.responseJSON?.message
+                                    ) {
+                                        errorMsg = xhr.responseJSON.message;
+                                    }
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Erreur",
+                                        text: errorMsg,
+                                        confirmButtonColor: "#EC281C",
+                                    });
+                                },
+                                complete: function () {
+                                    $button
+                                        .prop("disabled", false)
+                                        .text("S'inscrire");
+                                },
+                            });
+                        });
+                    }
+                },
+            });
+
+            // Marque le popup comme vu pour cette session
+            sessionStorage.setItem("popupShown", "true");
+        }
+    });
 })(jQuery);

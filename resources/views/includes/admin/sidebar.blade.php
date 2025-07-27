@@ -111,7 +111,7 @@
             <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="mdi:map-marker-outline" class="menu-icon"></iconify-icon>
-                    <span>Localisation agence</span>
+                    <span>Agences</span>
                 </a>
                 <ul class="sidebar-submenu">
                     <li>

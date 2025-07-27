@@ -7,20 +7,22 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobOfferController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ViewsController;
 use App\Http\Controllers\LocalityController;
 
+use App\Http\Middleware\LogVisitor;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 
+Route::middleware([LogVisitor::class])->group(function () {
 
-/// ------------- Views ---------------
+    /// ------------- Views ---------------
+    Route::get('/', [ViewsController::class, 'index'])->name('index');
+});
 
-Route::get('/', [ViewsController::class, 'index'])->name('index');
 Route::get('/admin', [ViewsController::class, 'login'])->name('login');
-
-
 
 // --------------- Blog Details -----------------
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
@@ -36,9 +38,12 @@ Route::post('/create-account/physical/processing', [AccountController::class, 's
 Route::post('/create-account/moral/processing', [AccountController::class, 'storeMoral'])->name('account.store.moral');
 
 Route::get('/career', [ViewsController::class, 'job'])->name('career');
+Route::get('/career/details/{id}', [JobController::class, 'show'])->name('career.details');
 Route::post('/career/apply', [JobController::class, 'store'])->name('career.apply');
+Route::post('/career/apply/{id}', [JobController::class, 'applyOffer'])->name('career.apply.offer');
 Route::get('/products', [ViewsController::class, 'products'])->name('products');
 Route::get('/contact', [ViewsController::class, 'contact'])->name('contact');
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 // Route::get('/admin/blogs/create', [BlogController::class,'create'])->name('admin.blogs.create');
 
@@ -110,6 +115,3 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 /// Processing Routes 
 
 Route::post('/login/processing', [AuthController::class, 'login'])->name('login.process');
-
-
-

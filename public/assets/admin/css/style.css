@@ -170,6 +170,8 @@
   --primary-700: #486CEA;
   --primary-800: #4759D6;
   --primary-900: #4536B6; */
+      --primary-color: #ec281c;
+    --secondary-color: #d3a400;
 
   --primary-50: #FDE9E8;
   --primary-100: #F9C5C2;
@@ -389,7 +391,7 @@ html {
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var(--bg-color) !important;
   color: var(--text-secondary-light);
   font-family: "Inter", sans-serif;
   font-size: 1rem;
@@ -678,6 +680,11 @@ th {
 /* === reset css end === */
 /* === reset css end === */
 /* === color css start === */
+.justify-center{
+  justify-content: center;
+}
+
+
 .text-primary-50 {
   color: var(--primary-50) !important;
 }
@@ -12918,6 +12925,12 @@ select option {
   padding: 0.875rem 1.5rem;
   color: var(--text-secondary-light);
 }
+.announcement-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 
 .left-line::before {
   position: absolute;
@@ -15633,5 +15646,69 @@ td.fc-header-center {
     opacity: 0;
     display: none !important;
 }
+
+
+/* Site Preloader */
+#preloader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: var(--secondary-color);
+    z-index: 999;
+}
+
+.loading {
+    left: 50%;
+    top: 50%;
+    font-size: 100px;
+    font-family: var(--bz-ff-heading);
+    font-weight: bold;
+    text-transform: uppercase;
+    position: absolute;
+    overflow: hidden;
+    -webkit-transform: translate(-50%, -60%);
+    transform: translate(-50%, -60%);
+}
+
+@media only screen and (max-width: 767px) {
+    .loading {
+        font-size: 50px;
+    }
+}
+.loading:before {
+    color: #333;
+    content: attr(data-loading-text);
+}
+.loading:after {
+    top: 0;
+    left: 0;
+    width: 0;
+    opacity: 1;
+    color: var(--primary-color);
+    overflow: hidden;
+    position: absolute;
+    content: attr(data-loading-text);
+    -webkit-animation: loading 6s infinite;
+    animation: loading 6s infinite;
+}
+@-webkit-keyframes loading {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+@keyframes loading {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
 
 /* === Loading css end === */

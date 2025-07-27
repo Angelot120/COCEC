@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="{{ asset('assets/main/css/swiper.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/main/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/main/css/main.css') }}">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <title>COCEC</title>
 </head>
 
@@ -33,7 +36,7 @@
     <script src="{{ asset('assets/main/js/vendor/jquary-3.6.0.min.js') }}"></script>
 
     @yield('js')
-    
+
     <script src="{{ asset('assets/main/js/vendor/bootstrap-bundle.js') }}"></script>
     <script src="{{ asset('assets/main/js/vendor/imagesloaded-pkgd.js') }}"></script>
     <script src="{{ asset('assets/main/js/vendor/waypoints.min.js') }}"></script>
@@ -55,7 +58,8 @@
     <script src="{{ asset('assets/main/js/contact.js') }}"></script>
     <script src="{{ asset('assets/main/js/main.js') }}"></script>
 
-
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

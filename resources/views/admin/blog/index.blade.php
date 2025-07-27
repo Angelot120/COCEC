@@ -4,6 +4,7 @@
 @include('includes.admin.sidebar')
 <main class="dashboard-main">
     @include('includes.admin.appbar')
+    @include('includes.main.loading')
 
     <div class="dashboard-main-body">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
@@ -100,7 +101,7 @@
             @endforeach
         </div>
 
-       
+
 
         <!-- Edit Blog Modal -->
         <div class="modal fade" id="editBlogModal" tabindex="-1" aria-labelledby="editBlogModalLabel" aria-hidden="true">

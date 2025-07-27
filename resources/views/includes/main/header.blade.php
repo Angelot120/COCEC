@@ -6,15 +6,20 @@
                     <div class="top-bar-inner">
                         <ul class="top-bar-list">
                             <li><i class="fa-sharp fa-regular fa-phone"></i><a href="tel:+22822270551">(+228) 22 27 05 51</a></li>
-                            <li><i class="fa-sharp fa-regular fa-location-dot"></i><span>KANYIKOPE près du Lycée FOLLY-BEBE en allant vers KAGOME</span></li>
+                            <li><i class="fa-sharp fa-regular fa-location-dot"></i><span>KANYIKOPE près du Lycée FOLLY-BEBE</span></li>
                             <li><i class="fa-sharp fa-regular fa-envelope"></i><a href="mailto:cocec@cocectogo.org">cocec@cocectogo.org</a></li>
                         </ul>
                         <ul class="social-list">
-                            <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-behance"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                            <li>
+                                <a href="https://www.facebook.com/COCEC-105458737978835" target="_blank">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://wa.me/22891126471" target="_blank">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -59,7 +64,8 @@
                                                 <li><a href="{{ route('career') }}">Carrière & Emploi</a></li>
                                                 <li><a href="{{ route('about')}}">À propos</a></li>
                                                 <li><a href="{{ route('main.finance')}}">Finance Digitale</a></li>
-                                                <li><a href="{{ route('main.faq') }}">Faq</a></li>                                            </ul>
+                                                <li><a href="{{ route('main.faq') }}">Faq</a></li>
+                                            </ul>
                                         </li>
                                     </ul>
                                 </div>
