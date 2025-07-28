@@ -1,4 +1,3 @@
-```blade
 @extends('layout.admin')
 
 @section('css')
@@ -58,14 +57,14 @@
             </div>
             <div class="col-md-6">
                 <label for="latitude" class="form-label">Latitude</label>
-                <input type="number" step="any" name="latitude" id="latitude" class="form-control @error('latitude') is-invalid @enderror" value="{{ old('latitude', 0) }}" required>
+                <input type="number" step="any" name="latitude" id="latitude" class="form-control @error('latitude') is-invalid @enderror" value="{{ old('latitude', 8.6195) }}" required>
                 @error('latitude')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="col-md-6">
                 <label for="longitude" class="form-label">Longitude</label>
-                <input type="number" step="any" name="longitude" id="longitude" class="form-control @error('longitude') is-invalid @enderror" value="{{ old('longitude', 0) }}" required>
+                <input type="number" step="any" name="longitude" id="longitude" class="form-control @error('longitude') is-invalid @enderror" value="{{ old('longitude', 0.8248) }}" required>
                 @error('longitude')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -112,56 +111,56 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialisation de la carte
-        var map = L.map('map').setView([{
-            {
-                old('latitude', 0)
-            }
-        }, {
-            {
-                old('longitude', 0)
-            }
-        }], {
-            {
-                old('latitude') && old('longitude') ? 13 : 2
-            }
-        });
+        // Coordonnées par défaut du Togo (Lomé)
+        const defaultLat = 6.1375;
+        const defaultLng = 1.2123;
+        
+        // Récupérer les valeurs de latitude et longitude avec les valeurs par défaut du Togo
+        const latitude = parseFloat('<?php echo e(old('latitude', 6.1375)); ?>') || defaultLat;
+        const longitude = parseFloat('<?php echo e(old('longitude', 1.2123)); ?>') || defaultLng;
+        const hasValidCoords = !isNaN(latitude) && !isNaN(longitude) && latitude >= -90 && latitude <= 90 && longitude >= -180 && longitude <= 180;
+
+        // Initialisation de la carte centrée sur le Togo
+        const map = L.map('map').setView([latitude, longitude], hasValidCoords ? 10 : 7);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
         // Initialisation du marqueur
-        var marker = L.marker([{
-            {
-                old('latitude', 0)
-            }
-        }, {
-            {
-                old('longitude', 0)
-            }
-        }]).addTo(map);
+        const marker = L.marker([latitude, longitude]).addTo(map);
 
         // Mise à jour des champs lors d'un clic sur la carte
         map.on('click', function(e) {
             marker.setLatLng(e.latlng);
-            document.getElementById('latitude').value = e.latlng.lat;
-            document.getElementById('longitude').value = e.latlng.lng;
-            map.setView(e.latlng, 13);
+            const latitudeInput = document.getElementById('latitude');
+            const longitudeInput = document.getElementById('longitude');
+            if (latitudeInput && longitudeInput) {
+                latitudeInput.value = e.latlng.lat.toFixed(6);
+                longitudeInput.value = e.latlng.lng.toFixed(6);
+                map.setView(e.latlng, 13);
+            }
         });
 
         // Mise à jour du marqueur lors de la modification manuelle des champs
         function updateMarker() {
-            var lat = parseFloat(document.getElementById('latitude').value);
-            var lng = parseFloat(document.getElementById('longitude').value);
-            if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
-                marker.setLatLng([lat, lng]);
-                map.setView([lat, lng], 13);
+            const latitudeInput = document.getElementById('latitude');
+            const longitudeInput = document.getElementById('longitude');
+            if (latitudeInput && longitudeInput) {
+                const lat = parseFloat(latitudeInput.value);
+                const lng = parseFloat(longitudeInput.value);
+                if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+                    marker.setLatLng([lat, lng]);
+                    map.setView([lat, lng], 13);
+                }
             }
         }
 
-        document.getElementById('latitude').addEventListener('input', updateMarker);
-        document.getElementById('longitude').addEventListener('input', updateMarker);
+        const latitudeInput = document.getElementById('latitude');
+        const longitudeInput = document.getElementById('longitude');
+        if (latitudeInput && longitudeInput) {
+            latitudeInput.addEventListener('input', updateMarker);
+            longitudeInput.addEventListener('input', updateMarker);
+        }
     });
 </script>
 @endsection
-```

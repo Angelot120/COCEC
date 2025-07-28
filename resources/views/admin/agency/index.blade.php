@@ -281,13 +281,17 @@
 
         // Initialisation de la carte principale
         if (document.getElementById('map')) {
-            mainMap = L.map('map').setView([0, 0], 2);
+            // Coordonnées par défaut du Togo (Lomé)
+            const defaultLat = 6.1375;
+            const defaultLng = 1.2123;
+            
+            mainMap = L.map('map').setView([defaultLat, defaultLng], 8);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(mainMap);
 
             // Récupération des données des agences
-            var agencies = @json($agencies - > items());
+            var agencies = @json($agencies->items());
             console.log('Agences:', agencies);
 
             // Ajout des marqueurs pour chaque agence avec validation
@@ -315,9 +319,14 @@
                     } else {
                         mainMap.fitBounds(validMarkers);
                     }
+                } else {
+                    // Aucun marqueur valide, garder la vue par défaut sur le Togo
+                    mainMap.setView([defaultLat, defaultLng], 8);
                 }
             } else {
                 console.log('Aucune agence à afficher ou données invalides.');
+                // Garder la vue par défaut sur le Togo
+                mainMap.setView([defaultLat, defaultLng], 8);
             }
         }
 
@@ -326,156 +335,52 @@
             @foreach($agencies as $agency)
             // Carte de visualisation
             if (document.getElementById('view-map-{{ $agency->id }}')) {
-                if (viewMaps[{
-                        {
-                            $agency - > id
-                        }
-                    }]) {
-                    viewMaps[{
-                        {
-                            $agency - > id
-                        }
-                    }].remove();
+                if (viewMaps[{{ $agency->id }}]) {
+                    viewMaps[{{ $agency->id }}].remove();
                 }
-                viewMaps[{
-                    {
-                        $agency - > id
-                    }
-                }] = L.map('view-map-{{ $agency->id }}').setView([{
-                    {
-                        $agency - > latitude
-                    }
-                }, {
-                    {
-                        $agency - > longitude
-                    }
-                }], 13);
+                viewMaps[{{ $agency->id }}] = L.map('view-map-{{ $agency->id }}').setView([{{ $agency->latitude }}, {{ $agency->longitude }}], 13);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap contributors'
-                }).addTo(viewMaps[{
-                    {
-                        $agency - > id
-                    }
-                }]);
-                L.marker([{
-                        {
-                            $agency - > latitude
-                        }
-                    }, {
-                        {
-                            $agency - > longitude
-                        }
-                    }])
-                    .addTo(viewMaps[{
-                        {
-                            $agency - > id
-                        }
-                    }])
+                }).addTo(viewMaps[{{ $agency->id }}]);
+                L.marker([{{ $agency->latitude }}, {{ $agency->longitude }}])
+                    .addTo(viewMaps[{{ $agency->id }}])
                     .bindPopup('<b>{{ addslashes($agency->name) }}</b><br>{{ addslashes($agency->address) }}<br>Tél: {{ $agency->phone }}')
                     .openPopup();
             }
 
             // Carte de modification
             if (document.getElementById('edit-map-{{ $agency->id }}')) {
-                if (editMaps[{
-                        {
-                            $agency - > id
-                        }
-                    }]) {
-                    editMaps[{
-                        {
-                            $agency - > id
-                        }
-                    }].remove();
+                if (editMaps[{{ $agency->id }}]) {
+                    editMaps[{{ $agency->id }}].remove();
                 }
-                editMaps[{
-                    {
-                        $agency - > id
-                    }
-                }] = L.map('edit-map-{{ $agency->id }}').setView([{
-                    {
-                        old('latitude', $agency - > latitude)
-                    }
-                }, {
-                    {
-                        old('longitude', $agency - > longitude)
-                    }
-                }], 13);
+                editMaps[{{ $agency->id }}] = L.map('edit-map-{{ $agency->id }}').setView([{{ old('latitude', $agency->latitude) }}, {{ old('longitude', $agency->longitude) }}], 13);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap contributors'
-                }).addTo(editMaps[{
-                    {
-                        $agency - > id
-                    }
-                }]);
+                }).addTo(editMaps[{{ $agency->id }}]);
 
-                editMarkers[{
-                        {
-                            $agency - > id
-                        }
-                    }] = L.marker([{
-                        {
-                            old('latitude', $agency - > latitude)
-                        }
-                    }, {
-                        {
-                            old('longitude', $agency - > longitude)
-                        }
-                    }])
-                    .addTo(editMaps[{
-                        {
-                            $agency - > id
-                        }
-                    }]);
+                editMarkers[{{ $agency->id }}] = L.marker([{{ old('latitude', $agency->latitude) }}, {{ old('longitude', $agency->longitude) }}])
+                    .addTo(editMaps[{{ $agency->id }}]);
 
                 // Événement de clic sur la carte
-                editMaps[{
-                    {
-                        $agency - > id
-                    }
-                }].on('click', function(e) {
-                    editMarkers[{
-                        {
-                            $agency - > id
-                        }
-                    }].setLatLng(e.latlng);
+                editMaps[{{ $agency->id }}].on('click', function(e) {
+                    editMarkers[{{ $agency->id }}].setLatLng(e.latlng);
                     document.getElementById('latitude{{ $agency->id }}').value = e.latlng.lat.toFixed(6);
                     document.getElementById('longitude{{ $agency->id }}').value = e.latlng.lng.toFixed(6);
                 });
 
-                // Fonction de mise à jour du marqueur
-                function updateMarker {
-                    {
-                        $agency - > id
-                    }
-                }() {
+                // Fonction de mise à jour du marqueur pour cette agence
+                function updateMarker{{ $agency->id }}() {
                     var lat = parseFloat(document.getElementById('latitude{{ $agency->id }}').value);
                     var lng = parseFloat(document.getElementById('longitude{{ $agency->id }}').value);
                     if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
-                        editMarkers[{
-                            {
-                                $agency - > id
-                            }
-                        }].setLatLng([lat, lng]);
-                        editMaps[{
-                            {
-                                $agency - > id
-                            }
-                        }].setView([lat, lng], 13);
+                        editMarkers[{{ $agency->id }}].setLatLng([lat, lng]);
+                        editMaps[{{ $agency->id }}].setView([lat, lng], 13);
                     }
                 }
 
                 // Écouteurs d'événements pour les champs de coordonnées
-                document.getElementById('latitude{{ $agency->id }}').addEventListener('input', updateMarker {
-                    {
-                        $agency - > id
-                    }
-                });
-                document.getElementById('longitude{{ $agency->id }}').addEventListener('input', updateMarker {
-                    {
-                        $agency - > id
-                    }
-                });
+                document.getElementById('latitude{{ $agency->id }}').addEventListener('input', updateMarker{{ $agency->id }});
+                document.getElementById('longitude{{ $agency->id }}').addEventListener('input', updateMarker{{ $agency->id }});
             }
             @endforeach
         }
@@ -485,16 +390,8 @@
         // Modal de visualisation
         document.getElementById('viewAgencyModal{{ $agency->id }}').addEventListener('shown.bs.modal', function() {
             setTimeout(function() {
-                if (viewMaps[{
-                        {
-                            $agency - > id
-                        }
-                    }]) {
-                    viewMaps[{
-                        {
-                            $agency - > id
-                        }
-                    }].invalidateSize();
+                if (viewMaps[{{ $agency->id }}]) {
+                    viewMaps[{{ $agency->id }}].invalidateSize();
                 }
             }, 100);
         });
@@ -502,16 +399,8 @@
         // Modal de modification
         document.getElementById('editAgencyModal{{ $agency->id }}').addEventListener('shown.bs.modal', function() {
             setTimeout(function() {
-                if (editMaps[{
-                        {
-                            $agency - > id
-                        }
-                    }]) {
-                    editMaps[{
-                        {
-                            $agency - > id
-                        }
-                    }].invalidateSize();
+                if (editMaps[{{ $agency->id }}]) {
+                    editMaps[{{ $agency->id }}].invalidateSize();
                 }
             }, 100);
         });
@@ -532,8 +421,7 @@
 
         // Ouvre le modal de modification si des erreurs existent
         @if(session('edit_agency_id'))
-        const modal = new bootstrap.Modal(document.getElementById('editAgencyModal{{ session('
-            edit_agency_id ') }}'), {
+        const modal = new bootstrap.Modal(document.getElementById('editAgencyModal{{ session('edit_agency_id') }}'), {
             backdrop: 'static',
             keyboard: false
         });
