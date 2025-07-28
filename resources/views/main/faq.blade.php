@@ -16,10 +16,16 @@
         font-family: var(--font-family);
     }
 
+    .page-header-pro,
+    .faq-pro-section,
+    .community-section,
+    .faq-contact-wrapper {
+        box-sizing: border-box;
+    }
+
     /* === STYLES DE LA PAGE FAQ === */
     .faq-pro-section {
         padding: 100px 0 0 0;
-        /* Réduction du padding bas pour lier avec la section suivante */
         background-color: #FFFFFF;
     }
 
@@ -251,6 +257,11 @@
         transform: translateY(-2px);
     }
 
+    .btn-submit-comment:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
     .comments-list-wrapper .list-title {
         font-size: 1.8rem;
         font-weight: 600;
@@ -268,21 +279,7 @@
 
     .comment-item {
         display: flex;
-        gap: 20px;
-    }
-
-    .comment-avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        overflow: hidden;
-        flex-shrink: 0;
-    }
-
-    .comment-avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        gap: 0;
     }
 
     .comment-content {
@@ -324,6 +321,13 @@
         margin: 0;
     }
 
+    .comment-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-top: 10px;
+    }
+
     .comment-reply-btn {
         background: none;
         border: none;
@@ -331,11 +335,30 @@
         font-weight: 600;
         cursor: pointer;
         padding: 5px 0;
-        margin-top: 10px;
         font-size: 0.9rem;
     }
 
     .comment-reply-btn i {
+        margin-right: 5px;
+    }
+
+    .comment-delete-btn {
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        font-weight: 600;
+        cursor: pointer;
+        padding: 5px 0;
+        font-size: 0.9rem;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+
+    .comment-delete-btn:hover {
+        opacity: 1;
+    }
+
+    .comment-delete-btn i {
         margin-right: 5px;
     }
 
@@ -346,13 +369,31 @@
         border-left: 2px solid var(--border-color);
     }
 
-    /* --- Section Contact (déplacée en bas) --- */
+    .reply-form-wrapper {
+        display: none;
+        margin-top: 20px;
+    }
+
+    .form-control-pro.is-invalid {
+        border-color: var(--primary-color);
+    }
+
+    .invalid-feedback {
+        display: none;
+        color: var(--primary-color);
+        font-size: 0.875em;
+        margin-top: 5px;
+    }
+
+    .is-invalid~.invalid-feedback {
+        display: block;
+    }
+
     .faq-contact-wrapper {
         padding-top: 80px;
         background: #FFFFFF;
     }
 
-    /* Nouveau conteneur pour le contact */
     .faq-contact-section {
         padding: 40px;
         background: var(--dark-charcoal);
@@ -369,7 +410,7 @@
     }
 
     .faq-contact-section p {
-        color: var(--subtle-text, #A0AEC0);
+        color: #A0AEC0;
         margin-bottom: 25px;
     }
 
@@ -404,6 +445,12 @@
             justify-content: center;
         }
     }
+
+    @media (max-width: 767px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 @endsection
 
@@ -413,7 +460,6 @@
     @include('includes.main.loading')
     @include('includes.main.header')
 
-    {{-- En-tête de page --}}
     <section class="page-header-pro">
         <div class="page-header-overlay"></div>
         <div class="container">
@@ -428,28 +474,22 @@
             </div>
         </div>
     </section>
-    <!-- ./ page-header -->
 
-    {{-- Section FAQ --}}
     <section class="faq-pro-section">
         <div class="container">
             <div class="section-heading text-center" data-aos="fade-up">
                 <h4 class="sub-heading">Aide & Support</h4>
                 <h2 class="section-title">Réponses à vos Questions</h2>
-                <p class="lead">Parcourez nos catégories pour trouver rapidement les informations dont vous avez besoin sur nos services et procédures.</p>
+                <p class="lead">Parcourez nos catégories pour trouver rapidement les informations dont vous avez besoin.</p>
             </div>
-
             <div class="faq-layout">
                 <aside class="faq-categories-list" data-aos="fade-right">
-                    {{-- Navigation des catégories --}}
                     <div class="faq-category-item active" data-category="tous"><i class="fas fa-globe-americas"></i><span>Toutes les questions</span></div>
                     <div class="faq-category-item" data-category="general"><i class="fas fa-info-circle"></i><span>Général</span></div>
                     <div class="faq-category-item" data-category="comptes"><i class="fas fa-wallet"></i><span>Comptes & Crédits</span></div>
                     <div class="faq-category-item" data-category="digital"><i class="fas fa-mobile-alt"></i><span>Services Digitaux</span></div>
                 </aside>
-
                 <main class="faq-accordion-container" data-aos="fade-left" data-aos-delay="200">
-                    {{-- Accordéon des questions --}}
                     <div class="faq-item-pro" data-category="general">
                         <div class="faq-question-pro"><span>Qu'est-ce que la COCEC ?</span>
                             <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
@@ -504,7 +544,6 @@
             </div>
         </div>
     </section>
-
     <br><br>
 
     <section class="community-section">
@@ -512,78 +551,95 @@
             <div class="community-wrapper">
                 <div class="section-heading text-center" data-aos="fade-up">
                     <h2 class="section-title">Avis & Questions des Membres</h2>
-                    <p class="lead">Lisez les témoignages de nos membres ou posez une question que notre FAQ ne couvre pas.</p>
+                    <p class="lead">Posez une question ou partagez votre expérience.</p>
                 </div>
 
-                <!-- Formulaire -->
                 <div class="comment-form-wrapper" data-aos="fade-up">
                     <h3 class="form-title">Exprimez-vous</h3>
-                    <form action="#" method="POST">
+                    <form id="main-comment-form" action="{{ route('faq.comments.store') }}" method="POST" novalidate>
+                        @csrf
                         <div class="form-grid">
-                            <div class="form-group"><label for="comment-name" class="form-label">Votre Nom</label><input type="text" id="comment-name" class="form-control-pro" required></div>
-                            <div class="form-group"><label for="comment-email" class="form-label">Votre Email</label><input type="email" id="comment-email" class="form-control-pro" required></div>
+                            <div class="form-group"><label for="comment-name" class="form-label">Votre Nom</label><input type="text" id="comment-name" name="name" class="form-control-pro" required value="{{ auth()->user()->name ?? '' }}">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group"><label for="comment-email" class="form-label">Votre Email</label><input type="email" id="comment-email" name="email" class="form-control-pro" required value="{{ auth()->user()->email ?? '' }}">
+                                <div class="invalid-feedback"></div>
+                            </div>
                         </div>
-                        <div class="form-group full-width"><label for="comment-message" class="form-label">Votre Question ou Avis</label><textarea id="comment-message" class="form-control-pro" placeholder="Posez votre question ou laissez un avis..." required></textarea></div>
+                        <div class="form-group full-width"><label for="comment-message" class="form-label">Votre Question ou Avis</label><textarea id="comment-message" name="body" class="form-control-pro" placeholder="Posez votre question ou laissez un avis..." required></textarea>
+                            <div class="invalid-feedback"></div>
+                        </div>
                         <button type="submit" class="btn-submit-comment"><i class="fas fa-paper-plane"></i><span>Soumettre</span></button>
                     </form>
                 </div>
 
-                <!-- Liste des Avis & Questions -->
                 <div class="comments-list-wrapper" data-aos="fade-up" data-aos-delay="100">
                     <h3 class="list-title">Discussions Récentes</h3>
                     <ol class="comments-list">
-                        <!-- Avis Client -->
-                        <li class="comment-item">
-                            <div class="comment-avatar"><img src="https://i.pravatar.cc/100?u=marie" alt="Avatar"></div>
+                        @forelse ($comments as $comment)
+                        <li class="comment-item" id="comment-{{ $comment->id }}">
                             <div class="comment-content">
-                                <div class="comment-header"><span class="comment-author">Marie Claire</span><span class="comment-date">Il y a 1 jour</span></div>
+                                <div class="comment-header"><span class="comment-author">{{ $comment->name }} @if ($comment->user && $comment->user->is_admin)<span class="support-tag">Officiel</span>@endif</span><span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span></div>
                                 <div class="comment-body">
-                                    <p>Très satisfaite du service ! J'ai ouvert un compte épargne projet et l'accompagnement est excellent. C'est bien plus qu'une simple institution financière.</p>
+                                    <p>{{ $comment->body }}</p>
                                 </div>
-                                <button class="comment-reply-btn"><i class="fas fa-reply"></i> Répondre</button>
-                            </div>
-                        </li>
-                        <!-- Question et Réponse -->
-                        <li class="comment-item">
-                            <div class="comment-avatar"><img src="https://i.pravatar.cc/100?u=ahmed" alt="Avatar"></div>
-                            <div class="comment-content">
-                                <div class="comment-header"><span class="comment-author">Ahmed Diallo</span><span class="comment-date">Il y a 3 jours</span></div>
-                                <div class="comment-body">
-                                    <p>Bonjour, est-il possible d'obtenir un crédit pour l'achat de matériel agricole ? Je ne vois pas cette option dans la FAQ. Merci.</p>
+                                <div class="comment-actions">
+                                    @auth
+                                    <button class="comment-reply-btn" data-comment-id="{{ $comment->id }}"><i class="fas fa-reply"></i> Répondre</button>
+                                    @if (Auth::user()->is_admin || Auth::id() == $comment->user_id)
+                                    <button class="comment-delete-btn" data-comment-id="{{ $comment->id }}" data-delete-url="{{ route('faq.comments.destroy', $comment) }}" data-csrf="{{ csrf_token() }}"><i class="fas fa-trash"></i> Supprimer</button>
+                                    @endif
+                                    @endauth
                                 </div>
-                                <button class="comment-reply-btn"><i class="fas fa-reply"></i> Répondre</button>
+                                <div class="reply-form-wrapper" id="reply-form-{{ $comment->id }}">
+                                    <form class="reply-form" action="{{ route('faq.comments.store') }}" method="POST" novalidate>@csrf<input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                                        <div class="form-group"><textarea name="body" class="form-control-pro" rows="3" placeholder="Écrivez votre réponse à {{ $comment->name }}..." required></textarea>
+                                            <div class="invalid-feedback"></div>
+                                        </div><button type="submit" class="btn-submit-comment"><span>Répondre</span></button>
+                                    </form>
+                                </div>
+                                @if ($comment->replies->isNotEmpty())
                                 <ol class="comment-replies">
-                                    <li class="comment-item">
-                                        <div class="comment-avatar"><img src="{{-- Chemin vers le logo COCEC --}}" alt="Avatar Support"></div>
+                                    @foreach ($comment->replies as $reply)
+                                    <li class="comment-item" id="comment-{{ $reply->id }}">
                                         <div class="comment-content">
-                                            <div class="comment-header"><span class="comment-author">Support COCEC <span class="support-tag">Officiel</span></span><span class="comment-date">Il y a 3 jours</span></div>
+                                            <div class="comment-header"><span class="comment-author">{{ $reply->name }} @if ($reply->user && $reply->user->is_admin)<span class="support-tag">Officiel</span>@endif</span><span class="comment-date">{{ $reply->created_at->diffForHumans() }}</span></div>
                                             <div class="comment-body">
-                                                <p>Bonjour Ahmed, absolument. Nous proposons des crédits adaptés au secteur agricole. Nous vous invitons à vous rapprocher de votre agence la plus proche pour discuter de votre projet avec un conseiller. Excellente journée !</p>
+                                                <p>{{ $reply->body }}</p>
                                             </div>
-                                            <button class="comment-reply-btn"><i class="fas fa-reply"></i> Répondre</button>
+                                            <div class="comment-actions">
+                                                @auth
+                                                <button class="comment-reply-btn" data-comment-id="{{ $comment->id }}"><i class="fas fa-reply"></i> Répondre</button>
+                                                @if (Auth::user()->is_admin || Auth::id() == $reply->user_id)
+                                                <button class="comment-delete-btn" data-comment-id="{{ $reply->id }}" data-delete-url="{{ route('faq.comments.destroy', $reply) }}" data-csrf="{{ csrf_token() }}"><i class="fas fa-trash"></i> Supprimer</button>
+                                                @endif
+                                                @endauth
+                                            </div>
                                         </div>
                                     </li>
+                                    @endforeach
                                 </ol>
+                                @endif
                             </div>
                         </li>
+                        @empty
+                        <p class="text-center text-muted">Soyez la première personne à poser une question ou à laisser un avis !</p>
+                        @endforelse
                     </ol>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- Section Contact (Maintenant à la fin) --}}
     <div class="faq-contact-wrapper">
         <div class="container" data-aos="fade-up">
             <div class="faq-contact-section">
                 <h3>Vous ne trouvez pas votre réponse ?</h3>
-                <p>Notre équipe est là pour vous aider. N'hésitez pas à nous contacter directement.</p>
-                <a href="{{ route('contact') }}" class="btn-contact-faq">Nous Contacter</a>
+                <p>Notre équipe est là pour vous aider.</p><a href="{{ route('contact') }}" class="btn-contact-faq">Nous Contacter</a>
             </div>
         </div>
     </div>
     <br>
-
 
     @include('includes.main.scroll')
     @include('includes.main.footer')
@@ -593,40 +649,164 @@
 @section('js')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // ===================================
+        // JS POUR L'ACCORDÉON FAQ (RESTAURÉ)
+        // ===================================
         const faqSection = document.querySelector('.faq-pro-section');
-        if (!faqSection) return;
-
-        const categoryItems = faqSection.querySelectorAll('.faq-category-item');
-        const faqItems = faqSection.querySelectorAll('.faq-item-pro');
-
-        categoryItems.forEach(categoryTab => {
-            categoryTab.addEventListener('click', () => {
-                const category = categoryTab.dataset.category;
-                categoryItems.forEach(t => t.classList.remove('active'));
-                categoryTab.classList.add('active');
-                faqItems.forEach(item => {
-                    item.style.display = (category === 'tous' || item.dataset.category === category) ? 'block' : 'none';
+        if (faqSection) {
+            const categoryItems = faqSection.querySelectorAll('.faq-category-item');
+            const faqItems = faqSection.querySelectorAll('.faq-item-pro');
+            categoryItems.forEach(categoryTab => {
+                categoryTab.addEventListener('click', () => {
+                    const category = categoryTab.dataset.category;
+                    categoryItems.forEach(t => t.classList.remove('active'));
+                    categoryTab.classList.add('active');
+                    faqItems.forEach(item => {
+                        item.style.display = (category === 'tous' || item.dataset.category === category) ? 'block' : 'none';
+                    });
                 });
             });
-        });
-
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question-pro');
-            const answer = item.querySelector('.faq-answer-pro');
-            const answerContent = item.querySelector('.faq-answer-content');
-            question.addEventListener('click', () => {
-                const isOpen = item.classList.contains('active');
-                if (isOpen) {
-                    item.classList.remove('active');
-                    answer.style.maxHeight = '0px';
-                    answer.style.paddingBottom = '0px';
-                } else {
-                    item.classList.add('active');
-                    answer.style.maxHeight = answerContent.scrollHeight + 45 + 'px';
-                    answer.style.paddingBottom = '25px';
-                }
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question-pro');
+                const answer = item.querySelector('.faq-answer-pro');
+                const answerContent = item.querySelector('.faq-answer-content');
+                question.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('active');
+                    if (isOpen) {
+                        item.classList.remove('active');
+                        answer.style.maxHeight = '0px';
+                        answer.style.paddingBottom = '0px';
+                    } else {
+                        item.classList.add('active');
+                        answer.style.maxHeight = answerContent.scrollHeight + 45 + 'px';
+                        answer.style.paddingBottom = '25px';
+                    }
+                });
             });
-        });
+        }
+
+        // ===================================
+        // JS POUR LA SECTION DES COMMENTAIRES
+        // ===================================
+        if (window.jQuery) {
+            $(document).ready(function() {
+                // Logique de soumission de formulaire (votre version)
+                function handleFormSubmit(form) {
+                    const $form = $(form);
+                    const $button = $form.find('.btn-submit-comment');
+                    const originalButtonHtml = $button.html();
+                    const csrfToken = $form.find('input[name="_token"]').val();
+                    $.ajax({
+                        url: $form.attr('action'),
+                        method: 'POST',
+                        data: new FormData(form),
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        beforeSend: function() {
+                            $button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Envoi...');
+                            $form.find('.is-invalid').removeClass('is-invalid');
+                            $form.find('.invalid-feedback').text('');
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Succès!',
+                                text: response.message,
+                                timer: 2500,
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => location.reload(), 1500);
+                        },
+                        error: function(jqXHR) {
+                            if (jqXHR.status === 422) {
+                                const errors = jqXHR.responseJSON.errors;
+                                $.each(errors, function(key, value) {
+                                    const field = $form.find('[name="' + key + '"]');
+                                    field.addClass('is-invalid');
+                                    field.closest('.form-group').find('.invalid-feedback').text(value[0]).show();
+                                });
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erreur de validation',
+                                    text: 'Veuillez vérifier les champs du formulaire.'
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oups...',
+                                    text: 'Une erreur inattendue est survenue.'
+                                });
+                            }
+                        },
+                        complete: function() {
+                            $button.prop('disabled', false).html(originalButtonHtml);
+                        }
+                    });
+                }
+                $('#main-comment-form').on('submit', function(e) {
+                    e.preventDefault();
+                    handleFormSubmit(this);
+                });
+                $('.comment-reply-btn').on('click', function() {
+                    const commentId = $(this).data('comment-id');
+                    $('#reply-form-' + commentId).slideToggle();
+                });
+                $('.comments-list').on('submit', '.reply-form', function(e) {
+                    e.preventDefault();
+                    handleFormSubmit(this);
+                });
+
+                // Logique de suppression (votre version)
+                $('.comments-list').on('click', '.comment-delete-btn', function() {
+                    const $button = $(this);
+                    const commentId = $button.data('comment-id');
+                    const deleteUrl = $button.data('delete-url');
+                    const csrfToken = $button.data('csrf');
+                    Swal.fire({
+                        title: 'Êtes-vous sûr ?',
+                        text: "Cette action est irréversible !",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#EC281C',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Oui, supprimer !',
+                        cancelButtonText: 'Annuler'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: deleteUrl,
+                                method: 'DELETE',
+                                headers: {
+                                    'X-CSRF-TOKEN': csrfToken
+                                },
+                                success: function(response) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Supprimé!',
+                                        text: response.message,
+                                        timer: 2000,
+                                        showConfirmButton: false
+                                    });
+                                    $('#comment-' + commentId).fadeOut(500, function() {
+                                        $(this).remove();
+                                    });
+                                },
+                                error: function(jqXHR) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Erreur',
+                                        text: jqXHR.responseJSON?.message || 'Une erreur est survenue.'
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        }
     });
 </script>
 @endsection

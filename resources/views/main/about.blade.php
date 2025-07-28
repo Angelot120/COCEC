@@ -1,22 +1,19 @@
 @extends('layout.main')
 
-
 @section('content')
 
 <body>
     @include('includes.main.loading')
     @include('includes.main.header')
 
-    <!-- Section Héros -->
-
+    <!-- ================================== -->
+    <!--          SECTION HÉROS             -->
+    <!-- ================================== -->
     <section class="page-header-pro">
-        {{-- L'image de fond est appliquée via CSS pour plus de flexibilité --}}
         <div class="page-header-overlay"></div>
         <div class="container">
             <div class="page-header-content-pro" data-aos="fade-up">
-                <h1 class="title-pro">À Propos</h1>
-
-                {{-- Utilisation d'une structure sémantique pour le fil d'Ariane --}}
+                <h1 class="title-pro">Découvrir la COCEC</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb-pro">
                         <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
@@ -26,112 +23,103 @@
             </div>
         </div>
     </section>
-    <!-- ./ page-header -->
 
-    <!-- Section Mot du Directeur -->
-    <section class="director-section page-section">
+    <!-- ================================== -->
+    <!--       SECTION MOT DU DIRECTEUR       -->
+    <!-- ================================== -->
+    <section class="director-section-revisited page-section">
         <div class="container">
-            <div class="director-layout">
-                <div class="director-photo-wrapper" data-aos="fade-right">
-                    {{-- Remplacez par le vrai chemin de l'image du directeur --}}
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1887&auto=format&fit=crop" alt="Photo du Directeur Général">
+            <div class="director-layout-revisited">
+                <div class="director-image-wrapper" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1887&auto=format&fit=crop" alt="Photo du Directeur Général de la COCEC">
                 </div>
-                <div class="director-quote" data-aos="fade-left">
-                    <h3>Le mot du Directeur Général</h3>
-                    <div class="quote-text">
-                        <p>La COCEC, depuis sa création, a placé l’amélioration des conditions de vie au centre de ses stratégies. Notre grand défi est de continuer à proposer des produits innovants à moindre coût, en utilisant les nouvelles technologies pour faire de la COCEC une institution moderne et résolument tournée vers l’avenir. Avec la confiance renouvelée de nos clients et de nos partenaires, nous accomplirons des exploits.</p>
-                    </div>
-                    <div class="director-signature">
-                        <div class="director-name">Nom du Directeur</div>
-                        <div class="director-title">Directeur Général, COCEC</div>
-                    </div>
+                <div class="director-content-card" data-aos="fade-left" data-aos-delay="200">
+                    <h2 class="section-subtitle">Le mot du Directeur Général</h2>
+                    <blockquote>
+                        <p class="text-justify">"
+
+                            La réduction de la pauvreté a toujours été une préoccupation de premier ordre à travers le monde. James D. Wolfensohn disait : « Nous tous à la banque mondiale, nous sommes donnés pour mission de combattre la pauvreté avec passion et conscience professionnelle, et ce combat nous inspire dans notre tâche à chaque instant ». La COCEC aussi depuis sa création en 2001 a placé l’amélioration des conditions de vie de sa population cible au centre de ses stratégies d’intervention. Elle s’est démarquée comme un outil important de lutte efficace contre la pauvreté en offrant des services financiers bien étudiés et adaptés aux besoins de sa population cible. Nous avons reçu et continuons de recevoir des témoignages de personnes qui sont partis de rien et qui aujourd’hui arrivent à subvenir aux besoins de leur famille et à épargner grâce aux services financiers qu’ils ont eu à bénéficier de la COCEC. Notre grand défi est de continuer à proposer à la clientèle des produits innovants à moindre coût adaptés à leurs besoins à travers l’utilisation des nouvelles technologies d’information et de communication et aussi l’amélioration de la qualité des services. L’interconnexion de nos Agences, la collecte tontine par les téléphones portables, le passage d’un système de bases décentralisées à une base consolidée, la migration de notre SIG du client lourd au léger, la digitalisation des opérations avec l’introduction du Mobile Money, du Mobile Banking, du Web banking et des systèmes d’alerte témoignent de la volonté des premiers responsables de faire de la COCEC, une Institution moderne et modèle et résolument tournée vers l’avenir. Je sais une chose, avec Dieu à nos cotés et cette confiance accrue et renouvelée de nos clients ainsi que de nos partenaires que nous accomplirons des exploits.
+
+                            "</p>
+                        <cite>
+                            <span class="director-name">M. Kokou GABIAM</span>
+                            <span class="director-title">Directeur Général, COCEC</span>
+                        </cite>
+                    </blockquote>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section Qui Sommes-Nous, Mission & Vision -->
-    <section class="history-mission-section page-section">
+    <!-- ================================== -->
+    <!--     SECTION PILIERS DE L'IDENTITÉ    -->
+    <!-- ================================== -->
+    <section class="identity-pillars-section page-section-light">
         <div class="container">
-            <div class="history-layout">
-                <div class="history-content" data-aos="fade-up">
-                    <h3 class="section-heading-sm">Notre Histoire, Notre Engagement</h3>
-                    <p>La Coopérative Chrétienne d’Epargne et de Crédit (COCEC), créée en 2001, est un Système Financier Décentralisé agréé, intervenant essentiellement dans la zone Lomé commune et ses environs. Nous offrons nos services à toute personne sans distinction, en poursuivant quatre objectifs principaux :</p>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i>
-                            <div>Collecter l’épargne de nos membres et leur consentir du crédit.</div>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <div>Favoriser la solidarité et la coopération entre les membres.</div>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <div>Promouvoir l’éducation économique, sociale et coopérative.</div>
-                        </li>
-                        <li><i class="fas fa-check-circle"></i>
-                            <div>Accompagner nos clients dans la réalisation de leurs projets.</div>
-                        </li>
-                    </ul>
-                    <p>Nous intervenons dans des domaines variés comme le commerce, l'agriculture, le transport, l'immobilier et bien d'autres, répondant aux besoins de financement des flux commerciaux formels et informels.</p>
-                </div>
-                <div class="mission-vision-stack" data-aos="fade-left">
-                    <div class="mission-vision-box" data-aos="fade-up" data-aos-delay="100">
-                        <h4>Notre Vision</h4>
-                        <p>Devenir une institution de référence au Togo et à l’extérieur en matière de gouvernance, de contrôle et d’offres de produits et services de qualité à moindre coût.</p>
+            <!-- Titre de la section -->
+            <div class="section-header text-center" data-aos="fade-up">
+                <h2 class="section-title">Les Piliers de Notre Identité</h2>
+                <p class="section-intro">Trois engagements qui définissent qui nous sommes, ce que nous visons, et comment nous y parvenons.</p>
+            </div>
+
+            <!-- Le conteneur en grille pour les trois piliers -->
+            <div class="pillars-grid">
+
+                <!-- Pilier 1: Mission -->
+                <div class="pillar-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pillar-icon-wrapper">
+                        <i class="fas fa-bullseye"></i>
                     </div>
-                    <div class="mission-vision-box" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pillar-content">
                         <h4>Notre Mission</h4>
-                        <p>Contribuer à l’amélioration de la qualité de vie en œuvrant à la réduction de la pauvreté par la mise à disposition de services d’épargne et de crédit adaptés et pérennes.</p>
+                        <p class="text-justify">
+                            Elle a l’ambition de contribuer à l’amélioration de la qualité de vie de la ation du Togo en général et de sa population cible en particulier, en œuvrant à la réduction de la pauvreté par la mise à la disposition de ces dernières des services d’épargne et de crédit à la base, adaptés à leurs besoins en veillant à la pérennité de ces services.</p>
                     </div>
                 </div>
+
+                <!-- Pilier 2: Vision -->
+                <div class="pillar-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pillar-icon-wrapper">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="pillar-content">
+                        <h4>Notre Vision</h4>
+                        <p class="text-justify"> La COCEC compte devenir une Institution de référence dans le secteur de la micro finance au Togo et à l’extérieur en matière de bonnes pratiques de gouvernance, de contrôle et d’offres de produits et services de qualité et à moindre coût.</p>
+                    </div>
+                </div>
+
+                <!-- Pilier 3: Valeurs -->
+                <div class="pillar-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="pillar-icon-wrapper">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="pillar-content">
+                        <h4>Nos Valeurs</h4>
+                        <ul class="values-sublist">
+                            <li><i class="fas fa-cross"></i><span><strong>Crainte de Dieu :</strong> Le fondement de notre sagesse.</span></li>
+                            <li><i class="fas fa-praying-hands"></i><span><strong>Foi :</strong> Le moteur de notre ambition.</span></li>
+                            <li><i class="fas fa-users"></i><span><strong>Respect des Membres :</strong> Notre raison d'être.</span></li>
+                            <li><i class="fas fa-star"></i><span><strong>Qualité de Service :</strong> Notre standard d'excellence.</span></li>
+                            <li><i class="fas fa-balance-scale"></i><span><strong>Responsabilité :</strong> Notre engagement de transparence.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Section Nos Valeurs -->
-    <section class="values-section page-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Les Piliers de Notre Action</h2>
-            <div class="values-grid">
-                <div class="value-card-detailed" data-aos="fade-up" data-aos-delay="100">
-                    <div class="value-header"><i class="fas fa-cross value-icon"></i>
-                        <h5 class="value-title">Crainte de Dieu</h5>
-                    </div>
-                    <p class="value-description">Convaincus qu'elle est le commencement de la sagesse, nous nous y attachons fermement pour remplir notre mission.</p>
-                </div>
-                <div class="value-card-detailed" data-aos="fade-up" data-aos-delay="200">
-                    <div class="value-header"><i class="fas fa-praying-hands value-icon"></i>
-                        <h5 class="value-title">Foi</h5>
-                    </div>
-                    <p class="value-description">Par conviction, nous croyons que c’est par la foi en Dieu et en notre travail que notre vision sera réalisée.</p>
-                </div>
-                <div class="value-card-detailed" data-aos="fade-up" data-aos-delay="300">
-                    <div class="value-header"><i class="fas fa-users value-icon"></i>
-                        <h5 class="value-title">Respect des Membres</h5>
-                    </div>
-                    <p class="value-description">Nous n'existons que par nos membres. À ce titre, nous leur devons une pleine considération et un grand respect.</p>
-                </div>
-                <div class="value-card-detailed" data-aos="fade-up" data-aos-delay="400">
-                    <div class="value-header"><i class="fas fa-star value-icon"></i>
-                        <h5 class="value-title">Qualité de Service</h5>
-                    </div>
-                    <p class="value-description">Chacun donne le meilleur de lui-même pour un service efficient, avec honnêteté, intégrité et professionnalisme.</p>
-                </div>
-                <div class="value-card-detailed" data-aos="fade-up" data-aos-delay="500">
-                    <div class="value-header"><i class="fas fa-balance-scale value-icon"></i>
-                        <h5 class="value-title">Responsabilité</h5>
-                    </div>
-                    <p class="value-description">Chaque dirigeant et employé est disposé à rendre compte des ressources et des tâches qui lui sont confiées.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Organigramme -->
+    <!-- ================================== -->
+    <!--        SECTION ORGANIGRAMME          -->
+    <!-- ================================== -->
     <section class="org-chart-section page-section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Notre Structure Organisationnelle</h2>
-            <div class="org-chart-image-wrapper" data-aos="fade-up" data-aos-delay="100">
-                {{-- Remplacez par le chemin de votre image --}}
+            <div class="section-header text-center" data-aos="fade-up">
+                <h2 class="section-title">Notre Structure Organisationnelle</h2>
+                <p class="section-intro">Une organisation claire pour un service efficace.</p>
+            </div>
+            <!-- Le wrapper permet un défilement horizontal sur mobile si l'image est trop large -->
+            <div class="org-chart-wrapper" data-aos="fade-up" data-aos-delay="100">
                 <img src="{{ asset('images/organigramme.png') }}" alt="Organigramme de la COCEC">
             </div>
         </div>

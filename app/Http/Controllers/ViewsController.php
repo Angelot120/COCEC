@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AgencyLocation;
 use App\Models\Announcements;
 use App\Models\Blog;
+use App\Models\FaqComment;
 use App\Models\JobApplication;
 use App\Models\JobOffer;
 use App\Models\NewsletterSubscriber;
@@ -121,7 +122,13 @@ class ViewsController extends Controller
 
     public function faq()
     {
-        return view('main.faq');
+        // On utilise l'eager loading pour éviter le problème N+1
+        $comments = FaqComment::whereNull('parent_id')
+            ->with('user', 'replies.user') // Charge les utilisateurs des commentaires ET des réponses
+            ->latest()
+            ->get();
+
+        return view('main.faq', compact('comments'));
     }
 
     public function contact()

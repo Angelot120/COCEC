@@ -1,259 +1,500 @@
 @extends('layout.main')
 
+{{-- ============================================= --}}
+{{-- SECTION CSS DÉDIÉE À LA PAGE         --}}
+{{-- ============================================= --}}
 @section('css')
 <style>
-    /* Styles généraux */
-    .career-section {
-        padding: 100px 0;
-        background-color: #FFFFFF;
-        font-family: 'Poppins', sans-serif;
+    /* 1. DÉFINITION DES VARIABLES DE COULEURS */
+    :root {
+        --primary-color: #EC281C;
+        --secondary-color: #FFCC00;
+        --text-dark: #212529;
+        --text-light: #6c757d;
+        --bg-light: #f8f9fa;
+        --white: #ffffff;
+        --border-color: #dee2e6;
+        --error-color: #dc3545;
+        /* Couleur standard pour les erreurs */
     }
 
-    .offers-section {
-        padding: 100px 0;
-        background-color: #f7f8fc;
+    /* 2. STYLES GÉNÉRAUX & SECTIONS */
+    .page-section {
+        padding: 80px 0;
     }
 
-    .form-section {
-        padding: 100px 0;
-        background-color: #FFFFFF;
+    .page-section-light {
+        background-color: var(--bg-light);
+        padding: 80px 0;
     }
 
-    .section-heading h2 {
+    .section-header {
+        margin-bottom: 50px;
+    }
+
+    .section-title {
         font-weight: 700;
-        color: #000000;
+        color: var(--text-dark);
     }
 
-    .section-heading p {
-        color: #555;
-        line-height: 1.7;
-        max-width: 700px;
-        margin: 0 auto;
+    .section-subtitle {
+        font-weight: 600;
+        color: var(--secondary-color);
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
-    /* Styles pour les cartes d'offres d'emploi */
-    .job-offer-card {
-        background: #FFFFFF;
+    .section-intro {
+        color: var(--text-light);
+        max-width: 650px;
+        margin: 15px auto 0 auto;
+    }
+
+    /* 3. SECTION D'INTRODUCTION ("Rejoignez-nous") */
+    .career-intro-content h1 {
+        font-weight: 700;
+    }
+
+    .career-intro-image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         border-radius: 12px;
-        padding: 30px;
-        margin-bottom: 30px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-left: 5px solid #EC281C;
-        /* Accent rouge */
-    }
-
-    .job-offer-card:hover {
-        transform: translateY(-8px);
         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     }
 
-    .job-offer-card .job-title {
+    /* 4. CARTES D'OFFRES D'EMPLOI */
+    .job-offer-card-revisited {
+        background: var(--white);
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.07);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .job-offer-card-revisited:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        border-color: var(--primary-color);
+    }
+
+    .job-card-header {
+        padding: 25px 30px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .job-card-header h3 {
         font-size: 1.5rem;
         font-weight: 600;
-        color: #000000;
+        color: var(--text-dark);
         margin-bottom: 10px;
     }
 
-    .job-offer-card .job-description {
-        color: #666;
-        margin-bottom: 20px;
+    .job-meta-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    .job-meta-list i {
+        margin-right: 8px;
+        color: var(--primary-color);
+    }
+
+    .job-card-body {
+        padding: 25px 30px;
+        flex-grow: 1;
+    }
+
+    .job-card-body p {
+        color: #555;
+    }
+
+    .job-card-footer {
+        padding: 20px 30px;
+        background-color: var(--bg-light);
+        border-radius: 0 0 12px 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .job-type-badge {
         display: inline-block;
-        padding: 5px 15px;
+        padding: 6px 15px;
         border-radius: 50px;
-        font-weight: 500;
-        font-size: 0.85rem;
+        font-weight: 600;
+        font-size: 0.8rem;
         text-transform: uppercase;
     }
 
     .job-type-badge.emploi {
-        background-color: #ec281c2a;
-        color: #EC281C;
+        background-color: rgba(236, 40, 28, 0.1);
+        color: var(--primary-color);
     }
 
     .job-type-badge.stage {
-        background-color: #ffcc004a;
-        color: #d3a400;
+        background-color: rgba(255, 204, 0, 0.2);
+        color: #c39a00;
     }
 
-    /* Styles pour le formulaire (réutilisation) */
-    .form-container {
-        max-width: 800px;
+    /* 5. FORMULAIRE DE CANDIDATURE */
+    .application-form-wrapper {
+        background: var(--white);
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+        max-width: 850px;
         margin: 0 auto;
     }
 
-    .input-group-custom {
-        position: relative;
-        margin-bottom: 1.2rem;
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        padding: 12px 15px;
+        transition: border-color 0.3s ease;
     }
 
-    .input-group-custom .form-label {
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(236, 40, 28, 0.15);
+    }
+
+    .form-label {
         font-weight: 500;
-        color: #343a40;
         margin-bottom: 8px;
     }
 
-    .input-group-custom .icon {
-        position: absolute;
-        top: calc(50% + 12px);
-        transform: translateY(-50%);
-        left: 18px;
-        color: #adb5bd;
-        font-size: 1.1rem;
-        transition: color 0.3s ease;
-        pointer-events: none;
-    }
-
-    .input-group-custom .form-control {
-        padding-left: 50px;
+    /* CHAMP D'UPLOAD PERSONNALISÉ */
+    .custom-file-upload {
+        border: 2px dashed var(--border-color);
         border-radius: 8px;
-        border: 1px solid #ced4da;
-        padding-top: 12px;
-        padding-bottom: 12px;
+        padding: 30px;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
     }
 
-    .input-group-custom .form-control:focus+.icon,
-    .input-group-custom:focus-within .icon {
-        color: #EC281C;
+    .custom-file-upload:hover {
+        border-color: var(--primary-color);
+        background-color: #ec281c09;
+    }
+
+    .custom-file-upload .upload-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+    }
+
+    .custom-file-upload .upload-text {
+        color: var(--text-dark);
+        font-weight: 500;
+    }
+
+    .custom-file-upload .upload-hint {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    .custom-file-upload input[type="file"] {
+        display: none;
+    }
+
+    .btn-submit-form {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 12px 40px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 50px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-submit-form:hover {
+        background-color: #c82116;
+        transform: scale(1.05);
+    }
+
+    /* 6. STYLES POUR LA VALIDATION DES ERREURS */
+    .form-control.is-invalid {
+        border-color: var(--error-color);
+    }
+
+    .form-control.is-invalid:focus {
+        box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    }
+
+    .invalid-feedback {
+        display: none;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: .875em;
+        color: var(--error-color);
+    }
+
+    .is-invalid+.invalid-feedback,
+    .is-invalid~.invalid-feedback {
+        display: block;
+    }
+
+    .custom-file-upload.is-invalid {
+        border-color: var(--error-color);
     }
 </style>
 @endsection
 
-@section('content')
 
+@section('content')
 
 <body>
     @include('includes.main.loading')
-    <!-- ./ preloader -->
-
     @include('includes.main.header')
 
-
+    <!-- HERO DE LA PAGE -->
     <section class="page-header-pro">
-        {{-- L'image de fond est appliquée via CSS pour plus de flexibilité --}}
         <div class="page-header-overlay"></div>
         <div class="container">
             <div class="page-header-content-pro" data-aos="fade-up">
-                <h1 class="title-pro">Carrière & Emploi</h1>
-
-                {{-- Utilisation d'une structure sémantique pour le fil d'Ariane --}}
+                <h1 class="title-pro">Carrières</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb-pro">
                         <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Carrière & Emploi</li>
+                        <li class="breadcrumb-item active" aria-current="page">Carrières</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </section>
-    <!-- ./ page-header -->
 
-    <!-- Section Héros -->
-    <section class="career-section text-center">
+    <!-- SECTION D'INTRODUCTION -->
+    <section class="career-intro-section page-section">
         <div class="container">
-            <div class="section-heading">
-                <h4 class="sub-heading"><span class="left-shape"></span>Carrière & Emploi</h4>
-                <h2 class="section-title">Rejoignez Notre Équipe</h2>
-                <p>À la COCEC, nous croyons que notre plus grande force réside dans les personnes qui composent notre équipe. Nous sommes toujours à la recherche de talents passionnés et dévoués pour nous aider à grandir et à mieux servir nos membres.</p>
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="career-intro-content">
+                        <h4 class="section-subtitle">Rejoignez l'aventure</h4>
+                        <h1 class="section-title mb-3">Bâtissez votre avenir avec la COCEC</h1>
+                        <p class="text-secondary text-justify">Nous croyons que notre plus grande force réside dans les personnes qui composent notre équipe. Nous sommes toujours à la recherche de talents passionnés et dévoués pour nous aider à grandir et à mieux servir nos membres.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="career-intro-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2832&auto=format&fit=crop" alt="Équipe dynamique de la COCEC">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Section des Offres d'Emploi -->
-    <section class="offers-section">
+    <!-- SECTION DES OFFRES D'EMPLOI -->
+    <section class="offers-section page-section-light">
         <div class="container">
-            <div class="section-heading text-center mb-5">
-                <h2 class="section-title">Nos Offres Actuelles</h2>
+            <div class="section-header text-center">
+                <h2 class="section-title">Nos Opportunités Actuelles</h2>
             </div>
             <div class="row">
                 @forelse($jobOffers as $offer)
                 <div class="col-md-12">
-                    <div class="job-offer-card d-md-flex justify-content-between align-items-center">
-                        <div>
-                            <span class="job-type-badge mb-2 {{ $offer->type }}">{{ $offer->type }}</span>
-                            <h3 class="job-title">{{ $offer->title }}</h3>
-
-                            {{-- NOUVEL ÉLÉMENT AJOUTÉ --}}
-                            <p class="text-muted small mb-2">
-                                <i class="fas fa-calendar-alt me-2"></i>Publié {{ $offer->created_at->diffForHumans() }}
-                            </p>
-                            {{-- FIN DE L'ÉLÉMENT AJOUTÉ --}}
-
-                            <p class="job-description">{{ \Illuminate\Support\Str::limit($offer->description, 150) }}</p>
+                    <div class="job-offer-card-revisited" data-aos="fade-up">
+                        <div class="job-card-header">
+                            <h3>{{ $offer->title }}</h3>
+                            <div class="job-meta-list">
+                                <span class="job-meta-item"><i class="fas fa-map-marker-alt"></i>Lomé, Togo</span>
+                                <span class="job-meta-item"><i class="fas fa-calendar-alt"></i>Publié {{ $offer->created_at->diffForHumans() }}</span>
+                            </div>
                         </div>
-                        <a href="{{ route('career.details', $offer->id) }}" class="btn btn-primary bz-primary-btn red-btn">Voir l'offre</a>
+                        <div class="job-card-body">
+                            <p>{{ \Illuminate\Support\Str::limit($offer->description, 180) }}</p>
+                        </div>
+                        <div class="job-card-footer">
+                            <span class="job-type-badge {{ $offer->type }}">{{ $offer->type }}</span>
+                            <a href="{{ route('career.details', $offer->id) }}" class="btn btn-primary">Voir les détails</a>
+                        </div>
                     </div>
                 </div>
                 @empty
-                <div class="col-12 text-center">
-                    <p class="lead">Il n'y a aucune offre d'emploi disponible pour le moment. N'hésitez pas à nous envoyer une candidature spontanée !</p>
+                <div class="col-12 text-center" data-aos="fade-up">
+                    {{-- Pensez à ajouter une image SVG ou PNG pertinente dans votre dossier public --}}
+                    {{-- <img src="{{ asset('images/no-offers.svg') }}" alt="Aucune offre" style="max-width: 200px; margin-bottom: 20px;"> --}}
+                    <h4 class="mb-3">Aucune offre disponible pour le moment</h4>
+                    <p class="lead text-secondary">Revenez bientôt ou envoyez-nous une candidature spontanée ci-dessous.</p>
                 </div>
                 @endforelse
             </div>
         </div>
     </section>
 
-    <!-- Section du Formulaire de Candidature Spontanée -->
-    <section class="form-section">
+    <!-- SECTION FORMULAIRE DE CANDIDATURE SPONTANÉE -->
+    <section class="form-section page-section">
         <div class="container">
-            <div class="section-heading text-center mb-5">
+            <div class="section-header text-center">
                 <h2 class="section-title">Candidature Spontanée</h2>
-                <p>Aucune offre ne correspond à votre profil ? Envoyez-nous votre candidature et nous vous contacterons si une opportunité se présente.</p>
+                <p class="section-intro">Aucune offre ne vous correspond ? Prenez l'initiative ! Nous sommes toujours intéressés par des profils exceptionnels.</p>
             </div>
 
-            <div class="form-container">
-                @if(session('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-                @endif
-
-                <form action="{{ route('career.apply') }}" method="POST" enctype="multipart/form-data">
+            <div class="application-form-wrapper" data-aos="fade-up">
+                {{-- LA CORRECTION CLÉ EST ICI : l'attribut novalidate --}}
+                <form id="application-form" action="{{ route('career.apply') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
-                    <div class="row">
-                        <div class="col-md-6 mb-3 input-group-custom"><label class="form-label">Nom</label><i class="icon fas fa-user"></i><input type="text" class="form-control" name="last_name" required></div>
-                        <div class="col-md-6 mb-3 input-group-custom"><label class="form-label">Prénom</label><i class="icon fas fa-user-friends"></i><input type="text" class="form-control" name="first_name" required></div>
-                        <div class="col-md-6 mb-3 input-group-custom"><label class="form-label">Contact (Téléphone)</label><i class="icon fas fa-phone"></i><input type="tel" class="form-control" name="phone" required></div>
-                        <div class="col-md-6 mb-3 input-group-custom"><label class="form-label">Email</label><i class="icon fas fa-envelope"></i><input type="email" class="form-control" name="email" required></div>
-
-                        <!-- NOUVEAU CHAMP AJOUTÉ ICI -->
-                        <div class="col-12 mb-3 input-group-custom">
-                            <label class="form-label">Intitulé du poste souhaité</label>
-                            <i class="icon fas fa-bullseye"></i>
-                            <input type="text" class="form-control" name="intitule" placeholder="Ex: Comptable, Agent de crédit, Stagiaire en marketing..." required>
+                    <div class="row g-4">
+                        <div class="col-md-6"><label class="form-label">Nom</label><input type="text" class="form-control" name="last_name" required>
+                            <div class="invalid-feedback"></div>
                         </div>
-                        <!-- FIN DU NOUVEAU CHAMP -->
-
-                        <div class="col-12 mb-3 input-group-custom">
-                            <label class="form-label">Type de Poste souhaité</label><i class="icon fas fa-briefcase"></i>
-                            <select class="form-control" name="application_type" style="padding-left: 50px;" required>
-                                <option value="">Sélectionnez une option...</option>
+                        <div class="col-md-6"><label class="form-label">Prénom</label><input type="text" class="form-control" name="first_name" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6"><label class="form-label">Téléphone</label><input type="tel" class="form-control" name="phone" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6"><label class="form-label">Email</label><input type="email" class="form-control" name="email" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6"><label class="form-label">Intitulé du poste souhaité</label><input type="text" class="form-control" name="intitule" placeholder="Ex: Comptable, Agent de crédit..." required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6"><label class="form-label">Type de Poste</label><select class="form-control" name="application_type" required>
+                                <option value="">Sélectionnez...</option>
                                 <option value="emploi">Emploi</option>
                                 <option value="stage">Stage</option>
                             </select>
+                            <div class="invalid-feedback"></div>
                         </div>
-                        <div class="col-md-6 mb-3">
+
+                        <div class="col-md-6">
                             <label class="form-label">Votre CV (PDF)</label>
-                            <input type="file" class="form-control" name="cv" accept=".pdf" required>
+                            <label class="custom-file-upload"><input type="file" name="cv" accept=".pdf" required>
+                                <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div><span class="upload-text">Cliquez ou déposez votre CV</span>
+                                <div class="upload-hint">Fichier PDF, max 2Mo</div>
+                            </label>
+                            <div class="invalid-feedback"></div>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6">
                             <label class="form-label">Lettre de motivation (PDF)</label>
-                            <input type="file" class="form-control" name="motivation_letter" accept=".pdf" required>
+                            <label class="custom-file-upload"><input type="file" name="motivation_letter" accept=".pdf" required>
+                                <div class="upload-icon"><i class="fas fa-file-alt"></i></div><span class="upload-text">Cliquez ou déposez votre lettre</span>
+                                <div class="upload-hint">Fichier PDF, max 2Mo</div>
+                            </label>
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-submit-form bz-primary-btn red-btn mt-4">Envoyer ma candidature</button>
+                    <div class="text-center mt-5">
+                        <button type="submit" id="submit-button" class="btn btn-submit-form">
+                            <span class="btn-text">Envoyer ma candidature</span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
-    <!-- ./ contact-section -->
+
     @include('includes.main.scroll')
     @include('includes.main.footer')
 </body>
 
+@endsection
+
+{{-- ============================================= --}}
+{{-- SECTION JS DÉDIÉE À LA PAGE           --}}
+{{-- ============================================= --}}
+@section('js')
+<script>
+    $(document).ready(function() {
+        // GESTION DU FEEDBACK VISUEL POUR LES CHAMPS D'UPLOAD
+        $('.custom-file-upload input[type="file"]').on('change', function(e) {
+            const uploadLabel = $(this).closest('.custom-file-upload');
+            const uploadText = uploadLabel.find('.upload-text');
+            uploadLabel.removeClass('is-invalid'); // Retire le style d'erreur si on sélectionne un fichier
+            if (this.files && this.files.length > 0) {
+                uploadText.text(this.files[0].name);
+                uploadLabel.css('border-color', '#28a745');
+            } else {
+                uploadText.text('Cliquez ou déposez votre fichier');
+                uploadLabel.css('border-color', 'var(--border-color)');
+            }
+        });
+
+        // SOUMISSION DU FORMULAIRE VIA AJAX AVEC SWEETALERT2
+        $("#application-form").on("submit", function(e) {
+            e.preventDefault();
+
+            const $form = $(this);
+            const $submitButton = $("#submit-button");
+            const $btnText = $submitButton.find('.btn-text');
+            const $spinner = $submitButton.find('.spinner-border');
+
+            // Réinitialiser les erreurs de validation précédentes
+            $form.find(".form-control, .custom-file-upload").removeClass("is-invalid");
+            $form.find(".invalid-feedback").text("");
+
+            // Activer l'état de chargement
+            $submitButton.prop("disabled", true);
+            $btnText.addClass('d-none');
+            $spinner.removeClass('d-none');
+
+            $.ajax({
+                url: $form.attr("action"),
+                method: "POST",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                headers: {
+                    "X-CSRF-TOKEN": $form.find('input[name="_token"]').val()
+                },
+                success: function(data) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Candidature envoyée ! 🎉",
+                        text: data.message || "Merci, nous avons bien reçu votre candidature.",
+                        confirmButtonColor: "var(--primary-color)",
+                    });
+                    $form[0].reset();
+                    $('.upload-text').text(function() {
+                        return $(this).parent().find('input[name="cv"]').length ? 'Cliquez ou déposez votre CV' : 'Cliquez ou déposez votre lettre';
+                    });
+                    $('.custom-file-upload').css('border-color', 'var(--border-color)');
+                },
+                error: function(jqXHR) {
+                    if (jqXHR.status === 422) {
+                        const errors = jqXHR.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            const field = $('[name="' + key + '"]');
+                            const container = field.closest('.col-md-6, .col-md-12');
+                            field.addClass("is-invalid");
+                            container.find(".invalid-feedback").text(value[0]).show();
+                            if (field.attr('type') === 'file') {
+                                field.closest('.custom-file-upload').addClass('is-invalid');
+                            }
+                        });
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur de validation',
+                            text: 'Veuillez corriger les champs en rouge.',
+                            confirmButtonColor: "var(--primary-color)",
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oups... Une erreur est survenue.",
+                            text: "Impossible d'envoyer votre candidature pour le moment. Veuillez réessayer plus tard.",
+                            confirmButtonColor: "var(--primary-color)",
+                        });
+                    }
+                },
+                complete: function() {
+                    // Désactiver l'état de chargement
+                    $submitButton.prop("disabled", false);
+                    $spinner.addClass('d-none');
+                    $btnText.removeClass('d-none');
+                }
+            });
+        });
+    });
+</script>
 @endsection
