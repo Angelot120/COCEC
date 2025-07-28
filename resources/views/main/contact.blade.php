@@ -1,104 +1,132 @@
 @extends('layout.main')
 
-@section('content')
+{{-- ============================================= --}}
+{{--        SECTION CSS DÉDIÉE À LA PAGE         --}}
+{{-- ============================================= --}}
+@section('css')
+<style>
+    /* 1. VARIABLES & STYLES DE BASE */
+    :root {
+        --primary-color: #EC281C;
+        --secondary-color: #FFCC00;
+        --text-dark: #212529;
+        --text-light: #6c757d;
+        --bg-light: #f8f9fa;
+        --white: #ffffff;
+        --border-color: #e0e0e0;
+        --error-color: #dc3545;
+    }
+    body { font-family: 'Poppins', sans-serif; background-color: var(--bg-light); }
+    .page-section { padding: 0; }
 
+    /* 2. NOUVEAU LAYOUT UNIFIÉ */
+    /* Le conteneur global qui porte l'ombre et le fond */
+    .contact-unified-wrapper {
+        background-color: var(--white);
+        box-shadow: 0 25px 80px rgba(0,0,0,0.15);
+        border-radius: 8px;
+    }
+
+    /* Le bloc Formulaire/Info (partie haute) */
+    .contact-prestige-layout {
+        display: flex;
+        background-color: transparent; /* Le fond est maintenant sur le parent */
+        box-shadow: none;               /* L'ombre est maintenant sur le parent */
+        border-radius: 8px 8px 0 0;     /* Uniquement les coins supérieurs arrondis */
+        overflow: hidden;
+    }
+    .info-panel {
+        flex-basis: 40%;
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .form-space {
+        flex-basis: 60%;
+        padding: 60px;
+    }
+    
+    /* 3. INFO PANEL (GAUCHE) - Inchangé */
+    .info-panel h2 { font-weight: 700; font-size: 2.5rem; color: var(--white); margin-bottom: 15px; }
+    .info-panel .panel-intro { font-size: 1.1rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 40px; }
+    .info-list { list-style: none; padding: 0; }
+    .info-item { display: flex; align-items: flex-start; margin-bottom: 25px; }
+    .info-item .icon { font-size: 1.2rem; margin-right: 20px; width: 25px; text-align: center; color: var(--secondary-color); margin-top: 5px; }
+    .info-item .content h4 { font-size: 1rem; font-weight: 600; margin-bottom: 5px; color: var(--white); }
+    .info-item .content p, .info-item .content a { color: rgba(255,255,255,0.85); text-decoration: none; margin-bottom: 0; transition: color 0.3s ease; }
+    .info-item .content a:hover { color: var(--white); }
+
+    /* 4. FORMULAIRE (DROITE) - Inchangé */
+    .form-space h2 { font-weight: 700; color: var(--text-dark); margin-bottom: 40px; }
+    .input-line-group { position: relative; margin-bottom: 2rem; }
+    .input-line-group .form-label { font-size: 0.9rem; font-weight: 500; color: var(--text-light); }
+    .input-line-group .form-control {
+        border: none; border-radius: 0; box-shadow: none; padding: 10px 0;
+        background-color: transparent; border-bottom: 2px solid var(--border-color);
+        transition: border-color 0.3s ease;
+    }
+    .input-line-group .form-control:focus { border-color: var(--primary-color); }
+    .input-line-group .form-control::placeholder { color: #ccc; }
+    
+    .btn-submit-prestige {
+        width: 100%; background: linear-gradient(45deg, var(--primary-color), #c41e12);
+        color: var(--white); padding: 16px; font-size: 1.1rem; font-weight: 600;
+        border-radius: 8px; border: none; transition: transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 5px 20px rgba(236, 40, 28, 0.3);
+    }
+    .btn-submit-prestige:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(236, 40, 28, 0.4); }
+
+    .form-control.is-invalid { border-bottom-color: var(--error-color) !important; }
+    .invalid-feedback { display: none; width: 100%; margin-top: 0.25rem; font-size: .875em; color: var(--error-color); }
+    .is-invalid ~ .invalid-feedback { display: block; }
+
+    /* 5. NOUVELLE ZONE DE LA CARTE (Partie basse du bloc unifié) */
+    .map-area {
+        padding: 40px 60px 60px 60px; /* Ajoute de l'espace pour le titre et autour */
+        border-top: 1px solid var(--border-color); /* Ligne de séparation subtile */
+    }
+    .map-area h2 {
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 1.8rem;
+    }
+    .map-iframe-container {
+        border-radius: 8px; /* Bords arrondis pour l'iframe */
+        overflow: hidden;   /* Force l'iframe à respecter les bords */
+        line-height: 0;
+    }
+    .map-iframe-container iframe {
+        width: 100%;
+        height: 400px;
+        border: 0;
+    }
+    
+    /* Responsive */
+    @media (max-width: 991px) {
+        .contact-prestige-layout { flex-direction: column; }
+        .info-panel, .form-space { padding: 40px; }
+        .map-area { padding: 40px; }
+    }
+</style>
+@endsection
+
+
+@section('content')
 <body>
     @include('includes.main.loading')
-    <!-- ./ preloader -->
-
     @include('includes.main.header')
 
-    <!-- <div id="popup-search-box">
-        <div class="box-inner-wrap d-flex align-items-center">
-            <form id="form" action="#" method="get" role="search">
-                <input id="popup-search" type="text" name="s" placeholder="Type keywords here...">
-            </form>
-            <div class="search-close"><i class="fa-sharp fa-regular fa-xmark"></i></div>
-        </div>
-    </div> -->
-    <!-- /#popup-search-box -->
-
-
-    <div id="sidebar-area" class="sidebar-area">
-        <button class="sidebar-trigger close">
-            <svg
-                class="sidebar-close"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                x="0px"
-                y="0px"
-                width="16px"
-                height="12.7px"
-                viewBox="0 0 16 12.7"
-                style="enable-background: new 0 0 16 12.7"
-                xml:space="preserve">
-                <g>
-                    <rect
-                        x="0"
-                        y="5.4"
-                        transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.1569 7.5208)"
-                        width="16"
-                        height="2"></rect>
-                    <rect
-                        x="0"
-                        y="5.4"
-                        transform="matrix(0.7071 0.7071 -0.7071 0.7071 6.8431 -3.7929)"
-                        width="16"
-                        height="2"></rect>
-                </g>
-            </svg>
-        </button>
-        <div class="side-menu-content">
-            <div class="side-menu-logo">
-                <a href="index.html"><img src="assets/img/logo/logo-2.png" alt="logo"></a>
-            </div>
-            <div class="side-menu-wrap"></div>
-            <div class="side-menu-about">
-                <div class="side-menu-header">
-                    <h3>About Us</h3>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud nisi ut aliquip ex ea commodo consequat.</p>
-                <a href="contact.html" class="bz-primary-btn">Contact Us</a>
-            </div>
-            <div class="side-menu-contact">
-                <div class="side-menu-header">
-                    <h3>Contact Us</h3>
-                </div>
-                <ul class="side-menu-list">
-                    <li>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>Valentin, Street Road 24, New York, </p>
-                    </li>
-                    <li>
-                        <i class="fas fa-phone"></i>
-                        <a href="tel:+000123456789">+000 123 (456) 789</a>
-                    </li>
-                    <li>
-                        <i class="fas fa-envelope-open-text"></i>
-                        <a href="mailto:runokcontact@gmail.com">bizancontact@gmail.com</a>
-                    </li>
-                </ul>
-            </div>
-            <ul class="side-menu-social">
-                <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                <li class="instagram"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                <li class="behance"><a href="#"><i class="fab fa-behance"></i></a></li>
-                <li class="g-plus"><a href="#"><i class="fab fa-fab fa-google-plus"></i></a></li>
-            </ul>
-        </div>
-    </div>
-    <!--/.sidebar-area-->
-
-
-
+    {{-- HERO DE PAGE --}}
     <section class="page-header-pro">
-        {{-- L'image de fond est appliquée via CSS pour plus de flexibilité --}}
         <div class="page-header-overlay"></div>
         <div class="container">
             <div class="page-header-content-pro" data-aos="fade-up">
-                <h1 class="title-pro">Contact</h1>
-
-                {{-- Utilisation d'une structure sémantique pour le fil d'Ariane --}}
+                <h1 class="title-pro">Prendre Contact</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb-pro">
                         <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
@@ -108,104 +136,115 @@
             </div>
         </div>
     </section>
-    <!-- ./ page-header -->
 
-    <section class="contact-section pt-130 pb-130">
-        <div class="container">
-            <div class="row gy-lg-0 gy-5">
-                <div class="col-lg-7">
-                    <div class="blog-contact-form">
-                        <h2 class="title mb-0">Comment peut-ont vous aider ?</h2>
-                        <p class="mb-30 mt-10">Fill-up The Form and Message us of your amazing question</p>
-                        <div class="request-form">
-                            <form action="mail.php" method="post" id="ajax_contact" class="form-horizontal">
-                                <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <div class="form-item">
-                                            <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Votre Nom Complet">
-                                            <div class="icon"><i class="fa-regular fa-user"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-item">
-                                            <input type="email" id="email" name="email" class="form-control" placeholder="Votre Email">
-                                            <div class="icon"><i class="fa-sharp fa-regular fa-envelope"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <div class="form-item">
-                                            <div class="nice-select select-control form-control country" tabindex="0"><span class="current">Select Subject</span>
-                                                <ul class="list">
-                                                    <li data-value="" class="option selected focus">Sélectionnez un sujet</li>
-                                                    <li data-value="vdt" class="option">Plan One</li>
-                                                    <li data-value="can" class="option">Plan Two</li>
-                                                    <li data-value="uk" class="option">Plan Three</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <div class="form-item message-item">
-                                            <textarea id="message" name="message" cols="30" rows="5" class="form-control address" placeholder="Votre Méssage ici"></textarea>
-                                            <div class="icon"><i class="fa-light fa-messages"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="submit-btn">
-                                    <button id="submit" class="bz-primary-btn" type="submit">Envoyer le message</button>
-                                </div>
-                            </form>
-                        </div>
+    {{-- SECTION CONTACT ET CARTE UNIFIÉE --}}
+    <section class="page-section">
+        <div class="container my-5">
+            {{-- Le nouveau conteneur qui unifie tout --}}
+            <div class="contact-unified-wrapper" data-aos="fade-up">
+
+                {{-- PARTIE 1 : FORMULAIRE ET INFOS --}}
+                <div class="contact-prestige-layout">
+                    <!-- PANNEAU D'INFORMATION (GAUCHE) -->
+                    <div class="info-panel">
+                        <h2>Nos Coordonnées</h2>
+                        <p class="panel-intro">Nous sommes à votre écoute. Utilisez les informations ci-dessous ou remplissez le formulaire pour une réponse rapide.</p>
+                        <ul class="info-list">
+                            <li class="info-item"><div class="icon"><i class="fas fa-map-marker-alt"></i></div><div class="content"><h4>Notre Siège</h4><p>Adidogomé, non loin du Supermarché "Le Champion", Lomé, Togo</p></div></li>
+                            <li class="info-item"><div class="icon"><i class="fas fa-phone-alt"></i></div><div class="content"><h4>Téléphone</h4><a href="tel:+22822270551">(+228) 22 27 05 51</a></div></li>
+                            <li class="info-item"><div class="icon"><i class="fas fa-envelope"></i></div><div class="content"><h4>Email</h4><a href="mailto:cocec@cocectogo.org">cocec@cocectogo.org</a></div></li>
+                            <li class="info-item"><div class="icon"><i class="fas fa-clock"></i></div><div class="content"><h4>Heures d'ouverture</h4><p>Lundi - Vendredi : 07h30 - 16h30</p></div></li>
+                        </ul>
+                    </div>
+
+                    <!-- ESPACE FORMULAIRE (DROITE) -->
+                    <div class="form-space">
+                        <h2>Envoyez-nous un message</h2>
+                        <form id="contact-prestige-form" action="mail.php" method="POST" novalidate>
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6 input-line-group"><label for="fullname" class="form-label">Nom Complet</label><input type="text" class="form-control" id="fullname" name="fullname" placeholder="Ex: Jean Dupont" required><div class="invalid-feedback"></div></div>
+                                <div class="col-md-6 input-line-group"><label for="email" class="form-label">Votre Email</label><input type="email" class="form-control" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required><div class="invalid-feedback"></div></div>
+                                <div class="col-12 input-line-group"><label for="subject" class="form-label">Sujet</label><input type="text" class="form-control" id="subject" name="subject" placeholder="Ex: Information sur un produit" required><div class="invalid-feedback"></div></div>
+                                <div class="col-12 input-line-group"><label for="message" class="form-label">Votre message</label><textarea class="form-control" id="message" name="message" rows="4" placeholder="Écrivez votre message ici..." required></textarea><div class="invalid-feedback"></div></div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" id="submit-button" class="btn-submit-prestige"><span class="btn-text">Envoyer</span><span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-12">
-                    <div class="contact-content">
-                        <div class="contact-top">
-                            <h3 class="title">Office Information</h3>
-                            <p>Completely recapitalize 24/7 communities via standards compliant metrics whereas.</p>
-                        </div>
-                        <div class="contact-list">
-                            <div class="list-item">
-                                <div class="icon">
-                                    <i class="fa-sharp fa-solid fa-phone"></i>
-                                </div>
-                                <div class="content">
-                                    <h4 class="title">Numéro de Téléphone & Email</h4>
-                                    <span><a href="tel:+22822270551">(00228) 22 27 05 51 /</a><a href="tel:+22898422473">98 42 24 73</a></span>
-                                    <span><a href="mailto:cocec@cocectogo.org">cocec@cocectogo.org</a></span>
-                                </div>
-                            </div>
-                            <div class="list-item">
-                                <div class="icon">
-                                    <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                </div>
-                                <div class="content">
-                                    <h4 class="title">Notre Siège Social</h4>
-                                    <p>Quartier KANYIKOPE à 50m du Lycée FOLLY-BEBE <br>en allant vers KAGOME</p>
-                                </div>
-                            </div>
-                            <div class="list-item">
-                                <div class="icon">
-                                    <i class="fa-sharp fa-solid fa-clock"></i>
-                                </div>
-                                <div class="content">
-                                    <h4 class="title">Heures d'ouvertures</h4>
-                                    <span>Lundi - Vendredi: 09:00 - 20:00</span>
-                                    <span>Samedi & Dimanche: 10:30 - 22:00</span>
-                                </div>
-                            </div>
-                        </div>
+
+                {{-- PARTIE 2 : CARTE GOOGLE MAPS --}}
+                <div class="map-area">
+                    <h2>Retrouvez-nous sur la carte</h2>
+                    <div class="map-iframe-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.082008301511!2d1.2951526747458148!3d6.167871493774653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023e40dcdc28751%3A0xda710ee60c192b18!2sCOCEC!5e0!3m2!1sfr!2stg!4v1721669431412!5m2!1sfr!2stg" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
-    <!-- ./ contact-section -->
+
     @include('includes.main.scroll')
     @include('includes.main.footer')
 </body>
+@endsection
+
+@section('js')
+{{-- Le Javascript reste inchangé --}}
+<script>
+$(document).ready(function() {
+    $("#contact-prestige-form").on("submit", function (e) {
+        e.preventDefault();
+        const $form = $(this);
+        const $submitButton = $("#submit-button");
+        const $btnText = $submitButton.find('.btn-text');
+        const $spinner = $submitButton.find('.spinner-border');
+
+        $form.find(".form-control").removeClass("is-invalid");
+        $form.find(".invalid-feedback").text("");
+
+        $submitButton.prop("disabled", true);
+        $btnText.addClass('d-none');
+        $spinner.removeClass('d-none');
+
+        $.ajax({
+            url: $form.attr("action"),
+            method: "POST",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            headers: { "X-CSRF-TOKEN": $form.find('input[name="_token"]').val() },
+            success: function (data) {
+                Swal.fire({
+                    icon: "success", title: "Message envoyé ! 🎉",
+                    text: "Merci, nous avons bien reçu votre message.",
+                    confirmButtonColor: "var(--primary-color)",
+                });
+                $form[0].reset();
+            },
+            error: function (jqXHR) {
+                if (jqXHR.status === 422) {
+                    const errors = jqXHR.responseJSON.errors;
+                    $.each(errors, function (key, value) {
+                        const field = $('[name="' + key + '"]');
+                        field.addClass("is-invalid");
+                        field.closest('.input-line-group').find(".invalid-feedback").text(value[0]).show();
+                    });
+                    Swal.fire({ icon: 'error', title: 'Erreur', text: 'Veuillez corriger les champs indiqués.', confirmButtonColor: "var(--primary-color)" });
+                } else {
+                    Swal.fire({ icon: "error", title: "Oups...", text: "Une erreur est survenue.", confirmButtonColor: "var(--primary-color)" });
+                }
+            },
+            complete: function() {
+                $submitButton.prop("disabled", false);
+                $spinner.addClass('d-none');
+                $btnText.removeClass('d-none');
+            }
+        });
+    });
+});
+</script>
 @endsection

@@ -5,6 +5,7 @@ use App\Http\Controllers\AgencyLocationController;
 use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\FaqCommentController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobOfferController;
 use App\Http\Controllers\NewsletterController;
@@ -33,6 +34,7 @@ Route::get('/about', [ViewsController::class, 'about'])->name('about');
 Route::get('/open-account', [ViewsController::class, 'account'])->name('main.account');
 Route::get('/digital-finance', [ViewsController::class, 'finance'])->name('main.finance');
 Route::get('/faq', [ViewsController::class, 'faq'])->name('main.faq');
+Route::post('/faq/comment', [FaqCommentController::class, 'store'])->name('faq.comments.store');
 Route::get('/create-account', [AccountController::class, 'index'])->name('account.create');
 Route::post('/create-account/physical/processing', [AccountController::class, 'storePhysical'])->name('account.store.physical');
 Route::post('/create-account/moral/processing', [AccountController::class, 'storeMoral'])->name('account.store.moral');
@@ -74,6 +76,10 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
         Route::patch('/edit/{id}', 'edit')->name('blog.edit');
         Route::delete('/destroy/{id}', 'destroy')->name('blog.destroy');
     });
+
+    // -------- Faq routes --------------
+
+    Route::delete('/faq/comments/{id}', [FaqCommentController::class, 'destroy'])->name('faq.comments.destroy');
 });
 
 // -------- Job Offers routes --------------

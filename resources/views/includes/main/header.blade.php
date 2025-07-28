@@ -91,3 +91,75 @@
             </div>
         </header>
         <!-- /.Main Header -->
+
+
+        <div id="sidebar-area" class="sidebar-area" style="--bz-color-theme-primary: #EC281C">
+            <button class="sidebar-trigger close">
+                <svg
+                    class="sidebar-close"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    x="0px"
+                    y="0px"
+                    width="16px"
+                    height="12.7px"
+                    viewBox="0 0 16 12.7"
+                    style="enable-background: new 0 0 16 12.7"
+                    xml:space="preserve">
+                    <g>
+                        <rect
+                            x="0"
+                            y="5.4"
+                            transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.1569 7.5208)"
+                            width="16"
+                            height="2"></rect>
+                        <rect
+                            x="0"
+                            y="5.4"
+                            transform="matrix(0.7071 0.7071 -0.7071 0.7071 6.8431 -3.7929)"
+                            width="16"
+                            height="2"></rect>
+                    </g>
+                </svg>
+            </button>
+            <div class="side-menu-content">
+                <div class="side-menu-logo">
+                    <a href="index.html"><img src="{{ URL::asset('assets/images/Logo.png') }}" alt="logo"></a>
+                </div>
+                <div class="side-menu-wrap"></div>
+                <div class="side-menu-about">
+                    <div class="side-menu-header">
+                        <h3>À Propos</h3>
+                    </div>
+                    {{-- Texte "À Propos" complété et adapté à COCEC --}}
+                    <p class="text-justify">La COCEC est votre partenaire financier de confiance, dédié à la réussite de ses membres. Nous offrons des services accessibles et innovants pour accompagner vos projets et améliorer vos conditions de vie.</p>
+                    <a href="{{ route('contact') }}" class="bz-primary-btn">Contactez-nous</a>
+                </div>
+                <div class="side-menu-contact">
+                    <div class="side-menu-header">
+                        <h3>Contactez-nous</h3>
+                    </div>
+                    <ul class="side-menu-list">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>Quartier KANYIKOPE à 50m du Lycée FOLLY-BEBE en allant vers KAGOME </p>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+22822270551">(00228) 22 27 05 51 / 98 42 24 73</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope-open-text"></i>
+                            <a href="mailto:cocec@cocectogo.org">cocec@cocectogo.org</a>
+                        </li>
+                    </ul>
+                </div>
+                {{-- Réseaux sociaux mis à jour pour n'inclure que Facebook et WhatsApp --}}
+                <ul class="side-menu-social">
+                    <li class="facebook"><a href="https://www.facebook.com/COCEC-105458737978835"><i class="fab fa-facebook-f"></i></a></li>
+                    {{-- Ajout de WhatsApp avec le lien et l'icône corrects --}}
+                    <li class="whatsapp"><a href="https://wa.me/22891126471" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <!--/.sidebar-area-->

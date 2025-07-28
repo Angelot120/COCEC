@@ -8,107 +8,85 @@
     <!-- ./ preloader -->
 
     @include('includes.main.header')
-    <div id="popup-search-box">
-        <div class="box-inner-wrap d-flex align-items-center">
-            <form id="form" action="#" method="get" role="search">
-                <input id="popup-search" type="text" name="s" placeholder="Type keywords here...">
-            </form>
-            <div class="search-close"><i class="fa-sharp fa-regular fa-xmark"></i></div>
-        </div>
-    </div>
-    <!-- /#popup-search-box -->
-
-    <div id="sidebar-area" class="sidebar-area" style="--bz-color-theme-primary: #EC281C">
-        <button class="sidebar-trigger close">
-            <svg
-                class="sidebar-close"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                x="0px"
-                y="0px"
-                width="16px"
-                height="12.7px"
-                viewBox="0 0 16 12.7"
-                style="enable-background: new 0 0 16 12.7"
-                xml:space="preserve">
-                <g>
-                    <rect
-                        x="0"
-                        y="5.4"
-                        transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.1569 7.5208)"
-                        width="16"
-                        height="2"></rect>
-                    <rect
-                        x="0"
-                        y="5.4"
-                        transform="matrix(0.7071 0.7071 -0.7071 0.7071 6.8431 -3.7929)"
-                        width="16"
-                        height="2"></rect>
-                </g>
-            </svg>
-        </button>
-        <div class="side-menu-content">
-            <div class="side-menu-logo">
-                <a href="index.html"><img src="{{ URL::asset('assets/images/Logo.png') }}" alt="logo"></a>
-            </div>
-            <div class="side-menu-wrap"></div>
-            <div class="side-menu-about">
-                <div class="side-menu-header">
-                    <h3>À Propos</h3>
-                </div>
-                {{-- Texte "À Propos" complété et adapté à COCEC --}}
-                <p class="text-justify">La COCEC est votre partenaire financier de confiance, dédié à la réussite de ses membres. Nous offrons des services accessibles et innovants pour accompagner vos projets et améliorer vos conditions de vie.</p>
-                <a href="{{ route('contact') }}" class="bz-primary-btn">Contactez-nous</a>
-            </div>
-            <div class="side-menu-contact">
-                <div class="side-menu-header">
-                    <h3>Contactez-nous</h3>
-                </div>
-                <ul class="side-menu-list">
-                    <li>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>Quartier KANYIKOPE à 50m du Lycée FOLLY-BEBE en allant vers KAGOME </p>
-                    </li>
-                    <li>
-                        <i class="fas fa-phone"></i>
-                        <a href="tel:+22822270551">(00228) 22 27 05 51 / 98 42 24 73</a>
-                    </li>
-                    <li>
-                        <i class="fas fa-envelope-open-text"></i>
-                        <a href="mailto:cocec@cocectogo.org">cocec@cocectogo.org</a>
-                    </li>
-                </ul>
-            </div>
-            {{-- Réseaux sociaux mis à jour pour n'inclure que Facebook et WhatsApp --}}
-            <ul class="side-menu-social">
-                <li class="facebook"><a href="https://www.facebook.com/COCEC-105458737978835"><i class="fab fa-facebook-f"></i></a></li>
-                {{-- Ajout de WhatsApp avec le lien et l'icône corrects --}}
-                <li class="whatsapp"><a href="https://wa.me/22891126471" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-            </ul>
-        </div>
-    </div>
-    <!--/.sidebar-area-->
 
     <!-- hero-section-3 -->
-    <!-- <section class="hero-section-3" data-background="{{ asset('assets/images/hero-bg.jpg') }}"> -->
-    <section class="hero-section-3" data-background="{{ asset('assets/images/banner.jpg') }}">
+    <!-- La classe "swiper" est ajoutée pour l'initialisation JS -->
+    <section class="hero-section-3">
+
+        <!-- Les formes restent en arrière-plan global de la section -->
         <div class="shapes">
             <div class="shape shape-1"><img src="{{ asset('assets/main/img/shapes/hero-bg-shape-2.png') }}" alt="forme"></div>
             <div class="shape shape-2"><img src="{{ asset('assets/main/img/shapes/hero-bg-shape-3.png') }}" alt="forme"></div>
         </div>
-        <div class="container-2">
-            <div class="hero-content hero-content-3">
-                <div class="section-heading mb-40 red-content">
-                    <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Votre Partenaire Financier</h4>
-                    <h2 class="section-title text-animation-effect text-justify">Des Solutions Financières <br>pour Votre Avenir</h2>
-                    <p class="text-justify">La COCEC vous accompagne avec des services d’épargne, de crédit et d’accompagnement personnalisé pour réaliser vos projets et assurer votre sécurité financière.</p>
+
+        <!-- CORRECTION : On groupe tout le carrousel dans un conteneur positionné -->
+        <div class="swiper-container-wrapper swiper">
+
+            <!-- Le conteneur obligatoire pour les slides -->
+            <div class="swiper-wrapper">
+
+                <!-- SLIDE 1 -->
+                <div class="swiper-slide hero-slide-1">
+                    <div class="container-2">
+                        <div class="hero-content hero-content-3">
+                            <div class="section-heading mb-40 red-content">
+                                <h4 class="sub-heading"><span class="left-shape"></span>Votre Partenaire Financier</h4>
+                                <h2 class="section-title">Des Solutions Financières <br>pour Votre Avenir</h2>
+                                <p class="text-justify">La COCEC vous accompagne avec des services d’épargne, de crédit et d’accompagnement personnalisé pour réaliser vos projets et assurer votre sécurité financière.</p>
+                            </div>
+                            <div class="hero-btn-wrap" style="--bz-color-theme-primary: #EC281C">
+                                <a href="{{ route('contact') }}" class="bz-primary-btn">Nous Contacter <i class="fa-regular fa-arrow-right"></i></a>
+                                <a href="{{ route('products') }}" class="bz-primary-btn hero-btn">Nos Produits</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-btn-wrap" style="--bz-color-theme-primary: #EC281C">
-                    <a href="{{ route('contact') }}" class="bz-primary-btn">Nous Contacter <i class="fa-regular fa-arrow-right"></i></a>
-                    <a href="{{ route('products') }}" class="bz-primary-btn hero-btn">Nos Produits</a>
+
+                <!-- SLIDE 2 -->
+                <div class="swiper-slide hero-slide-2">
+                    <div class="container-2">
+                        <div class="hero-content hero-content-3">
+                            <div class="section-heading mb-40 red-content">
+                                <h4 class="sub-heading"><span class="left-shape"></span>Crédit & Investissement</h4>
+                                <h2 class="section-title">Financez Vos Projets <br>les Plus Ambitieux</h2>
+                                <p class="text-justify">Que ce soit pour un projet immobilier, agricole ou entrepreneurial, nos solutions de crédit sont conçues pour vous donner les moyens de réussir.</p>
+                            </div>
+                            <div class="hero-btn-wrap" style="--bz-color-theme-primary: #EC281C">
+                                <a href="{{ route('contact') }}" class="bz-primary-btn">Demander un Crédit <i class="fa-regular fa-arrow-right"></i></a>
+                                <a href="{{ route('products') }}" class="bz-primary-btn hero-btn">Explorer les Options</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- SLIDE 3 (contenu identique pour l'exemple) -->
+                <div class="swiper-slide hero-slide-3">
+                    <div class="container-2">
+                        <div class="hero-content hero-content-3">
+                            <div class="section-heading mb-40 red-content">
+                                <h4 class="sub-heading"><span class="left-shape"></span>Épargne Sécurisée</h4>
+                                <h2 class="section-title">Construisez Votre Patrimoine<br>en Toute Confiance</h2>
+                                <p class="text-justify">Découvrez nos comptes d'épargne flexibles et rentables pour préparer l'avenir, financer les études de vos enfants ou simplement vous constituer une réserve.</p>
+                            </div>
+                            <div class="hero-btn-wrap" style="--bz-color-theme-primary: #EC281C">
+                                <a href="{{ route('contact') }}" class="bz-primary-btn">Ouvrir un Compte <i class="fa-regular fa-arrow-right"></i></a>
+                                <a href="{{ route('products') }}" class="bz-primary-btn hero-btn">Types de Comptes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- Flèches de Navigation -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+            <!-- Points de Pagination -->
+            <div class="swiper-pagination"></div>
+
         </div>
+
     </section>
     <!-- ./ hero-section -->
 
@@ -825,4 +803,42 @@
     @include('includes.main.footer')
 
 </body>
+@endsection
+
+@section('js')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // On cible bien le nouveau conteneur
+        const heroSwiper = new Swiper('.swiper-container-wrapper', {
+
+            // OPTIONS VISUELLES
+            loop: true,
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+
+            autoplay: {
+                delay: 7000,
+                disableOnInteraction: false,
+            },
+
+            // NAVIGATION & PAGINATION
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+
+            // ACCESSIBILITÉ
+            a11y: {
+                prevSlideMessage: 'Slide précédent',
+                nextSlideMessage: 'Slide suivant'
+            },
+        });
+    });
+</script>
 @endsection

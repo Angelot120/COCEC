@@ -49,15 +49,15 @@ START: Template Default CSS
     --bz-color-text-body: #74787c;
     --bz-color-theme-primary: #ec281c;
     --bz-color-theme-secondary: #191f29;
-    --bz-color-theme-red: #ec281c;
+    --bz-color-theme-red: #EC281C;
     --bz-color-bg-1: #191f30;
     --bz-color-grey-1: #f8f8f8;
     --bz-color-grey-2: #f6f6f6;
     --bz-color-grey-3: #f6f7fa;
     --bz-color-grey-4: #f3f4f6;
     --bz-color-border-1: #eaeaea;
-    --primary-color: #ec281c;
-    --secondary-color: #d3a400;
+    --primary-color: #EC281C;
+    --secondary-color: #FFCC00;
     --dark-charcoal: #1a202c;
     --light-text: #f7fafc;
     --font-family: "Poppins", sans-serif;
@@ -168,6 +168,12 @@ a:hover {
 .slick-list.draggable {
     cursor: -webkit-grab;
     cursor: grab;
+}
+
+.btn-primary{
+    color: var(--bz-color-common-white)!important;
+    background-color: var(--primary-color)!important;
+    border: none;
 }
 
 a,
@@ -4562,72 +4568,114 @@ START: Header CSS
     background-color: var(--bz-color-theme-primary);
 }
 
-.hero-section-3 {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    z-index: 1;
-}
-.hero-section-3 .shapes .shape {
-    position: absolute;
-    z-index: -1;
-    height: 100%;
-}
-.hero-section-3 .shapes .shape img {
-    height: 100%;
-}
-.hero-section-3 .shapes .shape.shape-1 {
-    top: 0;
-    left: 0;
-}
-.hero-section-3 .shapes .shape.shape-2 {
-    top: 0;
-    left: 0;
-    opacity: 0.7;
-}
+/* 1. STYLES DE BASE DU HERO */
+    .hero-section-3 {
+        width: 100%;
+        position: relative; /* Contexte de positionnement pour ses enfants */
+        overflow: hidden;
+        z-index: 1;
+    }
 
-.hero-content-3 {
-    padding: 325px 0 265px 0;
-}
-@media only screen and (max-width: 992px) {
-    .hero-content-3 {
-        padding: 250px 0 160px 0;
+    /* Formes décoratives en arrière-plan */
+    .hero-section-3 .shapes {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 2; /* Couche 2 : au-dessus du fond, mais en dessous du contenu */
+        pointer-events: none;
     }
-}
-@media only screen and (max-width: 767px) {
-    .hero-content-3 {
-        padding: 150px 0 150px 0;
+    .hero-section-3 .shapes .shape { position: absolute; height: 100%; }
+    .hero-section-3 .shapes img { height: 100%; }
+    .hero-section-3 .shapes .shape.shape-1 { top: 0; left: 0; }
+    .hero-section-3 .shapes .shape.shape-2 { top: 0; left: 0; opacity: 0.7; }
+    
+    /* CORRECTION CLÉ : Le conteneur du carrousel */
+    .swiper-container-wrapper {
+        position: relative; /* Essentiel pour que le z-index fonctionne */
+        z-index: 3; /* Couche 3 : Il se place AU-DESSUS des formes */
     }
-}
-@media only screen and (max-width: 767px) {
-    .hero-content-3 .section-heading .sub-heading {
-        font-size: 13px;
+
+    /* Le style des slides individuelles */
+    .hero-section-3 .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+        position: relative; /* Contexte pour l'overlay */
+        z-index: 1;
     }
-}
-.hero-content-3 .section-heading .section-title {
-    color: var(--bz-color-common-white);
-    font-size: 64px;
-}
-@media only screen and (max-width: 992px) {
-    .hero-content-3 .section-heading .section-title {
-        font-size: 48px;
+    
+    .hero-section-3 .swiper-slide::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-color: rgba(10, 20, 30, 0.5);
+        z-index: -1; /* Se place derrière le contenu du slide */
     }
-}
-@media only screen and (max-width: 767px) {
-    .hero-content-3 .section-heading .section-title {
-        font-size: 32px;
+
+    .hero-slide-1 { background: url('assets/images/banner.jpg'); }
+    .hero-slide-2 { background-image: url('assets/images/banner-2.jpg'); }
+    .hero-slide-3 { background-image: url('assets/images/banner-3.jpg'); }
+
+    /* Contenu du Hero (texte & boutons) */
+    .hero-content-3 { padding: 280px 0 240px 0; }
+    .hero-content-3 .section-title { color: #ffffff; font-size: 64px; }
+    .hero-content-3 p { font-size: 18px; max-width: 750px; color: #ffffff; margin-bottom: 50px; }
+    .hero-content-3 .sub-heading { color: #ffffff; }
+
+    /* 2. STYLE DES ÉLÉMENTS DU CARROUSEL */
+    :root {
+        --brand-red: #EC281C;
+        --brand-yellow: #FFCC00;
+        --swiper-theme-color: var(--brand-red); 
     }
-}
-.hero-content-3 .section-heading p {
-    font-size: 18px;
-    max-width: 750px;
-    width: 100%;
-    color: var(--bz-color-common-white);
-    margin-bottom: 50px;
-}
+    .hero-section-3 .swiper-button-next,
+    .hero-section-3 .swiper-button-prev {
+        color: #ffffff;
+        background-color: rgba(0, 0, 0, 0.3);
+        width: 50px; height: 50px; border-radius: 50%;
+        transition: background-color 0.3s ease;
+    }
+    .hero-section-3 .swiper-button-next:hover,
+    .hero-section-3 .swiper-button-prev:hover { background-color: var(--brand-red); }
+    .hero-section-3 .swiper-button-next::after,
+    .hero-section-3 .swiper-button-prev::after { font-size: 20px; font-weight: 900; }
+
+    .hero-section-3 .swiper-pagination-bullet {
+        width: 12px; height: 12px;
+        background-color: rgba(255, 255, 255, 0.5);
+        opacity: 1;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .hero-section-3 .swiper-pagination-bullet-active {
+        background-color: var(--brand-yellow);
+        transform: scale(1.2);
+    }
+
+    /* 3. ANIMATIONS & RESPONSIVE (INCHANGÉ) */
+    .hero-content-3 .section-heading > * {
+        opacity: 0; transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .swiper-slide-active .hero-content-3 .section-heading > * {
+        opacity: 1; transform: translateY(0);
+    }
+    .swiper-slide-active .hero-content-3 .section-title { transition-delay: 0.2s; }
+    .swiper-slide-active .hero-content-3 p { transition-delay: 0.4s; }
+    .swiper-slide-active .hero-btn-wrap { transition-delay: 0.6s; }
+    
+    @media only screen and (max-width: 992px) {
+        .hero-content-3 { padding: 220px 0 180px 0; }
+        .hero-content-3 .section-title { font-size: 48px; }
+    }
+    @media only screen and (max-width: 767px) {
+        .hero-content-3 { padding: 150px 0 150px 0; }
+        .hero-content-3 .section-title { font-size: 32px; }
+        .hero-content-3 .sub-heading { font-size: 13px; }
+        .hero-section-3 .swiper-button-next, .hero-section-3 .swiper-button-prev { display: none; }
+    }
 
 /* !END: Hero CSS */
 /**----------------------------------------
@@ -18449,114 +18497,103 @@ body {
 /*      CSS "MOT DU DIRECTEUR" - SANS CHANGER LES CLASSES HTML         */
 /* ------------------------------------------- */
 
-/* Style général de la section */
-.about-section-3 {
-    background: #FFFFFF;
-    padding: 100px 0;
+/* ============================================= */
+/*          1. VARIABLES & STYLES GÉNÉRAUX        */
+/* ============================================= */
+:root {
+    --primary-color: #ec281c;
+    --secondary-color: #d3a400;
+    --text-dark: #333333;
+    --text-light: #6c757d;
+    --bg-light: #f8f9fa; /* Un gris très clair pour alterner les sections */
+    --white: #ffffff;
+    --border-color: #e9ecef;
 }
 
-/* Amélioration de la typographie du contenu */
-.about-content-3 .section-title {
-    font-size: 2.5rem;
-    line-height: 1.3;
-}
-.about-content-3 > p {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    margin-bottom: 30px;
+body {
+    color: var(--text-dark);
+    font-family: 'Poppins', sans-serif; /* Assurez-vous d'importer une police moderne */
 }
 
-/* Transformation de la liste "about-list" en cartes de vision */
-.about-content-3 .about-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 30px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.page-section { padding: 80px 0; }
+.page-section-light { background-color: var(--bg-light); padding: 80px 0; }
+.section-header { text-align: center; margin-bottom: 50px; max-width: 700px; margin-left: auto; margin-right: auto; }
+.section-title { font-size: 2.5rem; margin-bottom: 15px; font-weight: 700; color: var(--secondary-color); }
+.section-subtitle { font-size: 1.8rem; margin-bottom: 20px; font-weight: 600; color: var(--secondary-color); }
+.section-intro { font-size: 1.1rem; color: var(--text-light); }
+a { color: var(--primary-color); text-decoration: none; }
+a:hover { color: #c82116; }
+
+/* ============================================= */
+/*          2. SECTION MOT DU DIRECTEUR          */
+/* ============================================= */
+.director-layout-revisited { display: flex; align-items: center; gap: 20px; }
+.director-image-wrapper { flex-basis: 40%; }
+.director-image-wrapper img { width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.director-content-card { flex-basis: 60%; background: var(--white); padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-left: -60px; z-index: 2; }
+.director-content-card blockquote { border-left: 4px solid var(--primary-color); padding-left: 20px; margin: 0; }
+.director-content-card blockquote p { font-size: 1.1rem; line-height: 1.7; margin-bottom: 25px; }
+.director-content-card cite { font-style: normal; font-weight: bold; }
+.director-content-card .director-name { display: block; }
+.director-content-card .director-title { font-weight: normal; color: var(--text-light); }
+
+
+/* ============================================= */
+/*          3. SECTION PILIERS DE L'IDENTITÉ     */
+/* ============================================= */
+.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.pillar-card {
+    background: var(--white); border-radius: 12px; padding: 30px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.07); text-align: center;
+    display: flex; flex-direction: column;
+    border-top: 4px solid var(--primary-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.pillar-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+.pillar-icon-wrapper {
+    margin: 0 auto 25px auto; width: 80px; height: 80px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background-color: var(--primary-color);
+}
+.pillar-icon-wrapper i { color: var(--white); font-size: 2.5rem; }
+.pillar-content h4 { font-size: 1.6rem; color: var(--secondary-color); margin-bottom: 15px; font-weight: 700; }
+.pillar-content > p { color: var(--text-light); line-height: 1.7; flex-grow: 1; }
+.values-sublist { list-style: none; padding: 0; margin: 0; text-align: left; }
+.values-sublist li { display: flex; align-items: center; margin-bottom: 15px; font-size: 1rem; color: var(--text-light); }
+.values-sublist li:last-child { margin-bottom: 0; }
+.values-sublist i { color: var(--primary-color); font-size: 1.1rem; margin-right: 15px; width: 20px; text-align: center; }
+.values-sublist span strong { color: var(--text-dark); font-weight: 600; }
+
+/* ============================================= */
+/*          4. SECTION ORGANIGRAMME              */
+/* ============================================= */
+.org-chart-wrapper {
+    overflow-x: auto; /* Active le scroll horizontal si besoin */
+    padding: 20px; background: var(--white); border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid var(--border-color);
+}
+.org-chart-wrapper img { max-width: none; width: 100%; min-width: 800px; }
+
+/* ============================================= */
+/*          5. RESPONSIVE DESIGN                 */
+/* ============================================= */
+@media (max-width: 1024px) {
+    /* Les piliers passent sur une seule colonne sur tablette */
+    .pillars-grid { grid-template-columns: 1fr; gap: 40px; }
 }
 
-.about-content-3 .about-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    background: #f8f9fa; /* Fond légèrement différent */
-    padding: 20px;
-    border-radius: 12px;
-    border-left: 4px solid #FFC107; /* Accent "Or" */
-    transition: all 0.3s ease-out;
+@media (max-width: 992px) {
+    /* La section directeur passe en colonne */
+    .director-layout-revisited { flex-direction: column; }
+    .director-content-card { margin-left: 0; margin-top: -40px; width: 95%; }
 }
 
-.about-content-3 .about-list li:hover {
-    transform: translateX(5px);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+@media (max-width: 768px) {
+    .section-title { font-size: 2rem; }
+    .pillar-card { padding: 25px; }
+    .pillar-content h4 { font-size: 1.4rem; }
 }
 
-/* Style de la nouvelle icône qui remplace le "number" */
-.about-list .list-icon {
-    flex-shrink: 0;
-    width: 50px;
-    height: 50px;
-    background: #ec281c1a; /* Rouge primaire très clair */
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: 1.5rem;
-    color: #EC281C; /* Rouge primaire */
-}
-.about-list .list-text h5 {
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: #1a1a1a;
-    margin-bottom: 5px;
-}
-.about-list .list-text span {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #495057;
-}
-
-/* Style du bloc signature */
-.about-content-3 .director-signature-block {
-    margin-top: -10px;
-    margin-bottom: 30px;
-    padding-left: 10px;
-}
-.director-signature-block strong {
-    display: block;
-    font-weight: 600;
-    color: #1a1a1a;
-    font-size: 1.1rem;
-}
-.director-signature-block span {
-    display: block;
-    color: #495057;
-    font-style: italic;
-    font-size: 0.9rem;
-}
-
-/* Style de l'image pour un effet premium */
-/* .about-img-3 {
-    border-radius: 12px;
-    height: 600px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-} */
-.about-img-3 img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Assure que l'image remplit le conteneur sans se déformer */
-}
-
-/* Responsive pour tablettes et mobiles */
-@media (max-width: 991px) {
-    .about-img-3 {
-        height: 450px;
-        margin-bottom: 40px;
-    }
-    .about-content-3 .section-title {
-        font-size: 2rem;
-    }
-}
 
 
 /* --- Variables pour une personnalisation facile --- */

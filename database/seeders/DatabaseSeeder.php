@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'COCEC',
             'email' => 'contact@cocec.com',
             'password' => Hash::make("Jq]\hE[Wh?]~,Npq048U-7uNpw"),
+            'is_admin' => true,
         ]);
     }
 }
