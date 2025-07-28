@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\AgencyLocationInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class AgencyLocationController extends Controller
@@ -30,6 +31,8 @@ class AgencyLocationController extends Controller
 
     public function store(Request $request)
     {
+        Log::info("Requete passée");
+
         try {
             $request->validate([
                 'name' => 'required|string|max:255',
@@ -38,6 +41,7 @@ class AgencyLocationController extends Controller
                 'address' => 'required|string|max:500',
                 'phone' => 'required|string|max:20',
                 'status' => 'nullable|in:Open,Close',
+                'image' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
             ], [
                 'name.required' => 'Le nom de l\'agence est obligatoire.',
                 'name.string' => 'Le nom doit être une chaîne de caractères.',
@@ -55,7 +59,19 @@ class AgencyLocationController extends Controller
                 'phone.string' => 'Le numéro de téléphone doit être une chaîne de caractères.',
                 'phone.max' => 'Le numéro de téléphone ne peut pas dépasser 20 caractères.',
                 'status.in' => 'Le statut doit être soit "Open" soit "Close".',
+                'image.image' => 'Le fichier doit être une image.',
+                'image.mimes' => 'Le fichier doit être de type : jpeg, png, jpg ou gif.',
+                'image.max' => 'L\'image ne doit pas dépasser 10 Mo.',
             ]);
+
+            Log::info("Requete Validée");
+
+
+
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('agency', 'public');
+            }
 
             $this->agencyRepo->create([
                 'name' => trim($request->name),
@@ -64,7 +80,11 @@ class AgencyLocationController extends Controller
                 'address' => trim($request->address),
                 'phone' => trim($request->phone),
                 'status' => $request->status,
+                "image" => $imagePath,
+
             ]);
+            Log::info("Requete Soumise");
+
 
             return redirect()->route('agency.index')->with('success', 'Agence ajoutée avec succès.');
         } catch (ValidationException $e) {
@@ -76,6 +96,8 @@ class AgencyLocationController extends Controller
 
     public function update(Request $request, string $id)
     {
+        Log::info("Requete passée");
+
         try {
             $agency = $this->agencyRepo->find($id);
             if (!$agency) {
@@ -89,6 +111,8 @@ class AgencyLocationController extends Controller
                 'address' => 'required|string|max:500',
                 'phone' => 'required|string|max:20',
                 'status' => 'nullable|in:Open,Close',
+                'image' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
+
             ], [
                 'name.required' => 'Le nom de l\'agence est obligatoire.',
                 'name.string' => 'Le nom doit être une chaîne de caractères.',
@@ -106,7 +130,16 @@ class AgencyLocationController extends Controller
                 'phone.string' => 'Le numéro de téléphone doit être une chaîne de caractères.',
                 'phone.max' => 'Le numéro de téléphone ne peut pas dépasser 20 caractères.',
                 'status.in' => 'Le statut doit être soit "Open" soit "Close".',
+                'image.image' => 'Le fichier doit être une image.',
+                'image.mimes' => 'Le fichier doit être de type : jpeg, png, jpg ou gif.',
+                'image.max' => 'L\'image ne doit pas dépasser 10 Mo.',
             ]);
+            Log::info("Requete Validée");
+
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('agency', 'public');
+            }
 
             $this->agencyRepo->update($agency, [
                 'name' => trim($request->name),
@@ -115,7 +148,12 @@ class AgencyLocationController extends Controller
                 'address' => trim($request->address),
                 'phone' => trim($request->phone),
                 'status' => $request->status,
+                "image" => $imagePath,
+
             ]);
+            Log::info("Requete Soumise");
+
+
 
             return redirect()->route('agency.index')->with('success', 'Agence mise à jour avec succès.');
         } catch (ValidationException $e) {

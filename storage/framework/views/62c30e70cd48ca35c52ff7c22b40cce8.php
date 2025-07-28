@@ -1,6 +1,4 @@
-@extends('layout.admin')
-
-@section('css')
+<?php $__env->startSection('css'); ?>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         #map {
@@ -92,35 +90,37 @@
             color: #374151;
         }
     </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
-    @include('includes.admin.sidebar')
+<?php $__env->startSection('content'); ?>
+    <?php echo $__env->make('includes.admin.sidebar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <main class="dashboard-main">
-        @include('includes.admin.appbar')
-        @include('includes.main.loading')
+        <?php echo $__env->make('includes.admin.appbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+        <?php echo $__env->make('includes.main.loading', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
         <div class="dashboard-main-body">
-            @if (session('success'))
+            <?php if(session('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+                    <?php echo e(session('success')); ?>
 
-            @if (session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            @endif
+            <?php endif; ?>
+
+            <?php if(session('error')): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?php echo e(session('error')); ?>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
 
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
                 <h4 class="fw-semibold mb-0">Ajouter une agence</h4>
                 <ul class="d-flex align-items-center gap-2">
                     <li class="fw-medium">
-                        <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">
+                        <a href="<?php echo e(route('admin.dashboard')); ?>" class="d-flex align-items-center gap-1 hover-text-primary">
                             <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
                             Dashboard
                         </a>
@@ -130,40 +130,96 @@
                 </ul>
             </div>
 
-            <form action="{{ route('agency.store') }}" method="POST" class="row g-4" enctype="multipart/form-data">
-                @csrf
+            <form action="<?php echo e(route('agency.store')); ?>" method="POST" class="row g-4" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
                 <div class="col-12">
                     <label for="name" class="form-label">Nom de l'agence</label>
                     <input type="text" name="name" id="name"
-                        class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
-                    @error('name')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                        class="form-control <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('name')); ?>" required>
+                    <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="col-md-6">
                     <label for="latitude" class="form-label">Latitude</label>
                     <input type="number" step="any" name="latitude" id="latitude"
-                        class="form-control @error('latitude') is-invalid @enderror" value="{{ old('latitude', 8.6195) }}"
+                        class="form-control <?php $__errorArgs = ['latitude'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('latitude', 8.6195)); ?>"
                         required>
-                    @error('latitude')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <?php $__errorArgs = ['latitude'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="col-md-6">
                     <label for="longitude" class="form-label">Longitude</label>
                     <input type="number" step="any" name="longitude" id="longitude"
-                        class="form-control @error('longitude') is-invalid @enderror" value="{{ old('longitude', 0.8248) }}"
+                        class="form-control <?php $__errorArgs = ['longitude'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('longitude', 0.8248)); ?>"
                         required>
-                    @error('longitude')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <?php $__errorArgs = ['longitude'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="col-12">
                     <label for="address" class="form-label">Adresse</label>
-                    <textarea name="address" id="address" class="form-control @error('address') is-invalid @enderror" required>{{ old('address') }}</textarea>
-                    @error('address')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <textarea name="address" id="address" class="form-control <?php $__errorArgs = ['address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" required><?php echo e(old('address')); ?></textarea>
+                    <?php $__errorArgs = ['address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="col-12">
@@ -184,30 +240,65 @@
                             <div class="file-info" id="fileInfo"></div>
                         </div>
                     </div>
-                    @error('image')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
+                    <?php $__errorArgs = ['image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <div class="invalid-feedback d-block"><?php echo e($message); ?></div>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
 
                 <div class="col-12">
                     <label for="phone" class="form-label">Téléphone</label>
                     <input type="text" name="phone" id="phone"
-                        class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" required>
-                    @error('phone')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                        class="form-control <?php $__errorArgs = ['phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('phone')); ?>" required>
+                    <?php $__errorArgs = ['phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="col-12">
                     <label for="status" class="form-label">Statut</label>
-                    <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
-                        <option value="" {{ old('status') == null ? 'selected' : '' }}>Non défini</option>
-                        <option value="Open" {{ old('status') == 'Open' ? 'selected' : '' }}>Ouverte</option>
-                        <option value="Close" {{ old('status') == 'Close' ? 'selected' : '' }}>Fermée</option>
+                    <select name="status" id="status" class="form-select <?php $__errorArgs = ['status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
+                        <option value="" <?php echo e(old('status') == null ? 'selected' : ''); ?>>Non défini</option>
+                        <option value="Open" <?php echo e(old('status') == 'Open' ? 'selected' : ''); ?>>Ouverte</option>
+                        <option value="Close" <?php echo e(old('status') == 'Close' ? 'selected' : ''); ?>>Fermée</option>
                     </select>
-                    @error('status')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <?php $__errorArgs = ['status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="col-12">
                     <div id="map"></div>
@@ -218,11 +309,11 @@
             </form>
         </div>
 
-        @include('includes.admin.footer')
+        <?php echo $__env->make('includes.admin.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     </main>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -421,4 +512,6 @@
             });
         });
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\RaydHil\Downloads\COCEC\resources\views/admin/agency/create.blade.php ENDPATH**/ ?>

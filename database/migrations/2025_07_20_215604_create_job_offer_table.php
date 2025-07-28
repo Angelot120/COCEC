@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
+            $table->string('bref_description');
             $table->string('description');
             $table->enum('type',['stage', 'emploi']);
         });

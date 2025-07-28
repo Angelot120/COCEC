@@ -6,6 +6,7 @@ use App\Interfaces\JobOfferInterface;
 use App\Models\job;
 use App\Models\JobOffer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 
 class JobOfferRepository implements JobOfferInterface
 {
@@ -16,6 +17,8 @@ class JobOfferRepository implements JobOfferInterface
 
     public function create(array $data)
     {
+        Log::info("Requete en cours de traitement");
+
         return JobOffer::create($data);
     }
 
@@ -34,10 +37,10 @@ class JobOfferRepository implements JobOfferInterface
         return $jobOffer->delete();
     }
 
-     public function searchAndPaginate(?string $search, int $perPage): LengthAwarePaginator
+    public function searchAndPaginate(?string $search, int $perPage): LengthAwarePaginator
     {
         // On commence une nouvelle requête Eloquent
-        $query =JobOffer ::query();
+        $query = JobOffer::query();
 
         // Si un terme de recherche est fourni...
         if ($search) {

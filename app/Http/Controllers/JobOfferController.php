@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\JobOfferInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class JobOfferController extends Controller
@@ -30,10 +31,12 @@ class JobOfferController extends Controller
 
     public function store(Request $request)
     {
+    Log::info("Requete passée");
         try {
             $request->validate([
                 'title' => 'required|string|max:255',
                 'description' => 'required|string',
+                'bref_description' => 'required|string',
                 'type' => 'required|in:stage,emploi',
                 'status' => 'required|in:open,closed',
             ], [
@@ -42,18 +45,25 @@ class JobOfferController extends Controller
                 'title.max' => 'Le titre ne peut pas dépasser 255 caractères.',
                 'description.required' => 'La description est obligatoire.',
                 'description.string' => 'La description doit être une chaîne de caractères.',
+                'bref_description.required' => 'La bref description est obligatoire.',
+                'bref_description.string' => 'La bref description doit être une chaîne de caractères.',
                 'type.required' => 'Le type est obligatoire.',
                 'type.in' => 'Le type doit être soit "stage" soit "emploi".',
                 'status.required' => 'Le statut est obligatoire.',
                 'status.in' => 'Le statut doit être soit "open" soit "closed".',
             ]);
 
+                Log::info("Requete Validée");
+
             $this->jobRepo->create([
                 'title' => trim($request->title),
                 'description' => trim($request->description),
+                'bref_description' => trim($request->bref_description),
                 'type' => $request->type,
                 'status' => $request->status ?? 'open',
             ]);
+                            Log::info("Requete Soumise");
+
 
             return redirect()->route('career.index')->with('success', 'Offre d\'emploi créée avec succès.');
         } catch (ValidationException $e) {
@@ -87,6 +97,7 @@ class JobOfferController extends Controller
             $request->validate([
                 'title' => 'required|string|max:255',
                 'description' => 'required|string',
+                'bref_description' => 'required|string',
                 'type' => 'required|in:stage,emploi',
                 'status' => 'required|in:open,closed',
             ], [
@@ -95,6 +106,8 @@ class JobOfferController extends Controller
                 'title.max' => 'Le titre ne peut pas dépasser 255 caractères.',
                 'description.required' => 'La description est obligatoire.',
                 'description.string' => 'La description doit être une chaîne de caractères.',
+                'bref_description.required' => 'La bref description est obligatoire.',
+                'bref_description.string' => 'La bref description doit être une chaîne de caractères.',
                 'type.required' => 'Le type est obligatoire.',
                 'type.in' => 'Le type doit être soit "stage" soit "emploi".',
                 'status.required' => 'Le statut est obligatoire.',
@@ -104,6 +117,7 @@ class JobOfferController extends Controller
             $this->jobRepo->update($job_offer, [
                 'title' => trim($request->title),
                 'description' => trim($request->description),
+                'bref_description' => trim($request->bref_description),
                 'type' => $request->type,
                 'status' => $request->status,
             ]);

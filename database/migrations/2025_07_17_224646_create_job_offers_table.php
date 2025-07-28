@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
+            $table->string('bref_description');
             $table->enum('type', ['emploi', 'stage']);
             $table->enum('status', ['open', 'closed'])->default('open');
             $table->timestamps();

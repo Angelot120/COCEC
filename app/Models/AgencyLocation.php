@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class AgencyLocation extends Model
 {
     //
-    protected $fillable=[
-'name','latitude','longitude','phone','address','status'
+    protected $fillable = [
+        'name',
+        'latitude',
+        'longitude',
+        'phone',
+        'address',
+        'status',
+        'image'
     ];
 }

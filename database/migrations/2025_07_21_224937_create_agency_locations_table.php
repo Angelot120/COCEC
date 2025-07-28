@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('longitude',10, 7);
             $table->string('address');
             $table->string('phone');
+            $table->string('image')->nullable();
             $table->enum('status',['Open','Close'])->nullable();
 
         });
