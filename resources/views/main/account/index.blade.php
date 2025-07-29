@@ -240,7 +240,7 @@
                         <li><i class="fas fa-scroll"></i><span>Respecter les statuts et règlements intérieurs.</span></li>
                     </ul>
                     {{-- Bouton original restauré --}}
-                    <a href="{{ route('account.create') }}" class="btn btn-custom-red">
+                    <a href="{{ route('account.create.physic') }}" class="btn btn-custom-red">
                         <span>Remplir le formulaire</span>
                         <i class="fas fa-arrow-right icon-arrow"></i>
                     </a>
@@ -261,7 +261,7 @@
                         <li><i class="fas fa-layer-group"></i><span>Souscrire à trois parts sociales (15 000 FCFA).</span></li>
                     </ul>
                     {{-- Bouton original restauré --}}
-                    <a href="{{ route('account.create') }}" class="btn btn-custom-red">
+                    <a href="{{ route('account.create.morale') }}" class="btn btn-custom-red">
                         <span>Remplir le formulaire</span>
                         <i class="fas fa-arrow-right icon-arrow"></i>
                     </a>

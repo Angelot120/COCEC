@@ -35,7 +35,8 @@ Route::get('/open-account', [ViewsController::class, 'account'])->name('main.acc
 Route::get('/digital-finance', [ViewsController::class, 'finance'])->name('main.finance');
 Route::get('/faq', [ViewsController::class, 'faq'])->name('main.faq');
 Route::post('/faq/comment', [FaqCommentController::class, 'store'])->name('faq.comments.store');
-Route::get('/create-account', [AccountController::class, 'index'])->name('account.create');
+Route::get('/create-account/physic', [AccountController::class, 'physic'])->name('account.create.physic');
+Route::get('/create-account/morale', [AccountController::class, 'morale'])->name('account.create.morale');
 Route::post('/create-account/physical/processing', [AccountController::class, 'storePhysical'])->name('account.store.physical');
 Route::post('/create-account/moral/processing', [AccountController::class, 'storeMoral'])->name('account.store.moral');
 

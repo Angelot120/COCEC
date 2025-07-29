@@ -43,8 +43,8 @@ class JobController extends Controller
             'email' => 'required|email|max:255',
             'intitule' => 'required|string|max:255', // <-- Validation pour l'intitulé
             'application_type' => 'required|in:emploi,stage',
-            'cv' => 'required|file|mimes:pdf|max:2048', // 2MB Max
-            'motivation_letter' => 'required|file|mimes:pdf|max:2048', // 2MB Max
+            'cv' => 'required|file|mimes:pdf|max:30720', // 30MB Max
+            'motivation_letter' => 'required|file|mimes:pdf|max:30720', // 30MB Max
         ]);
 
         // Gérer le téléversement des fichiers
@@ -96,8 +96,8 @@ class JobController extends Controller
             'email' => 'required|email|max:255',
             'intitule' => 'required|string|max:255', // <-- Validation pour l'intitulé
             'application_type' => 'required|in:emploi,stage',
-            'cv' => 'required|file|mimes:pdf|max:2048', // 2MB Max
-            'motivation_letter' => 'required|file|mimes:pdf|max:2048', // 2MB Max
+            'cv' => 'required|file|mimes:pdf|max:30720',
+            'motivation_letter' => 'required|file|mimes:pdf|max:30720',
         ]);
 
         // Gérer le téléversement des fichiers

@@ -17,6 +17,7 @@ class Beneficiary extends Model
         'nom',
         'contact',
         'lien',
+        'birth_date',
     ];
 
     /**
@@ -25,5 +26,10 @@ class Beneficiary extends Model
     public function physicalPersonSubmission(): BelongsTo
     {
         return $this->belongsTo(PhysicalPersonSubmission::class);
+    }
+
+    public function moralPersonSubmission(): BelongsTo
+    {
+        return $this->belongsTo(MoralPersonSubmission::class);
     }
 }

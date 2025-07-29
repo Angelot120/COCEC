@@ -24,7 +24,6 @@ class NewsletterController extends Controller
 
         DB::table('newsletter_subscribers')->updateOrInsert(
             ['email' => $request->email],
-            ['created_at' => now()]
         );
 
         return response()->json([

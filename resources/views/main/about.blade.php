@@ -120,7 +120,7 @@
             </div>
             <!-- Le wrapper permet un défilement horizontal sur mobile si l'image est trop large -->
             <div class="org-chart-wrapper" data-aos="fade-up" data-aos-delay="100">
-                <img src="{{ asset('images/organigramme.png') }}" alt="Organigramme de la COCEC">
+                <img src="{{ asset('assets/images/organigramme.png') }}" alt="Organigramme de la COCEC">
             </div>
         </div>
     </section>

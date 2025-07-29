@@ -10,55 +10,61 @@ class PhysicalPersonSubmission extends Model
 {
     //
     use HasFactory;
-
     protected $fillable = [
-        // Étape 1: Informations Personnelles
-        'nom',
-        'prenoms',
-        'sexe',
-        'date_naissance',
-        'lieu_naissance',
-        'nationalite',
-        'nom_pere',
-        'nom_mere',
-
-        // Étape 2: Informations Complémentaires
-        'etat_civil',
-        'nom_conjoint',
-        'profession_conjoint',
-        'tel_conjoint',
-        'profession',
-        'nom_entreprise_activite',
-        'description_activite',
-        'ref1_nom',
-        'ref1_tel',
-
-        // Étape 3: Domicile & KYC
-        'description_domicile',
-        'plan_domicile_path',
-        'domicile_lat',
-        'domicile_lng',
-        'description_travail',
-        'plan_travail_path',
-        'travail_lat',
-        'travail_lng',
-
-        // Étape 4: Pièces Jointes & Identification
-        'type_piece',
-        'numero_piece',
+        'last_name',
+        'first_names',
+        'gender',
+        'birth_date',
+        'birth_place',
+        'nationality',
+        'father_name',
+        'mother_name',
+        'phone',
+        'category',
+        'marital_status',
+        'spouse_name',
+        'spouse_occupation',
+        'spouse_phone',
+        'spouse_address',
+        'occupation',
+        'company_name_activity',
+        'activity_type',
+        'activity_description',
+        'residence_description',
+        'residence_plan_path',
+        'residence_lat',
+        'residence_lng',
+        'workplace_description',
+        'workplace_plan_path',
+        'workplace_lat',
+        'workplace_lng',
+        'id_type',
+        'id_number',
+        'id_issue_date',
         'photo_path',
-        'scan_piece_path',
+        'id_scan_path',
         'signature_method',
         'signature_base64',
         'signature_upload_path',
-
-        // Étape 5: Versements
-        'depot_initial',
+        'initial_deposit',
+        'membership_date',
+        'account_number',
+        'account_opening_date',
+        'is_ppe_national',
+        'ppe_foreign',
+        'sanctions',
+        'terrorism_financing',
+        'remarks',
     ];
 
     /**
      * Get the beneficiaries for this physical person submission.
      */
+    public function references(): HasMany
+    {
+        return $this->hasMany(Reference::class);
+    }
+
     public function beneficiaries(): HasMany
     {
         return $this->hasMany(Beneficiary::class);

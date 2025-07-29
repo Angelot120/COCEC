@@ -23,7 +23,9 @@ class BlogController extends Controller
     public function index()
     {
         //
-        $blogs = Blog::all();
+        $blogs = Blog::where('is_published', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('main.blog.index', ['blogs' => $blogs]);
     }
@@ -44,7 +46,7 @@ class BlogController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:30720',
             'short_description' => 'required|string|max:500',
             'long_description' => 'required|string',
             'is_published' => 'required|boolean',
@@ -99,7 +101,7 @@ class BlogController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:30720',
             'short_description' => 'required|string|max:500',
             'long_description' => 'required|string',
         ]);
@@ -108,7 +110,7 @@ class BlogController extends Controller
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('blog', 'public');
         } else {
-            $imagePath = $blog->image; // Keep the existing image if no new one is uploaded
+            $imagePath = $blog->image;
         }
 
         $data = [

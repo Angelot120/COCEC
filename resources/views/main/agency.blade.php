@@ -2,10 +2,14 @@
 
 @section('css')
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+{{-- NOUVEAU LIEN CSS : Requis pour GLightbox --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 
 <style>
+    /* 1. VARIABLES DE COULEURS */
     :root {
         --primary-color: #EC281C;
+        --secondary-color: #FFCC00;
         --dark-charcoal: #2D3748;
         --text-color: #4A5568;
         --light-gray-bg: #F7FAFC;
@@ -13,6 +17,7 @@
         --font-family: 'Poppins', sans-serif;
     }
 
+    /* 2. STYLES GÉNÉRAUX */
     .agency-hero-section {
         padding: 80px 0;
         background-color: var(--dark-charcoal);
@@ -69,6 +74,7 @@
         box-shadow: 0 0 0 4px rgba(236, 40, 28, 0.1);
     }
 
+    /* 3. SECTION PRINCIPALE */
     .agency-main-section {
         padding: 80px 0;
         background-color: var(--light-gray-bg);
@@ -140,14 +146,15 @@
         border-radius: 6px;
     }
 
+    /* 4. CARTE DE L'AGENCE */
     .agency-card {
         background: #FFFFFF;
         border: 1px solid var(--border-color);
         border-radius: 12px;
         margin-bottom: 20px;
-        cursor: pointer;
         transition: all 0.3s ease-in-out;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        cursor: pointer;
     }
 
     .agency-card:hover {
@@ -158,6 +165,21 @@
     .agency-card.active {
         border-color: var(--primary-color);
         box-shadow: 0 10px 15px -3px rgba(236, 40, 28, 0.1), 0 4px 6px -2px rgba(236, 40, 28, 0.05);
+    }
+
+    /* Le lien autour de l'image pour le lightbox */
+    .agency-image-link {
+        display: block;
+        /* Important pour que le lien prenne la place de l'image */
+        cursor: zoom-in;
+    }
+
+    .agency-card-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 11px 11px 0 0;
+        border-bottom: 1px solid var(--border-color);
     }
 
     .agency-card .card-content {
@@ -243,7 +265,7 @@
     }
 
     .btn-route:hover {
-        background-color: #c01e13;
+        background-color: var(--secondary-color);
     }
 
     .btn-call {
@@ -314,20 +336,14 @@
 <section class="agency-main-section">
     <div class="container">
         <div class="agency-page-layout">
-            <!-- Colonne de la Carte -->
             <div class="agency-map-container">
                 <div id="agency-map"></div>
             </div>
-
-            <!-- Colonne de la Liste des Agences -->
             <div>
                 <div class="agency-list-header">
-                    <h3>Nos Agences</h3>
-                    <span id="agency-count"></span>
+                    <h3>Nos Agences</h3><span id="agency-count"></span>
                 </div>
-                <div class="agency-list-container" id="agency-list">
-                    {{-- Les agences et le message "aucun résultat" seront injectés ici par le JavaScript --}}
-                </div>
+                <div class="agency-list-container" id="agency-list"></div>
             </div>
         </div>
     </div>
@@ -339,55 +355,25 @@
 
 @section('js')
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-
         const agencies = @json($agencies);
 
-        // =================================================================
-        // NOUVELLE FONCTION POUR DÉTERMINER LE STATUT EN TEMPS RÉEL
-        // =================================================================
-
-        function getDynamicAgencyStatus() {
-            const now = new Date();
-            const day = now.getDay(); // 0 = Dimanche, 1 = Lundi, ..., 6 = Samedi
-            const hour = now.getHours(); // 0-23 (format 24h)
-
-            // Règle 1 : Fermé le weekend (Samedi et Dimanche)
-            if (day === 0 || day === 6) {
-                return {
-                    text: 'Fermé',
-                    className: 'Close'
-                };
-            }
-
-            // Règle 2 : Ouvert en semaine entre 9h00 et 16h59
-            // (hour >= 9) signifie "à partir de 9h"
-            // (hour < 17) signifie "jusqu'à 16h59", donc on ferme à 17h pile.
-            if (hour >= 9 && hour < 17) {
-                return {
-                    text: 'Ouvert',
-                    className: 'Open'
-                };
-            }
-
-            // Règle 3 : Dans tous les autres cas (en semaine, mais en dehors des heures), c'est fermé.
-            return {
-                text: 'Fermé',
-                className: 'Close'
-            };
-        }
+        // Initialisation de GLightbox
+        const lightbox = GLightbox({
+            selector: '.agency-image-link' // Cible les liens avec cette classe
+        });
 
         const map = L.map('agency-map').setView([6.30, 1.0], 9);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>'
+            attribution: '© OpenStreetMap contributors © CARTO'
         }).addTo(map);
-
         const markersLayer = new L.LayerGroup().addTo(map);
         const agencyListContainer = document.getElementById('agency-list');
         const searchInput = document.getElementById('agency-search-input');
         const agencyCountSpan = document.getElementById('agency-count');
-
         const customIcon = L.icon({
             iconUrl: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="%23EC281C" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><path fill="none" d="M0 0h24v24H0z"/></svg>`,
             iconSize: [36, 36],
@@ -395,78 +381,84 @@
             popupAnchor: [0, -36]
         });
 
+        function getDynamicAgencyStatus() {
+            const now = new Date();
+            const day = now.getDay();
+            const hour = now.getHours();
+            if (day === 0 || day === 6) {
+                return {
+                    text: 'Fermé',
+                    className: 'Close'
+                };
+            }
+            if (hour >= 9 && hour < 17) {
+                return {
+                    text: 'Ouvert',
+                    className: 'Open'
+                };
+            }
+            return {
+                text: 'Fermé',
+                className: 'Close'
+            };
+        }
+
         function renderListAndMarkers(filteredAgencies) {
             agencyListContainer.innerHTML = '';
             markersLayer.clearLayers();
             agencyCountSpan.textContent = `${filteredAgencies.length} agence(s) trouvée(s)`;
-
             if (filteredAgencies.length === 0) {
-                agencyListContainer.innerHTML = `
-<div class="no-results-message">
-<i class="fas fa-store-slash"></i>
-<p>Aucune agence ne correspond à votre recherche.</p>
-</div>`;
+                agencyListContainer.innerHTML = `<div class="no-results-message"><i class="fas fa-store-slash"></i><p>Aucune agence ne correspond à votre recherche.</p></div>`;
                 return;
             }
-
-            // On récupère le statut une seule fois, il sera le même pour toutes les agences.
             const dynamicStatus = getDynamicAgencyStatus();
-
             filteredAgencies.forEach(agency => {
-                // =================================================================
-                // MODIFICATION : ON UTILISE LE STATUT DYNAMIQUE
-                // Le statut de la base de données est maintenant ignoré.
-                // =================================================================
                 const statusText = dynamicStatus.text;
                 const statusClass = dynamicStatus.className;
+                const imageUrl = agency.image ? `/storage/${agency.image}` : `/storage/agency/placeholder.jpg`;
 
                 const cardHTML = `
-<div class="agency-card" id="agency-${agency.id}" data-id="${agency.id}">
-<div class="card-content">
-<div class="card-header">
-<h3 class="agency-title">${agency.name}</h3>
-<span class="agency-status">
-<span class="status-dot" data-status="${statusClass}"></span>
-${statusText}
-</span>
-</div>
-<ul class="agency-info">
-<li><i class="fas fa-map-marker-alt info-icon"></i> <div>${agency.address}</div></li>
-<li><i class="fas fa-phone-alt info-icon"></i> <div>(+228) ${agency.phone}</div></li>
-</ul>
-<div class="agency-actions">
-<a href="https://www.google.com/maps/dir/?api=1&destination=${agency.latitude},${agency.longitude}" target="_blank" class="btn-action btn-route"><i class="fas fa-directions"></i> Itinéraire</a>
-<a href="tel:+228${agency.phone}" class="btn-action btn-call"><i class="fas fa-phone-alt"></i> Appeler</a>
-</div>
-</div>
-</div>`;
+                <div class="agency-card" id="agency-${agency.id}" data-id="${agency.id}">
+                    <a href="${imageUrl}" class="agency-image-link" data-gallery="agencies" data-title="${agency.name}">
+                        <img src="${imageUrl}" alt="Façade de l'agence ${agency.name}" class="agency-card-image">
+                    </a>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="agency-title">${agency.name}</h3>
+                            <span class="agency-status"><span class="status-dot" data-status="${statusClass}"></span> ${statusText}</span>
+                        </div>
+                        <ul class="agency-info">
+                            <li><i class="fas fa-map-marker-alt info-icon"></i> <div>${agency.address}</div></li>
+                            <li><i class="fas fa-phone-alt info-icon"></i> <div>(+228) ${agency.phone}</div></li>
+                        </ul>
+                        <div class="agency-actions">
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=${agency.latitude},${agency.longitude}" target="_blank" class="btn-action btn-route"><i class="fas fa-directions"></i> Itinéraire</a>
+                            <a href="tel:+228${agency.phone}" class="btn-action btn-call"><i class="fas fa-phone-alt"></i> Appeler</a>
+                        </div>
+                    </div>
+                </div>`;
+
                 agencyListContainer.insertAdjacentHTML('beforeend', cardHTML);
-
                 const marker = L.marker([agency.latitude, agency.longitude], {
-                        icon: customIcon,
-                        riseOnHover: true
-                    })
-                    .bindPopup(`<b>${agency.name}</b><br>${agency.address}`)
-                    .on('click', () => handleInteraction(agency.id, 'marker'));
-
+                    icon: customIcon,
+                    riseOnHover: true
+                }).bindPopup(`<b>${agency.name}</b><br>${agency.address}`).on('click', () => handleInteraction(agency.id, 'marker'));
                 marker.agencyId = agency.id;
                 markersLayer.addLayer(marker);
             });
             attachCardEventListeners();
+            lightbox.reload(); // Indispensable pour que GLightbox détecte les nouvelles images après un filtre
         }
 
         function handleInteraction(id, source = 'card') {
             const agency = agencies.find(a => a.id === id);
             if (!agency) return;
-
             map.flyTo([agency.latitude, agency.longitude], 15);
-
             markersLayer.eachLayer(marker => {
                 if (marker.agencyId === id) {
                     marker.openPopup();
                 }
             });
-
             document.querySelectorAll('.agency-card').forEach(c => c.classList.remove('active'));
             const activeCard = document.getElementById(`agency-${id}`);
             if (activeCard) {
@@ -482,18 +474,19 @@ ${statusText}
 
         function attachCardEventListeners() {
             document.querySelectorAll('.agency-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    handleInteraction(parseInt(this.dataset.id));
+                // L'événement clic est attaché à la carte entière
+                card.addEventListener('click', function(event) {
+                    // Si l'élément cliqué N'EST PAS le lien de l'image, on active la carte
+                    if (!event.target.closest('.agency-image-link')) {
+                        handleInteraction(parseInt(this.dataset.id));
+                    }
                 });
             });
         }
 
         function filterAgencies() {
             const searchTerm = searchInput.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            const filtered = agencies.filter(agency =>
-                agency.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchTerm) ||
-                agency.address.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchTerm)
-            );
+            const filtered = agencies.filter(agency => agency.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchTerm) || agency.address.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchTerm));
             renderListAndMarkers(filtered);
         }
 

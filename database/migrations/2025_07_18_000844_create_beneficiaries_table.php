@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->id();
-            
-            // Le bénéficiaire est lié à une soumission, soit physique, soit morale.
             $table->foreignId('physical_person_submission_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('moral_person_submission_id')->nullable()->constrained()->onDelete('cascade');
-            
             $table->string('nom');
             $table->string('contact');
             $table->string('lien');
-            
+            $table->date('birth_date')->nullable();
+
             $table->timestamps();
         });
     }

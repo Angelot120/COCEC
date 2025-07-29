@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\FaqComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Email;
 
 class FaqCommentController extends Controller
 {
@@ -33,20 +35,26 @@ class FaqCommentController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        // Création du commentaire
-        $comment = new FaqComment();
-        $comment->body = $request->input('body');
-        $comment->parent_id = $request->input('parent_id');
+        $data = [
+            'body' => $request->body,
+            'parent_id' => $request->parent_id,
+        ];
 
         // Associer l'utilisateur s'il est connecté, sinon utiliser les infos du formulaire
         if (Auth::check()) {
-            $comment->user_id = Auth::id();
+            $data['user_id'] = Auth::id();
         } else {
-            $comment->name = $request->input('name');
-            $comment->email = $request->input('email');
+            $data['name'] = $request->name;
+            $data['email'] = $request->email;
         }
 
-        $comment->save();
+        $comment = FaqComment::create($data);
+
+        if ($request->email) {
+            DB::table('newsletter_subscribers')->updateOrInsert(
+                ['email' => $request->email],
+            );
+        }
 
         // Recharger le commentaire avec la relation utilisateur pour la réponse AJAX
         $comment->load('user');
@@ -61,10 +69,6 @@ class FaqCommentController extends Controller
 
     public function destroy($id)
     {
-
-        log::info('Requête DELETE reçue pour le commentaire ID: ' . $id);
-        log::info('Utilisateur authentifié: ' . (Auth::check() ? 'Oui' : 'Non'));
-        log::info('Utilisateur admin: ' . (Auth::user()->is_admin ? 'Oui' : 'Non'));
 
         // === LOGIQUE D'AUTORISATION ===
         if (Auth::user()->is_admin) {

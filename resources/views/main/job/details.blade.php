@@ -358,6 +358,7 @@
                     <div class="content-title-wrapper">
                         <h2>Description du poste</h2>
                     </div>
+                    <p>{{ $offer->bref_description }}</p>
                     <div class="description-section">{!! $offer->description !!}</div>
                 </div>
                 <div class="col-lg-5 col-md-12">
