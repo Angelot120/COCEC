@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\JobOfferInterface;
+use App\Models\JobApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -31,7 +32,7 @@ class JobOfferController extends Controller
 
     public function store(Request $request)
     {
-    Log::info("Requete passée");
+        Log::info("Requete passée");
         try {
             $request->validate([
                 'title' => 'required|string|max:255',
@@ -53,7 +54,7 @@ class JobOfferController extends Controller
                 'status.in' => 'Le statut doit être soit "open" soit "closed".',
             ]);
 
-                Log::info("Requete Validée");
+            Log::info("Requete Validée");
 
             $this->jobRepo->create([
                 'title' => trim($request->title),
@@ -62,8 +63,7 @@ class JobOfferController extends Controller
                 'type' => $request->type,
                 'status' => $request->status ?? 'open',
             ]);
-                            Log::info("Requete Soumise");
-
+            Log::info("Requete Soumise");
 
             return redirect()->route('career.index')->with('success', 'Offre d\'emploi créée avec succès.');
         } catch (ValidationException $e) {
@@ -127,7 +127,7 @@ class JobOfferController extends Controller
             return redirect()->route('career.index')
                 ->withErrors($e->errors())
                 ->withInput()
-                ->with('edit_job_offer_id', $id); // Passe l'ID pour rouvrir le modal
+                ->with('edit_job_offer_id', $id);
         } catch (\Exception $e) {
             return redirect()->route('career.index')
                 ->withErrors(['error' => 'Une erreur est survenue lors de la mise à jour.'])
@@ -166,6 +166,22 @@ class JobOfferController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('career.index')
                 ->withErrors(['error' => 'Une erreur est survenue lors du changement de statut.']);
+        }
+    }
+
+    public function jobDetail(string $id)
+    {
+        try {
+            $job = $this->jobRepo->find($id);
+            if (!$job) {
+                return redirect()->route('career.index')->withErrors(['error' => 'Offre d\'emploi introuvable.']);
+            }
+            $jobApplications = JobApplication::where('job_offer_id', $id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+            return view('admin.jobOffer.details', compact('job', 'jobApplications'));
+        } catch (\Exception $e) {
+            return redirect()->route('career.index')->withErrors(['error' => 'Une erreur est survenue lors de la récupération des détails.']);
         }
     }
 }

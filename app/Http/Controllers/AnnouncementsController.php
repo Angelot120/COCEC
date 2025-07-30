@@ -34,7 +34,7 @@ class AnnouncementsController extends Controller
         try {
             $request->validate([
                 'title' => 'required|string|max:255',
-                'description' => 'nullable|string',
+                'description' => 'nullable|string|max:255',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'status' => 'required|in:publier,non publier,expirer',
             ], [

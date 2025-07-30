@@ -104,6 +104,9 @@
                     <li>
                         <a href="{{ route('career.create') }}">Ajouter une offre</a>
                     </li>
+                    <li>
+                        <a href="{{ route('jobList.index') }}">Liste des demandes </a>
+                    </li>
 
                 </ul>
             </li>

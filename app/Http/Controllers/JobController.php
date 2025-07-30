@@ -6,6 +6,7 @@ use App\Interfaces\JobInterface;
 use App\Models\JobApplication;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
 {
@@ -15,25 +16,21 @@ class JobController extends Controller
     {
         $this->jobInterface = $jobInterface;
     }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        //
+        $search = $request->query('search');
+        $perPage = $request->query('per_page', 10);
+        $jobApplications = $this->jobInterface->searchAndPaginate($search, $perPage);
+        return view('admin.jobList.index', compact('jobApplications'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        // Non utilisé pour l'instant, mais peut servir pour un formulaire frontend
+        return view('main.job.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -41,14 +38,12 @@ class JobController extends Controller
             'first_name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
-            'intitule' => 'required|string|max:255', // <-- Validation pour l'intitulé
+            'intitule' => 'required|string|max:255',
             'application_type' => 'required|in:emploi,stage',
-            'cv' => 'required|file|mimes:pdf|max:2048', // 2MB Max
-            'motivation_letter' => 'required|file|mimes:pdf|max:2048', // 2MB Max
+            'cv' => 'required|file|mimes:pdf|max:2048',
+            'motivation_letter' => 'required|file|mimes:pdf|max:2048',
         ]);
 
-        // Gérer le téléversement des fichiers
-        // N'oubliez pas de lancer `php artisan storage:link`
         $cvPath = $request->file('cv')->store('resumes', 'public');
         $motivationLetterPath = $request->file('motivation_letter')->store('motivation_letters', 'public');
 
@@ -70,22 +65,15 @@ class JobController extends Controller
         return back()->with('success', 'Votre candidature a bien été envoyée. Nous vous remercions !');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
         $jobOffer = JobOffer::findOrFail($id);
         return view('main.job.details', ['offer' => $jobOffer]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function applyOffer(string $id, Request $request)
     {
-        if(!JobOffer::findOrFail($id)) {
+        if (!JobOffer::findOrFail($id)) {
             return back()->withErrors(['error' => 'Offre d\'emploi non trouvée.']);
         }
 
@@ -94,14 +82,12 @@ class JobController extends Controller
             'first_name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
-            'intitule' => 'required|string|max:255', // <-- Validation pour l'intitulé
+            'intitule' => 'required|string|max:255',
             'application_type' => 'required|in:emploi,stage',
-            'cv' => 'required|file|mimes:pdf|max:2048', // 2MB Max
-            'motivation_letter' => 'required|file|mimes:pdf|max:2048', // 2MB Max
+            'cv' => 'required|file|mimes:pdf|max:2048',
+            'motivation_letter' => 'required|file|mimes:pdf|max:2048',
         ]);
 
-        // Gérer le téléversement des fichiers
-        // N'oubliez pas de lancer `php artisan storage:link`
         $cvPath = $request->file('cv')->store('resumes', 'public');
         $motivationLetterPath = $request->file('motivation_letter')->store('motivation_letters', 'public');
 
@@ -124,19 +110,40 @@ class JobController extends Controller
         return back()->with('success', 'Votre candidature a bien été envoyée. Nous vous remercions !');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        // Non utilisé pour l'instant
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        try {
+            $jobApplication = $this->jobInterface->find($id);
+            // Supprimer les fichiers associés
+            if ($jobApplication->cv_path && Storage::disk('public')->exists($jobApplication->cv_path)) {
+                Storage::disk('public')->delete($jobApplication->cv_path);
+            }
+            if ($jobApplication->motivation_letter_path && Storage::disk('public')->exists($jobApplication->motivation_letter_path)) {
+                Storage::disk('public')->delete($jobApplication->motivation_letter_path);
+            }
+            $this->jobInterface->delete($jobApplication);
+            return redirect()->route('jobList.index')->with('success', 'Candidature supprimée avec succès.');
+        } catch (\Exception $e) {
+            return redirect()->route('jobList.index')->withErrors(['error' => 'Une erreur est survenue lors de la suppression.']);
+        }
+    }
+
+    public function downloadFile($id, $type)
+    {
+        try {
+            $jobApplication = $this->jobInterface->find($id);
+            $filePath = $type === 'cv' ? $jobApplication->cv_path : $jobApplication->motivation_letter_path;
+            if (!$filePath || !Storage::disk('public')->exists($filePath)) {
+                return back()->withErrors(['error' => 'Fichier non trouvé.']);
+            }
+            return Storage::disk('public')->download($filePath);
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Une erreur est survenue lors du téléchargement.']);
+        }
     }
 }

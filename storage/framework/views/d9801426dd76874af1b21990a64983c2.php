@@ -115,10 +115,9 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
-
                 <div class="col-12">
                     <label for="bref_description" class="form-label">Bref description</label>
-                    <input type="text" name="bref_description" id="bref_description"
+                    <textarea name="bref_description" id="bref_description"
                         class="form-control <?php $__errorArgs = ['bref_description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -126,8 +125,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>"
-                        value="<?php echo e(old('bref_description')); ?>" required>
+unset($__errorArgs, $__bag); ?>" rows="4" required><?php echo e(old('bref_description')); ?></textarea>
                     <?php $__errorArgs = ['bref_description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -139,6 +137,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
+
 
                 <div class="col-12">
                     <label for="description" class="form-label">Description</label>

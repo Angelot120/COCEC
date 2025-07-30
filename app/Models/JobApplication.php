@@ -21,4 +21,9 @@ class JobApplication extends Model
         'motivation_letter_path',
         'job_offer_id'
     ];
+
+    public function jobOffer()
+    {
+        return $this->belongsTo(JobOffer::class);
+    }
 }
