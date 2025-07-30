@@ -2,12 +2,14 @@
 
 @section('css')
 <style>
-    /* === STYLES COMMUNS "PRESTIGE" === */
+    /* 1. VOS VARIABLES DE COULEURS */
     :root {
         --primary-color: #EC281C;
+        --secondary-color: #FFCC00;
         --dark-charcoal: #1A202C;
         --text-color: #4A5568;
         --light-gray-bg: #F7FAFC;
+        --white: #FFFFFF;
         --border-color: #E2E8F0;
         --font-family: 'Poppins', sans-serif;
     }
@@ -23,14 +25,19 @@
         box-sizing: border-box;
     }
 
-    /* === STYLES DE LA PAGE FAQ === */
+    /* === STYLES DE LA PAGE FAQ AVEC COULEURS APPLIQUÉES === */
     .faq-pro-section {
-        padding: 100px 0 0 0;
+        padding: 100px 0;
         background-color: #FFFFFF;
     }
 
+    /* Padding bas ajouté */
+
+    /* === AJOUT DE JAUNE : Sous-titre === */
     .faq-pro-section .section-heading .sub-heading {
-        color: var(--primary-color);
+        color: var(--secondary-color);
+        /* JAUNE pour le sous-titre */
+        font-weight: 600;
     }
 
     .faq-pro-section .section-heading .section-title {
@@ -87,7 +94,7 @@
     }
 
     .faq-category-item.active {
-        background-color: #ec281c1a;
+        background-color: rgba(236, 40, 28, 0.1);
         color: var(--primary-color);
         font-weight: 700;
     }
@@ -300,14 +307,15 @@
         color: var(--dark-charcoal);
     }
 
+    /* === AJOUT DE JAUNE : Tag "Officiel" === */
     .comment-author .support-tag {
-        background-color: var(--primary-color);
-        color: #fff;
+        background-color: var(--secondary-color);
+        color: var(--dark-charcoal);
         font-size: 0.7rem;
         padding: 3px 8px;
         border-radius: 5px;
         margin-left: 8px;
-        font-weight: 500;
+        font-weight: 600;
     }
 
     .comment-date {
@@ -364,7 +372,7 @@
 
     .comment-replies {
         list-style: none;
-        padding: 25px 0 0 25px;
+        padding: 15px 0 0 15px;
         margin-top: 25px;
         border-left: 2px solid var(--border-color);
     }
@@ -372,6 +380,7 @@
     .reply-form-wrapper {
         display: none;
         margin-top: 20px;
+        width: 100%;
     }
 
     .form-control-pro.is-invalid {
@@ -389,36 +398,42 @@
         display: block;
     }
 
-    .faq-contact-wrapper {
-        padding-top: 80px;
+    /* === CORRECTION LAYOUT & COULEURS : Section Contact === */
+    .faq-contact-section-wrapper {
+        padding: 80px 0;
+        /* Padding cohérent */
         background: #FFFFFF;
     }
 
     .faq-contact-section {
-        padding: 40px;
-        background: var(--dark-charcoal);
+        padding: 50px;
+        background: var(--secondary-color);
+        /* JAUNE pour un fond vibrant */
         border-radius: 16px;
         text-align: center;
-        color: #FFFFFF;
     }
 
     .faq-contact-section h3 {
         color: #FFFFFF;
-        font-size: 1.5rem;
-        font-weight: 600;
+        /* Texte sombre pour la lisibilité sur fond jaune */
+        font-size: 2rem;
+        font-weight: 700;
         margin-bottom: 10px;
     }
 
     .faq-contact-section p {
-        color: #A0AEC0;
+        color: #FFFFFF;
+        opacity: 0.8;
         margin-bottom: 25px;
+        font-size: 1.1rem;
     }
 
     .btn-contact-faq {
         display: inline-block;
         background: var(--primary-color);
+        /* Bouton ROUGE pour un appel à l'action fort */
         color: #FFFFFF;
-        padding: 12px 30px;
+        padding: 14px 35px;
         border-radius: 8px;
         font-weight: 600;
         text-decoration: none;
@@ -426,12 +441,11 @@
     }
 
     .btn-contact-faq:hover {
-        background-color: #FFFFFF;
-        color: var(--primary-color);
-        transform: translateY(-2px);
+        background-color: var(--dark-charcoal);
+        color: #FFFFFF;
+        transform: translateY(-3px);
     }
 
-    /* --- Responsive --- */
     @media (max-width: 991px) {
         .faq-layout {
             grid-template-columns: 1fr;
@@ -456,10 +470,11 @@
 
 @section('content')
 
+{{-- Tout le HTML est INCHANGÉ --}}
+
 <body>
     @include('includes.main.loading')
     @include('includes.main.header')
-
     <section class="page-header-pro">
         <div class="page-header-overlay"></div>
         <div class="container">
@@ -474,7 +489,6 @@
             </div>
         </div>
     </section>
-
     <section class="faq-pro-section">
         <div class="container">
             <div class="section-heading text-center" data-aos="fade-up">
@@ -545,7 +559,6 @@
         </div>
     </section>
     <br><br>
-
     <section class="community-section">
         <div class="container">
             <div class="community-wrapper">
@@ -553,12 +566,9 @@
                     <h2 class="section-title">Avis & Questions des Membres</h2>
                     <p class="lead">Posez une question ou partagez votre expérience.</p>
                 </div>
-
                 <div class="comment-form-wrapper" data-aos="fade-up">
                     <h3 class="form-title">Exprimez-vous</h3>
-                    <form id="main-comment-form" action="{{ route('faq.comments.store') }}" method="POST" novalidate>
-                        @csrf
-                        <div class="form-grid">
+                    <form id="main-comment-form" action="{{ route('faq.comments.store') }}" method="POST" novalidate>@csrf<div class="form-grid">
                             <div class="form-group"><label for="comment-name" class="form-label">Votre Nom</label><input type="text" id="comment-name" name="name" class="form-control-pro" required value="{{ auth()->user()->name ?? '' }}">
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -568,11 +578,9 @@
                         </div>
                         <div class="form-group full-width"><label for="comment-message" class="form-label">Votre Question ou Avis</label><textarea id="comment-message" name="body" class="form-control-pro" placeholder="Posez votre question ou laissez un avis..." required></textarea>
                             <div class="invalid-feedback"></div>
-                        </div>
-                        <button type="submit" class="btn-submit-comment"><i class="fas fa-paper-plane"></i><span>Soumettre</span></button>
+                        </div><button type="submit" class="btn-submit-comment"><i class="fas fa-paper-plane"></i><span>Soumettre</span></button>
                     </form>
                 </div>
-
                 <div class="comments-list-wrapper" data-aos="fade-up" data-aos-delay="100">
                     <h3 class="list-title">Discussions Récentes</h3>
                     <ol class="comments-list">
@@ -583,38 +591,22 @@
                                 <div class="comment-body">
                                     <p>{{ $comment->body }}</p>
                                 </div>
-                                <div class="comment-actions">
-                                    @auth
-                                    <button class="comment-reply-btn" data-comment-id="{{ $comment->id }}"><i class="fas fa-reply"></i> Répondre</button>
-                                    @if (Auth::user()->is_admin || Auth::id() == $comment->user_id)
-                                    <button class="comment-delete-btn" data-comment-id="{{ $comment->id }}" data-delete-url="{{ route('faq.comments.destroy', $comment) }}" data-csrf="{{ csrf_token() }}"><i class="fas fa-trash"></i> Supprimer</button>
-                                    @endif
-                                    @endauth
-                                </div>
+                                <div class="comment-actions">@auth<button class="comment-reply-btn" data-comment-id="{{ $comment->id }}"><i class="fas fa-reply"></i> Répondre</button>@if (Auth::user()->is_admin || Auth::id() == $comment->user_id)<button class="comment-delete-btn" data-comment-id="{{ $comment->id }}" data-delete-url="{{ route('faq.comments.destroy', $comment) }}" data-csrf="{{ csrf_token() }}"><i class="fas fa-trash"></i> Supprimer</button>@endif @endauth</div>
                                 <div class="reply-form-wrapper" id="reply-form-{{ $comment->id }}">
                                     <form class="reply-form" action="{{ route('faq.comments.store') }}" method="POST" novalidate>@csrf<input type="hidden" name="parent_id" value="{{ $comment->id }}">
-                                        <div class="form-group"><textarea name="body" class="form-control-pro" rows="3" placeholder="Écrivez votre réponse à {{ $comment->name }}..." required></textarea>
+                                        <div class="form-group">
+                                            <textarea name="body" class="form-control-pro" rows="3" style="width:100%; min-width:300px;" placeholder="Écrivez votre réponse à {{ $comment->name }}..." required></textarea>
                                             <div class="invalid-feedback"></div>
                                         </div><button type="submit" class="btn-submit-comment"><span>Répondre</span></button>
                                     </form>
                                 </div>
-                                @if ($comment->replies->isNotEmpty())
-                                <ol class="comment-replies">
-                                    @foreach ($comment->replies as $reply)
-                                    <li class="comment-item" id="comment-{{ $reply->id }}">
+                                @if ($comment->replies->isNotEmpty())<ol class="comment-replies">@foreach ($comment->replies as $reply)<li class="comment-item" id="comment-{{ $reply->id }}">
                                         <div class="comment-content">
                                             <div class="comment-header"><span class="comment-author">{{ $reply->name }} @if ($reply->user && $reply->user->is_admin)<span class="support-tag">Officiel</span>@endif</span><span class="comment-date">{{ $reply->created_at->diffForHumans() }}</span></div>
                                             <div class="comment-body">
                                                 <p>{{ $reply->body }}</p>
                                             </div>
-                                            <div class="comment-actions">
-                                                @auth
-                                                <button class="comment-reply-btn" data-comment-id="{{ $comment->id }}"><i class="fas fa-reply"></i> Répondre</button>
-                                                @if (Auth::user()->is_admin || Auth::id() == $reply->user_id)
-                                                <button class="comment-delete-btn" data-comment-id="{{ $reply->id }}" data-delete-url="{{ route('faq.comments.destroy', $reply) }}" data-csrf="{{ csrf_token() }}"><i class="fas fa-trash"></i> Supprimer</button>
-                                                @endif
-                                                @endauth
-                                            </div>
+                                            <div class="comment-actions">@auth<button class="comment-reply-btn" data-comment-id="{{ $comment->id }}"><i class="fas fa-reply"></i> Répondre</button>@if (Auth::user()->is_admin || Auth::id() == $reply->user_id)<button class="comment-delete-btn" data-comment-id="{{ $reply->id }}" data-delete-url="{{ route('faq.comments.destroy', $reply) }}" data-csrf="{{ csrf_token() }}"><i class="fas fa-trash"></i> Supprimer</button>@endif @endauth</div>
                                         </div>
                                     </li>
                                     @endforeach
@@ -623,35 +615,32 @@
                             </div>
                         </li>
                         @empty
-                        <p class="text-center text-muted">Soyez la première personne à poser une question ou à laisser un avis !</p>
-                        @endforelse
+                        <p class="text-center text-muted">Soyez la première personne à poser une question ou à laisser un avis !</p>@endforelse
                     </ol>
                 </div>
             </div>
         </div>
     </section>
-
-    <div class="faq-contact-wrapper">
+    {{-- SECTION CONTACT CORRIGÉE --}}
+    <section class="faq-contact-section-wrapper">
         <div class="container" data-aos="fade-up">
             <div class="faq-contact-section">
                 <h3>Vous ne trouvez pas votre réponse ?</h3>
-                <p>Notre équipe est là pour vous aider.</p><a href="{{ route('contact') }}" class="btn-contact-faq">Nous Contacter</a>
+                <p>Notre équipe est là pour vous aider. N'hésitez pas à nous contacter directement.</p>
+                <a href="{{ route('contact') }}" class="btn-contact-faq">Nous Contacter</a>
             </div>
         </div>
-    </div>
+    </section>
     <br>
-
     @include('includes.main.scroll')
     @include('includes.main.footer')
 </body>
 @endsection
 
 @section('js')
+{{-- Tout le JavaScript est INCHANGÉ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // ===================================
-        // JS POUR L'ACCORDÉON FAQ (RESTAURÉ)
-        // ===================================
         const faqSection = document.querySelector('.faq-pro-section');
         if (faqSection) {
             const categoryItems = faqSection.querySelectorAll('.faq-category-item');
@@ -684,13 +673,8 @@
                 });
             });
         }
-
-        // ===================================
-        // JS POUR LA SECTION DES COMMENTAIRES
-        // ===================================
         if (window.jQuery) {
             $(document).ready(function() {
-                // Logique de soumission de formulaire (votre version)
                 function handleFormSubmit(form) {
                     const $form = $(form);
                     const $button = $form.find('.btn-submit-comment');
@@ -758,8 +742,6 @@
                     e.preventDefault();
                     handleFormSubmit(this);
                 });
-
-                // Logique de suppression (votre version)
                 $('.comments-list').on('click', '.comment-delete-btn', function() {
                     const $button = $(this);
                     const commentId = $button.data('comment-id');

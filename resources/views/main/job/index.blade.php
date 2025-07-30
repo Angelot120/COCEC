@@ -285,7 +285,7 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
                     <div class="career-intro-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2832&auto=format&fit=crop" alt="Équipe dynamique de la COCEC">
+                        <img src="{{ URL::asset('assets/images/job-team.jpg') }}" alt="Équipe dynamique de la COCEC">
                     </div>
                 </div>
             </div>
@@ -310,7 +310,7 @@
                             </div>
                         </div>
                         <div class="job-card-body">
-                            <p>{{ \Illuminate\Support\Str::limit($offer->description, 180) }}</p>
+                            <p>{{ \Illuminate\Support\Str::limit($offer->bref_description, 180) }}</p>
                         </div>
                         <div class="job-card-footer">
                             <span class="job-type-badge {{ $offer->type }}">{{ $offer->type }}</span>

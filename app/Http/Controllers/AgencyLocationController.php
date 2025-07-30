@@ -41,7 +41,7 @@ class AgencyLocationController extends Controller
                 'address' => 'required|string|max:500',
                 'phone' => 'required|string|max:20',
                 'status' => 'nullable|in:Open,Close',
-                'image' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
+                'image' => 'image|mimes:jpeg,png,jpg,gif|max:30720',
             ], [
                 'name.required' => 'Le nom de l\'agence est obligatoire.',
                 'name.string' => 'Le nom doit être une chaîne de caractères.',
@@ -111,7 +111,7 @@ class AgencyLocationController extends Controller
                 'address' => 'required|string|max:500',
                 'phone' => 'required|string|max:20',
                 'status' => 'nullable|in:Open,Close',
-                'image' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
+                'image' => 'image|mimes:jpeg,png,jpg,gif|max:30720',
 
             ], [
                 'name.required' => 'Le nom de l\'agence est obligatoire.',

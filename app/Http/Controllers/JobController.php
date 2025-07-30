@@ -40,8 +40,8 @@ class JobController extends Controller
             'email' => 'required|email|max:255',
             'intitule' => 'required|string|max:255',
             'application_type' => 'required|in:emploi,stage',
-            'cv' => 'required|file|mimes:pdf|max:2048',
-            'motivation_letter' => 'required|file|mimes:pdf|max:2048',
+            'cv' => 'required|file|mimes:pdf|max:30720', // 30MB Max
+            'motivation_letter' => 'required|file|mimes:pdf|max:30720', // 30MB Max
         ]);
 
         $cvPath = $request->file('cv')->store('resumes', 'public');
@@ -84,8 +84,9 @@ class JobController extends Controller
             'email' => 'required|email|max:255',
             'intitule' => 'required|string|max:255',
             'application_type' => 'required|in:emploi,stage',
-            'cv' => 'required|file|mimes:pdf|max:2048',
-            'motivation_letter' => 'required|file|mimes:pdf|max:2048',
+
+            'cv' => 'required|file|mimes:pdf|max:30720',
+            'motivation_letter' => 'required|file|mimes:pdf|max:30720',
         ]);
 
         $cvPath = $request->file('cv')->store('resumes', 'public');

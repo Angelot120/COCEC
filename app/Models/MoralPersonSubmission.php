@@ -12,47 +12,64 @@ class MoralPersonSubmission extends Model
     use HasFactory;
 
     protected $fillable = [
-        // Étape 1: Informations sur l'Entité
-        'nom_entreprise',
+        'company_name',
+        'category',
         'rccm',
-        'date_creation',
-        'lieu_creation',
-        'secteur_activite',
-        'nationalite_entreprise',
-        'tel_entreprise',
-        'adresse_entreprise',
-        'domicile_lat',
-        'domicile_lng',
-
-        // Étape 2: Informations sur le Dirigeant
-        'nom_dirigeant',
-        'poste_dirigeant',
-        'sexe_dirigeant',
-        'nationalite_dirigeant',
-        'date_naissance_dirigeant',
-        'lieu_naissance_dirigeant',
-        'cni_dirigeant',
-        'tel_dirigeant',
-        'dirigeant_nom_pere',
-        'dirigeant_nom_mere',
-
-        // Étape 3: Procès-Verbal
-        'pv_membres_de',
-        'pv_reunis_en',
-
-        // Étape 4: Contacts
-        'contact_urgence_nom',
-        'contact_urgence_tel',
-
-        // Étape 5: Pièces Jointes & Signature
-        'justificatif_entreprise_path',
-        'photo_responsables_path',
+        'company_id_type',
+        'company_id_number',
+        'company_id_date',
+        'creation_date',
+        'creation_place',
+        'activity_sector',
+        'activity_description',
+        'company_nationality',
+        'company_phone',
+        'company_postal_box',
+        'company_city',
+        'company_neighborhood',
+        'company_address',
+        'company_plan_path',
+        'company_lat',
+        'company_lng',
+        'director_name',
+        'director_first_name',
+        'director_position',
+        'director_gender',
+        'director_nationality',
+        'director_birth_date',
+        'director_birth_place',
+        'director_id_number',
+        'director_id_issue_date',
+        'director_phone',
+        'director_father_name',
+        'director_mother_name',
+        'director_postal_box',
+        'director_city',
+        'director_neighborhood',
+        'director_address',
+        'director_spouse_name',
+        'director_spouse_occupation',
+        'director_spouse_phone',
+        'director_spouse_address',
+        'minutes_members',
+        'minutes_meeting',
+        'emergency_contact_name',
+        'emergency_contact_phone',
+        'emergency_contact_address',
+        'company_document_path',
+        'responsible_persons_photo_path',
         'signature_method',
         'signature_base64',
         'signature_upload_path',
-
-        // Étape 6: Versements
-        'depot_initial',
+        'initial_deposit',
+        'membership_date',
+        'account_number',
+        'account_opening_date',
+        'is_ppe_national',
+        'ppe_foreign',
+        'sanctions',
+        'terrorism_financing',
+        'remarks',
     ];
 
     /**
@@ -66,8 +83,14 @@ class MoralPersonSubmission extends Model
     /**
      * Get the mandatories for this moral person submission.
      */
-    public function mandatories(): HasMany
+
+    public function coDirectors(): HasMany
     {
-        return $this->hasMany(Mandatory::class);
+        return $this->hasMany(CoDirector::class);
+    }
+
+    public function accountSignatories(): HasMany
+    {
+        return $this->hasMany(AccountSignatory::class);
     }
 }

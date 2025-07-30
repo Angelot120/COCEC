@@ -82,7 +82,7 @@ class AnnouncementsController extends Controller
             $request->validate([
                 'title' => 'required|string|max:255',
                 'description' => 'nullable|string',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:30720',
                 'status' => 'required|in:publier,non publier,expirer',
             ], [
                 'title.required' => 'Le titre est obligatoire.',

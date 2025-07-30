@@ -127,6 +127,10 @@ class AccountController extends Controller
                 'nationality' => $request->nationality,
                 'father_name' => $request->father_name,
                 'mother_name' => $request->mother_name,
+                'phone' => $request->phone,
+                'category' => $request->category,
+                'phone' => $request->phone,
+                'category' => $request->category,
                 'marital_status' => $request->marital_status,
                 'spouse_name' => $request->spouse_name,
                 'spouse_occupation' => $request->spouse_occupation,
@@ -227,6 +231,40 @@ class AccountController extends Controller
 
             // Step 6: Payments
             'initial_deposit' => 'required|numeric|min:0',
+
+            // Step 10: Reserved Fields
+            'membership_date' => 'nullable|date',
+            'account_number' => 'nullable|string|max:255',
+            'account_opening_date' => 'nullable|date',
+            'is_ppe_national' => 'required|boolean',
+            'ppe_foreign' => 'nullable|string|required_if:is_ppe_national,false|max:255',
+            'sanctions' => 'nullable|string|max:255',
+            'terrorism_financing' => 'nullable|string|max:255',
+            'remarks' => 'nullable|string',
+        ], [
+            'company_document_path.mimes' => 'Le document de l’entreprise doit être un fichier PDF.',
+            'responsible_persons_photo_path.mimes' => 'La photo des responsables doit être une image (JPEG, PNG, JPG).',
+            'signature_data.required_if' => 'La signature dessinée est requise.',
+            'signature_upload.required_if' => "L'import de la signature est requis.",
+            'account_signatories.*.name.required' => 'Le nom du signataire est requis.',
+            'account_signatories.*.signature_type.required' => 'Le type de signature est requis.',
+
+            // Step 10: Reserved Fields
+            'membership_date' => 'nullable|date',
+            'account_number' => 'nullable|string|max:255',
+            'account_opening_date' => 'nullable|date',
+            'is_ppe_national' => 'required|boolean',
+            'ppe_foreign' => 'nullable|string|required_if:is_ppe_national,false|max:255',
+            'sanctions' => 'nullable|string|max:255',
+            'terrorism_financing' => 'nullable|string|max:255',
+            'remarks' => 'nullable|string',
+        ], [
+            'company_document_path.mimes' => 'Le document de l’entreprise doit être un fichier PDF.',
+            'responsible_persons_photo_path.mimes' => 'La photo des responsables doit être une image (JPEG, PNG, JPG).',
+            'signature_data.required_if' => 'La signature dessinée est requise.',
+            'signature_upload.required_if' => "L'import de la signature est requis.",
+            'account_signatories.*.name.required' => 'Le nom du signataire est requis.',
+            'account_signatories.*.signature_type.required' => 'Le type de signature est requis.',
         ]);
 
         try {
