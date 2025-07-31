@@ -69,6 +69,7 @@ return new class extends Migration
             $table->string('sanctions')->nullable(); // Sanctions financières
             $table->string('terrorism_financing')->nullable(); // Financement du terrorisme
             $table->text('remarks')->nullable(); // Remarques particulières
+            $table->enum('statut',['en_attente','accepter','refuser'])->default('en_attente');
 
             $table->timestamps();
         });

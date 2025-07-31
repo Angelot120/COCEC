@@ -10,6 +10,16 @@ class PhysicalPersonSubmission extends Model
 {
     //
     use HasFactory;
+    
+    protected $casts = [
+        'birth_date' => 'date',
+        'id_issue_date' => 'date',
+        'membership_date' => 'date',
+        'account_opening_date' => 'date',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+    
     protected $fillable = [
         'last_name',
         'first_names',
@@ -55,6 +65,7 @@ class PhysicalPersonSubmission extends Model
         'sanctions',
         'terrorism_financing',
         'remarks',
+        'statut',
     ];
 
     /**

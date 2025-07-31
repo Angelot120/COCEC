@@ -11,6 +11,12 @@ class Beneficiary extends Model
     //
     use HasFactory;
 
+    protected $casts = [
+        'birth_date' => 'date',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
     protected $fillable = [
         'physical_person_submission_id',
         'moral_person_submission_id',

@@ -128,6 +128,25 @@
                 </ul>
             </li>
 
+
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:account-group-outline" class="menu-icon"></iconify-icon>
+                    <span>Gestion de compte</span>
+                </a>
+
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('accounts.physical.index') }}">Demande physique</a>
+                    </li>
+
+                     <li>
+                        <a href="{{ route('account.create.morale') }}">Créer une demande morale</a>
+                    </li> 
+
+                </ul>
+            </li>
+
         </ul>
     </div>
 </aside>

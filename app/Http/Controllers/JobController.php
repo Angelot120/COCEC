@@ -6,6 +6,7 @@ use App\Interfaces\JobInterface;
 use App\Models\JobApplication;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
@@ -142,8 +143,12 @@ class JobController extends Controller
             if (!$filePath || !Storage::disk('public')->exists($filePath)) {
                 return back()->withErrors(['error' => 'Fichier non trouvé.']);
             }
-            return Storage::disk('public')->download($filePath);
+          $fullPath = storage_path('app/public/' . $filePath);
+            $fileName = basename($filePath);
+            return response()->download($fullPath, $fileName);
         } catch (\Exception $e) {
+            Log::error('Erreur lors du téléchargement du fichier: ' . $e->getMessage());
+
             return back()->withErrors(['error' => 'Une erreur est survenue lors du téléchargement.']);
         }
     }

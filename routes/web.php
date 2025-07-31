@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\AccountController;
@@ -66,6 +67,13 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
     });
 
     Route::delete('/faq/comments/{id}', [FaqCommentController::class, 'destroy'])->name('faq.comments.destroy');
+
+    Route::prefix('accounts/physical')->controller(AccountController::class)->group(function () {
+        Route::get('/', 'indexPhysical')->name('accounts.physical.index');
+        Route::get('/{id}', 'showPhysical')->name('accounts.physical.show');
+        Route::put('/update/{id}', 'updatePhysical')->name('accounts.physical.update');
+        Route::get('/pdf/{id}', 'generatePhysicalPdf')->name('accounts.physical.pdf');
+    });
 });
 
 Route::prefix('admin/career')->controller(JobOfferController::class)->group(function () {

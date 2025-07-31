@@ -5,7 +5,21 @@ namespace App\Models {
     /**
      * App\Models\AccountSignatory
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string|null $id_number
+     * @property string $signature_type
+     * @property string $name
+     * @property int $moral_person_submission_id
+     * @property int $id
      * @property-read \App\Models\MoralPersonSubmission $moralPersonSubmission
+     * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereMoralPersonSubmissionId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereSignatureType($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereIdNumber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory query()
@@ -939,6 +953,7 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
+     * @property \Illuminate\Support\Carbon|null $birth_date
      * @property string $lien
      * @property string $contact
      * @property string $nom
@@ -953,6 +968,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Beneficiary>|Beneficiary whereNom($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Beneficiary>|Beneficiary whereContact($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Beneficiary>|Beneficiary whereLien($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Beneficiary>|Beneficiary whereBirthDate($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Beneficiary>|Beneficiary whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Beneficiary>|Beneficiary whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Beneficiary>|Beneficiary newModelQuery()
@@ -1571,7 +1587,41 @@ namespace App\Models {
     /**
      * App\Models\CoDirector
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string $phone
+     * @property string|null $address
+     * @property string|null $neighborhood
+     * @property string|null $city
+     * @property string|null $postal_box
+     * @property string|null $id_issue_date
+     * @property string $id_number
+     * @property string $birth_place
+     * @property string $birth_date
+     * @property string $nationality
+     * @property string $gender
+     * @property string|null $first_name
+     * @property string $name
+     * @property int $moral_person_submission_id
+     * @property int $id
      * @property-read \App\Models\MoralPersonSubmission $moralPersonSubmission
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereMoralPersonSubmissionId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereFirstName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereGender($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereNationality($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereBirthDate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereBirthPlace($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereIdNumber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereIdIssueDate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector wherePostalBox($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereCity($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereNeighborhood($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereAddress($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector wherePhone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<CoDirector>|CoDirector query()
@@ -3455,35 +3505,63 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string|null $remarks
+     * @property string|null $terrorism_financing
+     * @property string|null $sanctions
+     * @property string|null $ppe_foreign
+     * @property bool $is_ppe_national
+     * @property string|null $account_opening_date
+     * @property string|null $account_number
+     * @property string|null $membership_date
      * @property float $initial_deposit
      * @property string|null $signature_upload_path
      * @property string|null $signature_base64
      * @property string $signature_method
      * @property string $responsible_persons_photo_path
      * @property string $company_document_path
+     * @property string|null $emergency_contact_address
      * @property string $emergency_contact_phone
      * @property string $emergency_contact_name
      * @property string $minutes_meeting
      * @property string $minutes_members
+     * @property string|null $director_spouse_address
+     * @property string|null $director_spouse_phone
+     * @property string|null $director_spouse_occupation
+     * @property string|null $director_spouse_name
+     * @property string|null $director_address
+     * @property string|null $director_neighborhood
+     * @property string|null $director_city
+     * @property string|null $director_postal_box
      * @property string|null $director_mother_name
      * @property string|null $director_father_name
      * @property string $director_phone
+     * @property string|null $director_id_issue_date
      * @property string $director_id_number
      * @property string $director_birth_place
      * @property string $director_birth_date
      * @property string $director_nationality
      * @property string $director_gender
      * @property string $director_position
+     * @property string|null $director_first_name
      * @property string $director_name
-     * @property float|null $residence_lng
-     * @property float|null $residence_lat
+     * @property float|null $company_lng
+     * @property float|null $company_lat
+     * @property string|null $company_plan_path
      * @property string $company_address
+     * @property string|null $company_neighborhood
+     * @property string|null $company_city
+     * @property string|null $company_postal_box
      * @property string $company_phone
      * @property string $company_nationality
+     * @property string|null $activity_description
      * @property string $activity_sector
      * @property string $creation_place
      * @property string $creation_date
+     * @property string|null $company_id_date
+     * @property string|null $company_id_number
+     * @property string|null $company_id_type
      * @property string $rccm
+     * @property string|null $category
      * @property string $company_name
      * @property int $id
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Beneficiary> $beneficiaries
@@ -3494,35 +3572,63 @@ namespace App\Models {
      * @property-read int|null $accountSignatories_count
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCategory($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereRccm($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyIdType($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyIdNumber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyIdDate($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCreationDate($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCreationPlace($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereActivitySector($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereActivityDescription($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyNationality($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyPhone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyPostalBox($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyCity($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyNeighborhood($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyAddress($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereResidenceLat($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereResidenceLng($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyPlanPath($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyLat($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyLng($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorFirstName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorPosition($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorGender($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorNationality($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorBirthDate($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorBirthPlace($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorIdNumber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorIdIssueDate($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorPhone($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorFatherName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorMotherName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorPostalBox($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorCity($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorNeighborhood($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorAddress($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorSpouseName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorSpouseOccupation($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorSpousePhone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereDirectorSpouseAddress($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereMinutesMembers($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereMinutesMeeting($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereEmergencyContactName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereEmergencyContactPhone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereEmergencyContactAddress($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCompanyDocumentPath($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereResponsiblePersonsPhotoPath($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereSignatureMethod($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereSignatureBase64($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereSignatureUploadPath($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereInitialDeposit($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereMembershipDate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereAccountNumber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereAccountOpeningDate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereIsPpeNational($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission wherePpeForeign($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereSanctions($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereTerrorismFinancing($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereRemarks($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission newModelQuery()
@@ -4440,36 +4546,48 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string $statut
+     * @property string|null $remarks
+     * @property string|null $terrorism_financing
+     * @property string|null $sanctions
+     * @property string|null $ppe_foreign
+     * @property bool $is_ppe_national
+     * @property \Illuminate\Support\Carbon|null $account_opening_date
+     * @property string|null $account_number
+     * @property \Illuminate\Support\Carbon|null $membership_date
      * @property float $initial_deposit
      * @property string|null $signature_upload_path
      * @property string|null $signature_base64
      * @property string $signature_method
      * @property string $id_scan_path
      * @property string $photo_path
+     * @property \Illuminate\Support\Carbon|null $id_issue_date
      * @property string $id_number
      * @property string $id_type
      * @property float|null $workplace_lng
      * @property float|null $workplace_lat
-     * @property float|null $residence_lng
-     * @property float|null $residence_lat
      * @property string|null $workplace_plan_path
      * @property string $workplace_description
+     * @property float|null $residence_lng
+     * @property float|null $residence_lat
      * @property string|null $residence_plan_path
      * @property string $residence_description
-     * @property string $ref1_phone
-     * @property string $ref1_name
      * @property string|null $activity_description
+     * @property string|null $activity_type
      * @property string|null $company_name_activity
      * @property string $occupation
+     * @property string|null $spouse_address
      * @property string|null $spouse_phone
      * @property string|null $spouse_occupation
      * @property string|null $spouse_name
      * @property string $marital_status
+     * @property string|null $category
+     * @property string|null $phone
      * @property string $mother_name
      * @property string $father_name
      * @property string $nationality
      * @property string $birth_place
-     * @property string $birth_date
+     * @property \Illuminate\Support\Carbon $birth_date
      * @property string $gender
      * @property string $first_names
      * @property string $last_name
@@ -4487,31 +4605,43 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereNationality($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereFatherName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereMotherName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission wherePhone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereCategory($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereMaritalStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereSpouseName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereSpouseOccupation($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereSpousePhone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereSpouseAddress($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereOccupation($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereCompanyNameActivity($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereActivityType($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereActivityDescription($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereRef1Name($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereRef1Phone($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereResidenceDescription($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereResidencePlanPath($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereWorkplaceDescription($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereWorkplacePlanPath($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereResidenceLat($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereResidenceLng($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereWorkplaceDescription($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereWorkplacePlanPath($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereWorkplaceLat($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereWorkplaceLng($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereIdType($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereIdNumber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereIdIssueDate($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission wherePhotoPath($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereIdScanPath($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereSignatureMethod($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereSignatureBase64($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereSignatureUploadPath($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereInitialDeposit($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereMembershipDate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereAccountNumber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereAccountOpeningDate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereIsPpeNational($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission wherePpeForeign($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereSanctions($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereTerrorismFinancing($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereRemarks($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereStatut($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PhysicalPersonSubmission>|PhysicalPersonSubmission newModelQuery()
@@ -5118,7 +5248,19 @@ namespace App\Models {
     /**
      * App\Models\Reference
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string $phone
+     * @property string $name
+     * @property int $physical_person_submission_id
+     * @property int $id
      * @property-read \App\Models\PhysicalPersonSubmission $physicalPersonSubmission
+     * @method static \Illuminate\Database\Eloquent\Builder<Reference>|Reference whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Reference>|Reference wherePhysicalPersonSubmissionId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Reference>|Reference whereName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Reference>|Reference wherePhone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Reference>|Reference whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Reference>|Reference whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Reference>|Reference newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Reference>|Reference newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Reference>|Reference query()
