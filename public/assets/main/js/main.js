@@ -27,16 +27,19 @@
                     className: "char",
                 });
                 var chars = $this.find(".char");
-                gsap.fromTo(
-                    chars,
-                    { y: "100%" },
-                    {
-                        y: "0%",
-                        duration: 0.9,
-                        stagger: 0.03,
-                        ease: "power2.out",
-                    }
-                );
+                // Utiliser requestAnimationFrame pour éviter le blocage
+                requestAnimationFrame(() => {
+                    gsap.fromTo(
+                        chars,
+                        { y: "100%" },
+                        {
+                            y: "0%",
+                            duration: 0.9,
+                            stagger: 0.03,
+                            ease: "power2.out",
+                        }
+                    );
+                });
             });
         }, 1000);
     });
@@ -555,6 +558,13 @@
         // Image Reveal
 
         gsap.registerPlugin(ScrollTrigger);
+        
+        // Configuration globale pour améliorer les performances de ScrollTrigger
+        ScrollTrigger.config({
+            autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+            ignoreMobileResize: true,
+            syncInterval: 60
+        });
 
         let revealContainers = document.querySelectorAll(".reveal");
 
@@ -564,6 +574,8 @@
                 scrollTrigger: {
                     trigger: container,
                     toggleActions: "restart none none reset",
+                    fastScrollEnd: true,
+                    preventOverlaps: true,
                 },
             });
 
@@ -626,7 +638,10 @@
             const io = new IntersectionObserver((entries, options) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        masterTL.play();
+                        // Utiliser requestAnimationFrame pour éviter le blocage
+                        requestAnimationFrame(() => {
+                            masterTL.play();
+                        });
                     } else {
                         masterTL.progress(0).pause();
                     }
@@ -651,8 +666,16 @@
             ScrollTrigger.create({
                 trigger: triggerElement,
                 start: "top 80%",
-                onEnter: () => timeline.play(),
+                onEnter: () => {
+                    // Utiliser requestAnimationFrame pour éviter le blocage du scroll
+                    requestAnimationFrame(() => {
+                        timeline.play();
+                    });
+                },
                 toggleClass: { targets: triggerElement, className: "active" },
+                // Ajouter des options pour améliorer les performances
+                fastScrollEnd: true,
+                preventOverlaps: true,
             });
         }
 
@@ -1301,4 +1324,13 @@
             sessionStorage.setItem("popupShown", "true");
         }
     });
+
+    AOS.init({
+        once: true,           // L’animation ne se joue qu’une fois
+        duration: 600,        // Durée plus courte (en ms)
+        throttleDelay: 99,    // Délai pour limiter le recalcul
+        debounceDelay: 50,    // Délai pour limiter le recalcul
+        mirror: false,        // Pas de re-animation en scroll up
+        disable: 'mobile',    // Désactive sur mobile si besoin
+      });
 })(jQuery);

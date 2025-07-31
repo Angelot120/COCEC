@@ -65,6 +65,7 @@
                                                 <li><a href="{{ route('about')}}">À propos</a></li>
                                                 <li><a href="{{ route('main.finance')}}">Finance Digitale</a></li>
                                                 <li><a href="{{ route('main.faq') }}">Faq</a></li>
+                                                <li><a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -124,7 +125,7 @@
             </button>
             <div class="side-menu-content">
                 <div class="side-menu-logo">
-                    <a href="index.html"><img src="{{ URL::asset('assets/images/Logo.png') }}" alt="logo"></a>
+                    <a href="{{ route("index") }}"><img src="{{ URL::asset('assets/images/Logo.png') }}" alt="logo"></a>
                 </div>
                 <div class="side-menu-wrap"></div>
                 <div class="side-menu-about">

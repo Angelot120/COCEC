@@ -290,7 +290,7 @@
 
             // Formats d'image acceptés
             const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-            const maxSize = 2 * 1024 * 1024; // 2MB
+            const maxSize = 30 * 1024 * 1024; // 30MB
 
             // Prévenir les comportements par défaut
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {

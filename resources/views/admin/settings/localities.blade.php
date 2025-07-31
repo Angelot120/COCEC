@@ -199,7 +199,7 @@
         });
 
         // Ouvre automatiquement le modal si des erreurs de validation existent
-        @if($errors - > any())
+        @if($errors->any())
         const addModal = new bootstrap.Modal(document.getElementById('addLocalityModal'));
         addModal.show();
         @endif

@@ -26,51 +26,51 @@
             <div class="swiper-wrapper">
 
                 <!-- SLIDE 1 -->
-                <div class="swiper-slide hero-slide-1">
+                <div class="swiper-slide hero-slide-1" data-background="{{ asset('assets/images/banner.jpg') }}" loading="lazy">
                     <div class="container-2">
                         <div class="hero-content hero-content-3">
                             <div class="section-heading mb-40 red-content">
                                 <h4 class="sub-heading"><span class="left-shape"></span>Votre Partenaire Financier</h4>
-                                <h2 class="section-title">Des Solutions Financières <br>pour Votre Avenir</h2>
+                                <h2 class="section-title">Des Solutions Financières pour <br>Votre Avenir</h2>
                                 <p class="text-justify">La COCEC vous accompagne avec des services d’épargne, de crédit et d’accompagnement personnalisé pour réaliser vos projets et assurer votre sécurité financière.</p>
                             </div>
                             <div class="hero-btn-wrap" style="--bz-color-theme-primary: #EC281C">
-                                <a href="{{ route('contact') }}" class="bz-primary-btn">Nous Contacter <i class="fa-regular fa-arrow-right"></i></a>
-                                <a href="{{ route('products') }}" class="bz-primary-btn hero-btn">Nos Produits</a>
+                                <a href="{{ route('contact') }}" class="bz-primary-btn primary">Nous Contacter <i class="fa-regular fa-arrow-right"></i></a>
+                                <a href="{{ route('product.index') }}" class="bz-primary-btn hero-btn">Nos Produits</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- SLIDE 2 -->
-                <div class="swiper-slide hero-slide-2">
+                <div class="swiper-slide hero-slide-2" data-background="{{ asset('assets/images/banner-1.jpg') }}" loading="lazy">
                     <div class="container-2">
                         <div class="hero-content hero-content-3">
                             <div class="section-heading mb-40 red-content">
                                 <h4 class="sub-heading"><span class="left-shape"></span>Crédit & Investissement</h4>
-                                <h2 class="section-title">Financez Vos Projets <br>les Plus Ambitieux</h2>
+                                <h2 class="section-title">Financez Vos Projets les Plus <br>Ambitieux</h2>
                                 <p class="text-justify">Que ce soit pour un projet immobilier, agricole ou entrepreneurial, nos solutions de crédit sont conçues pour vous donner les moyens de réussir.</p>
                             </div>
                             <div class="hero-btn-wrap" style="--bz-color-theme-primary: #EC281C">
-                                <a href="{{ route('contact') }}" class="bz-primary-btn">Demander un Crédit <i class="fa-regular fa-arrow-right"></i></a>
-                                <a href="{{ route('products') }}" class="bz-primary-btn hero-btn">Explorer les Options</a>
+                                <a href="{{ route('contact') }}" class="bz-primary-btn primary">Demander un Crédit <i class="fa-regular fa-arrow-right"></i></a>
+                                <a href="{{ route('product.index') }}" class="bz-primary-btn hero-btn">Explorer les Options</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- SLIDE 3 (contenu identique pour l'exemple) -->
-                <div class="swiper-slide hero-slide-3">
+                <div class="swiper-slide hero-slide-3" data-background="{{ asset('assets/images/banner-2.jpg') }}" loading="lazy">
                     <div class="container-2">
                         <div class="hero-content hero-content-3">
                             <div class="section-heading mb-40 red-content">
                                 <h4 class="sub-heading"><span class="left-shape"></span>Épargne Sécurisée</h4>
-                                <h2 class="section-title">Construisez Votre Patrimoine<br>en Toute Confiance</h2>
+                                <h2 class="section-title">Construisez Votre Patrimoine <br>en Toute Confiance</h2>
                                 <p class="text-justify">Découvrez nos comptes d'épargne flexibles et rentables pour préparer l'avenir, financer les études de vos enfants ou simplement vous constituer une réserve.</p>
                             </div>
                             <div class="hero-btn-wrap" style="--bz-color-theme-primary: #EC281C">
-                                <a href="{{ route('contact') }}" class="bz-primary-btn">Ouvrir un Compte <i class="fa-regular fa-arrow-right"></i></a>
-                                <a href="{{ route('products') }}" class="bz-primary-btn hero-btn">Types de Comptes</a>
+                                <a href="{{ route('contact') }}" class="bz-primary-btn primary">Ouvrir un Compte <i class="fa-regular fa-arrow-right"></i></a>
+                                <a href="{{ route('product.index') }}" class="bz-primary-btn hero-btn">Types de Comptes</a>
                             </div>
                         </div>
                     </div>
@@ -97,37 +97,37 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="promo-item white-content">
                         <div class="bg-items">
-                            <div class="bg-img"><img src="{{ asset('assets/images/epargne.jpg') }}" alt="Épargne"></div>
+                            <div class="bg-img"><img src="{{ asset('assets/images/epargne.jpg') }}" alt="Épargne" loading="lazy"></div>
                             <div class="overlay"></div>
                             <div class="overlay-2"></div>
                         </div>
                         <h3 class="title">Épargne Sécurisée</h3>
                         <p class="text-justify">Épargnez en toute tranquillité avec nos comptes d’épargne flexibles, conçus pour répondre à vos besoins à court et long terme, avec des options comme l’épargne à vue ou à terme.</p>
-                        <a href="{{route('products') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
+                        <a href="{{route('product.index') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="promo-item white-content">
                         <div class="bg-items">
-                            <div class="bg-img"><img src="{{ asset('assets/images/credit.jpg') }}" alt="Crédit"></div>
+                            <div class="bg-img"><img src="{{ asset('assets/images/credit.jpg') }}" alt="Crédit" loading="lazy"></div>
                             <div class="overlay"></div>
                             <div class="overlay-2"></div>
                         </div>
                         <h3 class="title">Crédits Adaptés</h3>
                         <p class="text-justify">Financez vos projets avec nos solutions de crédit sur mesure : prêts scolaires, commerciaux, ou agricoles pour soutenir vos ambitions personnelles et professionnelles.</p>
-                        <a href="{{route('products') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
+                        <a href="{{route('product.index') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="promo-item white-content">
                         <div class="bg-items">
-                            <div class="bg-img"><img src="{{ asset('assets/images/accompagnement.jpg') }}" alt="Services Financiers"></div>
+                            <div class="bg-img"><img src="{{ asset('assets/images/accompagnement.jpg') }}" alt="Services Financiers" loading="lazy"></div>
                             <div class="overlay"></div>
                             <div class="overlay-2"></div>
                         </div>
                         <h3 class="title">Accompagnement Financier</h3>
                         <p class="text-justify">Bénéficiez de conseils personnalisés et de services comme le transfert d’argent pour gérer efficacement vos finances avec le soutien de la COCEC.</p>
-                        <a href="{{route('products') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
+                                                    <a href="{{route('product.index') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -143,35 +143,34 @@
                 <div class="col-lg-6">
                     <div class="about-img-3 img-reveal">
                         <div class="img-overlay overlay-2"></div>
-                        <img src="{{ asset('assets/images/director.jpeg') }}" alt="about">
+                        <img src="{{ asset('assets/images/director.jpeg') }}" alt="about" loading="lazy">
                     </div>
                 </div>
 
                 <!-- Colonne Contenu -->
+                <!-- Colonne Contenu (Refonte) -->
                 <div class="col-lg-6">
                     <div class="about-content-3 fade-wrapper">
                         <div class="section-heading red-content mb-20">
-                            {{-- Contenu du titre mis à jour --}}
                             <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Mot du Directeur</h4>
                             <h2 class="section-title" data-text-animation data-split="word" data-duration="1">Bâtir un Avenir Financier Inclusif et Moderne</h2>
                         </div>
 
-                        {{-- Introduction du message --}}
                         <p class="fade-top text-justify">
                             Depuis 2001, la COCEC a placé l’amélioration de vos conditions de vie au centre de ses stratégies. Notre plus grande fierté réside dans les témoignages de ceux qui, partis de rien, subviennent aujourd’hui aux besoins de leur famille grâce à notre accompagnement.
                         </p>
 
-                        {{-- La liste est réutilisée pour présenter les "piliers" du message --}}
-                        <ul class="about-list fade-top">
+                        <!-- Liste des piliers transformée en cartes -->
+                        <ul class="about-list-revisited fade-top">
                             <li>
-                                <div class="list-icon"><i class="fas fa-rocket"></i></div>
+                                <div class="list-icon-revisited"><i class="fas fa-rocket"></i></div>
                                 <div class="list-text">
                                     <h5>Innovation & Modernité</h5>
                                     <span>Nous intégrons les nouvelles technologies (Mobile Money, Web Banking) pour vous offrir des produits innovants à moindre coût.</span>
                                 </div>
                             </li>
                             <li>
-                                <div class="list-icon"><i class="fas fa-hands-helping"></i></div>
+                                <div class="list-icon-revisited"><i class="fas fa-hands-helping"></i></div>
                                 <div class="list-text">
                                     <h5>Confiance & Partenariat</h5>
                                     <span>Avec la confiance renouvelée de nos clients et partenaires, et avec Dieu à nos côtés, nous accomplirons des exploits.</span>
@@ -179,13 +178,18 @@
                             </li>
                         </ul>
 
-                        <div class="director-signature-block fade-top">
-                            <strong>M. Kokou GABIAM</strong>
-                            <span>Le Directeur Général</span>
-                        </div>
+                        <!-- Séparateur visuel -->
+                        <hr class="section-divider fade-top">
 
-                        <div class="about-btn fade-top">
-                            <a href="{{ route('about') }}" class="bz-primary-btn red-btn">En Savoir Plus <i class="fa-regular fa-arrow-right"></i></a>
+                        <!-- Bloc combinant la signature et le bouton -->
+                        <div class="director-cta-block fade-top">
+                            <div class="director-signature-block">
+                                <strong>M. Kokou GABIAM</strong>
+                                <span>Directeur Général</span>
+                            </div>
+                            <div class="about-btn">
+                                <a href="{{ route('about') }}" class="bz-primary-btn red-btn">En Savoir Plus <i class="fa-regular fa-arrow-right"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -195,59 +199,53 @@
     </section>
     <!-- ./ about-section -->
 
-    <section class="service-section-3 pt-120 pb-120">
-        <div class="bg-shape"><img src="{{ asset('assets/main/img/shapes/service-bg-shape.png') }}" alt="img"></div>
+    <!-- SECTION SERVICES - VERSION OPTIMISÉE ET REFAITE -->
+    <section class="service-section-3 pt-120 pb-120" data-background="{{ asset('assets/images/shapes/service-bg-shape.png') }}">
         <div class="container-2">
             <div class="section-heading text-center red-content">
-                <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Nos Produits Phares</h4>
-                <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">Des Solutions Financières Conçues Pour Vous</h2>
+                <h4 class="sub-heading"><span class="left-shape"></span>Nos Produits Phares</h4>
+                <h2 class="section-title mb-0">Des Solutions Financières Conçues Pour Vous</h2>
             </div>
-            <div class="row gy-lg-0 gy-4 justify-content-center fade-wrapper">
+            <div class="row gy-lg-0 gy-4 justify-content-center">
 
                 <!-- Produit 1 : Compte d'Épargne -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="service-item-3 fade-top">
+                    <div class="service-item-3">
                         <div class="service-thumb">
-                            <img class="img-item" src="{{ asset('assets/images/account1.jpg') }}" alt="Épargne">
-                            {{-- Icône adaptée avec classe de taille --}}
-                            <div class="icon"><i class="fas fa-piggy-bank fa-3x"></i></div>
+                            <img class="img-item" src="{{ asset('assets/images/account1.jpg') }}" alt="Épargne" loading="lazy">
                         </div>
                         <div class="service-content">
-                            <h3 class="title"><a href="{{-- route('produits.show', 'compte-epargne') --}}">Compte d'Épargne</a></h3>
+                            <h3 class="title"><a href="#">Compte d'Épargne</a></h3>
                             <p class="text-justify">Faites fructifier votre argent en toute sécurité et préparez sereinement votre avenir grâce à nos solutions d'épargne flexibles.</p>
-                            <a href="{{-- route('produits.show', 'compte-epargne') --}}" class="bz-primary-btn red-btn">Découvrir <i class="fa-regular fa-arrow-right"></i></a>
+                            <a href="#" class="bz-primary-btn red-btn">Découvrir <i class="fa-regular fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Produit 2 : Compte Courant -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="service-item-3 fade-top">
+                    <div class="service-item-3">
                         <div class="service-thumb">
-                            <img class="img-item" src="{{ asset('assets/images/account2.jpg') }}" alt="Compte Courant">
-                            {{-- Icône adaptée avec classe de taille --}}
-                            <div class="icon"><i class="fas fa-wallet fa-3x"></i></div>
+                            <img class="img-item" src="{{ asset('assets/images/account2.jpg') }}" alt="Compte Courant" loading="lazy">
                         </div>
                         <div class="service-content">
-                            <h3 class="title"><a href="{{-- route('produits.show', 'compte-courant') --}}">Compte Courant</a></h3>
+                            <h3 class="title"><a href="#">Compte Courant</a></h3>
                             <p class="text-justify">Gérez vos revenus et vos dépenses quotidiennes avec agilité. La solution idéale pour la domiciliation de votre salaire.</p>
-                            <a href="{{-- route('produits.show', 'compte-courant') --}}" class="bz-primary-btn red-btn">Découvrir <i class="fa-regular fa-arrow-right"></i></a>
+                            <a href="#" class="bz-primary-btn red-btn">Découvrir <i class="fa-regular fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Produit 3 : Crédits & Financements -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="service-item-3 fade-top">
+                    <div class="service-item-3">
                         <div class="service-thumb">
-                            <img class="img-item" src="{{ asset('assets/images/account3.jpg') }}" alt="Crédits">
-                            {{-- Icône adaptée avec classe de taille --}}
-                            <div class="icon"><i class="fas fa-chart-line fa-3x"></i></div>
+                            <img class="img-item" src="{{ asset('assets/images/account3.jpg') }}" alt="Crédits" loading="lazy">
                         </div>
                         <div class="service-content">
-                            <h3 class="title"><a href="{{-- route('produits.show', 'credits') --}}">Crédits & Financements</a></h3>
+                            <h3 class="title"><a href="#">Crédits & Financements</a></h3>
                             <p class="text-justify">Donnez vie à vos projets personnels ou professionnels avec nos solutions de crédit sur-mesure et à des conditions avantageuses.</p>
-                            <a href="{{-- route('produits.show', 'credits') --}}" class="bz-primary-btn red-btn">Découvrir <i class="fa-regular fa-arrow-right"></i></a>
+                            <a href="#" class="bz-primary-btn red-btn">Découvrir <i class="fa-regular fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -266,8 +264,11 @@
                 <div class="cta-content">
                     <div class="section-heading mb-0 white-content">
                         {{-- Titres mis à jour pour décrire les produits --}}
-                        <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Une Gamme Complète de Produits</h4>
-                        <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">De l'épargne à la concrétisation de vos projets, nous avons la solution financière qu'il vous faut.</h2>
+                        <h4 class="sub-heading">
+                            <span class="left-shape"></span>Une Gamme Complète de Produits
+                        </h4>
+                        <h2 class="section-title mb-0">
+                            De l'épargne à la concrétisation de vos projets, nous avons la solution financière qu'il vous faut.</h2>
                     </div>
                 </div>
                 <div class="cta-btn-wrap">
@@ -279,17 +280,126 @@
     </section>
     <!-- ./ cta-section -->
 
-    <section class="process-section-2 pt-120 pb-120">
+
+<!-- Simulateur de Prêt Section -->
+<section class="loan-simulator-section pt-120 pb-120" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+    <div class="container-2">
+        <div class="section-heading text-center red-content mb-60">
+            <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5">
+                <span class="left-shape"></span>Simulateur de Prêt
+            </h4>
+            <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">
+                Tableau des Tarifs et Frais de Prêt
+            </h2>
+            <p class="mt-20">Consultez nos tarifs prédéfinis pour différents montants et durées de prêt</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="loan-simulator-card">
+                    <div class="simulator-header">
+                        <h3><i class="fas fa-table"></i> Tarifs des Prêts COCEC</h3>
+                        <p>Tableau des mensualités, intérêts et frais selon le montant et la durée</p>
+                    </div>
+
+                    <!-- Filtres pour le tableau -->
+                    <div class="table-filters mb-4">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="filterAmount" class="form-label">Montant du Prêt</label>
+                                <select class="form-select" id="filterAmount">
+                                    <option value="all">Tous les montants</option>
+                                    <option value="100000">100,000 FCFA</option>
+                                    <option value="200000">200,000 FCFA</option>
+                                    <option value="500000">500,000 FCFA</option>
+                                    <option value="1000000">1,000,000 FCFA</option>
+                                    <option value="2000000">2,000,000 FCFA</option>
+                                    <option value="5000000">5,000,000 FCFA</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="filterDuration" class="form-label">Durée du Prêt</label>
+                                <select class="form-select" id="filterDuration">
+                                    <option value="all">Toutes les durées</option>
+                                    <option value="6">6 mois</option>
+                                    <option value="12">12 mois</option>
+                                    <option value="18">18 mois</option>
+                                    <option value="24">24 mois</option>
+                                    <option value="36">36 mois</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="filterType" class="form-label">Type de Prêt</label>
+                                <select class="form-select" id="filterType">
+                                    <option value="all">Tous les types</option>
+                                    <option value="personal">Prêt Personnel</option>
+                                    <option value="business">Prêt Commercial</option>
+                                    <option value="agricultural">Prêt Agricole</option>
+                                    <option value="education">Prêt Scolaire</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 text-center mt-3">
+                                <button type="button" class="bz-primary-btn red-btn" id="applyFilters">
+                                    <i class="fas fa-filter"></i> Appliquer les Filtres
+                                </button>
+                                <button type="button" class="bz-primary-btn hero-btn ms-2" id="resetFilters">
+                                    <i class="fas fa-undo"></i> Réinitialiser
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tableau des tarifs -->
+                    <div class="table-responsive">
+                        <table class="table table-hover loan-table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Montant</th>
+                                    <th>Durée</th>
+                                    <th>Type</th>
+                                    <th>Mensualité</th>
+                                    <th>Intérêts</th>
+                                    <th>Frais de Dossier</th>
+                                    <th>Total à Rembourser</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="loanTableBody">
+                                <!-- Les données seront chargées par JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Loading avec votre style existant -->
+                    <div id="loanTableLoading" class="text-center py-5">
+                        <div class="loading-spinner">
+                            <div class="spinner"></div>
+                        </div>
+                        <p class="mt-3">Chargement des tarifs...</p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="simulation-actions text-center mt-4">
+                        <button type="button" class="bz-primary-btn hero-btn" onclick="refreshTable()">
+                            <i class="fas fa-redo"></i> Actualiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- <section class="process-section-2 pt-120 pb-120">
         <div class="container-2">
             <div class="section-heading text-center red-content">
-                {{-- Titres mis à jour en français et adaptés à la COCEC --}}
                 <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Notre Démarche</h4>
                 <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">Votre Parcours vers la Réussite Financière</h2>
             </div>
-            <div class="row gy-lg-0 gy-4 fade-wrapper">
+            <div class="row gy-lg-0 gy-4 fade-wrapper"> -->
 
-                <!-- Étape 1 -->
-                <div class="col-lg-3 col-md-6">
+    <!-- Étape 1 -->
+    <!-- <div class="col-lg-3 col-md-6">
                     <div class="process-item fade-top">
                         <div class="process-thumb img-reveal">
                             <div class="img-overlay overlay-2"></div>
@@ -301,10 +411,10 @@
                             <p class="text-justify">Ouvrez votre compte en quelques minutes en agence ou en ligne et rejoignez une communauté financière solide.</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Étape 2 -->
-                <div class="col-lg-3 col-md-6">
+    <!-- Étape 2 -->
+    <!-- <div class="col-lg-3 col-md-6">
                     <div class="process-item fade-top">
                         <div class="process-thumb img-reveal">
                             <div class="img-overlay overlay-2"></div>
@@ -316,10 +426,10 @@
                             <p class="text-justify">Faites fructifier votre argent en toute sécurité grâce à nos solutions d'épargne flexibles et rentables.</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Étape 3 -->
-                <div class="col-lg-3 col-md-6">
+    <!-- Étape 3 -->
+    <!-- <div class="col-lg-3 col-md-6">
                     <div class="process-item fade-top">
                         <div class="process-thumb img-reveal">
                             <div class="img-overlay overlay-2"></div>
@@ -331,10 +441,10 @@
                             <p class="text-justify">Que ce soit pour un projet personnel ou professionnel, nous vous offrons des crédits adaptés avec un accompagnement sur-mesure.</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Étape 4 -->
-                <div class="col-lg-3 col-md-6">
+    <!-- Étape 4 -->
+    <!-- <div class="col-lg-3 col-md-6">
                     <div class="process-item fade-top">
                         <div class="process-thumb img-reveal">
                             <div class="img-overlay overlay-2"></div>
@@ -346,49 +456,81 @@
                             <p class="text-justify">Grâce à nos conseils et nos outils digitaux, atteignez vos objectifs et assurez votre indépendance financière.</p>
                         </div>
                     </div>
-                </div>
-
+                </div> -->
+    <!-- 
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- ./ process-section -->
 
-    <section class="strength-section">
+    <!-- SECTION STATISTIQUES - VERSION OPTIMISÉE -->
+    <section class="strength-section pt-120 pb-120">
         <div class="bg-item">
             <div class="bg-img" data-background="{{ asset('assets/images/strength-bg.jpg') }}"></div>
             <div class="overlay"></div>
             <div class="shapes">
                 <div class="shape">
-                    <img src="{{ asset('assets/main/img/shapes/strength-shape-1.png') }}" alt="img">
+                    <img src="{{ asset('assets/images/shapes/strength-shape-1.png') }}" alt="img">
                 </div>
                 <div class="shape-2"></div>
-            </div>
-            <div class="strength-mask-img">
-                <div class="mask-overlay"></div>
-                <img src="{{ asset('assets/images/strength-img-1.jpeg') }}" alt="img">
             </div>
         </div>
         <div class="container-2">
             <div class="row strength-wrap fade-wrapper">
                 <div class="col-lg-6 col-md-12">
-                    <div class="strength-content pt-120 pb-120">
+                    <div class="strength-content">
                         <div class="section-heading mb-20 white-content red-content">
-                            {{-- Titres mis à jour pour COCEC --}}
-                            <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Notre Force en Chiffres</h4>
-                            <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">Plus qu'une Institution, <br>une Communauté Qui Prospère</h2>
+                            <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5">
+                                <span class="left-shape"></span>Notre Force en Chiffres
+                            </h4>
+                            <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">
+                                Plus qu'une Institution, <br>une Communauté Qui Prospère
+                            </h2>
                         </div>
-                        {{-- Paragraphe descriptif mis à jour --}}
-                        <p class="fade-top text-justify">Depuis plus de 20 ans, notre force réside dans la confiance de nos membres et notre engagement indéfectible pour leur réussite financière. Chaque chiffre représente une vie changée, un projet réalisé et une communauté renforcée.</p>
-                        <div class="strength-items">
-                            {{-- Statistique 1 mise à jour --}}
+                        <p class="fade-top text-justify mb-40">
+                            Depuis plus de 20 ans, notre force réside dans la confiance de nos membres et notre engagement indéfectible pour leur réussite financière.
+                        </p>
+                        
+                        <!-- Statistiques en grille 2x2 -->
+                        <div class="strength-items-grid">
                             <div class="strength-item fade-top">
-                                <h3 class="title"><span class="odometer" data-count="95">0</span>%</h3>
-                                <p>Taux de Satisfaction Client</p>
+                                <div class="strength-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="strength-content">
+                                    <h3 class="title"><span class="odometer" data-count="95">0</span>%</h3>
+                                    <p>Taux de Satisfaction</p>
+                                </div>
                             </div>
-                            {{-- Statistique 2 mise à jour --}}
+                            
                             <div class="strength-item fade-top">
-                                <h3 class="title">+<span class="odometer" data-count="50000">0</span></h3>
-                                <p>Membres Accompagnés</p>
+                                <div class="strength-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="strength-content">
+                                    <h3 class="title">+<span class="odometer" data-count="50000">0</span></h3>
+                                    <p>Membres Accompagnés</p>
+                                </div>
+                            </div>
+                            
+                            <div class="strength-item fade-top">
+                                <div class="strength-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="strength-content">
+                                    <h3 class="title"><span class="odometer" data-count="20">0</span>+</h3>
+                                    <p>Années d'Expérience</p>
+                                </div>
+                            </div>
+                            
+                            <div class="strength-item fade-top">
+                                <div class="strength-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="strength-content">
+                                    <h3 class="title"><span class="odometer" data-count="1000">0</span>+</h3>
+                                    <p>Projets Financés</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -533,47 +675,29 @@
 
             {{-- Grille des agences --}}
             <div class="agency-grid">
-
-                <!-- Carte Agence 1 -->
+                @foreach ($agencies as $agency)
                 <a href="{{ route('agencies') }}" class="mini-agency-card">
                     <div class="card-icon-wrapper">
                         <i class="fas fa-building"></i>
                     </div>
                     <div class="card-status">
-                        <span class="status-dot open"></span> Ouvert
+                        <?php
+                        // Récupérer l'heure actuelle dans le fuseau horaire de l'application
+                        $currentHour = now()->hour;
+                        // Vérifier si l'heure est entre 9h et 17h
+                        $isOpen = ($currentHour >= 9 && $currentHour < 17);
+                        $status = $isOpen ? 'Ouvert' : 'Fermé';
+                        ?>
+                        <span class="status-dot {{ $isOpen ? 'open' : 'closed' }}"></span> {{ $status }}
                     </div>
-                    <h3 class="card-title">Siège Social</h3>
-                    <p class="card-address">Boulvard Jean-Paul II, face station d'essence, Lomé</p>
+                    <h3 class="card-title">{{ $agency->name }}</h3>
+                    <p class="card-address">{{ $agency->address }}</p>
                     <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
                 </a>
-
-                <!-- Carte Agence 2 -->
-                <a href="{{ route('agencies') }}" class="mini-agency-card">
-                    <div class="card-icon-wrapper">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <div class="card-status">
-                        <span class="status-dot open"></span> Ouvert
-                    </div>
-                    <h3 class="card-title">Agence de l'Étoile Rouge</h3>
-                    <p class="card-address">Non loin de la Douane, Lomé</p>
-                    <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
-                </a>
-
-                <!-- Carte Agence 3 -->
-                <a href="{{ route('agencies') }}" class="mini-agency-card">
-                    <div class="card-icon-wrapper">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <div class="card-status">
-                        <span class="status-dot open"></span> Ouvert
-                    </div>
-                    <h3 class="card-title">Agence de Kpalimé</h3>
-                    <p class="card-address">Route de Lomé, face station d'essence</p>
-                    <span class="card-arrow"><i class="fas fa-arrow-right"></i></span>
-                </a>
-
+                @endforeach
             </div>
+
+            {{-- Si aucune agence n'est trouvée --}}
 
             {{-- Bouton "Tout Voir" --}}
             <div class="text-center" style="margin-top: 50px;">
@@ -592,10 +716,10 @@
             <div class="cta-wrap-3">
                 <div class="shapes">
                     <div class="shape-1">
-                        <img src="{{ asset('assets/main/img/shapes/cta-shape-1.png') }}" alt="cta">
+                        <img src="{{ asset('assets/images/shapes/cta-shape-1.png') }}" alt="cta">
                     </div>
                     <div class="shape-2">
-                        <img src="{{ asset('assets/main/img/shapes/cta-shape-2.png') }}" alt="cta">
+                        <img src="{{ asset('assets/images/shapes/cta-shape-2.png') }}" alt="cta">
                     </div>
                 </div>
                 <div class="cta-mask-img">
@@ -617,7 +741,7 @@
     </section>
     <!-- ./ agencies-section -->
 
-    <section class="testimonial-section-3 overflow-hidden pb-120" data-background="assets/img/bg-img/testi-bg-2.png">
+    <section class="testimonial-section-3 overflow-hidden pb-120" data-background="{{ URL::asset('assets/images/shapes/testi-bg-2.png') }}">
         <div class="container-2">
             <div class="section-heading text-center red-content">
                 {{-- Titres traduits et adaptés --}}
@@ -630,9 +754,9 @@
                     <!-- Témoignage 1 -->
                     <div class="swiper-slide">
                         <div class="testi-item-2">
-                            <div class="testi-top">
+                            <div class="testi-top no-image">
                                 <div class="testi-author">
-                                    <img src="{{ asset('assets/main/img/testi/testi-author-1.png') }}" alt="Photo d'un membre">
+                                    <!-- <img src="{{ asset('assets/main/img/testi/testi-author-1.png') }}" alt="Photo d'un membre"> -->
                                     <h3 class="name">Mme Akouvi MENSAH <span>Enseignante & Mère de famille</span></h3>
                                 </div>
                                 <ul class="review">
@@ -650,9 +774,9 @@
                     <!-- Témoignage 2 -->
                     <div class="swiper-slide">
                         <div class="testi-item-2">
-                            <div class="testi-top">
+                            <div class="testi-top no-image">
                                 <div class="testi-author">
-                                    <img src="{{ asset('assets/main/img/testi/testi-author-2.png') }}" alt="Photo d'un membre">
+                                    <!-- <img src="{{ asset('assets/main/img/testi/testi-author-2.png') }}" alt="Photo d'un membre"> -->
                                     <h3 class="name">M. Koffi SOSSOU <span>Commerçant au grand marché</span></h3>
                                 </div>
                                 <ul class="review">
@@ -670,9 +794,9 @@
                     <!-- Témoignage 3 -->
                     <div class="swiper-slide">
                         <div class="testi-item-2">
-                            <div class="testi-top">
+                            <div class="testi-top no-image">
                                 <div class="testi-author">
-                                    <img src="{{ asset('assets/main/img/testi/testi-author-3.png') }}" alt="Photo d'un membre">
+                                    <!-- <img src="{{ asset('assets/main/img/testi/testi-author-3.png') }}" alt="Photo d'un membre"> -->
                                     <h3 class="name">Mlle Fati ALI <span>Jeune Entrepreneure</span></h3>
                                 </div>
                                 <ul class="review">
@@ -808,22 +932,17 @@
 @section('js')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // On cible bien le nouveau conteneur
+        // Initialisation du Swiper pour le hero
         const heroSwiper = new Swiper('.swiper-container-wrapper', {
-
-            // OPTIONS VISUELLES
             loop: true,
             effect: 'fade',
             fadeEffect: {
                 crossFade: true
             },
-
             autoplay: {
                 delay: 7000,
                 disableOnInteraction: false,
             },
-
-            // NAVIGATION & PAGINATION
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev'
@@ -832,13 +951,241 @@
                 el: '.swiper-pagination',
                 clickable: true
             },
-
-            // ACCESSIBILITÉ
             a11y: {
                 prevSlideMessage: 'Slide précédent',
                 nextSlideMessage: 'Slide suivant'
             },
         });
+
+        // Optimisation du lazy loading pour les images
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+        });
+    });
+
+            lazyImages.forEach(img => imageObserver.observe(img));
+        }
+
+        // Animation des compteurs optimisée
+        const counters = document.querySelectorAll('.odometer');
+        let countersAnimated = new Set();
+
+        if ('IntersectionObserver' in window) {
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !countersAnimated.has(entry.target)) {
+                        const target = parseInt(entry.target.getAttribute('data-count') || '0');
+                        // Utiliser requestAnimationFrame pour éviter le blocage du scroll
+                        requestAnimationFrame(() => {
+                            animateCounter(entry.target, target);
+                        });
+                        countersAnimated.add(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => counterObserver.observe(counter));
+        }
+
+        function animateCounter(element, target) {
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        // ===== TABLEAU DES TARIFS DE PRÊT =====
+        
+        // Données prédéfinies des tarifs
+        const loanTariffs = [
+            // Prêts de 100,000 FCFA
+            { amount: 100000, duration: 6, type: 'personal', monthly: 18500, interest: 11000, fees: 5000, total: 111000 },
+            { amount: 100000, duration: 12, type: 'personal', monthly: 10200, interest: 22400, fees: 5000, total: 122400 },
+            { amount: 100000, duration: 18, type: 'personal', monthly: 7200, interest: 29600, fees: 5000, total: 129600 },
+            { amount: 100000, duration: 24, type: 'personal', monthly: 5800, interest: 39200, fees: 5000, total: 139200 },
+            
+            // Prêts de 200,000 FCFA
+            { amount: 200000, duration: 6, type: 'personal', monthly: 37000, interest: 22000, fees: 8000, total: 222000 },
+            { amount: 200000, duration: 12, type: 'personal', monthly: 20400, interest: 44800, fees: 8000, total: 244800 },
+            { amount: 200000, duration: 18, type: 'personal', monthly: 14400, interest: 59200, fees: 8000, total: 259200 },
+            { amount: 200000, duration: 24, type: 'personal', monthly: 11600, interest: 78400, fees: 8000, total: 278400 },
+            
+            // Prêts de 500,000 FCFA
+            { amount: 500000, duration: 6, type: 'business', monthly: 92500, interest: 55000, fees: 15000, total: 555000 },
+            { amount: 500000, duration: 12, type: 'business', monthly: 51000, interest: 112000, fees: 15000, total: 612000 },
+            { amount: 500000, duration: 18, type: 'business', monthly: 36000, interest: 148000, fees: 15000, total: 648000 },
+            { amount: 500000, duration: 24, type: 'business', monthly: 29000, interest: 196000, fees: 15000, total: 696000 },
+            
+            // Prêts de 1,000,000 FCFA
+            { amount: 1000000, duration: 6, type: 'business', monthly: 185000, interest: 110000, fees: 25000, total: 1110000 },
+            { amount: 1000000, duration: 12, type: 'business', monthly: 102000, interest: 224000, fees: 25000, total: 1224000 },
+            { amount: 1000000, duration: 18, type: 'business', monthly: 72000, interest: 296000, fees: 25000, total: 1296000 },
+            { amount: 1000000, duration: 24, type: 'business', monthly: 58000, interest: 392000, fees: 25000, total: 1392000 },
+            
+            // Prêts de 2,000,000 FCFA
+            { amount: 2000000, duration: 12, type: 'agricultural', monthly: 204000, interest: 448000, fees: 40000, total: 2448000 },
+            { amount: 2000000, duration: 18, type: 'agricultural', monthly: 144000, interest: 592000, fees: 40000, total: 2592000 },
+            { amount: 2000000, duration: 24, type: 'agricultural', monthly: 116000, interest: 784000, fees: 40000, total: 2784000 },
+            { amount: 2000000, duration: 36, type: 'agricultural', monthly: 82000, interest: 952000, fees: 40000, total: 2952000 },
+            
+            // Prêts de 5,000,000 FCFA
+            { amount: 5000000, duration: 24, type: 'education', monthly: 290000, interest: 1960000, fees: 80000, total: 6960000 },
+            { amount: 5000000, duration: 36, type: 'education', monthly: 205000, interest: 2380000, fees: 80000, total: 7380000 },
+        ];
+
+        // Initialisation du tableau
+        let currentTariffs = [...loanTariffs];
+        
+        // Éléments DOM
+        const loanTableBody = document.getElementById('loanTableBody');
+        const loanTableLoading = document.getElementById('loanTableLoading');
+        const filterAmount = document.getElementById('filterAmount');
+        const filterDuration = document.getElementById('filterDuration');
+        const filterType = document.getElementById('filterType');
+
+        // Fonction de formatage des montants
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('fr-FR', {
+                style: 'currency',
+                currency: 'XOF',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // Fonction de formatage des types de prêt
+        function formatLoanType(type) {
+            const types = {
+                'personal': 'Personnel',
+                'business': 'Commercial',
+                'agricultural': 'Agricole',
+                'education': 'Scolaire'
+            };
+            return types[type] || type;
+        }
+
+        // Fonction d'affichage du tableau
+        function displayLoanTable(tariffs) {
+            if (!loanTableBody) return;
+
+            loanTableBody.innerHTML = '';
+
+            if (tariffs.length === 0) {
+                loanTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center py-4">
+                            <i class="fas fa-search text-muted"></i>
+                            <p class="mt-2 text-muted">Aucun tarif trouvé pour les critères sélectionnés</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tariffs.forEach(tariff => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="amount">${formatCurrency(tariff.amount)}</td>
+                    <td><span class="duration">${tariff.duration} mois</span></td>
+                    <td><span class="type">${formatLoanType(tariff.type)}</span></td>
+                    <td class="monthly">${formatCurrency(tariff.monthly)}</td>
+                    <td class="interest">${formatCurrency(tariff.interest)}</td>
+                    <td class="fees">${formatCurrency(tariff.fees)}</td>
+                    <td class="total">${formatCurrency(tariff.total)}</td>
+                    <td>
+                        <a href="{{ route('contact') }}?loan=${tariff.amount}&duration=${tariff.duration}&type=${tariff.type}" 
+                           class="loan-info" title="Demander ce prêt">
+                            <i class="fas fa-info-circle"></i> Détails
+                        </a>
+                    </td>
+                `;
+                loanTableBody.appendChild(row);
+            });
+        }
+
+        // Fonction de filtrage
+        function filterTariffs() {
+            const amountFilter = filterAmount.value;
+            const durationFilter = filterDuration.value;
+            const typeFilter = filterType.value;
+
+            console.log('Filtres appliqués:', { amountFilter, durationFilter, typeFilter });
+
+            let filtered = loanTariffs.filter(tariff => {
+                const amountMatch = amountFilter === 'all' || tariff.amount === parseInt(amountFilter);
+                const durationMatch = durationFilter === 'all' || tariff.duration === parseInt(durationFilter);
+                const typeMatch = typeFilter === 'all' || tariff.type === typeFilter;
+
+                console.log('Tariff:', tariff, 'Matches:', { amountMatch, durationMatch, typeMatch });
+
+                return amountMatch && durationMatch && typeMatch;
+            });
+
+            console.log('Résultats filtrés:', filtered.length);
+            currentTariffs = filtered;
+            displayLoanTable(filtered);
+        }
+
+        // Fonction de chargement initial
+        function loadLoanTable() {
+            if (loanTableLoading) {
+                loanTableLoading.style.display = 'block';
+            }
+
+            // Simulation d'un délai de chargement
+            setTimeout(() => {
+                if (loanTableLoading) {
+                    loanTableLoading.style.display = 'none';
+                }
+                displayLoanTable(currentTariffs);
+            }, 1000);
+        }
+
+        // Fonction de réinitialisation des filtres
+        function resetFilters() {
+            filterAmount.value = 'all';
+            filterDuration.value = 'all';
+            filterType.value = 'all';
+            
+            currentTariffs = [...loanTariffs];
+            displayLoanTable(currentTariffs);
+        }
+
+        // Fonction de rafraîchissement
+        function refreshTable() {
+            loadLoanTable();
+            resetFilters();
+        }
+
+        // Écouteurs d'événements pour les filtres
+        const applyFiltersBtn = document.getElementById('applyFilters');
+        const resetFiltersBtn = document.getElementById('resetFilters');
+
+        if (applyFiltersBtn) {
+            applyFiltersBtn.addEventListener('click', filterTariffs);
+        }
+        if (resetFiltersBtn) {
+            resetFiltersBtn.addEventListener('click', resetFilters);
+        }
+
+        // Chargement initial du tableau
+        loadLoanTable();
     });
 </script>
 @endsection

@@ -28,7 +28,7 @@
                 <div>
                     <div class="text-center">
                         <a href="index.html" class="mb-40 max-w-290-px">
-                            <img src="{{ URL::asset('assets/images/logo.png') }}" alt="">
+                            <img src="{{ URL::asset('assets/images/logo.png') }}" alt="" style="max-width: 120px; height: auto;">
                         </a>
                     </div>
                     <h4 class="mb-12">Connectez-vous à votre compte</h4>
@@ -68,7 +68,7 @@
                                 <input class="form-check-input border border-neutral-300" type="checkbox" value="" id="remeber">
                                 <label class="form-check-label" for="remeber">Se souvenir de moi</label>
                             </div>
-                            <a href="javascript:void(0)" class="text-primary-600 fw-medium">Mot de passe oublié?</a>
+                            <!-- <a href="javascript:void(0)" class="text-primary-600 fw-medium">Mot de passe oublié?</a> -->
                         </div>
                     </div>
 

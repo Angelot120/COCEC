@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="{{ asset('assets/main/css/swiper.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/main/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/main/css/main.css') }}">
+    
+    <!-- CSS Simulateur de Prêt -->
+    <link rel="stylesheet" href="{{ asset('assets/css/loan-simulator.css') }}">
 
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">

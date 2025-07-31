@@ -1,0 +1,299 @@
+/* ========================================
+   CSS OPTIMISÉ POUR PERFORMANCE - COCEC
+   ======================================== */
+
+/* Optimisations de base */
+* {
+    box-sizing: border-box;
+}
+
+/* Lazy loading pour les images */
+.lazy-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.lazy-image.loaded {
+    opacity: 1;
+}
+
+/* Optimisation des animations */
+.fade-wrapper {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+.fade-wrapper.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-top {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    will-change: opacity, transform;
+}
+
+.fade-top.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Optimisation du hero slider */
+.hero-section-3 {
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper-container-wrapper {
+    height: 100vh;
+    min-height: 600px;
+}
+
+.swiper-slide {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+/* Optimisation des images de fond */
+.swiper-slide[data-background] {
+    background-image: none; /* Chargement différé */
+}
+
+.swiper-slide[data-background].loaded {
+    background-image: var(--bg-image);
+}
+
+/* Optimisation des cartes de service */
+.service-item-3 {
+    transform: translateZ(0); /* Force l'accélération matérielle */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    will-change: transform;
+}
+
+.service-item-3:hover {
+    transform: translateY(-5px) translateZ(0);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Optimisation des statistiques */
+.strength-item {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    will-change: opacity, transform;
+}
+
+.strength-item.animate {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Optimisation des compteurs */
+.odometer {
+    transition: none; /* Désactive les transitions pour les compteurs */
+}
+
+/* Optimisation du scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Optimisation des boutons */
+.bz-primary-btn {
+    transform: translateZ(0);
+    transition: all 0.3s ease-out;
+    will-change: transform;
+}
+
+.bz-primary-btn:hover {
+    transform: translateY(-2px) translateZ(0);
+}
+
+/* Optimisation des images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Optimisation des sections */
+section {
+    contain: layout style paint; /* Isolation des sections */
+}
+
+/* Optimisation du header sticky */
+.header.sticky-active {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Optimisation des animations de texte */
+[data-text-animation] {
+    overflow: hidden;
+}
+
+[data-text-animation] .char {
+    display: inline-block;
+    transform: translateY(100%);
+    transition: transform 0.6s ease-out;
+}
+
+[data-text-animation].animate .char {
+    transform: translateY(0);
+}
+
+/* Optimisation des cartes d'équipe */
+.team-card {
+    transform: translateZ(0);
+    transition: transform 0.3s ease-out;
+    will-change: transform;
+}
+
+.team-card:hover {
+    transform: translateY(-10px) translateZ(0);
+}
+
+/* Optimisation des témoignages */
+.testi-item-2 {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+.testi-item-2.swiper-slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Optimisation des blogs */
+.post-card-3 {
+    transform: translateZ(0);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    will-change: transform;
+}
+
+.post-card-3:hover {
+    transform: translateY(-5px) translateZ(0);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+/* Optimisation des agences */
+.mini-agency-card {
+    transform: translateZ(0);
+    transition: all 0.3s ease-out;
+    will-change: transform;
+}
+
+.mini-agency-card:hover {
+    transform: translateY(-3px) translateZ(0);
+}
+
+/* Optimisation du preloader */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease-out;
+}
+
+/* Optimisation des formes et overlays */
+.shapes {
+    pointer-events: none;
+    z-index: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+/* Optimisation des icônes */
+.fas, .fab, .far {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Optimisation des grilles */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.col-lg-4, .col-lg-6, .col-md-6 {
+    padding: 0 15px;
+    flex: 0 0 auto;
+}
+
+.col-lg-4 { flex-basis: 33.333333%; }
+.col-lg-6 { flex-basis: 50%; }
+.col-md-6 { flex-basis: 50%; }
+
+/* Media queries optimisées */
+@media (max-width: 768px) {
+    .swiper-container-wrapper {
+        height: 70vh;
+        min-height: 400px;
+    }
+    
+    .fade-wrapper, .fade-top {
+        opacity: 1;
+        transform: none;
+    }
+    
+    .col-md-6 {
+        flex-basis: 100%;
+    }
+}
+
+/* Optimisation pour les écrans haute résolution */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .lazy-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Optimisation pour les appareils à écran tactile */
+@media (hover: none) and (pointer: coarse) {
+    .service-item-3:hover,
+    .team-card:hover,
+    .post-card-3:hover,
+    .mini-agency-card:hover {
+        transform: none;
+    }
+}
+
+/* Optimisation de la performance de scroll */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+} 

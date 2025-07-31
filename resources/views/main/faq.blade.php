@@ -469,9 +469,6 @@
 @endsection
 
 @section('content')
-
-{{-- Tout le HTML est INCHANGÉ --}}
-
 <body>
     @include('includes.main.loading')
     @include('includes.main.header')
@@ -499,58 +496,319 @@
             <div class="faq-layout">
                 <aside class="faq-categories-list" data-aos="fade-right">
                     <div class="faq-category-item active" data-category="tous"><i class="fas fa-globe-americas"></i><span>Toutes les questions</span></div>
-                    <div class="faq-category-item" data-category="general"><i class="fas fa-info-circle"></i><span>Général</span></div>
-                    <div class="faq-category-item" data-category="comptes"><i class="fas fa-wallet"></i><span>Comptes & Crédits</span></div>
-                    <div class="faq-category-item" data-category="digital"><i class="fas fa-mobile-alt"></i><span>Services Digitaux</span></div>
+                    <div class="faq-category-item" data-category="general"><i class="fas fa-info-circle"></i><span>Généralités</span></div>
+                    <div class="faq-category-item" data-category="produits"><i class="fas fa-briefcase"></i><span>Produits et services</span></div>
+                    <div class="faq-category-item" data-category="eligibilite"><i class="fas fa-check-circle"></i><span>Conditions d'éligibilité</span></div>
+                    <div class="faq-category-item" data-category="demande"><i class="fas fa-file-alt"></i><span>Procédure de demande</span></div>
+                    <div class="faq-category-item" data-category="remboursement"><i class="fas fa-money-check"></i><span>Remboursement</span></div>
+                    <div class="faq-category-item" data-category="digital"><i class="fas fa-mobile-alt"></i><span>Services digitaux</span></div>
+                    <div class="faq-category-item" data-category="securite"><i class="fas fa-shield-alt"></i><span>Sécurité</span></div>
+                    <div class="faq-category-item" data-category="assistance"><i class="fas fa-headset"></i><span>Assistance</span></div>
                 </aside>
                 <main class="faq-accordion-container" data-aos="fade-left" data-aos-delay="200">
+                    <!-- Généralités sur l’institution -->
                     <div class="faq-item-pro" data-category="general">
-                        <div class="faq-question-pro"><span>Qu'est-ce que la COCEC ?</span>
+                        <div class="faq-question-pro"><span>Qu’est-ce que la COCEC ?</span>
                             <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
                         </div>
                         <div class="faq-answer-pro">
                             <div class="faq-answer-content">
-                                <p>La COCEC (Coopérative Chrétienne d’Epargne et de Crédit) est une institution de microfinance dédiée à l'amélioration des conditions de vie de ses membres en offrant des services financiers accessibles et adaptés.</p>
+                                <p>La Coopérative Chrétienne d’Epargne et de Crédit (COCEC) est une institution spécialisée dans l’octroi de prêts, l’épargne et d’autres services financiers adaptés aux populations exclues du système bancaire traditionnel.</p>
                             </div>
                         </div>
                     </div>
                     <div class="faq-item-pro" data-category="general">
-                        <div class="faq-question-pro"><span>Qui peut devenir membre ?</span>
+                        <div class="faq-question-pro"><span>À qui s’adressent vos services ?</span>
                             <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
                         </div>
                         <div class="faq-answer-pro">
                             <div class="faq-answer-content">
-                                <p>Toute personne morale ou physique, quel que soit son secteur d'activité, peut devenir membre et bénéficier de nos services, en adhérant à nos valeurs et objectifs.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="faq-item-pro" data-category="comptes">
-                        <div class="faq-question-pro"><span>Quels types de comptes proposez-vous ?</span>
-                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
-                        </div>
-                        <div class="faq-answer-pro">
-                            <div class="faq-answer-content">
-                                <p>Nous proposons une gamme variée de comptes :</p>
+                                <p>Nos services sont destinés à toute personne partageant son lien commun et adhérant à ses objectifs principaux ci-après sans distinction de sexes, de races, de région, d’ethnie ou de religion :</p>
                                 <ul>
-                                    <li><strong>Compte Épargne</strong></li>
-                                    <li><strong>Compte Courant</strong></li>
-                                    <li><strong>Compte Tontine</strong></li>
-                                    <li><strong>Compte Épargne Projet</strong></li>
+                                    <li>Collecter l’épargne de ses membres et de leur consentir du crédit</li>
+                                    <li>Favoriser la solidarité et la coopération entre les membres</li>
+                                    <li>Promouvoir l’éducation économique, sociale et coopérative de ses membres</li>
+                                    <li>Accompagner ses clients dans la réalisation de leurs projets et la gestion de leurs propres affaires à travers des conseils et des assistances</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="general">
+                        <div class="faq-question-pro"><span>Où êtes-vous localisés ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Siège (Kanyikopé), Adamavo, Anfamé, Attiégou, Kpogan, Bé-Kpota, Agoè, Amadahomé, Djagblé, Adétikopé</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="general">
+                        <div class="faq-question-pro"><span>Quel jour puis-je ouvrir un compte ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Les ouvertures de compte se font du lundi au vendredi.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Produits et services -->
+                    <div class="faq-item-pro" data-category="produits">
+                        <div class="faq-question-pro"><span>Quels types de crédit proposez-vous ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Nous proposons des crédits commerce et autres activités génératrices de revenus, crédit artisanat, crédit agriculture élevage et pêche, crédit immobilier, crédit tontine, crédit sur virement de salaire, crédit de financement de marché, crédit aux groupements, crédit aux associations, crédit acquisition de matériel de transport, etc.</p>
+                                <p><a href="{{ route('product.index') }}">Consultez la liste complète des crédits</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="produits">
+                        <div class="faq-question-pro"><span>Proposez-vous des services d’épargne ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Oui, nous proposons différents types de comptes d’épargne adaptés à vos besoins : épargne simple, épargne projet, épargne groupe, etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="produits">
+                        <div class="faq-question-pro"><span>Offrez-vous des services non financiers ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Oui, nous proposons également des formations en éducation financière, accompagnement personnalisé, etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Conditions d’éligibilité -->
+                    <div class="faq-item-pro" data-category="eligibilite">
+                        <div class="faq-question-pro"><span>Comment puis-je bénéficier d’un prêt ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Vous devez :</p>
+                                <ul>
+                                    <li>Être âgé de 18 ans minimum</li>
+                                    <li>Être membre et avoir mouvementé régulièrement son compte</li>
+                                    <li>Avoir une activité génératrice de revenus</li>
+                                    <li>Présenter certaines pièces justificatives (CNI, justificatif de résidence, etc.)</li>
+                                    <li>Avoir une capacité de remboursement</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="eligibilite">
+                        <div class="faq-question-pro"><span>Faut-il une garantie pour obtenir un prêt ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Cela dépend du type de prêt. Certains nécessitent une garantie matérielle et/ou morale (caution solidaire).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="eligibilite">
+                        <div class="faq-question-pro"><span>Puis-je emprunter si je suis salarié ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Oui, un salarié peut solliciter un crédit sur virement salaire.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Procédure de demande -->
+                    <div class="faq-item-pro" data-category="demande">
+                        <div class="faq-question-pro"><span>Comment faire une demande de prêt ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Vous pouvez faire une demande en vous rendant dans votre agence.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="demande">
+                        <div class="faq-question-pro"><span>Combien de temps faut-il pour obtenir un prêt ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Le traitement prend généralement entre 5 et 15 jours ouvrables, selon le type de prêt.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="demande">
+                        <div class="faq-question-pro"><span>Quels documents dois-je fournir ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Une pièce d’identité, un justificatif de résidence, un plan d’affaires simplifié ou les preuves d’activité, etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Remboursement et gestion du crédit -->
+                    <div class="faq-item-pro" data-category="remboursement">
+                        <div class="faq-question-pro"><span>Quels sont les taux d’intérêt ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Nos taux varient en fonction du type de prêt. Ils sont transparents et communiqués dès le début du processus.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="remboursement">
+                        <div class="faq-question-pro"><span>Comment effectuer un remboursement ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Vous pouvez rembourser :</p>
+                                <ul>
+                                    <li>En espèces à l’agence</li>
+                                    <li>À travers l’application Bindoo</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="remboursement">
+                        <div class="faq-question-pro"><span>Que se passe-t-il si je ne peux pas rembourser à temps ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Nous vous invitons à contacter notre service client rapidement. Des solutions d’aménagement peuvent être envisagées selon la situation.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Finance digitale et services en ligne -->
+                    <div class="faq-item-pro" data-category="digital">
+                        <div class="faq-question-pro"><span>Proposez-vous des services financiers digitaux ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Oui. Nous offrons plusieurs services numériques pour faciliter l’accès à nos produits, comme :</p>
+                                <ul>
+                                    <li><strong>Mobile Banking :</strong> Utilisation de l’application Bindoo mobile pour consulter le solde de son compte, effectuer des virements entre comptes, faire des remboursements de crédit, voir les 40 dernières opérations de compte, mini relevé de compte...</li>
+                                    <li><strong>Mobile Money :</strong> Utilisation de code USSD pour accéder à votre compte COCEC et faire les dépôts, retraits et consultation de solde. Fonctionne sur tout type de téléphone et sans connexion Internet.</li>
+                                    <li><strong>SMS Banking :</strong> Vous recevez des SMS à chaque mouvement sur votre compte.</li>
+                                    <li><strong>Web Banking :</strong> Permet aux membres d’accéder à leur compte bancaire via un navigateur internet sur un ordinateur, une tablette ou un smartphone.</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="faq-item-pro" data-category="digital">
-                        <div class="faq-question-pro"><span>Comment accéder à mes comptes en ligne ?</span>
+                        <div class="faq-question-pro"><span>Quelle code USSD me permettra de faire des opérations sur mon compte COCEC ?</span>
                             <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
                         </div>
                         <div class="faq-answer-pro">
                             <div class="faq-answer-content">
-                                <p>Vous pouvez accéder à vos comptes 24h/24 via :</p>
-                                <ul>
-                                    <li><strong>COCEC Mobile :</strong> Notre application smartphone complète.</li>
-                                    <li><strong>COCEC USSD (*145#) :</strong> Accès sans internet pour les opérations essentielles.</li>
-                                </ul>
+                                <p>FLOOZ : *155*7*1*2# puis choisissez le compte sur lequel vous voulez faire l’opération, puis consultez le solde du compte COCEC. Si le solde s’affiche (le serveur est disponible), on peut donc faire l’opération qu’on veut.</p>
+                                <p>Mixx by Yas : *145*6*3*2#</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="digital">
+                        <div class="faq-question-pro"><span>Comment accéder à mon compte à distance ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Vous pouvez consulter votre solde, vos échéances et votre historique via l’application Bindoo Mobile ou un code USSD.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="digital">
+                        <div class="faq-question-pro"><span>Est-ce que l’application mobile est sécurisée ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Oui. Notre application utilise un cryptage de données avancé et nécessite une authentification à chaque connexion. Nous recommandons de ne jamais partager votre mot de passe ou votre code PIN.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="digital">
+                        <div class="faq-question-pro"><span>Que se passe-t-il quand je perds mon téléphone ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Alertez sans délai la COCEC pour que le service soit désactivé temporairement.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="digital">
+                        <div class="faq-question-pro"><span>Et si je rencontre un problème technique ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Vous pouvez contacter notre assistance digitale via WhatsApp, téléphone ou email. Nous avons une équipe dédiée pour vous aider.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sécurité et protection -->
+                    <div class="faq-item-pro" data-category="securite">
+                        <div class="faq-question-pro"><span>Mes données personnelles sont-elles protégées ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Oui. Nous respectons la réglementation en vigueur sur la protection des données personnelles et assurons la confidentialité de vos informations.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="securite">
+                        <div class="faq-question-pro"><span>Comment éviter les arnaques ou fausses promesses de prêt ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Méfiez-vous des personnes non autorisées. Ne versez jamais d’argent avant une approbation formelle. Appelez-nous pour vérifier toute information douteuse.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="securite">
+                        <div class="faq-question-pro"><span>Comment éviter les arnaques concernant la finance digitale ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>La COCEC ne demandera jamais vos informations de connexion ni aucun code (code PIN Bindoo, identifiants de connexion Bindoo, code secret Flooz, code secret Tmoney). Ne communiquez aucune information liée à Bindoo, Flooz ou Tmoney à qui que ce soit.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Assistance et contact -->
+                    <div class="faq-item-pro" data-category="assistance">
+                        <div class="faq-question-pro"><span>Comment puis-je vous contacter ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Par téléphone ou WhatsApp : +228 91 12 64 71</p>
+                                <p>Par email : cocec@cocectogo.org</p>
+                                <p>En agence</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item-pro" data-category="assistance">
+                        <div class="faq-question-pro"><span>Quels sont vos horaires d’ouverture ?</span>
+                            <div class="faq-toggle-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-answer-pro">
+                            <div class="faq-answer-content">
+                                <p>Du lundi au vendredi, de 7h30-15h00 ; le samedi de 8h00-12h00.</p>
+                                <p>Seules nos agences du Siège, Adamavo, Anfamé, Attiégou, Kpogan, Agoè, Djagblé ouvrent les samedis pour un service minimum.</p>
                             </div>
                         </div>
                     </div>
@@ -621,7 +879,6 @@
             </div>
         </div>
     </section>
-    {{-- SECTION CONTACT CORRIGÉE --}}
     <section class="faq-contact-section-wrapper">
         <div class="container" data-aos="fade-up">
             <div class="faq-contact-section">
@@ -638,7 +895,6 @@
 @endsection
 
 @section('js')
-{{-- Tout le JavaScript est INCHANGÉ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const faqSection = document.querySelector('.faq-pro-section');

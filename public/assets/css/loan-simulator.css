@@ -1,0 +1,348 @@
+/* ========================================
+   STYLES POUR LE SIMULATEUR DE PRÊT - COCEC
+   ======================================== */
+
+.loan-simulator-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.loan-simulator-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f8f9fa;
+    pointer-events: none;
+}
+
+.loan-simulator-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(236, 40, 28, 0.1);
+}
+
+.loan-simulator-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #EC281C;
+}
+
+.simulator-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+.simulator-header h3 {
+    color: #EC281C;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.simulator-header h3 i {
+    margin-right: 10px;
+    color: #EC281C;
+}
+
+.simulator-header p {
+    color: #6c757d;
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Filtres du tableau */
+.table-filters {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(236, 40, 28, 0.1);
+}
+
+.table-filters .row {
+    align-items: end;
+}
+
+.table-filters .col-md-4 {
+    margin-bottom: 15px;
+}
+
+.table-filters .col-md-12 {
+    margin-top: 10px;
+}
+
+.table-filters .bz-primary-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 5px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    width: 100%;
+    height: auto;
+    min-height: 45px;
+}
+
+.form-select:focus {
+    border-color: #EC281C;
+    box-shadow: 0 0 0 0.2rem rgba(236, 40, 28, 0.25);
+    background: #ffffff;
+    outline: none;
+}
+
+/* Styles du tableau */
+.loan-table {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(236, 40, 28, 0.1);
+}
+
+.loan-table thead {
+    background: #EC281C;
+}
+
+.loan-table th {
+    color: #ffffff;
+    font-weight: 600;
+    padding: 15px 12px;
+    border: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.loan-table tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.loan-table tbody tr:hover {
+    background: rgba(236, 40, 28, 0.05);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.loan-table td {
+    padding: 15px 12px;
+    vertical-align: middle;
+    border: none;
+    font-size: 14px;
+}
+
+.loan-table .amount {
+    font-weight: 700;
+    color: #EC281C;
+}
+
+.loan-table .duration {
+    background: rgba(236, 40, 28, 0.1);
+    color: #EC281C;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.loan-table .type {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.loan-table .monthly {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.loan-table .interest {
+    color: #ffc107;
+    font-weight: 600;
+}
+
+.loan-table .fees {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.loan-table .total {
+    font-weight: 700;
+    color: #28a745;
+    font-size: 16px;
+}
+
+/* Loading simple */
+#loanTableLoading {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+}
+
+.spinner {
+    width: 100%;
+    height: 100%;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #EC281C;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Info de prêt */
+.loan-info {
+    color: #EC281C;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.loan-info:hover {
+    color: #d4241a;
+    text-decoration: none;
+}
+
+/* Actions de simulation */
+.simulation-actions {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid rgba(236, 40, 28, 0.1);
+}
+
+.simulation-actions .bz-primary-btn {
+    margin: 0 10px;
+    padding: 12px 25px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Optimisations pour la section "Nos Produits Phares" */
+.service-section-3 {
+    will-change: auto;
+    transform: translateZ(0);
+}
+
+.service-item-3 {
+    will-change: auto;
+    transform: translateZ(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item-3:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-thumb {
+    will-change: auto;
+    transform: translateZ(0);
+}
+
+.service-thumb img {
+    will-change: auto;
+    transform: translateZ(0);
+    transition: transform 0.3s ease;
+}
+
+.service-item-3:hover .service-thumb img {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .loan-simulator-card {
+        padding: 25px;
+        margin: 0 15px;
+    }
+    
+    .simulator-header h3 {
+        font-size: 24px;
+    }
+    
+    .table-filters .col-md-4 {
+        margin-bottom: 20px;
+    }
+    
+    .table-filters .col-md-12 {
+        margin-top: 15px;
+    }
+    
+    .table-filters .bz-primary-btn {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .form-select {
+        min-height: 50px;
+        font-size: 16px; /* Évite le zoom sur iOS */
+    }
+    
+    .simulation-actions .bz-primary-btn {
+        display: block;
+        margin: 10px 0;
+        width: 100%;
+    }
+    
+    .loan-table {
+        font-size: 12px;
+    }
+    
+    .loan-table th,
+    .loan-table td {
+        padding: 10px 8px;
+    }
+    
+    /* Optimisations mobile pour les services */
+    .service-item-3 {
+        margin-bottom: 30px;
+    }
+    
+    .service-thumb img {
+        width: 100%;
+        height: auto;
+    }
+} 

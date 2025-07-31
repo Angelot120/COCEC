@@ -27,10 +27,13 @@ class ViewsController extends Controller
 
         $announcement = Announcements::where('status', 'publier')->latest()->first();
 
+        $agencies = AgencyLocation::take(3)->get();
+
         return view('welcome', [
             'blogs' => $blogs,
             'total' => $total,
-            'announcement' => $announcement
+            'announcement' => $announcement,
+            'agencies' => $agencies
         ]);
     }
 
@@ -152,7 +155,12 @@ class ViewsController extends Controller
 
     public function products()
     {
-        return view('main.products');
+        return view('main.product.index');
+    }
+
+    public function productDetails()
+    {
+        return view('main.product.details');
     }
 
     public function finance()

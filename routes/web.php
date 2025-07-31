@@ -39,7 +39,16 @@ Route::get('/career', [ViewsController::class, 'job'])->name('career');
 Route::get('/career/details/{id}', [JobController::class, 'show'])->name('career.details');
 Route::post('/career/apply', [JobController::class, 'store'])->name('career.apply');
 Route::post('/career/apply/{id}', [JobController::class, 'applyOffer'])->name('career.apply.offer');
-Route::get('/products', [ViewsController::class, 'products'])->name('products');
+// Routes pour les produits
+Route::prefix('products')->group(function () {
+    Route::get('/', [ViewsController::class, 'products'])->name('product.index');
+    Route::get('/details', [ViewsController::class, 'productDetails'])->name('product.details');
+});
+
+// Redirection de l'ancienne route vers la nouvelle
+Route::get('/products-old', function() {
+    return redirect()->route('product.index');
+})->name('products');
 Route::get('/contact', [ViewsController::class, 'contact'])->name('contact');
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
