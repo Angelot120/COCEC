@@ -3503,6 +3503,7 @@ namespace App\Models {
     /**
      * App\Models\MoralPersonSubmission
      *
+     * @property string $statut
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $remarks
@@ -3510,9 +3511,9 @@ namespace App\Models {
      * @property string|null $sanctions
      * @property string|null $ppe_foreign
      * @property bool $is_ppe_national
-     * @property string|null $account_opening_date
+     * @property \Illuminate\Support\Carbon|null $account_opening_date
      * @property string|null $account_number
-     * @property string|null $membership_date
+     * @property \Illuminate\Support\Carbon|null $membership_date
      * @property float $initial_deposit
      * @property string|null $signature_upload_path
      * @property string|null $signature_base64
@@ -3535,10 +3536,10 @@ namespace App\Models {
      * @property string|null $director_mother_name
      * @property string|null $director_father_name
      * @property string $director_phone
-     * @property string|null $director_id_issue_date
+     * @property \Illuminate\Support\Carbon|null $director_id_issue_date
      * @property string $director_id_number
      * @property string $director_birth_place
-     * @property string $director_birth_date
+     * @property \Illuminate\Support\Carbon $director_birth_date
      * @property string $director_nationality
      * @property string $director_gender
      * @property string $director_position
@@ -3556,8 +3557,8 @@ namespace App\Models {
      * @property string|null $activity_description
      * @property string $activity_sector
      * @property string $creation_place
-     * @property string $creation_date
-     * @property string|null $company_id_date
+     * @property \Illuminate\Support\Carbon $creation_date
+     * @property \Illuminate\Support\Carbon|null $company_id_date
      * @property string|null $company_id_number
      * @property string|null $company_id_type
      * @property string $rccm
@@ -3631,6 +3632,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereRemarks($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereStatut($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission query()
@@ -5560,6 +5562,7 @@ namespace App\Models {
     /**
      * App\Models\User
      *
+     * @property string|null $phone_num
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $remember_token
@@ -5580,6 +5583,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereRememberToken($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<User>|User wherePhoneNum($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User query()

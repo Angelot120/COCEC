@@ -141,7 +141,7 @@
                     </li>
 
                      <li>
-                        <a href="{{ route('account.create.morale') }}">Créer une demande morale</a>
+                        <a href="{{ route('accounts.moral.index') }}">Demande morale</a>
                     </li> 
 
                 </ul>

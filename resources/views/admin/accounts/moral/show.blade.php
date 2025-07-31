@@ -1,4 +1,3 @@
-
 @extends('layout.admin')
 
 @section('css')
@@ -178,11 +177,11 @@
 
             <!-- Titre pour l'impression -->
             <h1 class="print-only" style="display: none; text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 30px;">
-                Détails de la soumission #{{ $submission->id }}
+                Détails de la demande morale #{{ $submission->id }}
             </h1>
             
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24 no-print">
-                <h6 class="fw-semibold mb-0">Détails de la soumission #{{ $submission->id }}</h6>
+                <h6 class="fw-semibold mb-0">Détails de la demande morale #{{ $submission->id }}</h6>
                 <ul class="d-flex align-items-center gap-2">
                     <li class="fw-medium">
                         <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">
@@ -192,8 +191,8 @@
                     </li>
                     <li>-</li>
                     <li class="fw-medium">
-                        <a href="{{ route('accounts.physical.index') }}" class="hover-text-primary">
-                            Comptes physiques
+                        <a href="{{ route('accounts.moral.index') }}" class="hover-text-primary">
+                            Demandes morales
                         </a>
                     </li>
                     <li>-</li>
@@ -204,11 +203,11 @@
             <!-- Actions -->
             <div class="card mb-24 no-print">
                 <div class="card-body d-flex align-items-center gap-3">
-                    <a href="{{ route('accounts.physical.index') }}" class="btn btn-danger d-flex align-items-center gap-2">
+                    <a href="{{ route('accounts.moral.index') }}" class="btn btn-danger d-flex align-items-center gap-2">
                         <iconify-icon icon="lucide:arrow-left" class="icon"></iconify-icon>
                         Retour à la liste
                     </a>
-                    <a href="{{ route('accounts.physical.pdf', $submission->id) }}" class="btn btn-warning d-flex align-items-center gap-2">
+                    <a href="{{ route('accounts.moral.pdf', $submission->id) }}" class="btn btn-warning d-flex align-items-center gap-2">
                         <iconify-icon icon="lucide:file-text" class="icon"></iconify-icon>
                         Télécharger PDF
                     </a>
@@ -222,51 +221,47 @@
             <div class="row">
                 <!-- Informations principales -->
                 <div class="col-lg-8">
-                    <!-- Informations personnelles -->
+                    <!-- Informations de l'entreprise -->
                     <div class="card mb-24">
                         <div class="card-header bg-base py-16 px-24">
-                            <h6 class="fw-semibold mb-0">Informations personnelles</h6>
+                            <h6 class="fw-semibold mb-0">Informations de l'entreprise</h6>
                         </div>
                         <div class="card-body p-24">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nom complet</label>
-                                        <p class="fw-medium mb-0">{{ $submission->last_name }} {{ $submission->first_names }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Genre</label>
-                                        <p class="fw-medium mb-0">{{ $submission->gender == 'M' ? 'Masculin' : 'Féminin' }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Date de naissance</label>
-                                        <p class="fw-medium mb-0">{{ $submission->birth_date ? $submission->birth_date->format('d/m/Y') : '-' }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Lieu de naissance</label>
-                                        <p class="fw-medium mb-0">{{ $submission->birth_place }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nationalité</label>
-                                        <p class="fw-medium mb-0">{{ $submission->nationality }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nom du père</label>
-                                        <p class="fw-medium mb-0">{{ $submission->father_name }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nom de la mère</label>
-                                        <p class="fw-medium mb-0">{{ $submission->mother_name }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Téléphone</label>
-                                        <p class="fw-medium mb-0">{{ $submission->phone ?? '-' }}</p>
+                                        <label class="text-sm text-secondary-light mb-4">Nom de l'entreprise</label>
+                                        <p class="fw-medium mb-0">{{ $submission->company_name }}</p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Catégorie</label>
                                         <p class="fw-medium mb-0">{{ $submission->category ?? '-' }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">RCCM</label>
+                                        <p class="fw-medium mb-0">{{ $submission->rccm }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Secteur d'activité</label>
+                                        <p class="fw-medium mb-0">{{ $submission->activity_sector }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Nationalité</label>
+                                        <p class="fw-medium mb-0">{{ $submission->company_nationality }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Date de création</label>
+                                        <p class="fw-medium mb-0">{{ $submission->creation_date ? $submission->creation_date->format('d/m/Y') : '-' }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Lieu de création</label>
+                                        <p class="fw-medium mb-0">{{ $submission->creation_place }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Téléphone</label>
+                                        <p class="fw-medium mb-0">{{ $submission->company_phone }}</p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Statut</label>
@@ -280,45 +275,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Informations professionnelles -->
-                    <div class="card mb-24">
-                        <div class="card-header bg-base py-16 px-24">
-                            <h6 class="fw-semibold mb-0">Informations professionnelles</h6>
-                        </div>
-                        <div class="card-body p-24">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Profession</label>
-                                        <p class="fw-medium mb-0">{{ $submission->occupation }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nom de l'entreprise</label>
-                                        <p class="fw-medium mb-0">{{ $submission->company_name_activity ?? '-' }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Type d'activité</label>
-                                        <p class="fw-medium mb-0">{{ $submission->activity_type ?? '-' }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Statut marital</label>
-                                        <p class="fw-medium mb-0">{{ $submission->marital_status }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nom du conjoint</label>
-                                        <p class="fw-medium mb-0">{{ $submission->spouse_name ?? '-' }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Téléphone du conjoint</label>
-                                        <p class="fw-medium mb-0">{{ $submission->spouse_phone ?? '-' }}</p>
-                                    </div>
-                                </div>
-                            </div>
                             @if($submission->activity_description)
                             <div class="mt-16">
                                 <label class="text-sm text-secondary-light mb-4">Description de l'activité</label>
@@ -328,53 +284,98 @@
                         </div>
                     </div>
 
-                    <!-- Adresses et coordonnées -->
+                    <!-- Informations du directeur -->
                     <div class="card mb-24">
                         <div class="card-header bg-base py-16 px-24">
-                            <h6 class="fw-semibold mb-0">Adresses et coordonnées</h6>
+                            <h6 class="fw-semibold mb-0">Informations du directeur</h6>
                         </div>
                         <div class="card-body p-24">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h6 class="fw-semibold mb-16">Résidence</h6>
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Description</label>
-                                        <p class="fw-medium mb-0">{{ $submission->residence_description ?? '-' }}</p>
+                                        <label class="text-sm text-secondary-light mb-4">Nom complet</label>
+                                        <p class="fw-medium mb-0">{{ $submission->director_name }} {{ $submission->director_first_name ?? '' }}</p>
                                     </div>
-                                    @if ($submission->residence_lat && $submission->residence_lng)
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Coordonnées</label>
-                                        <p class="fw-medium mb-0">{{ $submission->residence_lat }}, {{ $submission->residence_lng }}</p>
-                                        <div id="residence-map" class="map-container mt-8"></div>
+                                        <label class="text-sm text-secondary-light mb-4">Poste</label>
+                                        <p class="fw-medium mb-0">{{ $submission->director_position }}</p>
                                     </div>
-                                    @endif
-                                    @if ($submission->residence_plan_path)
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Plan de résidence</label>
-                                        <a href="{{ Storage::url($submission->residence_plan_path) }}" target="_blank" class="document-link">
-                                            <iconify-icon icon="lucide:download" class="icon"></iconify-icon>
-                                            Télécharger le plan
-                                        </a>
+                                        <label class="text-sm text-secondary-light mb-4">Genre</label>
+                                        <p class="fw-medium mb-0">{{ $submission->director_gender == 'M' ? 'Masculin' : 'Féminin' }}</p>
                                     </div>
-                                    @endif
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Date de naissance</label>
+                                        <p class="fw-medium mb-0">{{ $submission->director_birth_date ? $submission->director_birth_date->format('d/m/Y') : '-' }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Lieu de naissance</label>
+                                        <p class="fw-medium mb-0">{{ $submission->director_birth_place }}</p>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6 class="fw-semibold mb-16">Lieu de travail</h6>
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Description</label>
-                                        <p class="fw-medium mb-0">{{ $submission->workplace_description ?? '-' }}</p>
+                                        <label class="text-sm text-secondary-light mb-4">Nationalité</label>
+                                        <p class="fw-medium mb-0">{{ $submission->director_nationality }}</p>
                                     </div>
-                                    @if ($submission->workplace_lat && $submission->workplace_lng)
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Numéro de pièce</label>
+                                        <p class="fw-medium mb-0">{{ $submission->director_id_number }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Date d'émission</label>
+                                        <p class="fw-medium mb-0">{{ $submission->director_id_issue_date ? $submission->director_id_issue_date->format('d/m/Y') : '-' }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Téléphone</label>
+                                        <p class="fw-medium mb-0">{{ $submission->director_phone }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Nom du père</label>
+                                        <p class="fw-medium mb-0">{{ $submission->director_father_name ?? '-' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Adresse de l'entreprise -->
+                    <div class="card mb-24">
+                        <div class="card-header bg-base py-16 px-24">
+                            <h6 class="fw-semibold mb-0">Adresse de l'entreprise</h6>
+                        </div>
+                        <div class="card-body p-24">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Adresse</label>
+                                        <p class="fw-medium mb-0">{{ $submission->company_address }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Ville</label>
+                                        <p class="fw-medium mb-0">{{ $submission->company_city ?? '-' }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Quartier</label>
+                                        <p class="fw-medium mb-0">{{ $submission->company_neighborhood ?? '-' }}</p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Boîte postale</label>
+                                        <p class="fw-medium mb-0">{{ $submission->company_postal_box ?? '-' }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    @if ($submission->company_lat && $submission->company_lng)
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Coordonnées</label>
-                                        <p class="fw-medium mb-0">{{ $submission->workplace_lat }}, {{ $submission->workplace_lng }}</p>
-                                        <div id="workplace-map" class="map-container mt-8"></div>
+                                        <p class="fw-medium mb-0">{{ $submission->company_lat }}, {{ $submission->company_lng }}</p>
+                                        <div id="company-map" class="map-container mt-8"></div>
                                     </div>
                                     @endif
-                                    @if ($submission->workplace_plan_path)
+                                    @if ($submission->company_plan_path)
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Plan du lieu de travail</label>
-                                        <a href="{{ Storage::url($submission->workplace_plan_path) }}" target="_blank" class="document-link">
+                                        <label class="text-sm text-secondary-light mb-4">Plan de l'entreprise</label>
+                                        <a href="{{ Storage::url($submission->company_plan_path) }}" target="_blank" class="document-link">
                                             <iconify-icon icon="lucide:download" class="icon"></iconify-icon>
                                             Télécharger le plan
                                         </a>
@@ -394,20 +395,6 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Type de pièce</label>
-                                        <p class="fw-medium mb-0">{{ $submission->id_type }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Numéro de pièce</label>
-                                        <p class="fw-medium mb-0">{{ $submission->id_number }}</p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Date d'émission</label>
-                                        <p class="fw-medium mb-0">{{ $submission->id_issue_date ? $submission->id_issue_date->format('d/m/Y') : '-' }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Personne politiquement exposée (nationale)</label>
                                         <p class="fw-medium mb-0">{{ $submission->is_ppe_national ? 'Oui' : 'Non' }}</p>
                                     </div>
@@ -420,9 +407,6 @@
                                         <p class="fw-medium mb-0">{{ number_format($submission->initial_deposit, 2) }} FCFA</p>
                                     </div>
                                 </div>
-                            </div>
-                            @if($submission->sanctions || $submission->terrorism_financing)
-                            <div class="row mt-16">
                                 <div class="col-md-6">
                                     @if($submission->sanctions)
                                     <div class="mb-16">
@@ -430,8 +414,6 @@
                                         <p class="fw-medium mb-0">{{ $submission->sanctions }}</p>
                                     </div>
                                     @endif
-                                </div>
-                                <div class="col-md-6">
                                     @if($submission->terrorism_financing)
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Financement du terrorisme</label>
@@ -440,15 +422,14 @@
                                     @endif
                                 </div>
                             </div>
-                            @endif
                         </div>
                     </div>
 
-                    <!-- Références -->
-                    @if (!$submission->references->isEmpty())
+                    <!-- Co-directeurs -->
+                    @if (!$submission->coDirectors->isEmpty())
                     <div class="card mb-24">
                         <div class="card-header bg-base py-16 px-24">
-                            <h6 class="fw-semibold mb-0">Références</h6>
+                            <h6 class="fw-semibold mb-0">Co-directeurs</h6>
                         </div>
                         <div class="card-body p-24">
                             <div class="table-responsive">
@@ -456,14 +437,47 @@
                                     <thead>
                                         <tr>
                                             <th>Nom</th>
+                                            <th>Poste</th>
                                             <th>Téléphone</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($submission->references as $reference)
+                                        @foreach ($submission->coDirectors as $coDirector)
                                             <tr>
-                                                <td>{{ $reference->name }}</td>
-                                                <td>{{ $reference->phone }}</td>
+                                                <td>{{ $coDirector->name }}</td>
+                                                <td>{{ $coDirector->position }}</td>
+                                                <td>{{ $coDirector->phone }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+                    <!-- Signataires du compte -->
+                    @if (!$submission->accountSignatories->isEmpty())
+                    <div class="card mb-24">
+                        <div class="card-header bg-base py-16 px-24">
+                            <h6 class="fw-semibold mb-0">Signataires du compte</h6>
+                        </div>
+                        <div class="card-body p-24">
+                            <div class="table-responsive">
+                                <table class="table table-bordered mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Type de signature</th>
+                                            <th>Numéro de pièce</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($submission->accountSignatories as $signatory)
+                                            <tr>
+                                                <td>{{ $signatory->name }}</td>
+                                                <td>{{ $signatory->signature_type }}</td>
+                                                <td>{{ $signatory->id_number ?? '-' }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -515,14 +529,14 @@
                             <h6 class="fw-semibold mb-0">Documents</h6>
                         </div>
                         <div class="card-body p-24">
-                            @if($submission->photo_path)
+                            @if($submission->responsible_persons_photo_path)
                             <div class="mb-24">
-                                <label class="text-sm text-secondary-light mb-8">Photo d'identité</label>
+                                <label class="text-sm text-secondary-light mb-8">Photo des responsables</label>
                                 <div class="text-center">
-                                    <img src="{{ Storage::url($submission->photo_path) }}" alt="Photo d'identité" class="document-preview">
+                                    <img src="{{ Storage::url($submission->responsible_persons_photo_path) }}" alt="Photo des responsables" class="document-preview">
                                 </div>
                                 <div class="text-center mt-8">
-                                    <a href="{{ Storage::url($submission->photo_path) }}" target="_blank" class="document-link">
+                                    <a href="{{ Storage::url($submission->responsible_persons_photo_path) }}" target="_blank" class="document-link">
                                         <iconify-icon icon="lucide:external-link" class="icon"></iconify-icon>
                                         Voir en plein écran
                                     </a>
@@ -530,13 +544,13 @@
                             </div>
                             @endif
 
-                            @if($submission->id_scan_path)
+                            @if($submission->company_document_path)
                             <div class="mb-24">
-                                <label class="text-sm text-secondary-light mb-8">Scan de la pièce d'identité</label>
+                                <label class="text-sm text-secondary-light mb-8">Document de l'entreprise</label>
                                 <div class="text-center">
-                                    <a href="{{ Storage::url($submission->id_scan_path) }}" target="_blank" class="document-link">
+                                    <a href="{{ Storage::url($submission->company_document_path) }}" target="_blank" class="document-link">
                                         <iconify-icon icon="lucide:download" class="icon"></iconify-icon>
-                                        Télécharger le scan
+                                        Télécharger le document
                                     </a>
                                 </div>
                             </div>
@@ -596,7 +610,7 @@
                             <h6 class="fw-semibold mb-0">Mettre à jour le statut</h6>
                         </div>
                         <div class="card-body p-24">
-                            <form action="{{ route('accounts.physical.update', $submission->id) }}" method="POST">
+                            <form action="{{ route('accounts.moral.update', $submission->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="mb-16">
@@ -638,25 +652,15 @@
 @section('js')
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Initialisation des cartes
-        @if ($submission->residence_lat && $submission->residence_lng)
-        const residenceMap = L.map('residence-map').setView([{{ $submission->residence_lat }}, {{ $submission->residence_lng }}], 15);
+        // Initialisation de la carte de l'entreprise
+        @if ($submission->company_lat && $submission->company_lng)
+        const companyMap = L.map('company-map').setView([{{ $submission->company_lat }}, {{ $submission->company_lng }}], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
-        }).addTo(residenceMap);
-        L.marker([{{ $submission->residence_lat }}, {{ $submission->residence_lng }}]).addTo(residenceMap)
-            .bindPopup('Résidence')
-            .openPopup();
-        @endif
-
-        @if ($submission->workplace_lat && $submission->workplace_lng)
-        const workplaceMap = L.map('workplace-map').setView([{{ $submission->workplace_lat }}, {{ $submission->workplace_lng }}], 15);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(workplaceMap);
-        L.marker([{{ $submission->workplace_lat }}, {{ $submission->workplace_lng }}]).addTo(workplaceMap)
-            .bindPopup('Lieu de travail')
+        }).addTo(companyMap);
+        L.marker([{{ $submission->company_lat }}, {{ $submission->company_lng }}]).addTo(companyMap)
+            .bindPopup('{{ $submission->company_name }}')
             .openPopup();
         @endif
     </script>
-@endsection
+@endsection 

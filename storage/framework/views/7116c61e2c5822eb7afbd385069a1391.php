@@ -141,7 +141,7 @@
                     </li>
 
                      <li>
-                        <a href="<?php echo e(route('account.create.morale')); ?>">Créer une demande morale</a>
+                        <a href="<?php echo e(route('accounts.moral.index')); ?>">Demande morale</a>
                     </li> 
 
                 </ul>

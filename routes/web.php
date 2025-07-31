@@ -74,6 +74,13 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
         Route::put('/update/{id}', 'updatePhysical')->name('accounts.physical.update');
         Route::get('/pdf/{id}', 'generatePhysicalPdf')->name('accounts.physical.pdf');
     });
+
+    Route::prefix('accounts/moral')->controller(AccountController::class)->group(function () {
+        Route::get('/', 'indexMoral')->name('accounts.moral.index');
+        Route::get('/{id}', 'showMoral')->name('accounts.moral.show');
+        Route::put('/update/{id}', 'updateMoral')->name('accounts.moral.update');
+        Route::get('/pdf/{id}', 'generateMoralPdf')->name('accounts.moral.pdf');
+    });
 });
 
 Route::prefix('admin/career')->controller(JobOfferController::class)->group(function () {
@@ -108,6 +115,9 @@ Route::prefix('admin/announcement')->controller(AnnouncementsController::class)-
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/profile', [AuthController::class, 'profile'])->name('admin.profile');
+    Route::put('/profile', [AuthController::class, 'updateProfile'])->name('admin.profile.update');
+    Route::put('/profile/password', [AuthController::class, 'updatePassword'])->name('admin.profile.password');
 });
 
 Route::post('/login/processing', [AuthController::class, 'login'])->name('login.process');

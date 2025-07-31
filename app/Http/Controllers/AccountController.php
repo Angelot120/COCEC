@@ -891,4 +891,80 @@ class AccountController extends Controller
     {
         //
     }
+
+    /**
+     * Display a listing of moral person submissions.
+     */
+    public function indexMoral(Request $request)
+    {
+        $search = $request->input('search');
+        $status = $request->input('status');
+
+        $query = MoralPersonSubmission::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('company_name', 'like', "%{$search}%")
+                  ->orWhere('director_name', 'like', "%{$search}%")
+                  ->orWhere('account_number', 'like', "%{$search}%")
+                  ->orWhere('rccm', 'like', "%{$search}%");
+            });
+        }
+
+        if ($status) {
+            $query->where('statut', $status);
+        }
+
+        $submissions = $query->latest()->paginate(10);
+
+        return view('admin.accounts.moral.index', compact('submissions', 'search', 'status'));
+    }
+
+    /**
+     * Display the specified moral person submission.
+     */
+    public function showMoral($id)
+    {
+        $submission = MoralPersonSubmission::with(['coDirectors', 'accountSignatories', 'beneficiaries'])->findOrFail($id);
+        return view('admin.accounts.moral.show', compact('submission'));
+    }
+
+    /**
+     * Update the status of a moral person submission.
+     */
+    public function updateMoral(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'statut' => 'required|in:en_attente,accepter,refuser',
+            'account_number' => 'nullable|string|max:255',
+            'membership_date' => 'nullable|date',
+            'account_opening_date' => 'nullable|date',
+            'remarks' => 'nullable|string',
+        ]);
+
+        try {
+            $submission = MoralPersonSubmission::findOrFail($id);
+            $submission->update($validated);
+            return back()->with('success', 'Statut mis à jour avec succès.');
+        } catch (\Exception $e) {
+            Log::error("Erreur de mise à jour du statut moral: {$e->getMessage()}");
+            return back()->with('error', 'Une erreur est survenue lors de la mise à jour.');
+        }
+    }
+
+    /**
+     * Generate a PDF for a moral person submission.
+     */
+    public function generateMoralPdf($id)
+    {
+        $submission = MoralPersonSubmission::with(['coDirectors', 'accountSignatories', 'beneficiaries'])->findOrFail($id);
+
+        $data = [
+            'submission' => $submission,
+        ];
+
+        $pdf = Pdf::loadView('admin.accounts.moral.pdf', $data);
+        
+        return $pdf->download('moral_submission_' . $submission->id . '.pdf');
+    }
 }

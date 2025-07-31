@@ -70,6 +70,18 @@ class MoralPersonSubmission extends Model
         'sanctions',
         'terrorism_financing',
         'remarks',
+        'statut',
+    ];
+
+    protected $casts = [
+        'company_id_date' => 'date',
+        'creation_date' => 'date',
+        'director_birth_date' => 'date',
+        'director_id_issue_date' => 'date',
+        'membership_date' => 'date',
+        'account_opening_date' => 'date',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     /**
