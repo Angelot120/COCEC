@@ -41,6 +41,116 @@
         .status-en_attente { background: #fff3cd; color: #856404; }
         .status-accepter { background: #d4edda; color: #155724; }
         .status-refuser { background: #f8d7da; color: #721c24; }
+
+        /* Styles pour l'impression */
+        @media print {
+            /* Masquer TOUS les éléments de navigation et boutons */
+            .dashboard-main header,
+            .dashboard-main aside,
+            .dashboard-main footer,
+            .btn,
+            .dropdown,
+            .alert,
+            .card-header,
+            .no-print,
+            .d-flex.flex-wrap.align-items-center.justify-content-between.gap-3.mb-24,
+            .d-flex.align-items-center.gap-2,
+            .breadcrumb,
+            .navigation,
+            .appbar,
+            .sidebar {
+                display: none !important;
+            }
+            
+            /* Masquer le breadcrumb */
+            .no-print {
+                display: none !important;
+            }
+            
+            /* Afficher le titre d'impression */
+            .print-only {
+                display: block !important;
+            }
+            
+            /* Masquer le titre normal */
+            h6.fw-semibold.mb-0 {
+                display: none !important;
+            }
+            
+            /* Masquer les icônes de mode clair/sombre */
+            iconify-icon[icon*="sun"],
+            iconify-icon[icon*="moon"],
+            iconify-icon[icon*="solar"],
+            .theme-toggle,
+            .mode-toggle,
+            button[data-theme-toggle],
+            [data-theme-toggle] {
+                display: none !important;
+            }
+            
+            /* S'assurer que le titre s'affiche */
+            .fw-semibold.mb-0 {
+                display: block !important;
+                font-size: 18px !important;
+                font-weight: bold !important;
+                margin-bottom: 20px !important;
+            }
+            
+            /* Masquer les cartes d'actions */
+            .card.mb-24.no-print,
+            .card:first-child {
+                display: none !important;
+            }
+            
+            /* Ajuster la mise en page pour l'impression */
+            .dashboard-main {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .dashboard-main-body {
+                padding: 0 !important;
+            }
+            
+            .card {
+                border: none !important;
+                box-shadow: none !important;
+                margin-bottom: 20px !important;
+            }
+            
+            .card-body {
+                padding: 15px !important;
+            }
+            
+            /* Masquer les cartes de mise à jour du statut */
+            .col-lg-4 .card:last-child {
+                display: none !important;
+            }
+            
+            /* Ajuster la largeur des colonnes pour l'impression */
+            .col-lg-8 {
+                width: 100% !important;
+            }
+            
+            .col-lg-4 {
+                width: 100% !important;
+            }
+            
+            /* Masquer les cartes de documents dans la sidebar */
+            .col-lg-4 .card:first-child {
+                display: none !important;
+            }
+            
+            /* Masquer les cartes d'informations du compte dans la sidebar */
+            .col-lg-4 .card:nth-child(2) {
+                display: none !important;
+            }
+            
+            /* Forcer le masquage de tous les éléments avec no-print */
+            *[class*="no-print"] {
+                display: none !important;
+            }
+        }
     </style>
 <?php $__env->stopSection(); ?>
 
@@ -67,7 +177,13 @@
                 </div>
             <?php endif; ?>
 
-            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+            <!-- Titre pour l'impression -->
+            <h1 class="print-only" style="display: none; text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 30px;">
+                Détails de la demande morale #<?php echo e($submission->id); ?>
+
+            </h1>
+            
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24 no-print">
                 <h6 class="fw-semibold mb-0">Détails de la demande morale #<?php echo e($submission->id); ?></h6>
                 <ul class="d-flex align-items-center gap-2">
                     <li class="fw-medium">
@@ -88,7 +204,7 @@
             </div>
 
             <!-- Actions -->
-            <div class="card mb-24">
+            <div class="card mb-24 no-print">
                 <div class="card-body d-flex align-items-center gap-3">
                     <a href="<?php echo e(route('accounts.moral.index')); ?>" class="btn btn-danger d-flex align-items-center gap-2">
                         <iconify-icon icon="lucide:arrow-left" class="icon"></iconify-icon>
