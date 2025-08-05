@@ -36,36 +36,39 @@
                             <div class="header-menu-wrap">
                                 <div class="mobile-menu-items">
                                     <ul>
-                                        <li><a href="{{ route("index") }}">Accueil</a></li>
-                                        <!-- <li class="menu-item-has-children">
-                                            <a href="service.html">Services</a>
-                                            <ul>
-                                                <li><a href="service.html">Service</a></li>
-                                                <li><a href="service-details.html">Service Details</a></li>
-                                            </ul>
-                                        </li> -->
-                                        <li><a href="{{ route("products") }}">Produits</a></li>
-                                        <li><a href="{{ route("blogs") }}">Blog</a></li>
-                                        <li><a href="{{ route("agencies") }}">agences</a></li>
-                                        <!-- <li class="menu-item-has-children">
-                                            <a href="">Blog</a>
-                                            <ul>
-                                                <li><a href="blog-grid.html"> Grid</a></li>
-                                                <li><a href="blog-grid-2.html">Blog list</a></li>
-                                                <li><a href="blog-details.html">Blog Details</a></li>
-                                            </ul>
-                                        </li> -->
-
-                                        <li><a href="{{ route('contact') }}">Contact</a></li>
-
-                                        <li class="menu-item-has-children">
+                                        <li class="{{ request()->routeIs('index') ? 'active' : '' }}">
+                                            <a href="{{ route("index") }}">Accueil</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('product.*') ? 'active' : '' }}">
+                                            <a href="{{ route("product.index") }}">Produits</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('blogs') ? 'active' : '' }}">
+                                            <a href="{{ route("blogs") }}">Blog</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('agencies') ? 'active' : '' }}">
+                                            <a href="{{ route("agencies") }}">Agences</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
+                                            <a href="{{ route('contact') }}">Contact</a>
+                                        </li>
+                                        <li class="menu-item-has-children {{ request()->routeIs('career') || request()->routeIs('about') || request()->routeIs('main.finance') || request()->routeIs('main.faq') ? 'active' : '' }}">
                                             <a href="#">Autres</a>
                                             <ul>
-                                                <li><a href="{{ route('career') }}">Carrière & Emploi</a></li>
-                                                <li><a href="{{ route('about')}}">À propos</a></li>
-                                                <li><a href="{{ route('main.finance')}}">Finance Digitale</a></li>
-                                                <li><a href="{{ route('main.faq') }}">Faq</a></li>
-                                                <li><a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a></li>
+                                                <li class="{{ request()->routeIs('career') ? 'active' : '' }}">
+                                                    <a href="{{ route('career') }}">Carrière & Emploi</a>
+                                                </li>
+                                                <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
+                                                    <a href="{{ route('about')}}">À propos</a>
+                                                </li>
+                                                <li class="{{ request()->routeIs('main.finance') ? 'active' : '' }}">
+                                                    <a href="{{ route('main.finance')}}">Finance Digitale</a>
+                                                </li>
+                                                <li class="{{ request()->routeIs('main.faq') ? 'active' : '' }}">
+                                                    <a href="{{ route('main.faq') }}">Faq</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>

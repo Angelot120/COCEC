@@ -63,6 +63,8 @@
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
 </body>
 
 </html><?php /**PATH C:\Users\user\Desktop\Microfinance\COCEC\resources\views/layout/main.blade.php ENDPATH**/ ?>

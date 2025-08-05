@@ -30,6 +30,7 @@ Route::get('/open-account', [ViewsController::class, 'account'])->name('main.acc
 Route::get('/digital-finance', [ViewsController::class, 'finance'])->name('main.finance');
 Route::get('/faq', [ViewsController::class, 'faq'])->name('main.faq');
 Route::post('/faq/comment', [FaqCommentController::class, 'store'])->name('faq.comments.store');
+Route::post('/blog/comment', [App\Http\Controllers\BlogCommentController::class, 'store'])->name('blog.comments.store');
 Route::get('/create-account/physic', [AccountController::class, 'physic'])->name('account.create.physic');
 Route::get('/create-account/morale', [AccountController::class, 'morale'])->name('account.create.morale');
 Route::post('/create-account/physical/processing', [AccountController::class, 'storePhysical'])->name('account.store.physical');
@@ -76,6 +77,7 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
     });
 
     Route::delete('/faq/comments/{id}', [FaqCommentController::class, 'destroy'])->name('faq.comments.destroy');
+    Route::delete('/blog/comments/{id}', [App\Http\Controllers\BlogCommentController::class, 'destroy'])->name('blog.comments.destroy');
 
     Route::prefix('accounts/physical')->controller(AccountController::class)->group(function () {
         Route::get('/', 'indexPhysical')->name('accounts.physical.index');

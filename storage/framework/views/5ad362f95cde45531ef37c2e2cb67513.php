@@ -1,5 +1,42 @@
 <?php $__env->startSection('content'); ?>
 
+<!-- Script de diagnostic -->
+<script>
+    console.log('=== DIAGNOSTIC SIMULATEUR ===');
+    console.log('Page chargée:', new Date().toLocaleString());
+    
+    // Vérifier si jQuery est chargé
+    console.log('jQuery disponible:', typeof $ !== 'undefined');
+    
+    // Vérifier si SweetAlert2 est chargé
+    console.log('SweetAlert2 disponible:', typeof Swal !== 'undefined');
+    
+    // Attendre que le DOM soit chargé
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM chargé');
+        
+        // Vérifier les éléments du simulateur
+        const simulatorElements = {
+            loanType: document.getElementById('loan-type'),
+            loanAmount: document.getElementById('loan-amount'),
+            loanDuration: document.getElementById('loan-duration'),
+            calculateBtn: document.getElementById('calculate-loan')
+        };
+        
+        console.log('Éléments du simulateur:', simulatorElements);
+        
+        // Vérifier si les fonctions sont disponibles
+        setTimeout(() => {
+            console.log('Fonctions après délai:', {
+                calculateLoan: typeof window.calculateLoan,
+                calculateMonthlyPayment: typeof window.calculateMonthlyPayment,
+                formatCurrency: typeof window.formatCurrency,
+                loanRates: window.loanRates
+            });
+        }, 1000);
+    });
+</script>
+
 <body>
     <?php echo $__env->make('includes.main.loading', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <?php echo $__env->make('includes.main.popup', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
@@ -105,7 +142,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                    <div class="promo-item white-content">
+                    <div class="promo-item white-content credit-card-middle">
                         <div class="bg-items">
                             <div class="bg-img"><img src="<?php echo e(asset('assets/images/credit.jpg')); ?>" alt="Crédit" loading="lazy"></div>
                             <div class="overlay"></div>
@@ -150,7 +187,7 @@
                 <div class="col-lg-6">
                     <div class="about-content-3 fade-wrapper">
                         <div class="section-heading red-content mb-20">
-                            <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Mot du Directeur</h4>
+                            <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Mot du Directeur Général</h4>
                             <h2 class="section-title" data-text-animation data-split="word" data-duration="1">Bâtir un Avenir Financier Inclusif et Moderne</h2>
                         </div>
 
@@ -287,93 +324,109 @@
                 <span class="left-shape"></span>Simulateur de Prêt
             </h4>
             <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">
-                Tableau des Tarifs et Frais de Prêt
+                Calculez votre échéance de prêt
             </h2>
-            <p class="mt-20">Consultez nos tarifs prédéfinis pour différents montants et durées de prêt</p>
+            <p class="mt-20">Simulez votre prêt en quelques clics et obtenez un tableau d'amortissement détaillé</p>
         </div>
 
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="loan-simulator-card">
                     <div class="simulator-header">
-                        <h3><i class="fas fa-table"></i> Tarifs des Prêts COCEC</h3>
-                        <p>Tableau des mensualités, intérêts et frais selon le montant et la durée</p>
+                        <h3><i class="fas fa-calculator"></i> Simulateur de Prêt COCEC</h3>
+                        <p>Entrez vos informations pour calculer votre échéance et voir le tableau d'amortissement</p>
                     </div>
 
-                    <!-- Filtres pour le tableau -->
-                    <div class="table-filters mb-4">
+                    <!-- Formulaire de simulation -->
+                    <div class="simulation-form mb-4">
                         <div class="row">
-                            <div class="col-md-4">
-                                <label for="filterAmount" class="form-label">Montant du Prêt</label>
-                                <select class="form-select" id="filterAmount">
-                                    <option value="all">Tous les montants</option>
-                                    <option value="100000">100,000 FCFA</option>
-                                    <option value="200000">200,000 FCFA</option>
-                                    <option value="500000">500,000 FCFA</option>
-                                    <option value="1000000">1,000,000 FCFA</option>
-                                    <option value="2000000">2,000,000 FCFA</option>
-                                    <option value="5000000">5,000,000 FCFA</option>
+                            <div class="col-md-3">
+                                <label for="loan-type" class="form-label">Type de prêt</label>
+                                <select class="form-select" id="loan-type">
+                                    <option value="">Sélectionner le type</option>
+                                    <option value="commerce">Commerce</option>
+                                    <option value="construction">Construction</option>
+                                    <option value="equipement">Équipement</option>
+                                    <option value="personnel">Prêt Personnel</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <label for="filterDuration" class="form-label">Durée du Prêt</label>
-                                <select class="form-select" id="filterDuration">
-                                    <option value="all">Toutes les durées</option>
-                                    <option value="6">6 mois</option>
-                                    <option value="12">12 mois</option>
-                                    <option value="18">18 mois</option>
-                                    <option value="24">24 mois</option>
-                                    <option value="36">36 mois</option>
-                                </select>
+                            <div class="col-md-3">
+                                <label for="loan-amount" class="form-label">Montant (FCFA)</label>
+                                <input type="number" class="form-control" id="loan-amount" placeholder="Ex: 5000000" min="100000" step="10000">
                             </div>
-                            <div class="col-md-4">
-                                <label for="filterType" class="form-label">Type de Prêt</label>
-                                <select class="form-select" id="filterType">
-                                    <option value="all">Tous les types</option>
-                                    <option value="personal">Prêt Personnel</option>
-                                    <option value="business">Prêt Commercial</option>
-                                    <option value="agricultural">Prêt Agricole</option>
-                                    <option value="education">Prêt Scolaire</option>
-                                </select>
+                            <div class="col-md-3">
+                                <label for="loan-duration" class="form-label">Durée (mois)</label>
+                                <input type="number" class="form-control" id="loan-duration" placeholder="Ex: 24" min="6" max="120" step="6">
                             </div>
-                            <div class="col-md-12 text-center mt-3">
-                                <button type="button" class="bz-primary-btn red-btn" id="applyFilters">
-                                    <i class="fas fa-filter"></i> Appliquer les Filtres
-                                </button>
-                                <button type="button" class="bz-primary-btn hero-btn ms-2" id="resetFilters">
-                                    <i class="fas fa-undo"></i> Réinitialiser
+                            <div class="col-md-3">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="button" class="bz-primary-btn red-btn w-100" id="calculate-loan" onclick="calculateLoan()">
+                                    <span class="btn-text">Calculer</span>
+                                    <span class="btn-loading" style="display: none;">
+                                        <i class="fa-solid fa-spinner fa-spin"></i> Calcul...
+                                    </span>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tableau des tarifs -->
-                    <div class="table-responsive">
-                        <table class="table table-hover loan-table">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Montant</th>
-                                    <th>Durée</th>
-                                    <th>Type</th>
-                                    <th>Mensualité</th>
-                                    <th>Intérêts</th>
-                                    <th>Frais de Dossier</th>
-                                    <th>Total à Rembourser</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="loanTableBody">
-                                <!-- Les données seront chargées par JavaScript -->
-                            </tbody>
-                        </table>
+                    <!-- Résultats -->
+                    <div id="loan-results" class="loan-results" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="result-card">
+                                    <h4>Résumé du Prêt</h4>
+                                    <div class="result-item">
+                                        <span>Montant emprunté :</span>
+                                        <strong id="borrowed-amount">0 FCFA</strong>
+                                    </div>
+                                    <div class="result-item">
+                                        <span>Durée :</span>
+                                        <strong id="loan-period">0 mois</strong>
+                                    </div>
+                                    <div class="result-item">
+                                        <span>Taux d'intérêt :</span>
+                                        <strong id="interest-rate">0%</strong>
+                                    </div>
+                                    <div class="result-item">
+                                        <span>Échéance mensuelle :</span>
+                                        <strong id="monthly-payment">0 FCFA</strong>
+                                    </div>
+                                    <div class="result-item">
+                                        <span>Total à rembourser :</span>
+                                        <strong id="total-amount">0 FCFA</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="amortization-table-wrapper">
+                                    <h4>Tableau d'Amortissement</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" id="amortization-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Échéance</th>
+                                                    <th>Capital</th>
+                                                    <th>Intérêts</th>
+                                                    <th>Échéance</th>
+                                                    <th>Capital Restant</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="amortization-body">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Loading avec votre style existant -->
-                    <div id="loanTableLoading" class="text-center py-5">
+                    <!-- Loading -->
+                    <div id="loan-loading" class="text-center py-5" style="display: none;">
                         <div class="loading-spinner">
                             <div class="spinner"></div>
                         </div>
-                        <p class="mt-3">Chargement des tarifs...</p>
+                        <p class="mt-3">Calcul en cours...</p>
                     </div>
 
                     <!-- Actions -->
@@ -382,6 +435,176 @@
                             <i class="fas fa-redo"></i> Actualiser
                         </button>
                     </div>
+
+                    <!-- Script de test et simulateur autonome -->
+                    <script>
+                        // Configuration des taux d'intérêt
+                        const loanRates = {
+                            'commerce': 12.5,
+                            'construction': 15.0,
+                            'equipement': 13.5,
+                            'personnel': 18.0
+                        };
+
+                        // Fonction pour calculer l'échéance mensuelle
+                        function calculateMonthlyPayment(principal, annualRate, months) {
+                            const monthlyRate = annualRate / 100 / 12;
+                            if (monthlyRate === 0) return principal / months;
+                            
+                            return principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+                        }
+
+                        // Fonction pour formater les montants
+                        function formatCurrency(amount) {
+                            return new Intl.NumberFormat('fr-FR', {
+                                style: 'currency',
+                                currency: 'XOF',
+                                minimumFractionDigits: 0
+                            }).format(amount);
+                        }
+
+                        // Fonction pour générer le tableau d'amortissement
+                        function generateAmortizationTable(principal, annualRate, months) {
+                            const monthlyRate = annualRate / 100 / 12;
+                            const monthlyPayment = calculateMonthlyPayment(principal, annualRate, months);
+                            const table = [];
+                            
+                            let remainingBalance = principal;
+                            
+                            for (let month = 1; month <= months; month++) {
+                                const interestPayment = remainingBalance * monthlyRate;
+                                const principalPayment = monthlyPayment - interestPayment;
+                                remainingBalance -= principalPayment;
+                                
+                                table.push({
+                                    month: month,
+                                    principal: principalPayment,
+                                    interest: interestPayment,
+                                    payment: monthlyPayment,
+                                    remaining: Math.max(0, remainingBalance)
+                                });
+                            }
+                            
+                            return table;
+                        }
+
+                        // Fonction principale de calcul
+                        function calculateLoan() {
+                            console.log('Fonction calculateLoan appelée (version autonome)');
+                            
+                            const loanType = document.getElementById('loan-type');
+                            const loanAmount = document.getElementById('loan-amount');
+                            const loanDuration = document.getElementById('loan-duration');
+                            
+                            if (!loanType || !loanAmount || !loanDuration) {
+                                console.error('Éléments manquants');
+                                return;
+                            }
+                            
+                            const type = loanType.value;
+                            const amount = parseFloat(loanAmount.value);
+                            const duration = parseInt(loanDuration.value);
+                            
+                            console.log('Valeurs:', { type, amount, duration });
+                            
+                            // Validation
+                            if (!type || !amount || !duration) {
+                                alert('Veuillez remplir tous les champs');
+                                return;
+                            }
+                            
+                            if (amount < 100000) {
+                                alert('Le montant minimum est de 100,000 FCFA');
+                                return;
+                            }
+                            
+                            if (duration < 6 || duration > 120) {
+                                alert('La durée doit être entre 6 et 120 mois');
+                                return;
+                            }
+                            
+                            // Afficher le loading
+                            const loadingEl = document.getElementById('loan-loading');
+                            const resultsEl = document.getElementById('loan-results');
+                            const calculateBtn = document.getElementById('calculate-loan');
+                            
+                            if (loadingEl) loadingEl.style.display = 'block';
+                            if (resultsEl) resultsEl.style.display = 'none';
+                            if (calculateBtn) {
+                                calculateBtn.disabled = true;
+                                const btnText = calculateBtn.querySelector('.btn-text');
+                                const btnLoading = calculateBtn.querySelector('.btn-loading');
+                                if (btnText) btnText.style.display = 'none';
+                                if (btnLoading) btnLoading.style.display = 'inline-block';
+                            }
+                            
+                            // Calcul
+                            setTimeout(() => {
+                                console.log('Calcul en cours...');
+                                
+                                const annualRate = loanRates[type];
+                                const monthlyPayment = calculateMonthlyPayment(amount, annualRate, duration);
+                                const totalAmount = monthlyPayment * duration;
+                                
+                                console.log('Résultats calculés:', { annualRate, monthlyPayment, totalAmount });
+                                
+                                // Mettre à jour le résumé
+                                const borrowedAmount = document.getElementById('borrowed-amount');
+                                const loanPeriod = document.getElementById('loan-period');
+                                const interestRate = document.getElementById('interest-rate');
+                                const monthlyPaymentEl = document.getElementById('monthly-payment');
+                                const totalAmountEl = document.getElementById('total-amount');
+                                
+                                if (borrowedAmount) borrowedAmount.textContent = formatCurrency(amount);
+                                if (loanPeriod) loanPeriod.textContent = `${duration} mois`;
+                                if (interestRate) interestRate.textContent = `${annualRate}% annuel`;
+                                if (monthlyPaymentEl) monthlyPaymentEl.textContent = formatCurrency(monthlyPayment);
+                                if (totalAmountEl) totalAmountEl.textContent = formatCurrency(totalAmount);
+                                
+                                // Générer le tableau d'amortissement
+                                const amortizationTable = generateAmortizationTable(amount, annualRate, duration);
+                                const tbody = document.getElementById('amortization-body');
+                                
+                                if (tbody) {
+                                    tbody.innerHTML = '';
+                                    
+                                    amortizationTable.forEach(row => {
+                                        const tr = document.createElement('tr');
+                                        tr.innerHTML = `
+                                            <td>${row.month}</td>
+                                            <td>${formatCurrency(row.principal)}</td>
+                                            <td>${formatCurrency(row.interest)}</td>
+                                            <td>${formatCurrency(row.payment)}</td>
+                                            <td>${formatCurrency(row.remaining)}</td>
+                                        `;
+                                        tbody.appendChild(tr);
+                                    });
+                                }
+                                
+                                // Masquer le loading et afficher les résultats
+                                if (loadingEl) loadingEl.style.display = 'none';
+                                if (resultsEl) resultsEl.style.display = 'block';
+                                if (calculateBtn) {
+                                    calculateBtn.disabled = false;
+                                    const btnText = calculateBtn.querySelector('.btn-text');
+                                    const btnLoading = calculateBtn.querySelector('.btn-loading');
+                                    if (btnText) btnText.style.display = 'inline-block';
+                                    if (btnLoading) btnLoading.style.display = 'none';
+                                }
+                                
+                                console.log('Calcul terminé, résultats affichés');
+                                
+                                // Scroll vers les résultats
+                                if (resultsEl) {
+                                    resultsEl.scrollIntoView({ behavior: 'smooth' });
+                                }
+                                
+                            }, 1500);
+                        }
+
+                        // Rendre la fonction globale
+                        window.calculateLoan = calculateLoan;
+                    </script>
                 </div>
             </div>
         </div>
@@ -828,6 +1051,7 @@
                 <a href="<?php echo e(route('blogs')); ?>" class="bz-primary-btn red-btn">Voir tous les Posts <i class="fa-regular fa-arrow-right"></i></a>
             </div>
             <div class="row gy-lg-0 gy-4 fade-wrapper">
+                <?php if($blogs->count() > 0): ?>
                 <?php $__currentLoopData = $blogs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $blog): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-md-6">
                     <div class="post-card-3 fade-top" style="--bz-color-theme-primary: #EC281C">
@@ -850,6 +1074,18 @@
                     </div>
                 </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php else: ?>
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <div class="empty-blog-message">
+                                <i class="fa-regular fa-newspaper" style="font-size: 4rem; color: #EC281C; margin-bottom: 1rem;"></i>
+                                <h3 class="mb-3">Aucun article disponible</h3>
+                                <p class="text-muted mb-4">Nous travaillons actuellement sur de nouveaux contenus. Revenez bientôt pour découvrir nos derniers articles !</p>
+                                <a href="<?php echo e(route('blogs')); ?>" class="bz-primary-btn red-btn">Voir tous les Posts <i class="fa-regular fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -882,7 +1118,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="sponsor-item text-center">
-                            <a href="#"><img src="<?php echo e(asset('assets/images/btci.jpg')); ?>" alt="sponsor"></a>
+                            <a href="#"><img src="<?php echo e(asset('assets/images/btci.png')); ?>" alt="sponsor"></a>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -1185,6 +1421,8 @@
 
         // Chargement initial du tableau
         loadLoanTable();
+
+
     });
 </script>
 <?php $__env->stopSection(); ?>

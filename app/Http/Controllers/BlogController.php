@@ -78,8 +78,8 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        // Récupère le blog affiché
-        $blog = Blog::findOrFail($id);
+        // Récupère le blog affiché avec ses commentaires
+        $blog = Blog::with(['comments.replies.user', 'comments.user'])->findOrFail($id);
 
         // Récupère 4 autres blogs récents, excluant celui en cours
         $blogs = Blog::where('id', '!=', $id)
@@ -88,8 +88,10 @@ class BlogController extends Controller
             ->take(4)
             ->get();
 
+        // Récupère les commentaires du blog
+        $comments = $blog->comments()->with(['replies.user', 'user'])->latest()->get();
 
-        return view('main.blog.detail', compact('blog', 'blogs'));
+        return view('main.blog.detail', compact('blog', 'blogs', 'comments'));
     }
 
     /**

@@ -200,21 +200,7 @@
         display: none;
     }
 
-    .btn-submit-form {
-        background-color: var(--primary-color);
-        color: var(--white);
-        padding: 12px 40px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        border: none;
-        border-radius: 50px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
 
-    .btn-submit-form:hover {
-        background-color: #c82116;
-        transform: scale(1.05);
-    }
 
     /* 6. STYLES POUR LA VALIDATION DES ERREURS */
     .form-control.is-invalid {
@@ -379,7 +365,7 @@
                         </div>
                     </div>
                     <div class="text-center mt-5">
-                        <button type="submit" id="submit-button" class="btn btn-submit-form">
+                        <button type="submit" id="submit-button" class="bz-primary-btn">
                             <span class="btn-text">Envoyer ma candidature</span>
                             <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                         </button>

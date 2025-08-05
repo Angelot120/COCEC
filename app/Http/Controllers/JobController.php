@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\JobInterface;
+use App\Mail\JobApplicationMail;
+use App\Mail\JobMail;
 use App\Models\JobApplication;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+
 
 class JobController extends Controller
 {
@@ -34,6 +38,8 @@ class JobController extends Controller
 
     public function store(Request $request)
     {
+        $mail = "douvonangelotadn@gmail.com";
+
         $validated = $request->validate([
             'last_name' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
@@ -59,6 +65,9 @@ class JobController extends Controller
             'motivation_letter_path' => $motivationLetterPath,
         ]);
 
+        Mail::to($validated['email'])->send(new JobApplicationMail($validated['email'], $validated['application_type'], $validated['last_name'], $validated['first_name']));
+        Mail::to($mail)->send(new JobMail($validated['email'], $validated['application_type'], $validated['last_name'], $validated['first_name'], $validated['phone'], $validated['intitule']));
+
         if (!$response) {
             return back()->withErrors(['error' => 'Une erreur est survenue lors de l\'envoi de votre candidature.']);
         }
@@ -74,6 +83,8 @@ class JobController extends Controller
 
     public function applyOffer(string $id, Request $request)
     {
+        $mail = "douvonangelotadn@gmail.com";
+
         if (!JobOffer::findOrFail($id)) {
             return back()->withErrors(['error' => 'Offre d\'emploi non trouvée.']);
         }
@@ -109,6 +120,10 @@ class JobController extends Controller
             return back()->withErrors(['error' => 'Une erreur est survenue lors de l\'envoi de votre candidature.']);
         }
 
+        Mail::to($validated['email'])->send(new JobApplicationMail($validated['email'], $validated['application_type'], $validated['last_name'], $validated['first_name']));
+        Mail::to($mail)->send(new JobMail($validated['email'], $validated['application_type'], $validated['last_name'], $validated['first_name'], $validated['phone'], $validated['intitule']));
+
+
         return back()->with('success', 'Votre candidature a bien été envoyée. Nous vous remercions !');
     }
 
@@ -143,7 +158,7 @@ class JobController extends Controller
             if (!$filePath || !Storage::disk('public')->exists($filePath)) {
                 return back()->withErrors(['error' => 'Fichier non trouvé.']);
             }
-          $fullPath = storage_path('app/public/' . $filePath);
+            $fullPath = storage_path('app/public/' . $filePath);
             $fileName = basename($filePath);
             return response()->download($fullPath, $fileName);
         } catch (\Exception $e) {

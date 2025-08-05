@@ -15,4 +15,12 @@ class Blog extends Model
         'image',
         'is_published',
     ];
+
+    /**
+     * Relation avec les commentaires
+     */
+    public function comments()
+    {
+        return $this->hasMany(BlogComment::class)->parents();
+    }
 }

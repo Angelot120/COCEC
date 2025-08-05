@@ -36,36 +36,39 @@
                             <div class="header-menu-wrap">
                                 <div class="mobile-menu-items">
                                     <ul>
-                                        <li><a href="<?php echo e(route("index")); ?>">Accueil</a></li>
-                                        <!-- <li class="menu-item-has-children">
-                                            <a href="service.html">Services</a>
-                                            <ul>
-                                                <li><a href="service.html">Service</a></li>
-                                                <li><a href="service-details.html">Service Details</a></li>
-                                            </ul>
-                                        </li> -->
-                                        <li><a href="<?php echo e(route("products")); ?>">Produits</a></li>
-                                        <li><a href="<?php echo e(route("blogs")); ?>">Blog</a></li>
-                                        <li><a href="<?php echo e(route("agencies")); ?>">agences</a></li>
-                                        <!-- <li class="menu-item-has-children">
-                                            <a href="">Blog</a>
-                                            <ul>
-                                                <li><a href="blog-grid.html"> Grid</a></li>
-                                                <li><a href="blog-grid-2.html">Blog list</a></li>
-                                                <li><a href="blog-details.html">Blog Details</a></li>
-                                            </ul>
-                                        </li> -->
-
-                                        <li><a href="<?php echo e(route('contact')); ?>">Contact</a></li>
-
-                                        <li class="menu-item-has-children">
+                                        <li class="<?php echo e(request()->routeIs('index') ? 'active' : ''); ?>">
+                                            <a href="<?php echo e(route("index")); ?>">Accueil</a>
+                                        </li>
+                                        <li class="<?php echo e(request()->routeIs('product.*') ? 'active' : ''); ?>">
+                                            <a href="<?php echo e(route("product.index")); ?>">Produits</a>
+                                        </li>
+                                        <li class="<?php echo e(request()->routeIs('blogs') ? 'active' : ''); ?>">
+                                            <a href="<?php echo e(route("blogs")); ?>">Blog</a>
+                                        </li>
+                                        <li class="<?php echo e(request()->routeIs('agencies') ? 'active' : ''); ?>">
+                                            <a href="<?php echo e(route("agencies")); ?>">Agences</a>
+                                        </li>
+                                        <li class="<?php echo e(request()->routeIs('contact') ? 'active' : ''); ?>">
+                                            <a href="<?php echo e(route('contact')); ?>">Contact</a>
+                                        </li>
+                                        <li class="menu-item-has-children <?php echo e(request()->routeIs('career') || request()->routeIs('about') || request()->routeIs('main.finance') || request()->routeIs('main.faq') ? 'active' : ''); ?>">
                                             <a href="#">Autres</a>
                                             <ul>
-                                                <li><a href="<?php echo e(route('career')); ?>">Carrière & Emploi</a></li>
-                                                <li><a href="<?php echo e(route('about')); ?>">À propos</a></li>
-                                                <li><a href="<?php echo e(route('main.finance')); ?>">Finance Digitale</a></li>
-                                                <li><a href="<?php echo e(route('main.faq')); ?>">Faq</a></li>
-                                                <li><a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a></li>
+                                                <li class="<?php echo e(request()->routeIs('career') ? 'active' : ''); ?>">
+                                                    <a href="<?php echo e(route('career')); ?>">Carrière & Emploi</a>
+                                                </li>
+                                                <li class="<?php echo e(request()->routeIs('about') ? 'active' : ''); ?>">
+                                                    <a href="<?php echo e(route('about')); ?>">À propos</a>
+                                                </li>
+                                                <li class="<?php echo e(request()->routeIs('main.finance') ? 'active' : ''); ?>">
+                                                    <a href="<?php echo e(route('main.finance')); ?>">Finance Digitale</a>
+                                                </li>
+                                                <li class="<?php echo e(request()->routeIs('main.faq') ? 'active' : ''); ?>">
+                                                    <a href="<?php echo e(route('main.faq')); ?>">Faq</a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>

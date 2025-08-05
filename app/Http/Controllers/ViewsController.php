@@ -112,11 +112,68 @@ class ViewsController extends Controller
     }
 
 
-    public function agency()
+    public function agency(Request $request)
     {
-        $agencies = AgencyLocation::all();
+        // Récupérer les coordonnées de l'utilisateur depuis la requête
+        $userLat = $request->query('lat');
+        $userLng = $request->query('lng');
 
+        if ($userLat && $userLng) {
+            // Récupérer toutes les agences
+            $agencies = AgencyLocation::all();
+            
+            // Calculer la distance pour chaque agence
+            $agencies->each(function ($agency) use ($userLat, $userLng) {
+                $agency->distance = $this->calculateDistance($userLat, $userLng, $agency->latitude, $agency->longitude);
+            });
+            
+            // Trier par distance et convertir en tableau
+            $agencies = $agencies->sortBy('distance')->values();
+        } else {
+            // Si pas de géolocalisation, afficher toutes les agences
+            $agencies = AgencyLocation::all()->values();
+        }
+
+        // Debug: vérifier que les agences sont bien passées
+        \Illuminate\Support\Facades\Log::info('Agences passées à la vue:', [
+            'count' => $agencies->count(),
+            'agencies' => $agencies->toArray()
+        ]);
+        
+        // S'assurer que les agences sont bien une collection
+        if (!$agencies) {
+            $agencies = collect([]);
+        }
+        
+        // Optimiser les URLs des images
+        $agencies->each(function ($agency) {
+            if ($agency->image) {
+                // Ajouter des paramètres d'optimisation à l'URL
+                $agency->optimized_image = $agency->image;
+                $agency->webp_image = str_replace(['.jpg', '.jpeg', '.png'], '.webp', $agency->image);
+            }
+        });
+        
         return view('main.agency', compact('agencies'));
+    }
+
+    /**
+     * Calcule la distance entre deux points géographiques (formule de Haversine)
+     */
+    private function calculateDistance($lat1, $lon1, $lat2, $lon2)
+    {
+        $earthRadius = 6371; // Rayon de la Terre en kilomètres
+        
+        $latDelta = deg2rad($lat2 - $lat1);
+        $lonDelta = deg2rad($lon2 - $lon1);
+        
+        $a = sin($latDelta / 2) * sin($latDelta / 2) +
+             cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+             sin($lonDelta / 2) * sin($lonDelta / 2);
+        
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        
+        return $earthRadius * $c;
     }
 
     public function about()

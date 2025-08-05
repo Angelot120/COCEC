@@ -73,7 +73,12 @@
                                     <?php echo csrf_field(); ?>
                                     <input class="form-control" type="email" name="email" placeholder="Votre adresse e-mail">
                                     <input type="hidden" name="action" value="mailchimpsubscribe">
-                                    <button class="submit">S'inscrire</button>
+                                    <button class="submit" id="newsletter-submit-btn">
+                                        <span class="btn-text">S'inscrire</span>
+                                        <span class="btn-loading" style="display: none;">
+                                            <i class="fas fa-spinner fa-spin"></i> Inscription en cours...
+                                        </span>
+                                    </button>
                                 </form>
                             </div>
                         </div>

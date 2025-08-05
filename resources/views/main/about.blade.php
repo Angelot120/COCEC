@@ -28,7 +28,17 @@
     <!--       SECTION MOT DU DIRECTEUR       -->
     <!-- ================================== -->
     <section class="director-section-revisited page-section">
+
         <div class="container">
+            <!-- Flèche de retour -->
+            <div class="back-arrow-container" style="padding: 15px 0; text-align: left;">
+                @include('includes.main.back-arrow', [
+                    'url' => route('index'),
+                    'text' => 'Retour à l\'accueil',
+                    'color' => 'var(--bz-color-theme-secondary)',
+                    'class' => 'about-style'
+                ])
+            </div>
             <div class="director-layout-revisited">
                 <div class="director-image-wrapper" data-aos="fade-right">
                     <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1887&auto=format&fit=crop" alt="Photo du Directeur Général de la COCEC">

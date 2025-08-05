@@ -180,7 +180,15 @@
         object-fit: cover;
         border-radius: 11px 11px 0 0;
         border-bottom: 1px solid var(--border-color);
+        /* Optimisations de performance */
+        will-change: auto;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
     }
+    
+
 
     .agency-card .card-content {
         padding: 25px;
@@ -359,7 +367,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const agencies = @json($agencies);
+        const agencies = @json($agencies ?? []);
 
         // Initialisation de GLightbox
         const lightbox = GLightbox({
@@ -374,6 +382,11 @@
         const agencyListContainer = document.getElementById('agency-list');
         const searchInput = document.getElementById('agency-search-input');
         const agencyCountSpan = document.getElementById('agency-count');
+        
+        console.log('Éléments DOM trouvés:');
+        console.log('agencyListContainer:', agencyListContainer);
+        console.log('searchInput:', searchInput);
+        console.log('agencyCountSpan:', agencyCountSpan);
         const customIcon = L.icon({
             iconUrl: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="%23EC281C" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><path fill="none" d="M0 0h24v24H0z"/></svg>`,
             iconSize: [36, 36],
@@ -404,10 +417,15 @@
         }
 
         function renderListAndMarkers(filteredAgencies) {
+            console.log('renderListAndMarkers appelée avec:', filteredAgencies);
+            console.log('Nombre d\'agences à afficher:', filteredAgencies.length);
+            
             agencyListContainer.innerHTML = '';
             markersLayer.clearLayers();
             agencyCountSpan.textContent = `${filteredAgencies.length} agence(s) trouvée(s)`;
+            
             if (filteredAgencies.length === 0) {
+                console.log('Aucune agence à afficher');
                 agencyListContainer.innerHTML = `<div class="no-results-message"><i class="fas fa-store-slash"></i><p>Aucune agence ne correspond à votre recherche.</p></div>`;
                 return;
             }
@@ -415,12 +433,15 @@
             filteredAgencies.forEach(agency => {
                 const statusText = dynamicStatus.text;
                 const statusClass = dynamicStatus.className;
+                // Optimisation des images : format WebP si supporté, sinon JPEG optimisé
                 const imageUrl = agency.image ? `/storage/${agency.image}` : `/storage/agency/placeholder.jpg`;
+                // Pour l'instant, utiliser la même image car WebP n'existe pas encore
+                const optimizedImageUrl = imageUrl;
 
                 const cardHTML = `
                 <div class="agency-card" id="agency-${agency.id}" data-id="${agency.id}">
                     <a href="${imageUrl}" class="agency-image-link" data-gallery="agencies" data-title="${agency.name}">
-                        <img src="${imageUrl}" alt="Façade de l'agence ${agency.name}" class="agency-card-image">
+                        <img src="${imageUrl}" alt="Façade de l'agence ${agency.name}" class="agency-card-image" loading="lazy" decoding="async">
                     </a>
                     <div class="card-content">
                         <div class="card-header">
@@ -430,6 +451,7 @@
                         <ul class="agency-info">
                             <li><i class="fas fa-map-marker-alt info-icon"></i> <div>${agency.address}</div></li>
                             <li><i class="fas fa-phone-alt info-icon"></i> <div>(+228) ${agency.phone}</div></li>
+                            ${agency.distance ? `<li><i class="fas fa-ruler info-icon"></i> <div>${agency.distance.toFixed(1)} km de votre position</div></li>` : ''}
                         </ul>
                         <div class="agency-actions">
                             <a href="https://www.google.com/maps/dir/?api=1&destination=${agency.latitude},${agency.longitude}" target="_blank" class="btn-action btn-route"><i class="fas fa-directions"></i> Itinéraire</a>
@@ -491,7 +513,48 @@
         }
 
         searchInput.addEventListener('input', filterAgencies);
+        
+        // Debug: vérifier les agences reçues
+        console.log('=== DEBUG AGENCES ===');
+        console.log('Agences reçues:', agencies);
+        console.log('Nombre d\'agences:', agencies ? agencies.length : 'undefined');
+        console.log('Type d\'agences:', typeof agencies);
+        console.log('Est un tableau:', Array.isArray(agencies));
+        
+        // S'assurer que agencies est un tableau
+        if (!agencies || !Array.isArray(agencies)) {
+            console.error('Erreur: agencies n\'est pas un tableau valide');
+            agencies = [];
+        }
+        
+        console.log('Agences après vérification:', agencies);
+        console.log('=== FIN DEBUG ===');
+        
+        // Toujours afficher les agences, avec ou sans géolocalisation
         renderListAndMarkers(agencies);
+        
+        // Si pas de coordonnées dans l'URL, essayer la géolocalisation
+        if ('geolocation' in navigator && !window.location.search.includes('lat=')) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const currentUrl = new URL(window.location);
+                    currentUrl.searchParams.set('lat', lat);
+                    currentUrl.searchParams.set('lng', lng);
+                    window.location.href = currentUrl.toString();
+                },
+                function(error) {
+                    console.log('Géolocalisation non disponible:', error.message);
+                    // Les agences sont déjà affichées, pas besoin de refaire
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 300000
+                }
+            );
+        }
     });
 </script>
 @endsection

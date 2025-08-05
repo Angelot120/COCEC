@@ -3246,13 +3246,47 @@ START: Header CSS
     color: var(--bz-color-common-white);
 }
 .header .primary-header-inner .header-menu-wrap ul li.active a {
-    color: var(--bz-color-theme-primary);
+    color: var(--bz-color-theme-primary) !important;
+    font-weight: 600;
+    position: relative;
+}
+
+.header .primary-header-inner .header-menu-wrap ul li.active a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--bz-color-theme-primary);
+    border-radius: 1px;
 }
 .header .primary-header-inner .header-menu-wrap ul li.active ul li a {
     color: var(--bz-color-heading-primary);
 }
 .header .primary-header-inner .header-menu-wrap ul li.active ul li:hover a {
     color: var(--bz-color-common-white);
+}
+
+/* Style pour les éléments de sous-menu actifs */
+.header .primary-header-inner .header-menu-wrap ul li ul li.active a {
+    color: var(--bz-color-theme-primary) !important;
+    font-weight: 600;
+    background: rgba(236, 40, 28, 0.1);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 2px 0;
+}
+
+/* Animation pour l'état actif */
+.header .primary-header-inner .header-menu-wrap ul li.active {
+    animation: menuActive 0.3s ease-in-out;
+}
+
+@keyframes menuActive {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 .header .primary-header-inner .header-right-wrap .header-right {
     display: -webkit-box;
@@ -18171,6 +18205,22 @@ START: Footer CSS
     right: 20px;
 }
 
+.mini-agency-card .distance-info {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 12px;
+    color: #666;
+    background: rgba(236, 40, 28, 0.1);
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(236, 40, 28, 0.2);
+}
+
+.mini-agency-card .distance-info i {
+    margin-right: 4px;
+    color: #EC281C;
+}
+
 .btn-see-all {
     display: inline-block;
     background: transparent;
@@ -19274,7 +19324,306 @@ a:hover {
     }
 }
 .service-item-3:hover .bz-primary-btn {
-    /* Le paragraphe et le bouton glissent en place et apparaissent */
-    transform: translateY(0);
+}
+
+/* Newsletter Loading Button Styles */
+#newsletter-submit-btn .btn-loading {
+    display: none;
+}
+
+#newsletter-submit-btn .btn-loading i {
+    margin-right: 8px;
+}
+
+/* Message d'absence de blogs */
+.empty-blog-message {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 3rem 2rem;
+    border: 2px dashed #EC281C;
+    transition: all 0.3s ease;
+}
+
+.empty-blog-message:hover {
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(236, 40, 28, 0.1);
+    transform: translateY(-5px);
+}
+
+.empty-blog-message i {
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.empty-blog-message:hover i {
     opacity: 1;
+    transform: scale(1.1);
+}
+
+/* ============ Simulateur de Prêt ============ */
+
+.loan-simulator-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.loan-simulator-card {
+    background: var(--bz-color-theme-secondary);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+}
+
+/* Background jaune pour la carte du milieu "Crédits Adaptés" */
+.promo-section .row .col-lg-4:nth-child(2) .promo-item.white-content {
+    background: var(--bz-color-theme-secondary) !important;
+}
+
+/* Règle finale avec la nouvelle classe pour forcer le background jaune */
+.credit-card-middle {
+    background: var(--bz-color-theme-secondary) !important;
+}
+
+/* Changer les overlays de la carte du milieu pour utiliser la couleur jaune */
+.credit-card-middle .bg-items .overlay {
+    background: linear-gradient(
+        180deg,
+        rgba(255, 204, 0, 0) 0%,
+        var(--bz-color-theme-secondary) 58.48%
+    ) !important;
+}
+
+.credit-card-middle .bg-items .overlay-2 {
+    background: rgba(255, 204, 0, 0.45) !important;
+    mix-blend-mode: multiply;
+}
+
+.simulator-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.simulator-header h3 {
+    color: #EC281C;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.simulator-header p {
+    color: #6c757d;
+    font-size: 16px;
+}
+
+.simulation-form {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.simulation-form .form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.simulation-form .form-control,
+.simulation-form .form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.simulation-form .form-control:focus,
+.simulation-form .form-select:focus {
+    border-color: #EC281C;
+    box-shadow: 0 0 0 0.2rem rgba(236, 40, 28, 0.25);
+}
+
+.loan-results {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.result-card {
+    background: linear-gradient(135deg, #EC281C 0%, #ff6b6b 100%);
+    color: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    height: 100%;
+}
+
+.result-card h4 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.result-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.result-item span {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.result-item strong {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.amortization-table-wrapper {
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.amortization-table-wrapper h4 {
+    color: #EC281C;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.amortization-table-wrapper .table {
+    margin-bottom: 0;
+}
+
+.amortization-table-wrapper .table thead th {
+    background: #EC281C;
+    color: #fff;
+    border: none;
+    padding: 15px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.amortization-table-wrapper .table tbody td {
+    padding: 12px 10px;
+    font-size: 13px;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.amortization-table-wrapper .table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+#loan-loading {
+    background: #fff;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+#loan-loading .loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#loan-loading .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #EC281C;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .loan-simulator-card {
+        padding: 20px;
+    }
+    
+    .simulation-form {
+        padding: 20px;
+    }
+    
+    .simulation-form .row > div {
+        margin-bottom: 15px;
+    }
+    
+    .result-card {
+        margin-bottom: 20px;
+    }
+    
+    .amortization-table-wrapper {
+        overflow-x: auto;
+    }
+    
+    .amortization-table-wrapper .table {
+        font-size: 12px;
+    }
+    
+    .amortization-table-wrapper .table thead th,
+    .amortization-table-wrapper .table tbody td {
+        padding: 8px 5px;
+    }
+}
+
+/* Styles pour le bouton flottant */
+.back-arrow-link.floating {
+    position: fixed;
+    top: 100px;
+    left: 30px;
+    z-index: 1000;
+    background: var(--arrow-color, var(--bz-color-theme-primary));
+    color: white;
+    border-radius: 50px;
+    padding: 12px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.back-arrow-link.floating:hover {
+    background: var(--bz-color-theme-secondary);
+    color: var(--bz-color-common-black);
+    transform: translateX(-5px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive pour le bouton flottant */
+@media (max-width: 768px) {
+    .back-arrow-link.floating {
+        top: 80px;
+        left: 20px;
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .back-arrow-link.floating .back-text {
+        display: none;
+    }
+    
+    .back-arrow-link.floating i {
+        font-size: 1.2em;
+    }
 }

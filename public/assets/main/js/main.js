@@ -1190,6 +1190,14 @@
 
         const $form = $(this);
         const $emailInput = $form.find('input[name="email"]');
+        const $submitBtn = $form.find('#newsletter-submit-btn');
+        const $btnText = $submitBtn.find('.btn-text');
+        const $btnLoading = $submitBtn.find('.btn-loading');
+
+        // Afficher le loading
+        $btnText.hide();
+        $btnLoading.show();
+        $submitBtn.prop('disabled', true);
 
         $.ajax({
             url: $form.attr("action"),
@@ -1201,6 +1209,11 @@
                 "X-CSRF-TOKEN": $form.find('input[name="_token"]').val(),
             },
             success: function (data) {
+                // Masquer le loading
+                $btnText.show();
+                $btnLoading.hide();
+                $submitBtn.prop('disabled', false);
+                
                 // Affiche un popup simple de succès
                 Swal.fire({
                     icon: "success",
@@ -1211,6 +1224,11 @@
                 $emailInput.val(""); // Vide le champ après succès
             },
             error: function (jqXHR) {
+                // Masquer le loading
+                $btnText.show();
+                $btnLoading.hide();
+                $submitBtn.prop('disabled', false);
+                
                 let errorMessage =
                     "Une erreur est survenue. Veuillez réessayer.";
                 if (
@@ -1333,4 +1351,233 @@
         mirror: false,        // Pas de re-animation en scroll up
         disable: 'mobile',    // Désactive sur mobile si besoin
       });
+
+    // ============ Simulateur de Prêt ============
+    
+    // Configuration des taux d'intérêt par type de prêt (globale)
+    window.loanRates = {
+        'commerce': 12.5, // 12.5% annuel
+        'construction': 15.0, // 15% annuel
+        'equipement': 13.5, // 13.5% annuel
+        'personnel': 18.0 // 18% annuel
+    };
+
+    // Fonction pour calculer l'échéance mensuelle (globale)
+    window.calculateMonthlyPayment = function(principal, annualRate, months) {
+        const monthlyRate = annualRate / 100 / 12;
+        if (monthlyRate === 0) return principal / months;
+        
+        return principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+    };
+
+    // Fonction pour générer le tableau d'amortissement (globale)
+    window.generateAmortizationTable = function(principal, annualRate, months) {
+        const monthlyRate = annualRate / 100 / 12;
+        const monthlyPayment = calculateMonthlyPayment(principal, annualRate, months);
+        const table = [];
+        
+        let remainingBalance = principal;
+        
+        for (let month = 1; month <= months; month++) {
+            const interestPayment = remainingBalance * monthlyRate;
+            const principalPayment = monthlyPayment - interestPayment;
+            remainingBalance -= principalPayment;
+            
+            table.push({
+                month: month,
+                principal: principalPayment,
+                interest: interestPayment,
+                payment: monthlyPayment,
+                remaining: Math.max(0, remainingBalance)
+            });
+        }
+        
+        return table;
+    };
+
+    // Fonction pour formater les montants (globale)
+    window.formatCurrency = function(amount) {
+        return new Intl.NumberFormat('fr-FR', {
+            style: 'currency',
+            currency: 'XOF',
+            minimumFractionDigits: 0
+        }).format(amount);
+    };
+
+    // Fonction pour calculer le prêt (globale)
+    window.calculateLoan = function() {
+        console.log('Fonction calculateLoan appelée');
+        
+        const loanType = document.getElementById('loan-type');
+        const loanAmount = document.getElementById('loan-amount');
+        const loanDuration = document.getElementById('loan-duration');
+        
+        console.log('Éléments trouvés:', { loanType, loanAmount, loanDuration });
+        
+        if (!loanType || !loanAmount || !loanDuration) {
+            console.error('Éléments manquants');
+            return;
+        }
+        
+        const type = loanType.value;
+        const amount = parseFloat(loanAmount.value);
+        const duration = parseInt(loanDuration.value);
+        
+        console.log('Valeurs:', { type, amount, duration });
+        
+        // Validation
+        if (!type || !amount || !duration) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Champs manquants',
+                text: 'Veuillez remplir tous les champs',
+                confirmButtonColor: '#EC281C'
+            });
+            return;
+        }
+        
+        if (amount < 100000) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Montant insuffisant',
+                text: 'Le montant minimum est de 100,000 FCFA',
+                confirmButtonColor: '#EC281C'
+            });
+            return;
+        }
+        
+        if (duration < 6 || duration > 120) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Durée invalide',
+                text: 'La durée doit être entre 6 et 120 mois',
+                confirmButtonColor: '#EC281C'
+            });
+            return;
+        }
+        
+        console.log('Validation passée, début du calcul');
+        
+        // Afficher le loading
+        const loadingEl = document.getElementById('loan-loading');
+        const resultsEl = document.getElementById('loan-results');
+        const calculateBtn = document.getElementById('calculate-loan');
+        
+        console.log('Éléments UI:', { loadingEl, resultsEl, calculateBtn });
+        
+        if (loadingEl) loadingEl.style.display = 'block';
+        if (resultsEl) resultsEl.style.display = 'none';
+        if (calculateBtn) {
+            calculateBtn.disabled = true;
+            const btnText = calculateBtn.querySelector('.btn-text');
+            const btnLoading = calculateBtn.querySelector('.btn-loading');
+            if (btnText) btnText.style.display = 'none';
+            if (btnLoading) btnLoading.style.display = 'inline-block';
+        }
+        
+        // Simuler un délai de calcul
+        setTimeout(() => {
+            console.log('Calcul en cours...');
+            
+            const annualRate = loanRates[type];
+            const monthlyPayment = calculateMonthlyPayment(amount, annualRate, duration);
+            const totalAmount = monthlyPayment * duration;
+            const totalInterest = totalAmount - amount;
+            
+            console.log('Résultats calculés:', { annualRate, monthlyPayment, totalAmount });
+            
+            // Mettre à jour le résumé
+            const borrowedAmount = document.getElementById('borrowed-amount');
+            const loanPeriod = document.getElementById('loan-period');
+            const interestRate = document.getElementById('interest-rate');
+            const monthlyPaymentEl = document.getElementById('monthly-payment');
+            const totalAmountEl = document.getElementById('total-amount');
+            
+            if (borrowedAmount) borrowedAmount.textContent = formatCurrency(amount);
+            if (loanPeriod) loanPeriod.textContent = `${duration} mois`;
+            if (interestRate) interestRate.textContent = `${annualRate}% annuel`;
+            if (monthlyPaymentEl) monthlyPaymentEl.textContent = formatCurrency(monthlyPayment);
+            if (totalAmountEl) totalAmountEl.textContent = formatCurrency(totalAmount);
+            
+            // Générer le tableau d'amortissement
+            const amortizationTable = generateAmortizationTable(amount, annualRate, duration);
+            const tbody = document.getElementById('amortization-body');
+            
+            if (tbody) {
+                tbody.innerHTML = '';
+                
+                amortizationTable.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.month}</td>
+                        <td>${formatCurrency(row.principal)}</td>
+                        <td>${formatCurrency(row.interest)}</td>
+                        <td>${formatCurrency(row.payment)}</td>
+                        <td>${formatCurrency(row.remaining)}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+            
+            // Masquer le loading et afficher les résultats
+            if (loadingEl) loadingEl.style.display = 'none';
+            if (resultsEl) resultsEl.style.display = 'block';
+            if (calculateBtn) {
+                calculateBtn.disabled = false;
+                const btnText = calculateBtn.querySelector('.btn-text');
+                const btnLoading = calculateBtn.querySelector('.btn-loading');
+                if (btnText) btnText.style.display = 'inline-block';
+                if (btnLoading) btnLoading.style.display = 'none';
+            }
+            
+            console.log('Calcul terminé, résultats affichés');
+            
+            // Scroll vers les résultats
+            if (resultsEl) {
+                resultsEl.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+        }, 1500);
+    };
+
+    // Événements pour le simulateur
+    $(document).ready(function() {
+        const calculateBtn = document.getElementById('calculate-loan');
+        
+        if (calculateBtn) {
+            calculateBtn.addEventListener('click', calculateLoan);
+        }
+        
+        // Permettre le calcul avec la touche Entrée
+        const inputs = ['loan-type', 'loan-amount', 'loan-duration'];
+        inputs.forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        calculateLoan();
+                    }
+                });
+            }
+        });
+    });
+
+    // Fonction pour actualiser le tableau (fonction globale)
+    function refreshTable() {
+        const resultsEl = document.getElementById('loan-results');
+        const loadingEl = document.getElementById('loan-loading');
+        
+        if (resultsEl) resultsEl.style.display = 'none';
+        if (loadingEl) loadingEl.style.display = 'none';
+        
+        // Réinitialiser les champs
+        const loanType = document.getElementById('loan-type');
+        const loanAmount = document.getElementById('loan-amount');
+        const loanDuration = document.getElementById('loan-duration');
+        
+        if (loanType) loanType.value = '';
+        if (loanAmount) loanAmount.value = '';
+        if (loanDuration) loanDuration.value = '';
+    }
+
 })(jQuery);
