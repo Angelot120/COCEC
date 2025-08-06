@@ -1,33 +1,21 @@
-/* Solution responsive complète pour le header */
+/* Solution responsive douce pour le header - préservation de la lisibilité */
 
-/* ===== GESTION RESPONSIVE FLEXIBLE ===== */
+/* ===== GESTION RESPONSIVE PROGRESSIVE ===== */
 
 /* Écrans ultra-larges (1800px+) */
 @media (min-width: 1800px) {
-    .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 30px;
-    }
-    
-    .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 18px;
-        padding: 30px 0;
-    }
-}
-
-/* Écrans très larges (1600px - 1799px) */
-@media (min-width: 1600px) and (max-width: 1799px) {
     .header .primary-header-inner .header-menu-wrap ul li {
         margin: 0 25px;
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 17px;
-        padding: 28px 0;
+        font-size: 16px;
+        padding: 25px 0;
     }
 }
 
-/* Écrans larges (1400px - 1599px) */
-@media (min-width: 1400px) and (max-width: 1599px) {
+/* Écrans très larges (1600px - 1799px) */
+@media (min-width: 1600px) and (max-width: 1799px) {
     .header .primary-header-inner .header-menu-wrap ul li {
         margin: 0 20px;
     }
@@ -35,6 +23,18 @@
     .header .primary-header-inner .header-menu-wrap ul li a {
         font-size: 16px;
         padding: 25px 0;
+    }
+}
+
+/* Écrans larges (1400px - 1599px) */
+@media (min-width: 1400px) and (max-width: 1599px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 18px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 16px;
+        padding: 23px 0;
     }
 }
 
@@ -53,6 +53,18 @@
 /* Écrans moyens (992px - 1199px) */
 @media (min-width: 992px) and (max-width: 1199px) {
     .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 12px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 15px;
+        padding: 22px 0;
+    }
+}
+
+/* Écrans petits (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
         margin: 0 10px;
     }
     
@@ -62,27 +74,15 @@
     }
 }
 
-/* Écrans petits (768px - 991px) */
-@media (min-width: 768px) and (max-width: 991px) {
+/* Écrans très petits (moins de 768px) */
+@media (max-width: 767px) {
     .header .primary-header-inner .header-menu-wrap ul li {
         margin: 0 8px;
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 13px;
+        font-size: 14px;
         padding: 18px 0;
-    }
-}
-
-/* Écrans très petits (moins de 768px) */
-@media (max-width: 767px) {
-    .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 6px;
-    }
-    
-    .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 12px;
-        padding: 16px 0;
     }
 }
 
@@ -153,55 +153,55 @@
     transform: rotate(180deg);
 }
 
-/* Ajustements pour le logo */
+/* Ajustements pour le logo - plus doux */
 @media (max-width: 1200px) {
     .header .primary-header-inner .header-logo img {
-        max-width: 120px;
+        max-width: 130px;
         height: auto;
     }
 }
 
 @media (max-width: 992px) {
     .header .primary-header-inner .header-logo img {
-        max-width: 100px;
+        max-width: 110px;
         height: auto;
     }
 }
 
 @media (max-width: 768px) {
     .header .primary-header-inner .header-logo img {
-        max-width: 80px;
+        max-width: 90px;
         height: auto;
     }
 }
 
-/* Ajustements pour le bouton "Ouvrir un compte" */
+/* Ajustements pour le bouton "Ouvrir un compte" - plus doux */
 @media (max-width: 1200px) {
+    .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
+        padding: 12px 18px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 992px) {
     .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
         padding: 10px 15px;
         font-size: 14px;
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 768px) {
     .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
         padding: 8px 12px;
         font-size: 13px;
     }
 }
 
-@media (max-width: 768px) {
-    .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
-        padding: 6px 10px;
-        font-size: 12px;
-    }
-}
-
-/* Amélioration de l'espacement général */
+/* Amélioration de l'espacement général - plus doux */
 .header .primary-header-inner .inner-left {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 25px;
     flex-wrap: wrap;
 }
 
@@ -219,7 +219,7 @@
 
 @media (max-width: 768px) {
     .header .primary-header-inner .inner-left {
-        gap: 10px;
+        gap: 12px;
     }
 }
 
@@ -255,21 +255,21 @@
 
 @media (max-width: 480px) {
     .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 4px;
+        margin: 0 6px;
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 11px;
-        padding: 14px 0;
+        font-size: 13px;
+        padding: 16px 0;
     }
     
     .header .primary-header-inner .header-logo img {
-        max-width: 70px;
+        max-width: 80px;
     }
     
     .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
-        padding: 5px 8px;
-        font-size: 11px;
+        padding: 6px 10px;
+        font-size: 12px;
     }
 }
 
@@ -285,15 +285,15 @@
 
 /* ===== GESTION SPÉCIFIQUE POUR ÉCRANS 1714px ===== */
 
-/* Point de rupture spécifique pour 1714px */
+/* Point de rupture spécifique pour 1714px - plus doux */
 @media (min-width: 1700px) and (max-width: 1799px) {
     .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 22px;
+        margin: 0 20px;
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
         font-size: 16px;
-        padding: 26px 0;
+        padding: 25px 0;
     }
 }
 
@@ -328,6 +328,24 @@
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
+    }
+}
+
+/* ===== PRÉSERVATION DE LA LISIBILITÉ ===== */
+
+/* S'assurer que les textes restent lisibles */
+.header .primary-header-inner .header-menu-wrap ul li a {
+    font-weight: 600;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Éviter les textes trop petits */
+@media (max-width: 480px) {
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 13px !important;
+        letter-spacing: 0.3px;
     }
 }
 
