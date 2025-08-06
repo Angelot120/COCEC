@@ -1,4 +1,4 @@
-// Script pour améliorer la responsivité du header - Version douce
+// Script professionnel pour le header responsive - Tailles fixes optimales
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -42,111 +42,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Fonction pour ajuster dynamiquement les marges du menu - Version douce
-    function adjustMenuMargins() {
+    // Fonction pour appliquer les tailles fixes optimales
+    function applyOptimalSizes() {
         const menuItems = document.querySelectorAll('.header-menu-wrap ul li');
-        const windowWidth = window.innerWidth;
+        const menuLinks = document.querySelectorAll('.header-menu-wrap ul li a');
         
         if (!isMobile() && menuItems.length > 0) {
-            let margin = 15; // Valeur par défaut
-            
-            if (windowWidth >= 1800) {
-                margin = 25;
-            } else if (windowWidth >= 1600) {
-                margin = 20;
-            } else if (windowWidth >= 1400) {
-                margin = 18;
-            } else if (windowWidth >= 1200) {
-                margin = 15;
-            } else if (windowWidth >= 992) {
-                margin = 12;
-            }
+            // Tailles fixes optimales pour tous les écrans desktop
+            const optimalMargin = '0 20px';
+            const optimalFontSize = '16px';
+            const optimalPadding = '25px 0';
             
             menuItems.forEach(item => {
-                item.style.margin = `0 ${margin}px`;
+                item.style.margin = optimalMargin;
             });
-        }
-    }
-    
-    // Fonction pour ajuster la taille de la police - Version douce
-    function adjustFontSizes() {
-        const menuLinks = document.querySelectorAll('.header-menu-wrap ul li a');
-        const windowWidth = window.innerWidth;
-        
-        if (!isMobile() && menuLinks.length > 0) {
-            let fontSize = '15px'; // Valeur par défaut
-            
-            if (windowWidth >= 1800) {
-                fontSize = '16px';
-            } else if (windowWidth >= 1600) {
-                fontSize = '16px';
-            } else if (windowWidth >= 1400) {
-                fontSize = '16px';
-            } else if (windowWidth >= 1200) {
-                fontSize = '15px';
-            } else if (windowWidth >= 992) {
-                fontSize = '15px';
-            }
             
             menuLinks.forEach(link => {
-                link.style.fontSize = fontSize;
+                link.style.fontSize = optimalFontSize;
+                link.style.padding = optimalPadding;
+                link.style.fontWeight = '600';
+                link.style.lineHeight = '1.2';
+                link.style.textTransform = 'uppercase';
+                link.style.letterSpacing = '0.5px';
             });
         }
-    }
-    
-    // Fonction pour ajuster le padding - Version douce
-    function adjustPadding() {
-        const menuLinks = document.querySelectorAll('.header-menu-wrap ul li a');
-        const windowWidth = window.innerWidth;
-        
-        if (!isMobile() && menuLinks.length > 0) {
-            let padding = '23px 0'; // Valeur par défaut
-            
-            if (windowWidth >= 1800) {
-                padding = '25px 0';
-            } else if (windowWidth >= 1600) {
-                padding = '25px 0';
-            } else if (windowWidth >= 1400) {
-                padding = '23px 0';
-            } else if (windowWidth >= 1200) {
-                padding = '23px 0';
-            } else if (windowWidth >= 992) {
-                padding = '22px 0';
-            }
-            
-            menuLinks.forEach(link => {
-                link.style.padding = padding;
-            });
-        }
-    }
-    
-    // Fonction pour préserver la lisibilité
-    function preserveReadability() {
-        const menuLinks = document.querySelectorAll('.header-menu-wrap ul li a');
-        
-        menuLinks.forEach(link => {
-            // S'assurer que les propriétés de lisibilité sont préservées
-            link.style.fontWeight = '600';
-            link.style.lineHeight = '1.2';
-            link.style.textTransform = 'uppercase';
-            link.style.letterSpacing = '0.5px';
-            
-            // Éviter les textes trop petits
-            const currentFontSize = parseInt(window.getComputedStyle(link).fontSize);
-            if (currentFontSize < 13) {
-                link.style.fontSize = '13px';
-            }
-        });
     }
     
     // Fonction principale pour ajuster tout
     function adjustHeader() {
         ensureHamburgerVisible();
         handleMainMenu();
-        adjustMenuMargins();
-        adjustFontSizes();
-        adjustPadding();
-        preserveReadability();
+        applyOptimalSizes();
     }
     
     // Exécuter au chargement
@@ -156,17 +82,17 @@ document.addEventListener('DOMContentLoaded', function() {
     let resizeTimer;
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(adjustHeader, 150); // Délai légèrement plus long
+        resizeTimer = setTimeout(adjustHeader, 100);
     });
     
     // Exécuter lors du changement d'orientation
     window.addEventListener('orientationchange', function() {
-        setTimeout(adjustHeader, 200);
+        setTimeout(adjustHeader, 150);
     });
     
     // Debug: Afficher les informations de debug dans la console
     function debugInfo() {
-        console.log('=== DEBUG HEADER (Version douce) ===');
+        console.log('=== DEBUG HEADER (Version Pro) ===');
         console.log('Window width:', window.innerWidth);
         console.log('Is mobile:', isMobile());
         console.log('Menu wrap display:', document.querySelector('.header-menu-wrap')?.style.display);
@@ -184,12 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Décommentez la ligne suivante pour activer le debug
     // debugInfo();
-    
-    // Debug lors du redimensionnement
-    window.addEventListener('resize', function() {
-        // Décommentez la ligne suivante pour activer le debug lors du redimensionnement
-        // debugInfo();
-    });
 });
 
 // Fonction globale pour forcer la mise à jour (peut être appelée depuis la console)

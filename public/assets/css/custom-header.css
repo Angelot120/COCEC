@@ -1,59 +1,27 @@
-/* Solution responsive douce pour le header - préservation de la lisibilité */
+/* Solution professionnelle pour le header - Tailles fixes optimales */
 
-/* ===== GESTION RESPONSIVE PROGRESSIVE ===== */
+/* ===== TAILLES FIXES OPTIMALES POUR TOUS LES ÉCRANS ===== */
 
-/* Écrans ultra-larges (1800px+) */
-@media (min-width: 1800px) {
+/* Taille fixe pour tous les écrans desktop (992px+) */
+@media (min-width: 992px) {
     .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 25px;
+        margin: 0 20px; /* Taille fixe optimale */
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 16px;
-        padding: 25px 0;
+        font-size: 16px; /* Taille fixe optimale */
+        padding: 25px 0; /* Padding fixe optimal */
+        font-weight: 600;
+        line-height: 1.2;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 }
 
-/* Écrans très larges (1600px - 1799px) */
-@media (min-width: 1600px) and (max-width: 1799px) {
-    .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 20px;
-    }
-    
-    .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 16px;
-        padding: 25px 0;
-    }
-}
-
-/* Écrans larges (1400px - 1599px) */
-@media (min-width: 1400px) and (max-width: 1599px) {
-    .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 18px;
-    }
-    
-    .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 16px;
-        padding: 23px 0;
-    }
-}
-
-/* Écrans moyens-larges (1200px - 1399px) */
-@media (min-width: 1200px) and (max-width: 1399px) {
+/* Écrans moyens (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
     .header .primary-header-inner .header-menu-wrap ul li {
         margin: 0 15px;
-    }
-    
-    .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 15px;
-        padding: 23px 0;
-    }
-}
-
-/* Écrans moyens (992px - 1199px) */
-@media (min-width: 992px) and (max-width: 1199px) {
-    .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 12px;
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
@@ -62,8 +30,8 @@
     }
 }
 
-/* Écrans petits (768px - 991px) */
-@media (min-width: 768px) and (max-width: 991px) {
+/* Écrans petits (moins de 768px) */
+@media (max-width: 767px) {
     .header .primary-header-inner .header-menu-wrap ul li {
         margin: 0 10px;
     }
@@ -71,18 +39,6 @@
     .header .primary-header-inner .header-menu-wrap ul li a {
         font-size: 14px;
         padding: 20px 0;
-    }
-}
-
-/* Écrans très petits (moins de 768px) */
-@media (max-width: 767px) {
-    .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 8px;
-    }
-    
-    .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 14px;
-        padding: 18px 0;
     }
 }
 
@@ -140,9 +96,9 @@
     }
 }
 
-/* ===== OPTIMISATIONS GÉNÉRALES ===== */
+/* ===== RESTAURATION DU COMPORTEMENT ORIGINAL DU SOUS-MENU ===== */
 
-/* Amélioration du sous-menu */
+/* Amélioration du sous-menu - comportement original */
 .header .primary-header-inner .header-menu-wrap ul li.menu-item-has-children > a i {
     margin-left: 5px;
     font-size: 10px;
@@ -153,64 +109,7 @@
     transform: rotate(180deg);
 }
 
-/* ===== CORRECTION DES SOUS-MENUS ===== */
-
-/* S'assurer que les sous-menus s'affichent correctement */
-.header .primary-header-inner .header-menu-wrap ul li {
-    position: relative;
-}
-
-.header .primary-header-inner .header-menu-wrap ul li ul {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: var(--bz-color-common-white);
-    min-width: 220px;
-    box-shadow: 0px 50px 100px 0px rgba(64, 1, 4, 0.1);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    z-index: 1000;
-    border-radius: 8px;
-    padding: 10px 0;
-}
-
-.header .primary-header-inner .header-menu-wrap ul li:hover ul {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.header .primary-header-inner .header-menu-wrap ul li ul li {
-    display: block;
-    margin: 0;
-    padding: 0;
-}
-
-.header .primary-header-inner .header-menu-wrap ul li ul li a {
-    display: block;
-    padding: 12px 20px;
-    color: var(--bz-color-heading-secondary);
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: none;
-    letter-spacing: normal;
-    border-bottom: 1px solid #f0f0f0;
-    transition: all 0.3s ease;
-}
-
-.header .primary-header-inner .header-menu-wrap ul li ul li:last-child a {
-    border-bottom: none;
-}
-
-.header .primary-header-inner .header-menu-wrap ul li ul li a:hover {
-    background-color: var(--bz-color-theme-primary);
-    color: white;
-    padding-left: 25px;
-}
-
-/* Ajustements pour le logo - plus doux */
+/* ===== Ajustements pour le logo ===== */
 @media (max-width: 1200px) {
     .header .primary-header-inner .header-logo img {
         max-width: 130px;
@@ -232,7 +131,7 @@
     }
 }
 
-/* Ajustements pour le bouton "Ouvrir un compte" - plus doux */
+/* ===== Ajustements pour le bouton "Ouvrir un compte" ===== */
 @media (max-width: 1200px) {
     .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
         padding: 12px 18px;
@@ -254,7 +153,7 @@
     }
 }
 
-/* Amélioration de l'espacement général - plus doux */
+/* ===== Amélioration de l'espacement général ===== */
 .header .primary-header-inner .inner-left {
     display: flex;
     align-items: center;
@@ -285,19 +184,19 @@
 /* Container responsive */
 .header .primary-header-inner {
     max-width: 100%;
-    overflow: visible; /* Changé de hidden à visible pour permettre les sous-menus */
+    overflow: visible; /* Permet les sous-menus */
 }
 
 /* Flexbox pour éviter les débordements */
 .header .primary-header-inner .inner-left {
     flex: 1;
-    min-width: 0; /* Permet la compression */
+    min-width: 0;
 }
 
 .header .primary-header-inner .header-menu-wrap {
     flex: 1;
-    min-width: 0; /* Permet la compression */
-    overflow: visible; /* Changé de hidden à visible pour permettre les sous-menus */
+    min-width: 0;
+    overflow: visible; /* Permet les sous-menus */
 }
 
 .header .primary-header-inner .header-menu-wrap ul {
@@ -338,20 +237,6 @@
 
 .header .primary-header-inner .header-menu-wrap ul li:hover a {
     color: var(--bz-color-theme-primary);
-}
-
-/* ===== GESTION SPÉCIFIQUE POUR ÉCRANS 1714px ===== */
-
-/* Point de rupture spécifique pour 1714px - plus doux */
-@media (min-width: 1700px) and (max-width: 1799px) {
-    .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 20px;
-    }
-    
-    .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 16px;
-        padding: 25px 0;
-    }
 }
 
 /* ===== FORCER L'AFFICHAGE DU BOUTON HAMBURGER ===== */
@@ -404,22 +289,4 @@
         font-size: 13px !important;
         letter-spacing: 0.3px;
     }
-}
-
-/* ===== DEBUG - BORDURES POUR IDENTIFIER LES PROBLÈMES ===== */
-/* Décommentez ces lignes pour voir les zones problématiques */
-/*
-@media (max-width: 991px) {
-    .header .primary-header-inner .header-right-wrap {
-        border: 2px solid red;
-    }
-    
-    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
-        border: 2px solid blue;
-    }
-    
-    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 .sidebar-trigger {
-        border: 2px solid green;
-    }
-}
-*/ 
+} 
