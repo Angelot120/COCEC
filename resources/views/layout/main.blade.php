@@ -63,6 +63,9 @@
     <script src="{{ asset('assets/main/js/vendor/nice-select.js') }}"></script>
     <script src="{{ asset('assets/main/js/contact.js') }}"></script>
     <script src="{{ asset('assets/main/js/main.js') }}"></script>
+    
+    <!-- Script personnalisé pour le header responsive -->
+    <script src="{{ asset('assets/js/header-responsive.js') }}"></script>
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

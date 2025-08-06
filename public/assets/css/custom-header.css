@@ -1,65 +1,33 @@
-/* Styles personnalisés pour corriger les problèmes de responsive du header */
+/* Solution responsive complète pour le header */
 
-/* Ajustements pour les écrans moyens */
-@media (max-width: 1200px) {
+/* ===== GESTION RESPONSIVE FLEXIBLE ===== */
+
+/* Écrans ultra-larges (1800px+) */
+@media (min-width: 1800px) {
     .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 8px;
+        margin: 0 30px;
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 14px;
-        padding: 20px 0;
+        font-size: 18px;
+        padding: 30px 0;
     }
 }
 
-/* Ajustements pour les écrans plus petits */
-@media (max-width: 1100px) {
+/* Écrans très larges (1600px - 1799px) */
+@media (min-width: 1600px) and (max-width: 1799px) {
     .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 6px;
+        margin: 0 25px;
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 13px;
-        padding: 18px 0;
+        font-size: 17px;
+        padding: 28px 0;
     }
 }
 
-/* Ajustements pour les écrans encore plus petits */
-@media (max-width: 1000px) {
-    .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 4px;
-    }
-    
-    .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 12px;
-        padding: 16px 0;
-    }
-}
-
-/* Masquer le menu principal sur mobile et afficher le menu hamburger */
-@media only screen and (max-width: 992px) {
-    .header .primary-header-inner .header-menu-wrap {
-        display: none !important;
-    }
-    
-    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
-        display: block !important;
-    }
-}
-
-/* Afficher le menu principal sur desktop */
-@media only screen and (min-width: 993px) {
-    .header .primary-header-inner .header-menu-wrap {
-        display: flex !important;
-    }
-    
-    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
-        display: none !important;
-    }
-}
-
-/* Ajustements pour éviter les débordements sur très grands écrans */
-@media (min-width: 1400px) {
+/* Écrans larges (1400px - 1599px) */
+@media (min-width: 1400px) and (max-width: 1599px) {
     .header .primary-header-inner .header-menu-wrap ul li {
         margin: 0 20px;
     }
@@ -70,17 +38,109 @@
     }
 }
 
-/* Ajustements pour les écrans ultra-larges */
-@media (min-width: 1600px) {
+/* Écrans moyens-larges (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
     .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 25px;
+        margin: 0 15px;
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 17px;
-        padding: 28px 0;
+        font-size: 15px;
+        padding: 23px 0;
     }
 }
+
+/* Écrans moyens (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 10px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 14px;
+        padding: 20px 0;
+    }
+}
+
+/* Écrans petits (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 8px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 13px;
+        padding: 18px 0;
+    }
+}
+
+/* Écrans très petits (moins de 768px) */
+@media (max-width: 767px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 6px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 12px;
+        padding: 16px 0;
+    }
+}
+
+/* ===== GESTION DU MENU HAMBURGER ===== */
+
+/* Masquer le menu principal et afficher le hamburger sur mobile */
+@media (max-width: 991px) {
+    .header .primary-header-inner .header-menu-wrap {
+        display: none !important;
+    }
+    
+    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
+        display: block !important;
+        margin-left: 15px;
+    }
+    
+    /* S'assurer que le bouton hamburger est visible */
+    .header .primary-header-inner .header-right-wrap .header-right .sidebar-icon-2 .sidebar-trigger {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 1000;
+    }
+    
+    .header .primary-header-inner .header-right-wrap .header-right .sidebar-icon-2 .sidebar-trigger span {
+        display: block !important;
+        width: 25px;
+        height: 3px;
+        background-color: #333;
+        margin: 3px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+    }
+    
+    /* Animation du bouton hamburger au hover */
+    .header .primary-header-inner .header-right-wrap .header-right .sidebar-icon-2 .sidebar-trigger:hover span {
+        background-color: var(--bz-color-theme-primary);
+    }
+}
+
+/* Afficher le menu principal et masquer le hamburger sur desktop */
+@media (min-width: 992px) {
+    .header .primary-header-inner .header-menu-wrap {
+        display: flex !important;
+    }
+    
+    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
+        display: none !important;
+    }
+}
+
+/* ===== OPTIMISATIONS GÉNÉRALES ===== */
 
 /* Amélioration du sous-menu */
 .header .primary-header-inner .header-menu-wrap ul li.menu-item-has-children > a i {
@@ -97,12 +157,21 @@
 @media (max-width: 1200px) {
     .header .primary-header-inner .header-logo img {
         max-width: 120px;
+        height: auto;
     }
 }
 
 @media (max-width: 992px) {
     .header .primary-header-inner .header-logo img {
         max-width: 100px;
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .header .primary-header-inner .header-logo img {
+        max-width: 80px;
+        height: auto;
     }
 }
 
@@ -121,11 +190,19 @@
     }
 }
 
+@media (max-width: 768px) {
+    .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
 /* Amélioration de l'espacement général */
 .header .primary-header-inner .inner-left {
     display: flex;
     align-items: center;
     gap: 30px;
+    flex-wrap: wrap;
 }
 
 @media (max-width: 1200px) {
@@ -138,4 +215,136 @@
     .header .primary-header-inner .inner-left {
         gap: 15px;
     }
-} 
+}
+
+@media (max-width: 768px) {
+    .header .primary-header-inner .inner-left {
+        gap: 10px;
+    }
+}
+
+/* ===== GESTION DES DÉBORDEMENTS ===== */
+
+/* Container responsive */
+.header .primary-header-inner {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* Flexbox pour éviter les débordements */
+.header .primary-header-inner .inner-left {
+    flex: 1;
+    min-width: 0; /* Permet la compression */
+}
+
+.header .primary-header-inner .header-menu-wrap {
+    flex: 1;
+    min-width: 0; /* Permet la compression */
+    overflow: hidden;
+}
+
+.header .primary-header-inner .header-menu-wrap ul {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 0;
+}
+
+/* ===== FALLBACK POUR ÉCRANS TRÈS ÉTROITS ===== */
+
+@media (max-width: 480px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 4px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 11px;
+        padding: 14px 0;
+    }
+    
+    .header .primary-header-inner .header-logo img {
+        max-width: 70px;
+    }
+    
+    .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+}
+
+/* ===== ANIMATIONS ET TRANSITIONS ===== */
+
+.header .primary-header-inner .header-menu-wrap ul li a {
+    transition: all 0.3s ease;
+}
+
+.header .primary-header-inner .header-menu-wrap ul li:hover a {
+    color: var(--bz-color-theme-primary);
+}
+
+/* ===== GESTION SPÉCIFIQUE POUR ÉCRANS 1714px ===== */
+
+/* Point de rupture spécifique pour 1714px */
+@media (min-width: 1700px) and (max-width: 1799px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 22px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 16px;
+        padding: 26px 0;
+    }
+}
+
+/* ===== FORCER L'AFFICHAGE DU BOUTON HAMBURGER ===== */
+
+/* S'assurer que le bouton hamburger est toujours visible sur mobile */
+.sidebar-icon-2 {
+    position: relative;
+    z-index: 1000;
+}
+
+.sidebar-trigger {
+    position: relative;
+    z-index: 1001;
+}
+
+/* Styles de fallback pour le bouton hamburger */
+@media (max-width: 991px) {
+    .sidebar-icon-2 {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    .sidebar-trigger {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    .sidebar-trigger span {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* ===== DEBUG - BORDURES POUR IDENTIFIER LES PROBLÈMES ===== */
+/* Décommentez ces lignes pour voir les zones problématiques */
+/*
+@media (max-width: 991px) {
+    .header .primary-header-inner .header-right-wrap {
+        border: 2px solid red;
+    }
+    
+    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
+        border: 2px solid blue;
+    }
+    
+    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 .sidebar-trigger {
+        border: 2px solid green;
+    }
+}
+*/ 
