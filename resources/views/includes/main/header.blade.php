@@ -34,45 +34,46 @@
                                 </a>
                             </div>
                             <div class="header-menu-wrap">
-                                <div class="mobile-menu-items">
-                                    <ul>
-                                        <li class="{{ request()->routeIs('index') ? 'active' : '' }}">
-                                            <a href="{{ route("index") }}">Accueil</a>
-                                        </li>
-                                        <li class="{{ request()->routeIs('product.*') ? 'active' : '' }}">
-                                            <a href="{{ route("product.index") }}">Produits</a>
-                                        </li>
-                                        <li class="{{ request()->routeIs('blogs') ? 'active' : '' }}">
-                                            <a href="{{ route("blogs") }}">Blog</a>
-                                        </li>
-                                        <li class="{{ request()->routeIs('agencies') ? 'active' : '' }}">
-                                            <a href="{{ route("agencies") }}">Agences</a>
-                                        </li>
-                                        <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
-                                            <a href="{{ route('contact') }}">Contact</a>
-                                        </li>
-                                        <li class="menu-item-has-children {{ request()->routeIs('career') || request()->routeIs('about') || request()->routeIs('main.finance') || request()->routeIs('main.faq') ? 'active' : '' }}">
-                                            <a href="#">Autres</a>
-                                            <ul>
-                                                <li class="{{ request()->routeIs('career') ? 'active' : '' }}">
-                                                    <a href="{{ route('career') }}">Carrière & Emploi</a>
-                                                </li>
-                                                <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
-                                                    <a href="{{ route('about')}}">À propos</a>
-                                                </li>
-                                                <li class="{{ request()->routeIs('main.finance') ? 'active' : '' }}">
-                                                    <a href="{{ route('main.finance')}}">Finance Digitale</a>
-                                                </li>
-                                                <li class="{{ request()->routeIs('main.faq') ? 'active' : '' }}">
-                                                    <a href="{{ route('main.faq') }}">Faq</a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <ul>
+                                    <li class="{{ request()->routeIs('index') ? 'active' : '' }}">
+                                        <a href="{{ route("index") }}">Accueil</a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('product.*') ? 'active' : '' }}">
+                                        <a href="{{ route("product.index") }}">Produits</a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('agencies') ? 'active' : '' }}">
+                                        <a href="{{ route("agencies") }}">Agences</a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
+                                        <a href="{{ route('contact') }}">Contact</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('main.finance') ? 'active' : '' }}">
+                                        <a href="{{ route('main.finance')}}">Finance Digitale</a>
+                                    </li>
+                                    <li class="menu-item-has-children {{ request()->routeIs('career') || request()->routeIs('about') || request()->routeIs('main.finance') || request()->routeIs('main.faq') ? 'active' : '' }}">
+                                        <a href="#">Autres <i class="fa-solid fa-chevron-down"></i></a>
+                                        <ul>
+                                            <li class="{{ request()->routeIs('career') ? 'active' : '' }}">
+                                                <a href="{{ route('career') }}">Carrière & Emploi</a>
+                                            </li>
+                                            <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
+                                                <a href="{{ route('about')}}">À propos</a>
+                                            </li>
+                                            <li class="{{ request()->routeIs('blogs') ? 'active' : '' }}">
+                                                <a href="{{ route("blogs") }}">Blog</a>
+                                            </li>
+                                            <li class="{{ request()->routeIs('main.faq') ? 'active' : '' }}">
+                                                <a href="{{ route('main.faq') }}">Faq</a>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </div>
                             <!-- /.header-menu-wrap -->
                         </div>

@@ -27,6 +27,9 @@
     
     <!-- CSS Simulateur de Prêt -->
     <link rel="stylesheet" href="{{ asset('assets/css/loan-simulator.css') }}">
+    
+    <!-- CSS personnalisé pour le header -->
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-header.css') }}">
 
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">

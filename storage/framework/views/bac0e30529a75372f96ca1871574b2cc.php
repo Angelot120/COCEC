@@ -177,12 +177,11 @@
 
             <!-- Titre pour l'impression -->
             <h1 class="print-only" style="display: none; text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 30px;">
-                Détails de la soumission #<?php echo e($submission->id); ?>
-
+                Détails de la demande morale #<?php echo e($submission->id); ?>
             </h1>
             
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24 no-print">
-                <h6 class="fw-semibold mb-0">Détails de la soumission #<?php echo e($submission->id); ?></h6>
+                <h6 class="fw-semibold mb-0">Détails de la demande morale #<?php echo e($submission->id); ?></h6>
                 <ul class="d-flex align-items-center gap-2">
                     <li class="fw-medium">
                         <a href="<?php echo e(route('admin.dashboard')); ?>" class="d-flex align-items-center gap-1 hover-text-primary">

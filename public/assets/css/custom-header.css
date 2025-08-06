@@ -1,0 +1,141 @@
+/* Styles personnalisés pour corriger les problèmes de responsive du header */
+
+/* Ajustements pour les écrans moyens */
+@media (max-width: 1200px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 8px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 14px;
+        padding: 20px 0;
+    }
+}
+
+/* Ajustements pour les écrans plus petits */
+@media (max-width: 1100px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 6px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 13px;
+        padding: 18px 0;
+    }
+}
+
+/* Ajustements pour les écrans encore plus petits */
+@media (max-width: 1000px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 4px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 12px;
+        padding: 16px 0;
+    }
+}
+
+/* Masquer le menu principal sur mobile et afficher le menu hamburger */
+@media only screen and (max-width: 992px) {
+    .header .primary-header-inner .header-menu-wrap {
+        display: none !important;
+    }
+    
+    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
+        display: block !important;
+    }
+}
+
+/* Afficher le menu principal sur desktop */
+@media only screen and (min-width: 993px) {
+    .header .primary-header-inner .header-menu-wrap {
+        display: flex !important;
+    }
+    
+    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
+        display: none !important;
+    }
+}
+
+/* Ajustements pour éviter les débordements sur très grands écrans */
+@media (min-width: 1400px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 20px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 16px;
+        padding: 25px 0;
+    }
+}
+
+/* Ajustements pour les écrans ultra-larges */
+@media (min-width: 1600px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 25px;
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 17px;
+        padding: 28px 0;
+    }
+}
+
+/* Amélioration du sous-menu */
+.header .primary-header-inner .header-menu-wrap ul li.menu-item-has-children > a i {
+    margin-left: 5px;
+    font-size: 10px;
+    transition: transform 0.3s ease;
+}
+
+.header .primary-header-inner .header-menu-wrap ul li.menu-item-has-children:hover > a i {
+    transform: rotate(180deg);
+}
+
+/* Ajustements pour le logo */
+@media (max-width: 1200px) {
+    .header .primary-header-inner .header-logo img {
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 992px) {
+    .header .primary-header-inner .header-logo img {
+        max-width: 100px;
+    }
+}
+
+/* Ajustements pour le bouton "Ouvrir un compte" */
+@media (max-width: 1200px) {
+    .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 992px) {
+    .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+/* Amélioration de l'espacement général */
+.header .primary-header-inner .inner-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+@media (max-width: 1200px) {
+    .header .primary-header-inner .inner-left {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .header .primary-header-inner .inner-left {
+        gap: 15px;
+    }
+} 

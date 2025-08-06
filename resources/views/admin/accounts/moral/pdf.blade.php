@@ -5,357 +5,354 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demande morale #{{ $submission->id }}</title>
     <style>
+        @page {
+            margin: 20mm;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            background-color: #fff;
+            font-family: 'Helvetica Neue', 'Roboto', 'Lato', Arial, sans-serif;
+            line-height: 1.5;
+            color: #3d474d;
+            background-color: #ffffff;
+            font-size: 10pt;
         }
+
+        /* --- EN-TÊTE CORRIGÉ --- */
         .header {
-            text-align: center;
-            border-bottom: 3px solid #2c3e50;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            color: #2c3e50;
-            margin: 0;
-            font-size: 24px;
-        }
-        .header p {
-            margin: 5px 0;
-            color: #7f8c8d;
-        }
-        .section {
-            margin-bottom: 25px;
+            position: relative;
+            border-bottom: 2px solid #EC281C;
+            padding-bottom: 10mm;
+            margin-bottom: 12mm;
+            padding-left: 55mm; /* Espace réservé pour la photo */
             page-break-inside: avoid;
         }
-        .section-title {
-            background-color: #34495e;
-            color: white;
-            padding: 10px 15px;
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            border-radius: 5px;
+        
+        .header-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
         }
+
+        .header-photo img {
+            width: 35mm; /* Réduit de 40mm à 35mm */
+            height: 45mm; /* Réduit de 50mm à 45mm */
+            object-fit: cover;
+            border: 2px solid #EC281C;
+            border-radius: 4px;
+        }
+
+        .header-content {
+            text-align: center;
+            width: 100%;
+        }
+
+        .header-content h1 {
+            color: #EC281C;
+            margin: 0 0 2mm 0;
+            font-size: 15pt;
+            font-weight: bold;
+        }
+        
+        .header-content h2 {
+            color: #000000;
+            margin: 0 0 10mm 0;
+            font-size: 10pt;
+            font-weight: normal;
+        }
+        
+        .header-content h3 {
+            margin: 0 0 6mm 0;
+            font-size: 13pt;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        .submission-details {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10mm;
+            font-size: 9pt;
+            color: #000000;
+        }
+        .submission-details p { margin: 0; }
+        .submission-details strong { color: #EC281C; }
+
+        /* Alternative si pas de photo - centrage normal */
+        .header.no-photo {
+            padding-left: 0;
+            text-align: center;
+        }
+
+        /* --- CORPS DU DOCUMENT (Design validé) --- */
+        .section {
+            margin-bottom: 12mm;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #FFFFFF;
+            background-color: #EC281C;
+            padding: 3mm 6mm;
+            margin-bottom: 8mm;
+            border-radius: 3px;
+        }
+
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: 0 12mm;
         }
+        
         .info-item {
-            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 3mm 0;
+            border-bottom: 1px dotted #EC281C;
         }
+        
         .info-label {
             font-weight: bold;
-            color: #2c3e50;
-            font-size: 12px;
-            text-transform: uppercase;
-            margin-bottom: 3px;
+            color: #000000;
+            flex-shrink: 0;
+            padding-right: 5mm;
         }
+        
         .info-value {
-            font-size: 14px;
-            color: #333;
-            border-bottom: 1px solid #ecf0f1;
-            padding-bottom: 5px;
+            font-weight: normal;
+            color: #000000;
+            text-align: right;
         }
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-            font-size: 12px;
-        }
-        .table th {
-            background-color: #34495e;
-            color: white;
-            padding: 10px;
-            text-align: left;
-            font-weight: bold;
-        }
-        .table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid #ecf0f1;
-        }
-        .table tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        .status-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .status-en_attente { background-color: #fff3cd; color: #856404; }
-        .status-accepter { background-color: #d4edda; color: #155724; }
-        .status-refuser { background-color: #f8d7da; color: #721c24; }
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 11px;
-            color: #7f8c8d;
-            border-top: 1px solid #ecf0f1;
-            padding-top: 20px;
-        }
-        .page-break {
-            page-break-before: always;
-        }
+        
         .full-width {
             grid-column: 1 / -1;
         }
+
+        .table, .payment-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9pt;
+        }
+        .table th, .payment-table th {
+            background-color: #EC281C; color: #FFFFFF;
+            padding: 4mm; text-align: left; font-weight: bold;
+        }
+        .table td, .payment-table td { 
+            padding: 4mm; 
+            border-bottom: 1px solid #EC281C;
+            color: #000000;
+        }
+        .table tr:nth-child(even) td { background-color: #FFFFFF; }
+        .payment-table .total-row {
+            background-color: #FFCC00; 
+            font-weight: bold;
+            color: #000000; 
+            border-top: 2px solid #EC281C;
+        }
+        
+        .prose { 
+            text-align: justify; 
+            margin-bottom: 10mm; 
+            font-size: 11pt; 
+            line-height: 1.6;
+            color: #000000;
+        }
+        .signature-area { 
+            margin-top: 25mm; 
+            text-align: right;
+            color: #000000;
+        }
+        .signature-area p { margin: 0; }
+        .signature-line { 
+            margin-top: 30mm; 
+            border-bottom: 1px dotted #000000; 
+            width: 70mm; 
+            margin-left: auto; 
+        }
+        .footer { 
+            margin-top: 15mm; 
+            text-align: center; 
+            font-size: 8pt; 
+            color: #EC281C;
+            font-weight: bold;
+        }
+        .page-break { page-break-before: always; }
+        
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>DEMANDE D'OUVERTURE DE COMPTE - PERSONNE MORALE</h1>
-        <p>Numéro de soumission: #{{ $submission->id }}</p>
-        <p>Date de soumission: {{ $submission->created_at->format('d/m/Y à H:i') }}</p>
-        <p>Statut: <span class="status-badge status-{{ $submission->statut }}">
-            @if($submission->statut == 'en_attente') En attente
-            @elseif($submission->statut == 'accepter') Accepté
-            @elseif($submission->statut == 'refuser') Refusé
-            @else {{ $submission->statut }}
-            @endif
-        </span></p>
-    </div>
+    <div class="header {{ $submission->responsible_persons_photo_path ? '' : 'no-photo' }}">
+        @if($submission->responsible_persons_photo_path)
+        <div class="header-photo">
+             @php
+                 $photoPath = storage_path('app/public/' . str_replace('public/', '', $submission->responsible_persons_photo_path));
+                 if (file_exists($photoPath)) {
+                     $imageData = base64_encode(file_get_contents($photoPath));
+                     $imageType = pathinfo($photoPath, PATHINFO_EXTENSION);
+                     $imageSrc = "data:image/$imageType;base64,$imageData";
+                 } else { $imageSrc = ''; }
+             @endphp
+             @if($imageSrc)
+                 <img src="{{ $imageSrc }}" alt="Photo du responsable">
+             @endif
+        </div>
+        @endif
 
-    <!-- Informations de l'entreprise -->
+        <div class="header-content">
+            <h1>COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT</h1>
+            <h2>ASSISTANCE - CONSEIL MICROFINANCEMENT</h2>
+            <h3>FICHE D'ADHÉSION PERSONNE MORALE</h3>
+            <div class="submission-details">
+                <p>N° de soumission : <strong>#{{ $submission->id }}</strong></p>
+                <p>Date : <strong>{{ $submission->created_at->format('d/m/Y') }}</strong></p>
+                <p>Statut : <strong class="status-{{ $submission->statut }}">
+                     @if($submission->statut == 'en_attente') En attente
+                     @elseif($submission->statut == 'accepter') Accepté
+                     @elseif($submission->statut == 'refuser') Refusé
+                     @else {{ $submission->statut }} @endif
+                </strong></p>
+            </div>
+        </div>
+    </div>
+    
     <div class="section">
-        <div class="section-title">INFORMATIONS DE L'ENTREPRISE</div>
+        <div class="section-title">Informations sur l'entreprise</div>
         <div class="info-grid">
-            <div class="info-item">
-                <div class="info-label">Nom de l'entreprise</div>
-                <div class="info-value">{{ $submission->company_name }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Catégorie</div>
-                <div class="info-value">{{ $submission->category ?? 'Non spécifiée' }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">RCCM</div>
-                <div class="info-value">{{ $submission->rccm }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Secteur d'activité</div>
-                <div class="info-value">{{ $submission->activity_sector }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Date de création</div>
-                <div class="info-value">{{ $submission->creation_date ? $submission->creation_date->format('d/m/Y') : 'Non spécifiée' }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Lieu de création</div>
-                <div class="info-value">{{ $submission->creation_place }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Nationalité</div>
-                <div class="info-value">{{ $submission->company_nationality }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Téléphone</div>
-                <div class="info-value">{{ $submission->company_phone }}</div>
-            </div>
-            <div class="info-item full-width">
-                <div class="info-label">Adresse</div>
-                <div class="info-value">{{ $submission->company_address }}</div>
-            </div>
+            <div class="info-item"><span class="info-label">Nom de l'entreprise</span><span class="info-value">{{ $submission->company_name }}</span></div>
+            <div class="info-item"><span class="info-label">Catégorie</span><span class="info-value">{{ $submission->category ?? 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">RCCM</span><span class="info-value">{{ $submission->rccm }}</span></div>
+            <div class="info-item"><span class="info-label">Secteur d'activité</span><span class="info-value">{{ $submission->activity_sector }}</span></div>
+            <div class="info-item"><span class="info-label">Date de création</span><span class="info-value">{{ $submission->creation_date ? $submission->creation_date->format('d/m/Y') : 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Lieu de création</span><span class="info-value">{{ $submission->creation_place }}</span></div>
+            <div class="info-item"><span class="info-label">Nationalité</span><span class="info-value">{{ $submission->company_nationality }}</span></div>
+            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value">{{ $submission->company_phone }}</span></div>
+            <div class="info-item full-width"><span class="info-label">Adresse complète</span><span class="info-value">{{ $submission->company_address }}</span></div>
             @if($submission->activity_description)
-            <div class="info-item full-width">
-                <div class="info-label">Description de l'activité</div>
-                <div class="info-value">{{ $submission->activity_description }}</div>
-            </div>
+            <div class="info-item full-width"><span class="info-label">Description de l'activité</span><span class="info-value">{{ $submission->activity_description }}</span></div>
             @endif
         </div>
     </div>
 
-    <!-- Informations du directeur -->
     <div class="section">
-        <div class="section-title">INFORMATIONS DU DIRECTEUR</div>
+        <div class="section-title">Informations sur le directeur</div>
         <div class="info-grid">
-            <div class="info-item">
-                <div class="info-label">Nom complet</div>
-                <div class="info-value">{{ $submission->director_name }} {{ $submission->director_first_name ?? '' }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Poste</div>
-                <div class="info-value">{{ $submission->director_position }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Genre</div>
-                <div class="info-value">{{ $submission->director_gender == 'M' ? 'Masculin' : 'Féminin' }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Nationalité</div>
-                <div class="info-value">{{ $submission->director_nationality }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Date de naissance</div>
-                <div class="info-value">{{ $submission->director_birth_date ? $submission->director_birth_date->format('d/m/Y') : 'Non spécifiée' }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Lieu de naissance</div>
-                <div class="info-value">{{ $submission->director_birth_place }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Numéro de pièce</div>
-                <div class="info-value">{{ $submission->director_id_number }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Date d'émission</div>
-                <div class="info-value">{{ $submission->director_id_issue_date ? $submission->director_id_issue_date->format('d/m/Y') : 'Non spécifiée' }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Téléphone</div>
-                <div class="info-value">{{ $submission->director_phone }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Nom du père</div>
-                <div class="info-value">{{ $submission->director_father_name ?? 'Non spécifié' }}</div>
-            </div>
+            <div class="info-item"><span class="info-label">Nom complet</span><span class="info-value">{{ $submission->director_name }} {{ $submission->director_first_name ?? '' }}</span></div>
+            <div class="info-item"><span class="info-label">Poste</span><span class="info-value">{{ $submission->director_position }}</span></div>
+            <div class="info-item"><span class="info-label">Genre</span><span class="info-value">{{ $submission->director_gender == 'M' ? 'Masculin' : 'Féminin' }}</span></div>
+            <div class="info-item"><span class="info-label">Nationalité</span><span class="info-value">{{ $submission->director_nationality }}</span></div>
+            <div class="info-item"><span class="info-label">Date de naissance</span><span class="info-value">{{ $submission->director_birth_date ? $submission->director_birth_date->format('d/m/Y') : 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Lieu de naissance</span><span class="info-value">{{ $submission->director_birth_place }}</span></div>
+            <div class="info-item"><span class="info-label">N° Pièce d'identité</span><span class="info-value">{{ $submission->director_id_number }}</span></div>
+            <div class="info-item"><span class="info-label">Date d'émission</span><span class="info-value">{{ $submission->director_id_issue_date ? $submission->director_id_issue_date->format('d/m/Y') : 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value">{{ $submission->director_phone }}</span></div>
+            <div class="info-item"><span class="info-label">Nom du père</span><span class="info-value">{{ $submission->director_father_name ?? 'N/A' }}</span></div>
+             <div class="info-item"><span class="info-label">Nom de la mère</span><span class="info-value">{{ $submission->director_mother_name ?? 'N/A' }}</span></div>
         </div>
     </div>
 
-    <!-- KYC Information -->
     <div class="section">
-        <div class="section-title">KYC (KNOW YOUR CUSTOMER)</div>
+        <div class="section-title">Informations sur le/la Conjoint(e)</div>
         <div class="info-grid">
-            <div class="info-item">
-                <div class="info-label">Personne politiquement exposée (nationale)</div>
-                <div class="info-value">{{ $submission->is_ppe_national ? 'Oui' : 'Non' }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Personne politiquement exposée (étrangère)</div>
-                <div class="info-value">{{ $submission->ppe_foreign ? 'Oui' : 'Non' }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Dépôt initial</div>
-                <div class="info-value">{{ number_format($submission->initial_deposit, 2) }} FCFA</div>
-            </div>
-            @if($submission->sanctions)
-            <div class="info-item">
-                <div class="info-label">Sanctions</div>
-                <div class="info-value">{{ $submission->sanctions }}</div>
-            </div>
+            <div class="info-item"><span class="info-label">Nom</span><span class="info-value">{{ $submission->director_spouse_name ?? 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Prénom</span><span class="info-value">{{ $submission->director_spouse_first_name ?? 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Profession</span><span class="info-value">{{ $submission->director_spouse_profession ?? 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value">{{ $submission->director_spouse_phone ?? 'N/A' }}</span></div>
+            <div class="info-item full-width"><span class="info-label">Adresse</span><span class="info-value">{{ $submission->director_spouse_address ?? 'N/A' }}</span></div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section">
+        <div class="section-title">Personne à contacter en cas de besoin</div>
+         <div class="info-grid">
+            <div class="info-item"><span class="info-label">Nom et prénom</span><span class="info-value">{{ $submission->emergency_contact_name ?? 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value">{{ $submission->emergency_contact_phone ?? 'N/A' }}</span></div>
+            <div class="info-item full-width"><span class="info-label">Adresse</span><span class="info-value">{{ $submission->emergency_contact_address ?? 'N/A' }}</span></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">KYC (Know Your Customer)</div>
+        <div class="info-grid">
+            <div class="info-item"><span class="info-label">Personne politiquement exposée (nationale)</span><span class="info-value">{{ $submission->is_ppe_national ? 'Oui' : 'Non' }}</span></div>
+            <div class="info-item"><span class="info-label">Personne politiquement exposée (étrangère)</span><span class="info-value">{{ $submission->ppe_foreign ? 'Oui' : 'Non' }}</span></div>
+            <div class="info-item"><span class="info-label">Sanction financière internationale</span><span class="info-value">{{ ($submission->sanctions && $submission->sanctions !== 'Non') ? 'Oui' : 'Non' }}</span></div>
+            <div class="info-item"><span class="info-label">Financement du terrorisme</span><span class="info-value">{{ ($submission->terrorism_financing && $submission->terrorism_financing !== 'Non') ? 'Oui' : 'Non' }}</span></div>
+            @if($submission->sanctions && $submission->sanctions !== 'Non')
+            <div class="info-item full-width"><span class="info-label">Détails des sanctions</span><span class="info-value">{{ $submission->sanctions }}</span></div>
             @endif
-            @if($submission->terrorism_financing)
-            <div class="info-item">
-                <div class="info-label">Financement du terrorisme</div>
-                <div class="info-value">{{ $submission->terrorism_financing }}</div>
-            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Informations sur le compte</div>
+        <div class="info-grid">
+            <div class="info-item"><span class="info-label">Date d'adhésion</span><span class="info-value">{{ $submission->membership_date ? $submission->membership_date->format('d/m/Y') : 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Date d'ouverture</span><span class="info-value">{{ $submission->account_opening_date ? $submission->account_opening_date->format('d/m/Y') : 'N/A' }}</span></div>
+            <div class="info-item full-width"><span class="info-label">Numéro de compte</span><span class="info-value">{{ $submission->account_number ?? 'Non attribué' }}</span></div>
+            @if($submission->remarks)
+            <div class="info-item full-width"><span class="info-label">Remarques</span><span class="info-value">{{ $submission->remarks }}</span></div>
             @endif
         </div>
     </div>
 
-    <!-- Co-directeurs -->
-    @if (!$submission->coDirectors->isEmpty())
     <div class="section">
-        <div class="section-title">CO-DIRECTEURS</div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Poste</th>
-                    <th>Téléphone</th>
-                </tr>
-            </thead>
+        <div class="section-title">Versements initiaux</div>
+        <table class="payment-table">
+            <thead><tr><th>Désignation</th><th style="text-align: right;">Montant (FCFA)</th></tr></thead>
             <tbody>
-                @foreach ($submission->coDirectors as $coDirector)
-                    <tr>
-                        <td>{{ $coDirector->name }}</td>
-                        <td>{{ $coDirector->position }}</td>
-                        <td>{{ $coDirector->phone }}</td>
-                    </tr>
-                @endforeach
+                <tr><td>Droit d'adhésion</td><td style="text-align: right;">{{ number_format(2000, 0, ',', ' ') }}</td></tr>
+                <tr><td>Part social</td><td style="text-align: right;">{{ number_format(15000, 0, ',', ' ') }}</td></tr>
+                <tr><td>Dépôts</td><td style="text-align: right;">{{ number_format($submission->initial_deposit, 0, ',', ' ') }}</td></tr>
+                <tr class="total-row"><td><strong>TOTAL</strong></td><td style="text-align: right;"><strong>{{ number_format(2000 + 15000 + $submission->initial_deposit, 0, ',', ' ') }}</strong></td></tr>
             </tbody>
         </table>
     </div>
-    @endif
 
-    <!-- Signataires du compte -->
     @if (!$submission->accountSignatories->isEmpty())
     <div class="section">
-        <div class="section-title">SIGNATAIRES DU COMPTE</div>
+        <div class="section-title">Signataires du compte</div>
         <table class="table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Type de signature</th>
-                    <th>Numéro de pièce</th>
-                </tr>
-            </thead>
+            <thead><tr><th>Nom & Prénoms</th><th>Type de signature</th><th style="width: 30%;">Signature</th></tr></thead>
             <tbody>
                 @foreach ($submission->accountSignatories as $signatory)
                     <tr>
                         <td>{{ $signatory->name }}</td>
-                        <td>{{ $signatory->signature_type }}</td>
-                        <td>{{ $signatory->id_number ?? 'Non spécifié' }}</td>
+                        <td>
+                            @if($signatory->signature_type == 'unique') Unique
+                            @elseif($signatory->signature_type == 'conjointe') Conjointe
+                            @elseif($signatory->signature_type == 'unique_ou_conjointe') Unique ou Conjointe
+                            @else {{ $signatory->signature_type }} @endif
+                        </td>
+                        <td style="height: 15mm;"></td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
     @endif
-
-    <!-- Bénéficiaires -->
-    @if (!$submission->beneficiaries->isEmpty())
+    
     <div class="section">
-        <div class="section-title">BÉNÉFICIAIRES</div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Contact</th>
-                    <th>Lien</th>
-                    <th>Date de naissance</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($submission->beneficiaries as $beneficiary)
-                    <tr>
-                        <td>{{ $beneficiary->nom }}</td>
-                        <td>{{ $beneficiary->contact }}</td>
-                        <td>{{ $beneficiary->lien }}</td>
-                        <td>{{ $beneficiary->birth_date ? $beneficiary->birth_date->format('d/m/Y') : 'Non spécifiée' }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    @endif
-
-    <!-- Informations du compte -->
-    <div class="section">
-        <div class="section-title">INFORMATIONS DU COMPTE</div>
-        <div class="info-grid">
-            <div class="info-item">
-                <div class="info-label">Numéro de compte</div>
-                <div class="info-value">{{ $submission->account_number ?? 'Non attribué' }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Date d'adhésion</div>
-                <div class="info-value">{{ $submission->membership_date ? $submission->membership_date->format('d/m/Y') : 'Non définie' }}</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Date d'ouverture</div>
-                <div class="info-value">{{ $submission->account_opening_date ? $submission->account_opening_date->format('d/m/Y') : 'Non définie' }}</div>
-            </div>
-            @if($submission->remarks)
-            <div class="info-item full-width">
-                <div class="info-label">Remarques</div>
-                <div class="info-value">{{ $submission->remarks }}</div>
-            </div>
-            @endif
+        <div class="section-title">Procès-verbal et Déclaration</div>
+        <p class="prose">
+            L'an {{ $submission->created_at->format('Y') }}, le {{ $submission->created_at->format('d/m/Y') }}, les membres de <strong>{{ $submission->company_name }}</strong> réunis en Assemblée Générale ont unanimement décidé d'ouvrir un compte à la COCEC et de donner mandat aux membres désignés comme signataires pour faire fonctionner ledit compte.
+        </p>
+         <p class="prose">
+            Je soussigné(e), <strong>{{ $submission->director_name }} {{ $submission->director_first_name ?? '' }}</strong>, agissant en qualité de responsable, atteste sur l'honneur que les informations fournies sont exactes et sincères, et reconnais que toute fausse déclaration peut entraîner le rejet de cette demande ou la clôture du compte.
+        </p>
+        <div class="signature-area">
+            <p><strong>Fait à Lomé, le {{ $submission->created_at->format('d/m/Y') }}</strong></p>
+            <p><strong>LE PRÉSIDENT / DIRECTEUR</strong></p>
+            <div class="signature-line">(Signature et Cachet)</div>
         </div>
     </div>
 
     <div class="footer">
-        <p>Document généré le {{ now()->format('d/m/Y à H:i:s') }}</p>
-        <p>COCEC - Système de gestion des comptes</p>
+        <p>COCEC - Coopérative Chrétienne d'Épargne et de Crédit</p>
     </div>
 </body>
-</html> 
+</html>
