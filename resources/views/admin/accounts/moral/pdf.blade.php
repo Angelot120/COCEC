@@ -17,45 +17,54 @@
             font-size: 10pt;
         }
 
-        /* --- EN-TÊTE FINALISÉ --- */
+        /* --- EN-TÊTE CORRIGÉ --- */
         .header {
-            position: relative; /* Contexte pour le positionnement absolu de la photo */
-            text-align: center;
-            border-bottom: 2px solid #e9ecef;
+            position: relative;
+            border-bottom: 2px solid #EC281C;
             padding-bottom: 10mm;
             margin-bottom: 12mm;
+            padding-left: 55mm; /* Espace réservé pour la photo */
             page-break-inside: avoid;
         }
         
         .header-photo {
             position: absolute;
             top: 0;
-            right: 0;
+            left: 0;
         }
 
         .header-photo img {
-            width: 40mm;
-            height: 50mm;
+            width: 35mm; /* Réduit de 40mm à 35mm */
+            height: 45mm; /* Réduit de 50mm à 45mm */
             object-fit: cover;
-            border: 1px solid #dee2e6;
+            border: 2px solid #EC281C;
             border-radius: 4px;
         }
 
-        .header h1 {
-            color: #2c3e50;
+        .header-content {
+            text-align: center;
+            width: 100%;
+        }
+
+        .header-content h1 {
+            color: #EC281C;
             margin: 0 0 2mm 0;
             font-size: 15pt;
+            font-weight: bold;
         }
-        .header h2 {
-            color: #6c757d;
+        
+        .header-content h2 {
+            color: #000000;
             margin: 0 0 10mm 0;
             font-size: 10pt;
             font-weight: normal;
         }
-        .header h3 {
+        
+        .header-content h3 {
             margin: 0 0 6mm 0;
             font-size: 13pt;
-            color: #34495e;
+            color: #000000;
+            font-weight: bold;
         }
         
         .submission-details {
@@ -64,11 +73,16 @@
             align-items: center;
             gap: 10mm;
             font-size: 9pt;
-            color: #6c757d;
+            color: #000000;
         }
         .submission-details p { margin: 0; }
-        .submission-details strong { color: #343a40; }
+        .submission-details strong { color: #EC281C; }
 
+        /* Alternative si pas de photo - centrage normal */
+        .header.no-photo {
+            padding-left: 0;
+            text-align: center;
+        }
 
         /* --- CORPS DU DOCUMENT (Design validé) --- */
         .section {
@@ -79,8 +93,8 @@
         .section-title {
             font-size: 12pt;
             font-weight: bold;
-            color: #ffffff;
-            background-color: #34495e;
+            color: #FFFFFF;
+            background-color: #EC281C;
             padding: 3mm 6mm;
             margin-bottom: 8mm;
             border-radius: 3px;
@@ -97,19 +111,19 @@
             justify-content: space-between;
             align-items: baseline;
             padding: 3mm 0;
-            border-bottom: 1px dotted #ced4da;
+            border-bottom: 1px dotted #EC281C;
         }
         
         .info-label {
             font-weight: bold;
-            color: #495057;
+            color: #000000;
             flex-shrink: 0;
             padding-right: 5mm;
         }
         
         .info-value {
             font-weight: normal;
-            color: #212529;
+            color: #000000;
             text-align: right;
         }
         
@@ -123,27 +137,54 @@
             font-size: 9pt;
         }
         .table th, .payment-table th {
-            background-color: #34495e; color: white;
+            background-color: #EC281C; color: #FFFFFF;
             padding: 4mm; text-align: left; font-weight: bold;
         }
-        .table td, .payment-table td { padding: 4mm; border-bottom: 1px solid #e9ecef; }
-        .table tr:nth-child(even) td { background-color: #f8f9fa; }
+        .table td, .payment-table td { 
+            padding: 4mm; 
+            border-bottom: 1px solid #EC281C;
+            color: #000000;
+        }
+        .table tr:nth-child(even) td { background-color: #FFFFFF; }
         .payment-table .total-row {
-            background-color: #e9ecef; font-weight: bold;
-            color: #2c3e50; border-top: 2px solid #34495e;
+            background-color: #FFCC00; 
+            font-weight: bold;
+            color: #000000; 
+            border-top: 2px solid #EC281C;
         }
         
-        .prose { text-align: justify; margin-bottom: 10mm; font-size: 11pt; line-height: 1.6; }
-        .signature-area { margin-top: 25mm; text-align: right; }
+        .prose { 
+            text-align: justify; 
+            margin-bottom: 10mm; 
+            font-size: 11pt; 
+            line-height: 1.6;
+            color: #000000;
+        }
+        .signature-area { 
+            margin-top: 25mm; 
+            text-align: right;
+            color: #000000;
+        }
         .signature-area p { margin: 0; }
-        .signature-line { margin-top: 30mm; border-bottom: 1px dotted #333; width: 70mm; margin-left: auto; }
-        .footer { margin-top: 15mm; text-align: center; font-size: 8pt; color: #6c757d; }
+        .signature-line { 
+            margin-top: 30mm; 
+            border-bottom: 1px dotted #000000; 
+            width: 70mm; 
+            margin-left: auto; 
+        }
+        .footer { 
+            margin-top: 15mm; 
+            text-align: center; 
+            font-size: 8pt; 
+            color: #EC281C;
+            font-weight: bold;
+        }
         .page-break { page-break-before: always; }
         
     </style>
 </head>
 <body>
-    <div class="header">
+    <div class="header {{ $submission->responsible_persons_photo_path ? '' : 'no-photo' }}">
         @if($submission->responsible_persons_photo_path)
         <div class="header-photo">
              @php
@@ -160,18 +201,20 @@
         </div>
         @endif
 
-        <h1>COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT</h1>
-        <h2>ASSISTANCE - CONSEIL MICROFINANCEMENT</h2>
-        <h3>FICHE D'ADHÉSION PERSONNE MORALE</h3>
-        <div class="submission-details">
-            <p>N° de soumission : <strong>#{{ $submission->id }}</strong></p>
-            <p>Date : <strong>{{ $submission->created_at->format('d/m/Y') }}</strong></p>
-            <p>Statut : <strong class="status-{{ $submission->statut }}">
-                 @if($submission->statut == 'en_attente') En attente
-                 @elseif($submission->statut == 'accepter') Accepté
-                 @elseif($submission->statut == 'refuser') Refusé
-                 @else {{ $submission->statut }} @endif
-            </strong></p>
+        <div class="header-content">
+            <h1>COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT</h1>
+            <h2>ASSISTANCE - CONSEIL MICROFINANCEMENT</h2>
+            <h3>FICHE D'ADHÉSION PERSONNE MORALE</h3>
+            <div class="submission-details">
+                <p>N° de soumission : <strong>#{{ $submission->id }}</strong></p>
+                <p>Date : <strong>{{ $submission->created_at->format('d/m/Y') }}</strong></p>
+                <p>Statut : <strong class="status-{{ $submission->statut }}">
+                     @if($submission->statut == 'en_attente') En attente
+                     @elseif($submission->statut == 'accepter') Accepté
+                     @elseif($submission->statut == 'refuser') Refusé
+                     @else {{ $submission->statut }} @endif
+                </strong></p>
+            </div>
         </div>
     </div>
     
@@ -307,7 +350,6 @@
             <div class="signature-line">(Signature et Cachet)</div>
         </div>
     </div>
-
 
     <div class="footer">
         <p>COCEC - Coopérative Chrétienne d'Épargne et de Crédit</p>
