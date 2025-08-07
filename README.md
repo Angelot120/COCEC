@@ -25,7 +25,6 @@ Avant d'installer le projet, assurez-vous d'avoir :
 - PHP >= 8.1
 - Composer
 - MySQL >= 5.7
-- Node.js & npm
 - Git
 - Serveur web local (ex. : Apache, Nginx, Laravel Valet, Laravel Sail)
 - Terminal / shell
@@ -137,14 +136,7 @@ cd COCEC
 composer install
 ```
 
-### 3. Installer les dépendances frontend
-
-```bash
-npm install
-npm run dev
-```
-
-### 4. Configurer l'environnement
+### 3. Configurer l'environnement
 
 ```bash
 cp .env.example .env
@@ -252,7 +244,6 @@ php artisan test
 
 ```bash
 composer install --optimize-autoloader --no-dev
-npm run build
 ```
 
 4. Donner les permissions aux dossiers :
