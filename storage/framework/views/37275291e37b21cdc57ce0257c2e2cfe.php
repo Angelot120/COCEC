@@ -8,4 +8,4 @@
                 <p class="mb-0">Made by <span class="text-primary-600">DIGITALIS TOGO</span></p>
             </div>
         </div>
-    </footer><?php /**PATH C:\Users\user\Desktop\Microfinance\COCEC\resources\views/includes/admin/footer.blade.php ENDPATH**/ ?>
+    </footer><?php /**PATH C:\Users\RaydHil\Downloads\COCEC\resources\views/includes/admin/footer.blade.php ENDPATH**/ ?>
