@@ -1589,11 +1589,29 @@ namespace App\Models {
     /**
      * App\Models\BlogComment
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property int|null $parent_id
+     * @property string $body
+     * @property string $email
+     * @property string $name
+     * @property int|null $user_id
+     * @property int $blog_id
+     * @property int $id
      * @property-read \App\Models\Blog $blog
      * @property-read \App\Models\User $user
      * @property-read \App\Models\BlogComment $parent
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BlogComment> $replies
      * @property-read int|null $replies_count
+     * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment whereBlogId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment whereUserId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment whereName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment whereEmail($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment whereBody($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment whereParentId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment parents()
      * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<BlogComment>|BlogComment newQuery()
