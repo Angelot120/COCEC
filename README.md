@@ -20,7 +20,7 @@ L'objectif est de :
 
 ## ✅ Prérequis
 
-Avant d’installer le projet, assurez-vous d’avoir :
+Avant d'installer le projet, assurez-vous d'avoir :
 
 - PHP >= 8.1
 - Composer
@@ -32,13 +32,103 @@ Avant d’installer le projet, assurez-vous d’avoir :
 
 ---
 
-## 🚀 Installation
+## 🚀 Guide d'installation du projet COCEC (Laravel) sous Windows
+
+### 📌 Prérequis Windows
+Avant d'installer le projet, assurez-vous d'avoir les outils suivants :
+
+1. **XAMPP** (inclut PHP, MySQL et Apache)
+   🔗 Télécharger : https://www.apachefriends.org/fr/index.html
+
+2. **Composer** (gestionnaire de dépendances PHP)
+   🔗 Télécharger : https://getcomposer.org/
+
+⚠️ **Important** : Assurez-vous que PHP et Composer sont bien ajoutés à la variable d'environnement PATH de Windows.
+
+### 📥 Clonage du projet
+
+1. Ouvrez un terminal (CMD, PowerShell ou le terminal de VS Code).
+2. Exécutez la commande suivante pour cloner le projet :
+   ```bash
+   git clone https://github.com/Angelot120/COCEC.git
+   ```
+3. Une fois le dépôt cloné, naviguez dans le dossier du projet :
+   ```bash
+   cd COCEC
+   ```
+
+### ⚙️ Configuration & Installation
+
+1. **Ouvrez le projet** dans votre éditeur préféré :
+   - Visual Studio Code (recommandé)
+   - Sublime Text
+   - Cursor, etc.
+
+2. **Ouvrez un terminal** à la racine du projet.
+
+3. **Installez les dépendances PHP** :
+   ```bash
+   composer install
+   ```
+
+4. **Lancez les migrations et insérez les données de base** :
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
+
+5. **Créez le lien vers le dossier storage** :
+   ```bash
+   php artisan storage:link
+   ```
+
+6. **Installez les packages nécessaires** :
+   ```bash
+   composer require laravel/sanctum
+   composer require barryvdh/laravel-dompdf
+   ```
+
+7. **Nettoyez et régénérez le cache** :
+   ```bash
+   php artisan config:clear
+   php artisan cache:clear
+   php artisan view:clear
+   composer dump-autoload
+   ```
+
+### 🚀 Démarrer le serveur Laravel
+
+Lancez le serveur de développement avec :
+```bash
+php artisan serve
+```
+
+Vous pourrez ensuite accéder à votre site en ouvrant ce lien dans votre navigateur :
+👉 **http://127.0.0.1:8000/**
+
+### 🔐 Accès à l'interface d'administration
+
+- **Lien** : http://127.0.0.1:8000/admin
+- **Identifiants de connexion** :
+  - Email : `contact@cocec.com`
+  - Mot de passe : `Jq]\hE[Wh?]~,Npq048U-7uNpw`
+
+Cliquez sur "Se connecter" pour accéder à l'espace administrateur.
+
+### 📝 Remarques importantes :
+
+- Si vous rencontrez une erreur liée à DomPDF, vérifiez que l'extension PHP GD est bien activée dans votre php.ini.
+- Vous pouvez modifier les informations d'accès dans la base de données si nécessaire.
+
+---
+
+## 🚀 Installation (Méthode générale)
 
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/[votre-nom-utilisateur]/cocec.git
-cd cocec
+git clone https://github.com/Angelot120/COCEC.git
+cd COCEC
 ```
 
 ### 2. Installer les dépendances PHP
@@ -54,7 +144,7 @@ npm install
 npm run dev
 ```
 
-### 4. Configurer l’environnement
+### 4. Configurer l'environnement
 
 ```bash
 cp .env.example .env
@@ -91,7 +181,7 @@ php artisan db:seed
 php artisan serve
 ```
 
-📍 Accédez au site à l’adresse : `http://localhost:8000`
+📍 Accédez au site à l'adresse : `http://localhost:8000`
 
 ---
 
@@ -120,11 +210,12 @@ php artisan serve
 - CMS intégré : gestion produits, blogs, offres, formulaires, agences
 
 ### 🚀 Fonctionnalités spécifiques :
-- Simulateur de prêt avec tableau d’amortissement
+- Simulateur de prêt avec tableau d'amortissement
 - Formulaires dynamiques (ex. ouverture de compte)
 - Candidatures en ligne (section Carrière)
 - Avis et FAQ dynamiques
 - Pop-up d'annonces
+- **Nouveau** : Système de signatures avec capture et visualisation en plein écran
 
 ### 🔐 Sécurité :
 - CSRF, XSS, SQL injection
@@ -139,8 +230,6 @@ php artisan serve
 
 | Action | Commande |
 |--------|----------|
-| Compiler les assets | `npm run dev` |
-| Compiler en prod    | `npm run build` |
 | Vider le cache      | `php artisan cache:clear`<br>`php artisan config:clear`<br>`php artisan view:clear` |
 
 ---
@@ -197,7 +286,7 @@ php artisan migrate --force
 ## 📞 Support
 
 **Contact :**  
-👤 DOUVON Kodjovi Angélot  
+👤 DOUVON Angélot
 📧 douvonangelotadn@gmail.com  
 📱 +228 90174377
 
