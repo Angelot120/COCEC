@@ -1,4 +1,4 @@
-// Script professionnel pour le header responsive - Tailles fixes optimales
+// Script simple : tailles réduites et menu burger fonctionnel
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -7,23 +7,54 @@ document.addEventListener('DOMContentLoaded', function() {
         return window.innerWidth <= 991;
     }
     
-    // Fonction pour forcer l'affichage du bouton hamburger sur mobile
-    function ensureHamburgerVisible() {
-        const sidebarIcon = document.querySelector('.sidebar-icon-2');
-        const sidebarTrigger = document.querySelector('.sidebar-trigger');
+    // Fonction pour vérifier la plage d'écran
+    function getScreenRange() {
+        const width = window.innerWidth;
+        if (width >= 1200) return 'large';
+        if (width >= 992 && width <= 1199) return 'medium-large';
+        if (width >= 768 && width <= 991) return 'medium';
+        return 'small';
+    }
+    
+    // Fonction pour appliquer les tailles selon la plage d'écran
+    function applyResponsiveSizes() {
+        const menuItems = document.querySelectorAll('.header-menu-wrap ul li');
+        const menuLinks = document.querySelectorAll('.header-menu-wrap ul li a');
+        const screenRange = getScreenRange();
         
-        if (isMobile()) {
-            if (sidebarIcon) {
-                sidebarIcon.style.display = 'block';
-                sidebarIcon.style.visibility = 'visible';
-                sidebarIcon.style.opacity = '1';
+        if (!isMobile() && menuItems.length > 0) {
+            let margin, fontSize, padding;
+            
+            switch(screenRange) {
+                case 'large':
+                    margin = '0 22px';
+                    fontSize = '14px';
+                    padding = '26px 0';
+                    break;
+                case 'medium-large':
+                    margin = '0 18px';
+                    fontSize = '13px';
+                    padding = '24px 0';
+                    break;
+                case 'medium':
+                    margin = '0 15px';
+                    fontSize = '13px';
+                    padding = '22px 0';
+                    break;
+                default:
+                    margin = '0 10px';
+                    fontSize = '12px';
+                    padding = '20px 0';
             }
             
-            if (sidebarTrigger) {
-                sidebarTrigger.style.display = 'flex';
-                sidebarTrigger.style.visibility = 'visible';
-                sidebarTrigger.style.opacity = '1';
-            }
+            menuItems.forEach(item => {
+                item.style.margin = margin;
+            });
+            
+            menuLinks.forEach(link => {
+                link.style.fontSize = fontSize;
+                link.style.padding = padding;
+            });
         }
     }
     
@@ -42,99 +73,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Fonction pour appliquer les tailles fixes optimales
-    function applyOptimalSizes() {
-        const menuItems = document.querySelectorAll('.header-menu-wrap ul li');
-        const menuLinks = document.querySelectorAll('.header-menu-wrap ul li a');
+    // Fonction pour s'assurer que le menu burger fonctionne
+    function ensureBurgerMenuWorks() {
+        const sidebarIcon = document.querySelector('.sidebar-icon-2');
+        const sidebarTrigger = document.querySelector('.sidebar-trigger');
         
-        if (!isMobile() && menuItems.length > 0) {
-            // Tailles fixes optimales pour tous les écrans desktop
-            const optimalMargin = '0 20px';
-            const optimalFontSize = '16px';
-            const optimalPadding = '25px 0';
+        if (isMobile()) {
+            // S'assurer que le bouton hamburger est visible
+            if (sidebarIcon) {
+                sidebarIcon.style.display = 'block';
+                sidebarIcon.style.visibility = 'visible';
+                sidebarIcon.style.opacity = '1';
+            }
             
-            menuItems.forEach(item => {
-                item.style.margin = optimalMargin;
-            });
+            if (sidebarTrigger) {
+                sidebarTrigger.style.display = 'flex';
+                sidebarTrigger.style.visibility = 'visible';
+                sidebarTrigger.style.opacity = '1';
+            }
             
-            menuLinks.forEach(link => {
-                link.style.fontSize = optimalFontSize;
-                link.style.padding = optimalPadding;
-                link.style.fontWeight = '600';
-                link.style.lineHeight = '1.2';
-                link.style.textTransform = 'uppercase';
-                link.style.letterSpacing = '0.5px';
-            });
+            // S'assurer que le sidebar est accessible
+            const sidebarArea = document.getElementById('sidebar-area');
+            if (sidebarArea) {
+                sidebarArea.style.zIndex = '9999';
+            }
         }
     }
     
-    // Fonction principale pour ajuster tout
+    // Fonction principale
     function adjustHeader() {
-        ensureHamburgerVisible();
         handleMainMenu();
-        applyOptimalSizes();
+        applyResponsiveSizes();
+        ensureBurgerMenuWorks();
     }
     
     // Exécuter au chargement
     adjustHeader();
     
-    // Exécuter lors du redimensionnement de la fenêtre
+    // Exécuter lors du redimensionnement
     let resizeTimer;
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(adjustHeader, 100);
     });
-    
-    // Exécuter lors du changement d'orientation
-    window.addEventListener('orientationchange', function() {
-        setTimeout(adjustHeader, 150);
-    });
-    
-    // Debug: Afficher les informations de debug dans la console
-    function debugInfo() {
-        console.log('=== DEBUG HEADER (Version Pro) ===');
-        console.log('Window width:', window.innerWidth);
-        console.log('Is mobile:', isMobile());
-        console.log('Menu wrap display:', document.querySelector('.header-menu-wrap')?.style.display);
-        console.log('Sidebar icon display:', document.querySelector('.sidebar-icon-2')?.style.display);
-        console.log('Sidebar trigger display:', document.querySelector('.sidebar-trigger')?.style.display);
-        
-        // Afficher les tailles de police actuelles
-        const menuLinks = document.querySelectorAll('.header-menu-wrap ul li a');
-        menuLinks.forEach((link, index) => {
-            console.log(`Menu item ${index + 1} font-size:`, window.getComputedStyle(link).fontSize);
-        });
-        
-        console.log('===================================');
-    }
-    
-    // Décommentez la ligne suivante pour activer le debug
-    // debugInfo();
 });
 
-// Fonction globale pour forcer la mise à jour (peut être appelée depuis la console)
+// Fonction globale pour forcer la mise à jour
 window.forceHeaderUpdate = function() {
     const event = new Event('resize');
     window.dispatchEvent(event);
-};
-
-// Fonction pour restaurer les styles par défaut
-window.resetHeaderStyles = function() {
-    const menuLinks = document.querySelectorAll('.header-menu-wrap ul li a');
-    const menuItems = document.querySelectorAll('.header-menu-wrap ul li');
-    
-    menuLinks.forEach(link => {
-        link.style.fontSize = '';
-        link.style.padding = '';
-        link.style.fontWeight = '600';
-        link.style.lineHeight = '1.2';
-        link.style.textTransform = 'uppercase';
-        link.style.letterSpacing = '0.5px';
-    });
-    
-    menuItems.forEach(item => {
-        item.style.margin = '';
-    });
-    
-    console.log('Styles du header restaurés');
 }; 

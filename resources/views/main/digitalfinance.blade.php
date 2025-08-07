@@ -13,6 +13,8 @@
         --font-family: 'Poppins', sans-serif;
     }
 
+
+
     .df-light-section {
         padding: 100px 0;
         background-color: var(--light-gray-bg);
@@ -40,195 +42,206 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 60px;
-        align-items: center;
+        align-items: start;
     }
 
-    /* --- Colonne des Fonctionnalités (Gauche) --- */
-    .df-features-list {
+    /* --- Colonne des Services (Gauche) --- */
+    .df-services-list {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .df-service-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 30px;
+        background-color: #FFFFFF;
+        border: 1px solid var(--border-color);
+        border-radius: 15px;
+        transition: all 0.3s ease-in-out;
+        border-left: 4px solid transparent;
+    }
+
+    .df-service-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(45, 55, 72, 0.1);
+        border-left-color: var(--primary-color);
+    }
+
+    .df-service-icon {
+        font-size: 2.2rem;
+        color: var(--primary-color);
+        margin-right: 25px;
+        width: 60px;
+        flex-shrink: 0;
+        text-align: center;
+    }
+
+    .df-service-text h5 {
+        font-weight: 700;
+        color: var(--dark-charcoal);
+        margin-bottom: 12px;
+        font-size: 1.3rem;
+    }
+
+    .df-service-text p {
+        margin: 0 0 15px 0;
+        color: var(--text-color);
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .df-service-features {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .df-service-features li {
+        color: var(--text-color);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 8px;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .df-service-features li:before {
+        content: "✓";
+        color: var(--primary-color);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+    }
+
+    /* --- Colonne des Codes USSD (Droite) --- */
+    .df-ussd-section {
+        background-color: #FFFFFF;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(45, 55, 72, 0.08);
+        border: 1px solid var(--border-color);
+    }
+
+    .df-ussd-section h3 {
+        color: var(--dark-charcoal);
+        font-weight: 700;
+        margin-bottom: 25px;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .df-ussd-codes {
         display: flex;
         flex-direction: column;
         gap: 20px;
     }
 
-    .df-feature-item {
-        display: flex;
-        align-items: center;
-        padding: 25px;
-        background-color: #FFFFFF;
-        border: 1px solid var(--border-color);
+    .df-ussd-item {
+        background: var(--light-gray-bg);
         border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-        border-left: 4px solid transparent;
+        padding: 20px;
+        border-left: 4px solid var(--primary-color);
     }
 
-    .df-feature-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(45, 55, 72, 0.08);
-    }
-
-    .df-feature-item.active {
-        border-left-color: var(--primary-color);
-        box-shadow: 0 10px 25px rgba(236, 40, 28, 0.1);
-        transform: translateY(-2px);
-    }
-
-    .df-feature-icon {
-        font-size: 1.8rem;
-        color: var(--primary-color);
-        margin-right: 20px;
-        width: 50px;
-        flex-shrink: 0;
-    }
-
-    .df-feature-text h5 {
+    .df-ussd-provider {
         font-weight: 600;
         color: var(--dark-charcoal);
-        margin-bottom: 5px;
+        margin-bottom: 8px;
         font-size: 1.1rem;
     }
 
-    .df-feature-text p {
-        margin: 0;
-        color: var(--text-color);
-        font-size: 0.95rem;
-        line-height: 1.6;
-    }
-
-    /* --- Colonne Visuelle (Droite) avec Maquette "Clay" --- */
-    .df-visuals-column {
-        display: grid;
-        place-items: center;
-    }
-
-    .df-light-phone-mockup {
-        width: 320px;
-        height: 650px;
-        background: #F7FAFC;
-        /* Couleur argile claire */
-        border-radius: 45px;
-        padding: 12px;
-        box-shadow: 0 25px 50px -12px rgba(45, 55, 72, 0.15),
-            inset 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-            inset 0 -4px 6px -1px rgba(255, 255, 255, 0.7);
-        position: relative;
-    }
-
-    .df-light-phone-screen {
-        width: 100%;
-        height: 100%;
+    .df-ussd-code {
+        font-family: 'Courier New', monospace;
         background: #FFFFFF;
-        border-radius: 35px;
-        overflow: hidden;
-        position: relative;
-    }
-
-    /* --- Contenu des Écrans (Interfaces pour thème clair) --- */
-    .df-screen-content-light {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transform: scale(1.05);
-        transition: opacity 0.4s ease, transform 0.4s ease;
-        padding: 20px;
-        color: var(--dark-charcoal);
-        font-size: 0.9rem;
-    }
-
-    .df-screen-content-light.active {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    /* Style pour l'interface COCEC Mobile (thème clair) */
-    .screen-app-ui .balance-card {
-        background: var(--light-gray-bg);
-        border: 1px solid var(--border-color);
-        padding: 20px;
-        border-radius: 15px;
-        text-align: center;
-    }
-
-    .screen-app-ui .balance-label {
-        font-size: 0.8rem;
-        color: var(--text-color);
-    }
-
-    .screen-app-ui .balance-amount {
-        font-size: 2rem;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-size: 1.1rem;
         font-weight: 600;
-        margin: 5px 0 0 0;
-        color: var(--dark-charcoal);
-    }
-
-    .screen-app-ui .action-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-top: 25px;
-    }
-
-    .screen-app-ui .action-btn {
-        background: #FFFFFF;
-        border: 1px solid var(--border-color);
-        padding: 15px 10px;
-        border-radius: 10px;
-        text-align: center;
-    }
-
-    .screen-app-ui .action-btn i {
-        font-size: 1.5rem;
-        margin-bottom: 8px;
         color: var(--primary-color);
+        border: 2px solid var(--border-color);
+        display: inline-block;
+        margin: 5px 0;
     }
 
-    /* Style pour l'interface USSD (thème clair) */
-    .screen-ussd-ui {
-        font-family: 'Courier New', Courier, monospace;
-        background-color: #fff;
-        color: #000;
-        padding-top: 20px;
-    }
-
-    .screen-ussd-ui p {
-        margin-bottom: 10px;
-    }
-
-    /* Style pour l'interface Mobile Money (thème clair) */
-    .screen-momo-ui {
-        text-align: center;
-        padding-top: 100px;
-    }
-
-    .screen-momo-ui .icon-success {
-        font-size: 4rem;
-        color: #2ecc71;
-        margin-bottom: 20px;
-    }
-
-    .screen-momo-ui .momo-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: var(--dark-charcoal);
-    }
-
-    .screen-momo-ui .momo-text {
+    .df-ussd-description {
         color: var(--text-color);
+        font-size: 0.9rem;
+        margin-top: 8px;
+        line-height: 1.5;
+    }
+
+    /* --- Section Sécurité --- */
+    .df-security-section {
+        margin-top: 80px;
+        background-color: #FFFFFF;
+        border-radius: 15px;
+        padding: 50px;
+        box-shadow: 0 10px 30px rgba(45, 55, 72, 0.08);
+        border: 1px solid var(--border-color);
+    }
+
+    .df-security-section h3 {
+        color: var(--dark-charcoal);
+        font-weight: 700;
+        margin-bottom: 30px;
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .df-security-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+    .df-security-item {
+        padding: 25px;
+        background: var(--light-gray-bg);
+        border-radius: 12px;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .df-security-item h5 {
+        color: var(--dark-charcoal);
+        font-weight: 600;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+    }
+
+    .df-security-item p {
+        color: var(--text-color);
+        line-height: 1.6;
+        margin: 0;
     }
 
     /* --- Responsive --- */
     @media (max-width: 991px) {
         .df-light-layout {
             grid-template-columns: 1fr;
+            gap: 40px;
         }
 
-        .df-visuals-column {
-            order: -1;
-            margin-bottom: 50px;
+        .df-security-grid {
+            grid-template-columns: 1fr;
         }
+
+
+    }
+
+    @media (max-width: 768px) {
+        .df-service-item {
+            padding: 20px;
+        }
+
+        .df-ussd-section,
+        .df-security-section {
+            padding: 30px 20px;
+        }
+
+
     }
 </style>
 @endsection
@@ -239,15 +252,11 @@
     @include('includes.main.loading')
     @include('includes.main.header')
 
-
     <section class="page-header-pro">
-        {{-- L'image de fond est appliquée via CSS pour plus de flexibilité --}}
         <div class="page-header-overlay"></div>
         <div class="container">
             <div class="page-header-content-pro" data-aos="fade-up">
                 <h1 class="title-pro">Finance Digitale</h1>
-
-                {{-- Utilisation d'une structure sémantique pour le fil d'Ariane --}}
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb-pro">
                         <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
@@ -257,87 +266,121 @@
             </div>
         </div>
     </section>
-    <!-- ./ page-header -->
+
+
 
     <section class="df-light-section">
         <div class="container">
             <div class="section-heading text-center" data-aos="fade-up">
-                <h4 class="sub-heading">Nos Solutions Digitales</h4>
-                <h2 class="section-title">La Finance au Bout des Doigts</h2>
-                <p class="lead">Gérez vos finances où que vous soyez, 24h/24 et 7j/7. La COCEC met la technologie au service de votre tranquillité d'esprit.</p>
+                <h4 class="sub-heading">Services Financiers Digitaux</h4>
+                <h2 class="section-title">Finance Digitale et Services en Ligne</h2>
+                <p class="lead">La COCEC met à votre disposition plusieurs services numériques pour faciliter l'accès à nos produits et gérer vos finances en toute simplicité.</p>
             </div>
 
             <div class="df-light-layout">
-                <!-- Colonne des Fonctionnalités -->
-                <div class="df-features-list" data-aos="fade-right" data-aos-delay="200">
-                    <div class="df-feature-item active" data-tab="mobile">
-                        <div class="df-feature-icon"><i class="fas fa-mobile-alt"></i></div>
-                        <div class="df-feature-text">
-                            <h5>COCEC Mobile</h5>
-                            <p>Votre agence complète dans votre poche. Virements, soldes, et bien plus encore.</p>
+                <!-- Colonne des Services -->
+                <div class="df-services-list" data-aos="fade-right" data-aos-delay="200">
+                    <div class="df-service-item">
+                        <div class="df-service-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <div class="df-service-text">
+                            <h5>Mobile Banking</h5>
+                            <p>Utilisation de l'Application Bindoo mobile pour gérer votre compte en toute simplicité :</p>
+                            <ul class="df-service-features">
+                                <li>Consulter le solde de votre compte</li>
+                                <li>Effectuer des virements entre comptes</li>
+                                <li>Faire des remboursements de crédit</li>
+                                <li>Voir les 40 dernières opérations de compte</li>
+                                <li>Mini relevé de compte</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="df-feature-item" data-tab="ussd">
-                        <div class="df-feature-icon"><i class="fas fa-keyboard"></i></div>
-                        <div class="df-feature-text">
-                            <h5>COCEC USSD (*145#)</h5>
-                            <p>Pas de connexion internet ? Accédez à l'essentiel de nos services, partout, tout le temps.</p>
+
+                    <div class="df-service-item">
+                        <div class="df-service-icon"><i class="fas fa-keyboard"></i></div>
+                        <div class="df-service-text">
+                            <h5>Mobile Money</h5>
+                            <p>Utilisation de code USSD pour accéder à votre compte COCEC et effectuer diverses opérations :</p>
+                            <ul class="df-service-features">
+                                <li>Faire des dépôts et retraits</li>
+                                <li>Consulter votre solde</li>
+                                <li>Fonctionne sur tout type de téléphone</li>
+                                <li>Sans connexion Internet requise</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="df-feature-item" data-tab="money">
-                        <div class="df-feature-icon"><i class="fas fa-wallet"></i></div>
-                        <div class="df-feature-text">
-                            <h5>Transferts Mobile Money</h5>
-                            <p>Envoyez et recevez de l'argent entre votre compte COCEC et T-Money/Flooz.</p>
+
+                    <div class="df-service-item">
+                        <div class="df-service-icon"><i class="fas fa-sms"></i></div>
+                        <div class="df-service-text">
+                            <h5>SMS Banking</h5>
+                            <p>Restez informé de tous les mouvements sur votre compte :</p>
+                            <ul class="df-service-features">
+                                <li>Recevez des SMS à chaque mouvement</li>
+                                <li>Notifications en temps réel</li>
+                                <li>Suivi de vos transactions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="df-service-item">
+                        <div class="df-service-icon"><i class="fas fa-globe"></i></div>
+                        <div class="df-service-text">
+                            <h5>Web Banking</h5>
+                            <p>Accédez à votre compte bancaire via un navigateur internet :</p>
+                            <ul class="df-service-features">
+                                <li>Compatible ordinateur, tablette et smartphone</li>
+                                <li>Interface web sécurisée</li>
+                                <li>Gestion complète de vos comptes</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- Colonne de la Maquette de Téléphone -->
-                <div class="df-visuals-column" data-aos="fade-left" data-aos-delay="400">
-                    <div class="df-light-phone-mockup">
-                        <div class="df-light-phone-screen">
-
-                            <!-- Écran 1: COCEC Mobile -->
-                            <div class="df-screen-content-light screen-app-ui active" data-tab-content="mobile">
-                                <div class="balance-card">
-                                    <p class="balance-label">Solde du Compte</p>
-                                    <h3 class="balance-amount">1,250,750 F CFA</h3>
-                                </div>
-                                <div class="action-grid">
-                                    <div class="action-btn"><i class="fas fa-paper-plane"></i>
-                                        <div>Virement</div>
-                                    </div>
-                                    <div class="action-btn"><i class="fas fa-history"></i>
-                                        <div>Historique</div>
-                                    </div>
-                                    <div class="action-btn"><i class="fas fa-money-bill-wave"></i>
-                                        <div>Paiement</div>
-                                    </div>
-                                    <div class="action-btn"><i class="fas fa-user-circle"></i>
-                                        <div>Profil</div>
-                                    </div>
-                                </div>
+                <!-- Colonne des Codes USSD -->
+                <div class="df-ussd-section" data-aos="fade-left" data-aos-delay="400">
+                    <h3>Codes USSD pour Accéder à Votre Compte</h3>
+                    <div class="df-ussd-codes">
+                        <div class="df-ussd-item">
+                            <div class="df-ussd-provider">FLOOZ</div>
+                            <div class="df-ussd-code">*155*7*1*2#</div>
+                            <div class="df-ussd-description">
+                                Choisissez le compte sur lequel vous voulez faire l'opération, puis consultez le solde du compte COCEC. Si le solde s'affiche (le serveur est disponible), vous pouvez faire l'opération souhaitée.
                             </div>
-
-                            <!-- Écran 2: COCEC USSD -->
-                            <div class="df-screen-content-light screen-ussd-ui" data-tab-content="ussd">
-                                <p>Menu Principal</p>
-                                <p>1. Consulter Solde</p>
-                                <p>2. Virement Interne</p>
-                                <p>3. Transfert TMoney</p>
-                                <p>4. Transfert Flooz</p>
-                                <p>5. Mini Relevé</p>
-                            </div>
-
-                            <!-- Écran 3: Mobile Money -->
-                            <div class="df-screen-content-light screen-momo-ui" data-tab-content="money">
-                                <div class="icon-success"><i class="fas fa-check-circle"></i></div>
-                                <h4 class="momo-title">Transfert Réussi</h4>
-                                <p class="momo-text">50.000 F CFA envoyés avec succès à T-Money.</p>
-                            </div>
-
                         </div>
+
+                        <div class="df-ussd-item">
+                            <div class="df-ussd-provider">Mixx by Yas</div>
+                            <div class="df-ussd-code">*145*6*3*2#</div>
+                            <div class="df-ussd-description">
+                                Accédez à votre compte COCEC via le service Mixx by Yas pour effectuer vos opérations bancaires.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Sécurité -->
+            <div class="df-security-section" data-aos="fade-up" data-aos-delay="600">
+                <h3>Sécurité et Assistance</h3>
+                <div class="df-security-grid">
+                    <div class="df-security-item">
+                        <h5>Application Mobile Sécurisée</h5>
+                        <p>Notre application utilise un cryptage de données avancé et nécessite une authentification à chaque connexion. Nous recommandons de ne jamais partager votre mot de passe ou votre code PIN.</p>
+                    </div>
+
+                    <div class="df-security-item">
+                        <h5>Perte de Téléphone</h5>
+                        <p>Alertez sans délai la COCEC pour que le service soit désactivé temporairement et sécuriser votre compte.</p>
+                    </div>
+
+                    <div class="df-security-item">
+                        <h5>Assistance Technique</h5>
+                        <p>Vous pouvez contacter notre assistance digitale via WhatsApp, téléphone ou email. Nous avons une équipe dédiée pour vous aider en cas de problème technique.</p>
+                    </div>
+
+                    <div class="df-security-item">
+                        <h5>Accès à Distance</h5>
+                        <p>Vous pouvez consulter votre solde, vos échéances et votre historique via l'application Bindoo Mobile ou un code USSD, où que vous soyez.</p>
                     </div>
                 </div>
             </div>
@@ -352,22 +395,30 @@
 @section('js')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const digitalFinanceSection = document.querySelector('.df-light-section');
-        if (digitalFinanceSection) {
-            const tabItems = digitalFinanceSection.querySelectorAll('.df-feature-item');
-            const screenContents = digitalFinanceSection.querySelectorAll('.df-screen-content-light');
+        // Animation au scroll pour les éléments
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-            tabItems.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tabName = tab.dataset.tab;
-                    tabItems.forEach(item => item.classList.remove('active'));
-                    tab.classList.add('active');
-                    screenContents.forEach(content => {
-                        content.classList.toggle('active', content.dataset.tabContent === tabName);
-                    });
-                });
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
             });
-        }
+        }, observerOptions);
+
+        // Observer les éléments de service
+        document.querySelectorAll('.df-service-item').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(item);
+        });
+
+
     });
 </script>
 @endsection

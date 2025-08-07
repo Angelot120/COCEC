@@ -1,7 +1,7 @@
-@extends('layout.main')
 
-@section('css')
-{{-- CSS pour la carte interactive Leaflet --}}
+
+<?php $__env->startSection('css'); ?>
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <style>
     .account-form-section {
@@ -403,12 +403,12 @@
         right: 10px;
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="account-form-section py-5">
-    @include('includes.main.loading')
-    @include('includes.main.header')
+    <?php echo $__env->make('includes.main.loading', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('includes.main.header', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <section class="page-header-pro">
         <div class="page-header-overlay"></div>
@@ -417,7 +417,7 @@
                 <h1 class="title-pro">Compte en Ligne - Personne Morale</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb-pro">
-                        <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo e(route('index')); ?>">Accueil</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Compte en Ligne</li>
                     </ol>
                 </nav>
@@ -435,32 +435,34 @@
                 <p>Rejoignez la COCEC en remplissant le formulaire ci-dessous. C'est simple, rapide et sécurisé.</p>
             </div>
 
-            @if (session('success'))
+            <?php if(session('success')): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
+                <?php echo e(session('success')); ?>
+
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            @endif
-            @if (session('error'))
+            <?php endif; ?>
+            <?php if(session('error')): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
+                <?php echo e(session('error')); ?>
+
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            @endif
-            @if ($errors->any())
+            <?php endif; ?>
+            <?php if($errors->any()): ?>
             <div class="alert alert-danger">
                 <p class="mb-0"><strong>Oups !</strong> Veuillez corriger les erreurs indiquées en rouge ci-dessous avant de continuer.</p>
                 <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
+                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
-            @endif
+            <?php endif; ?>
 
             <!-- FORMULAIRE PERSONNE MORALE -->
-            <form action="{{ route('account.store.moral') }}" method="POST" enctype="multipart/form-data" class="adhesion-form multi-step-form" id="morale" novalidate>
-                @csrf
+            <form action="<?php echo e(route('account.store.moral')); ?>" method="POST" enctype="multipart/form-data" class="adhesion-form multi-step-form" id="morale" novalidate>
+                <?php echo csrf_field(); ?>
 
                 <div class="form-stepper">
                     <div class="progress-line"></div>
@@ -513,130 +515,389 @@
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Dénomination / Raison Sociale</label>
                             <i class="icon fas fa-building"></i>
-                            <input type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" value="{{ old('company_name') }}" required>
-                            <div class="invalid-feedback">@error('company_name') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['company_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="company_name" value="<?php echo e(old('company_name')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Catégorie</label>
                             <i class="icon fas fa-tags"></i>
-                            <input type="text" class="form-control @error('category') is-invalid @enderror" name="category" value="{{ old('category') }}">
-                            <div class="invalid-feedback">@error('category') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['category'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="category" value="<?php echo e(old('category')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['category'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">N° RCCM / Récépissé</label>
                             <i class="icon fas fa-file-contract"></i>
-                            <input type="text" class="form-control @error('rccm') is-invalid @enderror" name="rccm" value="{{ old('rccm') }}" required>
-                            <div class="invalid-feedback">@error('rccm') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['rccm'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="rccm" value="<?php echo e(old('rccm')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['rccm'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Type de pièce d'identification</label>
                             <i class="icon fas fa-id-card"></i>
-                            <input type="text" class="form-control @error('company_id_type') is-invalid @enderror" name="company_id_type" value="{{ old('company_id_type') }}">
-                            <div class="invalid-feedback">@error('company_id_type') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['company_id_type'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="company_id_type" value="<?php echo e(old('company_id_type')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_id_type'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Numéro de pièce</label>
                             <i class="icon fas fa-id-card"></i>
-                            <input type="text" class="form-control @error('company_id_number') is-invalid @enderror" name="company_id_number" value="{{ old('company_id_number') }}">
-                            <div class="invalid-feedback">@error('company_id_number') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['company_id_number'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="company_id_number" value="<?php echo e(old('company_id_number')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_id_number'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date d'enregistrement</label>
                             <i class="icon fas fa-calendar-alt"></i>
-                            <input type="date" class="form-control @error('company_id_date') is-invalid @enderror" name="company_id_date" value="{{ old('company_id_date') }}">
-                            <div class="invalid-feedback">@error('company_id_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="date" class="form-control <?php $__errorArgs = ['company_id_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="company_id_date" value="<?php echo e(old('company_id_date')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_id_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date de création</label>
                             <i class="icon fas fa-calendar-alt"></i>
-                            <input type="date" class="form-control @error('creation_date') is-invalid @enderror" name="creation_date" value="{{ old('creation_date') }}" max="{{ \Carbon\Carbon::today()->format('Y-m-d') }}" required>
-                            <div class="invalid-feedback">@error('creation_date') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="date" class="form-control <?php $__errorArgs = ['creation_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="creation_date" value="<?php echo e(old('creation_date')); ?>" max="<?php echo e(\Carbon\Carbon::today()->format('Y-m-d')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['creation_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Lieu de création</label>
                             <i class="icon fas fa-map-marker-alt"></i>
-                            <input type="text" class="form-control @error('creation_place') is-invalid @enderror" name="creation_place" value="{{ old('creation_place') }}" required>
-                            <div class="invalid-feedback">@error('creation_place') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['creation_place'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="creation_place" value="<?php echo e(old('creation_place')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['creation_place'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Secteur d'activité</label>
                             <i class="icon fas fa-briefcase"></i>
-                            <input type="text" class="form-control @error('activity_sector') is-invalid @enderror" name="activity_sector" value="{{ old('activity_sector') }}" required>
-                            <div class="invalid-feedback">@error('activity_sector') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['activity_sector'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="activity_sector" value="<?php echo e(old('activity_sector')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['activity_sector'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Description de l'activité</label>
                             <i class="icon fas fa-file-alt"></i>
-                            <textarea class="form-control @error('activity_description') is-invalid @enderror" name="activity_description" rows="4">{{ old('activity_description') }}</textarea>
-                            <div class="invalid-feedback">@error('activity_description') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <textarea class="form-control <?php $__errorArgs = ['activity_description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="activity_description" rows="4"><?php echo e(old('activity_description')); ?></textarea>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['activity_description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nationalité de l'entreprise</label>
                             <i class="icon fas fa-flag"></i>
-                            <input type="text" class="form-control @error('company_nationality') is-invalid @enderror" name="company_nationality" value="{{ old('company_nationality') }}" required>
-                            <div class="invalid-feedback">@error('company_nationality') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['company_nationality'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="company_nationality" value="<?php echo e(old('company_nationality')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_nationality'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Téléphone</label>
                             <i class="icon fas fa-phone"></i>
-                            <input type="tel" class="form-control @error('company_phone') is-invalid @enderror" name="company_phone" value="{{ old('company_phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
-                            <div class="invalid-feedback">@error('company_phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
+                            <input type="tel" class="form-control <?php $__errorArgs = ['company_phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="company_phone" value="<?php echo e(old('company_phone')); ?>" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Numéro de téléphone invalide. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Boîte postale</label>
                             <i class="icon fas fa-mailbox"></i>
-                            <input type="text" class="form-control @error('company_postal_box') is-invalid @enderror" name="company_postal_box" value="{{ old('company_postal_box') }}">
-                            <div class="invalid-feedback">@error('company_postal_box') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['company_postal_box'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="company_postal_box" value="<?php echo e(old('company_postal_box')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_postal_box'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Ville</label>
                             <i class="icon fas fa-city"></i>
-                            <input type="text" class="form-control @error('company_city') is-invalid @enderror" name="company_city" value="{{ old('company_city') }}">
-                            <div class="invalid-feedback">@error('company_city') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['company_city'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="company_city" value="<?php echo e(old('company_city')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_city'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Quartier</label>
                             <i class="icon fas fa-map-signs"></i>
-                            <input type="text" class="form-control @error('company_neighborhood') is-invalid @enderror" name="company_neighborhood" value="{{ old('company_neighborhood') }}">
-                            <div class="invalid-feedback">@error('company_neighborhood') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['company_neighborhood'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="company_neighborhood" value="<?php echo e(old('company_neighborhood')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_neighborhood'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
                     <h4 class="form-section-title">Adresse de l'Entité</h4>
-                    <div class="row mb-3 choice-container @error('loc_method_company') is-invalid @enderror">
+                    <div class="row mb-3 choice-container <?php $__errorArgs = ['loc_method_company'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                         <div class="col-6">
-                            <input type="radio" name="loc_method_company" id="desc_company" value="description" {{ old('loc_method_company', 'description') == 'description' ? 'checked' : '' }} required>
+                            <input type="radio" name="loc_method_company" id="desc_company" value="description" <?php echo e(old('loc_method_company', 'description') == 'description' ? 'checked' : ''); ?> required>
                             <label for="desc_company" class="choice-label"><i class="fas fa-keyboard"></i> Décrire l'adresse</label>
                         </div>
                         <div class="col-6">
-                            <input type="radio" name="loc_method_company" id="map_company" value="map" {{ old('loc_method_company') == 'map' ? 'checked' : '' }}>
+                            <input type="radio" name="loc_method_company" id="map_company" value="map" <?php echo e(old('loc_method_company') == 'map' ? 'checked' : ''); ?>>
                             <label for="map_company" class="choice-label"><i class="fas fa-map-marked-alt"></i> Sélectionner sur une carte</label>
                         </div>
-                        <div class="invalid-feedback">@error('loc_method_company') {{ $message }} @else Veuillez choisir une méthode. @enderror</div>
+                        <div class="invalid-feedback"><?php $__errorArgs = ['loc_method_company'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Veuillez choisir une méthode. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                     </div>
                     <div class="method-area" id="description-area-company">
                         <div class="input-group-custom">
                             <label class="form-label">Description détaillée de l'adresse</label>
-                            <textarea class="form-control @error('company_address') is-invalid @enderror" name="company_address" rows="4" placeholder="Indiquer ville, quartier, rue, repères..." required>{{ old('company_address') }}</textarea>
-                            <div class="invalid-feedback">@error('company_address') {{ $message }} @else Ce champ est requis si vous choisissez de décrire l'adresse. @enderror</div>
+                            <textarea class="form-control <?php $__errorArgs = ['company_address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="company_address" rows="4" placeholder="Indiquer ville, quartier, rue, repères..." required><?php echo e(old('company_address')); ?></textarea>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis si vous choisissez de décrire l'adresse. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
                     <div class="method-area" id="map-area-company">
                         <label class="form-label">Cliquez sur la carte ou déplacez le marqueur pour indiquer l'adresse de l'entité</label>
                         <div id="map-container-company" class="map-container"></div>
-                        <input type="hidden" name="company_lat" id="latitude-company" value="{{ old('company_lat') }}" required>
-                        <input type="hidden" name="company_lng" id="longitude-company" value="{{ old('company_lng') }}" required>
-                        <div class="invalid-feedback">@error('company_lat') Une position sur la carte est requise. @else Veuillez sélectionner un point sur la carte. @enderror</div>
+                        <input type="hidden" name="company_lat" id="latitude-company" value="<?php echo e(old('company_lat')); ?>" required>
+                        <input type="hidden" name="company_lng" id="longitude-company" value="<?php echo e(old('company_lng')); ?>" required>
+                        <div class="invalid-feedback"><?php $__errorArgs = ['company_lat'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> Une position sur la carte est requise. <?php else: ?> Veuillez sélectionner un point sur la carte. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                     </div>
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Schéma/Plan</label>
-                        <div class="file-upload-wrapper @error('company_plan_path') is-invalid @enderror">
+                        <div class="file-upload-wrapper <?php $__errorArgs = ['company_plan_path'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                             <div class="file-upload-content">
                                 <i class="fas fa-file-image file-upload-icon"></i>
                                 <p class="file-upload-text">Importer un schéma/plan (JPEG, PNG, JPG, PDF)</p>
                             </div>
                             <div class="file-upload-preview"></div>
                             <input type="file" name="company_plan_path" accept="image/jpeg,image/png,image/jpg,application/pdf">
-                            <div class="invalid-feedback">@error('company_plan_path') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['company_plan_path'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
                 </div>
@@ -648,126 +909,406 @@
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom</label>
                             <i class="icon fas fa-user-tie"></i>
-                            <input type="text" class="form-control @error('director_name') is-invalid @enderror" name="director_name" value="{{ old('director_name') }}" required>
-                            <div class="invalid-feedback">@error('director_name') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_name" value="<?php echo e(old('director_name')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Prénoms</label>
                             <i class="icon fas fa-user-tie"></i>
-                            <input type="text" class="form-control @error('director_first_name') is-invalid @enderror" name="director_first_name" value="{{ old('director_first_name') }}">
-                            <div class="invalid-feedback">@error('director_first_name') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_first_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_first_name" value="<?php echo e(old('director_first_name')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_first_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Poste</label>
                             <i class="icon fas fa-user-tag"></i>
-                            <input type="text" class="form-control @error('director_position') is-invalid @enderror" name="director_position" value="{{ old('director_position') }}" required>
-                            <div class="invalid-feedback">@error('director_position') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_position'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_position" value="<?php echo e(old('director_position')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_position'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Sexe</label>
                             <i class="icon fas fa-venus-mars"></i>
-                            <select class="form-control @error('director_gender') is-invalid @enderror" name="director_gender" style="padding-left: 50px;" required>
+                            <select class="form-control <?php $__errorArgs = ['director_gender'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_gender" style="padding-left: 50px;" required>
                                 <option value="">Sélectionner...</option>
-                                <option value="M" {{ old('director_gender') == 'M' ? 'selected' : '' }}>Masculin</option>
-                                <option value="F" {{ old('director_gender') == 'F' ? 'selected' : '' }}>Féminin</option>
+                                <option value="M" <?php echo e(old('director_gender') == 'M' ? 'selected' : ''); ?>>Masculin</option>
+                                <option value="F" <?php echo e(old('director_gender') == 'F' ? 'selected' : ''); ?>>Féminin</option>
                             </select>
-                            <div class="invalid-feedback">@error('director_gender') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_gender'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nationalité</label>
                             <i class="icon fas fa-flag"></i>
-                            <input type="text" class="form-control @error('director_nationality') is-invalid @enderror" name="director_nationality" value="{{ old('director_nationality') }}" required>
-                            <div class="invalid-feedback">@error('director_nationality') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_nationality'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_nationality" value="<?php echo e(old('director_nationality')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_nationality'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date de Naissance</label>
                             <i class="icon fas fa-calendar-alt"></i>
-                            <input type="date" class="form-control @error('director_birth_date') is-invalid @enderror" name="director_birth_date" value="{{ old('director_birth_date') }}" max="{{ \Carbon\Carbon::today()->subYears(18)->format('Y-m-d') }}" required>
-                            <div class="invalid-feedback">@error('director_birth_date') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="date" class="form-control <?php $__errorArgs = ['director_birth_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_birth_date" value="<?php echo e(old('director_birth_date')); ?>" max="<?php echo e(\Carbon\Carbon::today()->subYears(18)->format('Y-m-d')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_birth_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Lieu de Naissance</label>
                             <i class="icon fas fa-map-marker-alt"></i>
-                            <input type="text" class="form-control @error('director_birth_place') is-invalid @enderror" name="director_birth_place" value="{{ old('director_birth_place') }}" required>
-                            <div class="invalid-feedback">@error('director_birth_place') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_birth_place'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_birth_place" value="<?php echo e(old('director_birth_place')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_birth_place'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Numéro de pièce d'identité</label>
                             <i class="icon fas fa-id-card"></i>
-                            <input type="text" class="form-control @error('director_id_number') is-invalid @enderror" name="director_id_number" value="{{ old('director_id_number') }}" required>
-                            <div class="invalid-feedback">@error('director_id_number') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_id_number'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_id_number" value="<?php echo e(old('director_id_number')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_id_number'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date d'émission de la pièce</label>
                             <i class="icon fas fa-calendar-alt"></i>
-                            <input type="date" class="form-control @error('director_id_issue_date') is-invalid @enderror" name="director_id_issue_date" value="{{ old('director_id_issue_date') }}">
-                            <div class="invalid-feedback">@error('director_id_issue_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="date" class="form-control <?php $__errorArgs = ['director_id_issue_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_id_issue_date" value="<?php echo e(old('director_id_issue_date')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_id_issue_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Téléphone</label>
                             <i class="icon fas fa-mobile-alt"></i>
-                            <input type="tel" class="form-control @error('director_phone') is-invalid @enderror" name="director_phone" value="{{ old('director_phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
-                            <div class="invalid-feedback">@error('director_phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
+                            <input type="tel" class="form-control <?php $__errorArgs = ['director_phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_phone" value="<?php echo e(old('director_phone')); ?>" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Numéro de téléphone invalide. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom du père</label>
                             <i class="icon fas fa-user"></i>
-                            <input type="text" class="form-control @error('director_father_name') is-invalid @enderror" name="director_father_name" value="{{ old('director_father_name') }}">
-                            <div class="invalid-feedback">@error('director_father_name') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_father_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_father_name" value="<?php echo e(old('director_father_name')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_father_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom de la mère</label>
                             <i class="icon fas fa-user"></i>
-                            <input type="text" class="form-control @error('director_mother_name') is-invalid @enderror" name="director_mother_name" value="{{ old('director_mother_name') }}">
-                            <div class="invalid-feedback">@error('director_mother_name') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_mother_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_mother_name" value="<?php echo e(old('director_mother_name')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_mother_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Boîte postale</label>
                             <i class="icon fas fa-mailbox"></i>
-                            <input type="text" class="form-control @error('director_postal_box') is-invalid @enderror" name="director_postal_box" value="{{ old('director_postal_box') }}">
-                            <div class="invalid-feedback">@error('director_postal_box') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_postal_box'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_postal_box" value="<?php echo e(old('director_postal_box')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_postal_box'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Ville</label>
                             <i class="icon fas fa-city"></i>
-                            <input type="text" class="form-control @error('director_city') is-invalid @enderror" name="director_city" value="{{ old('director_city') }}">
-                            <div class="invalid-feedback">@error('director_city') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_city'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_city" value="<?php echo e(old('director_city')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_city'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Quartier</label>
                             <i class="icon fas fa-map-signs"></i>
-                            <input type="text" class="form-control @error('director_neighborhood') is-invalid @enderror" name="director_neighborhood" value="{{ old('director_neighborhood') }}">
-                            <div class="invalid-feedback">@error('director_neighborhood') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_neighborhood'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_neighborhood" value="<?php echo e(old('director_neighborhood')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_neighborhood'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Adresse</label>
                             <i class="icon fas fa-map-marker-alt"></i>
-                            <textarea class="form-control @error('director_address') is-invalid @enderror" name="director_address" rows="4">{{ old('director_address') }}</textarea>
-                            <div class="invalid-feedback">@error('director_address') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <textarea class="form-control <?php $__errorArgs = ['director_address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_address" rows="4"><?php echo e(old('director_address')); ?></textarea>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom du/de la conjoint(e)</label>
                             <i class="icon fas fa-user-heart"></i>
-                            <input type="text" class="form-control @error('director_spouse_name') is-invalid @enderror" name="director_spouse_name" value="{{ old('director_spouse_name') }}">
-                            <div class="invalid-feedback">@error('director_spouse_name') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_spouse_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_spouse_name" value="<?php echo e(old('director_spouse_name')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_spouse_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Profession du/de la conjoint(e)</label>
                             <i class="icon fas fa-briefcase"></i>
-                            <input type="text" class="form-control @error('director_spouse_occupation') is-invalid @enderror" name="director_spouse_occupation" value="{{ old('director_spouse_occupation') }}">
-                            <div class="invalid-feedback">@error('director_spouse_occupation') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['director_spouse_occupation'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_spouse_occupation" value="<?php echo e(old('director_spouse_occupation')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_spouse_occupation'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Téléphone du/de la conjoint(e)</label>
                             <i class="icon fas fa-phone"></i>
-                            <input type="tel" class="form-control @error('director_spouse_phone') is-invalid @enderror" name="director_spouse_phone" value="{{ old('director_spouse_phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}">
-                            <div class="invalid-feedback">@error('director_spouse_phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
+                            <input type="tel" class="form-control <?php $__errorArgs = ['director_spouse_phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_spouse_phone" value="<?php echo e(old('director_spouse_phone')); ?>" pattern="\+?[0-9\s\-\(\)]{7,15}">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_spouse_phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Numéro de téléphone invalide. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Adresse du/de la conjoint(e)</label>
                             <i class="icon fas fa-map-marker-alt"></i>
-                            <textarea class="form-control @error('director_spouse_address') is-invalid @enderror" name="director_spouse_address" rows="4">{{ old('director_spouse_address') }}</textarea>
-                            <div class="invalid-feedback">@error('director_spouse_address') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <textarea class="form-control <?php $__errorArgs = ['director_spouse_address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="director_spouse_address" rows="4"><?php echo e(old('director_spouse_address')); ?></textarea>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['director_spouse_address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
                 </div>
@@ -779,14 +1320,42 @@
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Membres du procès-verbal</label>
                             <i class="icon fas fa-users"></i>
-                            <input type="text" class="form-control @error('minutes_members') is-invalid @enderror" name="minutes_members" value="{{ old('minutes_members') }}" required>
-                            <div class="invalid-feedback">@error('minutes_members') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['minutes_members'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="minutes_members" value="<?php echo e(old('minutes_members')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['minutes_members'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Réunion du procès-verbal</label>
                             <i class="icon fas fa-file-alt"></i>
-                            <input type="text" class="form-control @error('minutes_meeting') is-invalid @enderror" name="minutes_meeting" value="{{ old('minutes_meeting') }}" required>
-                            <div class="invalid-feedback">@error('minutes_meeting') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['minutes_meeting'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="minutes_meeting" value="<?php echo e(old('minutes_meeting')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['minutes_meeting'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
                 </div>
@@ -798,20 +1367,62 @@
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom & Prénoms</label>
                             <i class="icon fas fa-user-check"></i>
-                            <input type="text" class="form-control @error('emergency_contact_name') is-invalid @enderror" name="emergency_contact_name" value="{{ old('emergency_contact_name') }}" required>
-                            <div class="invalid-feedback">@error('emergency_contact_name') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['emergency_contact_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="emergency_contact_name" value="<?php echo e(old('emergency_contact_name')); ?>" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['emergency_contact_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Téléphone</label>
                             <i class="icon fas fa-phone"></i>
-                            <input type="tel" class="form-control @error('emergency_contact_phone') is-invalid @enderror" name="emergency_contact_phone" value="{{ old('emergency_contact_phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
-                            <div class="invalid-feedback">@error('emergency_contact_phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
+                            <input type="tel" class="form-control <?php $__errorArgs = ['emergency_contact_phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="emergency_contact_phone" value="<?php echo e(old('emergency_contact_phone')); ?>" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['emergency_contact_phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Numéro de téléphone invalide. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-12 mb-3 input-group-custom">
                             <label class="form-label">Adresse</label>
                             <i class="icon fas fa-map-marker-alt"></i>
-                            <textarea class="form-control @error('emergency_contact_address') is-invalid @enderror" name="emergency_contact_address" rows="4">{{ old('emergency_contact_address') }}</textarea>
-                            <div class="invalid-feedback">@error('emergency_contact_address') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <textarea class="form-control <?php $__errorArgs = ['emergency_contact_address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="emergency_contact_address" rows="4"><?php echo e(old('emergency_contact_address')); ?></textarea>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['emergency_contact_address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
                 </div>
@@ -837,42 +1448,84 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Document de l'entreprise</label>
-                            <div class="file-upload-wrapper @error('company_document_path') is-invalid @enderror">
+                            <div class="file-upload-wrapper <?php $__errorArgs = ['company_document_path'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                                 <div class="file-upload-content">
                                     <i class="fas fa-file-pdf file-upload-icon"></i>
                                     <p class="file-upload-text">Importer le document (PDF)</p>
                                 </div>
                                 <div class="file-upload-preview"></div>
                                 <input type="file" name="company_document_path" accept="application/pdf" required>
-                                <div class="invalid-feedback">@error('company_document_path') {{ $message }} @else Le document est requis (PDF). @enderror</div>
+                                <div class="invalid-feedback"><?php $__errorArgs = ['company_document_path'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Le document est requis (PDF). <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Photo des responsables</label>
-                            <div class="file-upload-wrapper @error('responsible_persons_photo_path') is-invalid @enderror">
+                            <div class="file-upload-wrapper <?php $__errorArgs = ['responsible_persons_photo_path'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                                 <div class="file-upload-content">
                                     <i class="fas fa-camera file-upload-icon"></i>
                                     <p class="file-upload-text">Choisir une photo (JPEG, PNG, JPG)</p>
                                 </div>
                                 <div class="file-upload-preview"></div>
                                 <input type="file" name="responsible_persons_photo_path" accept="image/jpeg,image/png,image/jpg" required>
-                                <div class="invalid-feedback">@error('responsible_persons_photo_path') {{ $message }} @else Une photo est requise. @enderror</div>
+                                <div class="invalid-feedback"><?php $__errorArgs = ['responsible_persons_photo_path'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Une photo est requise. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- ==== BLOC SIGNATURE CORRIGÉ ==== -->
                     <h4 class="form-section-title mt-4">Signature du Dirigeant</h4>
-                    <div class="row choice-container @error('signature_method') is-invalid @enderror">
+                    <div class="row choice-container <?php $__errorArgs = ['signature_method'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                         <div class="col-6">
-                            <input type="radio" name="signature_method" id="draw_morale" value="draw" {{ old('signature_method', 'draw') == 'draw' ? 'checked' : '' }} required>
+                            <input type="radio" name="signature_method" id="draw_morale" value="draw" <?php echo e(old('signature_method', 'draw') == 'draw' ? 'checked' : ''); ?> required>
                             <label for="draw_morale" class="choice-label"><i class="fas fa-pencil-alt"></i> Dessiner</label>
                         </div>
                         <div class="col-6">
-                            <input type="radio" name="signature_method" id="upload_morale" value="upload" {{ old('signature_method') == 'upload' ? 'checked' : '' }}>
+                            <input type="radio" name="signature_method" id="upload_morale" value="upload" <?php echo e(old('signature_method') == 'upload' ? 'checked' : ''); ?>>
                             <label for="upload_morale" class="choice-label"><i class="fas fa-upload"></i> Importer</label>
                         </div>
-                        <div class="invalid-feedback">@error('signature_method') {{ $message }} @else Une méthode de signature est requise. @enderror</div>
+                        <div class="invalid-feedback"><?php $__errorArgs = ['signature_method'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Une méthode de signature est requise. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                     </div>
                     <div class="method-area" id="draw-area-morale">
                         <p class="text-muted small">Signez dans le cadre ci-dessous.</p>
@@ -884,14 +1537,28 @@
                         <div class="invalid-feedback" id="signature-draw-error-morale" style="display: none;">Veuillez dessiner une signature.</div>
                     </div>
                     <div class="method-area" id="upload-area-morale">
-                        <div class="file-upload-wrapper @error('signature_upload') is-invalid @enderror">
+                        <div class="file-upload-wrapper <?php $__errorArgs = ['signature_upload'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                             <div class="file-upload-content">
                                 <i class="fas fa-file-image file-upload-icon"></i>
                                 <p class="file-upload-text">Importer (PNG)</p>
                             </div>
                             <div class="file-upload-preview"></div>
                             <input type="file" name="signature_upload" accept="image/png">
-                            <div class="invalid-feedback">@error('signature_upload') {{ $message }} @else L'import de la signature est requis. @enderror</div>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['signature_upload'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> L'import de la signature est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
                     <!-- ==== FIN BLOC SIGNATURE CORRIGÉ ==== -->
@@ -913,8 +1580,22 @@
                             <div class="input-group-custom mb-3">
                                 <label class="form-label">Dépôt Initial (FCFA)</label>
                                 <i class="icon fas fa-money-bill-wave"></i>
-                                <input type="number" class="form-control @error('initial_deposit') is-invalid @enderror" id="depot-initial-morale" name="initial_deposit" value="{{ old('initial_deposit', 0) }}" min="0" step="1000" required>
-                                <div class="invalid-feedback">@error('initial_deposit') {{ $message }} @else Ce champ est requis. @enderror</div>
+                                <input type="number" class="form-control <?php $__errorArgs = ['initial_deposit'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="depot-initial-morale" name="initial_deposit" value="<?php echo e(old('initial_deposit', 0)); ?>" min="0" step="1000" required>
+                                <div class="invalid-feedback"><?php $__errorArgs = ['initial_deposit'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -934,56 +1615,168 @@
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date d'adhésion</label>
                             <i class="icon fas fa-calendar-alt"></i>
-                            <input type="date" class="form-control @error('membership_date') is-invalid @enderror" name="membership_date" value="{{ old('membership_date') }}">
-                            <div class="invalid-feedback">@error('membership_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="date" class="form-control <?php $__errorArgs = ['membership_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="membership_date" value="<?php echo e(old('membership_date')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['membership_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Numéro de compte</label>
                             <i class="icon fas fa-id-card"></i>
-                            <input type="text" class="form-control @error('account_number') is-invalid @enderror" name="account_number" value="{{ old('account_number') }}">
-                            <div class="invalid-feedback">@error('account_number') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['account_number'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="account_number" value="<?php echo e(old('account_number')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['account_number'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date d'ouverture du compte</label>
                             <i class="icon fas fa-calendar-alt"></i>
-                            <input type="date" class="form-control @error('account_opening_date') is-invalid @enderror" name="account_opening_date" value="{{ old('account_opening_date') }}">
-                            <div class="invalid-feedback">@error('account_opening_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="date" class="form-control <?php $__errorArgs = ['account_opening_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="account_opening_date" value="<?php echo e(old('account_opening_date')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['account_opening_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Personne politiquement exposée (national) ?</label>
                             <i class="icon fas fa-user-shield"></i>
-                            <select class="form-control @error('is_ppe_national') is-invalid @enderror" name="is_ppe_national" id="is_ppe_national" style="padding-left: 50px;" required>
-                                <option value="0" {{ old('is_ppe_national', '0') == '0' ? 'selected' : '' }}>Non</option>
-                                <option value="1" {{ old('is_ppe_national') == '1' ? 'selected' : '' }}>Oui</option>
+                            <select class="form-control <?php $__errorArgs = ['is_ppe_national'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="is_ppe_national" id="is_ppe_national" style="padding-left: 50px;" required>
+                                <option value="0" <?php echo e(old('is_ppe_national', '0') == '0' ? 'selected' : ''); ?>>Non</option>
+                                <option value="1" <?php echo e(old('is_ppe_national') == '1' ? 'selected' : ''); ?>>Oui</option>
                             </select>
-                            <div class="invalid-feedback">@error('is_ppe_national') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['is_ppe_national'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Personne politiquement exposée (étranger) ? <span id="ppe-foreign-required" style="color: #dc3545; display: none;">*</span></label>
                             <i class="icon fas fa-user-shield"></i>
-                            <select class="form-control @error('ppe_foreign') is-invalid @enderror" name="ppe_foreign" id="ppe_foreign" style="padding-left: 50px;" required>
-                                <option value="0" {{ old('ppe_foreign', '0') == '0' ? 'selected' : '' }}>Non</option>
-                                <option value="1" {{ old('ppe_foreign') == '1' ? 'selected' : '' }}>Oui</option>
+                            <select class="form-control <?php $__errorArgs = ['ppe_foreign'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="ppe_foreign" id="ppe_foreign" style="padding-left: 50px;" required>
+                                <option value="0" <?php echo e(old('ppe_foreign', '0') == '0' ? 'selected' : ''); ?>>Non</option>
+                                <option value="1" <?php echo e(old('ppe_foreign') == '1' ? 'selected' : ''); ?>>Oui</option>
                             </select>
-                            <div class="invalid-feedback">@error('ppe_foreign') {{ $message }} @else Ce champ est requis si vous n'êtes pas PPE national. @enderror</div>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['ppe_foreign'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis si vous n'êtes pas PPE national. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Sanctions financières</label>
                             <i class="icon fas fa-gavel"></i>
-                            <input type="text" class="form-control @error('sanctions') is-invalid @enderror" name="sanctions" value="{{ old('sanctions') }}">
-                            <div class="invalid-feedback">@error('sanctions') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['sanctions'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="sanctions" value="<?php echo e(old('sanctions')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['sanctions'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Financement du terrorisme</label>
                             <i class="icon fas fa-exclamation-triangle"></i>
-                            <input type="text" class="form-control @error('terrorism_financing') is-invalid @enderror" name="terrorism_financing" value="{{ old('terrorism_financing') }}">
-                            <div class="invalid-feedback">@error('terrorism_financing') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <input type="text" class="form-control <?php $__errorArgs = ['terrorism_financing'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="terrorism_financing" value="<?php echo e(old('terrorism_financing')); ?>">
+                            <div class="invalid-feedback"><?php $__errorArgs = ['terrorism_financing'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-12 mb-3 input-group-custom">
                             <label class="form-label">Remarques particulières</label>
                             <i class="icon fas fa-comment"></i>
-                            <textarea class="form-control @error('remarks') is-invalid @enderror" name="remarks" rows="4">{{ old('remarks') }}</textarea>
-                            <div class="invalid-feedback">@error('remarks') {{ $message }} @else Ce champ est optionnel. @enderror</div>
+                            <textarea class="form-control <?php $__errorArgs = ['remarks'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="remarks" rows="4"><?php echo e(old('remarks')); ?></textarea>
+                            <div class="invalid-feedback"><?php $__errorArgs = ['remarks'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
                 </div>
@@ -997,10 +1790,10 @@
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <script>
@@ -1212,7 +2005,7 @@
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Date de naissance</label>
                                         <i class="icon fas fa-calendar-alt"></i>
-                                        <input type="date" class="form-control" name="co_directors[${index}][birth_date]" max="{{ \Carbon\Carbon::today()->subYears(18)->format('Y-m-d') }}" required>
+                                        <input type="date" class="form-control" name="co_directors[${index}][birth_date]" max="<?php echo e(\Carbon\Carbon::today()->subYears(18)->format('Y-m-d')); ?>" required>
                                         <div class="invalid-feedback">Ce champ est requis.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
@@ -1572,4 +2365,5 @@
         });
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.main', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\user\Desktop\Microfinance\COCEC\resources\views/main/account/morale.blade.php ENDPATH**/ ?>

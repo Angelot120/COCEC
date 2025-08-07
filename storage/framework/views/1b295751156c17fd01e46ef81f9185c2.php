@@ -355,4 +355,4 @@
         <p>COCEC - Coopérative Chrétienne d'Épargne et de Crédit</p>
     </div>
 </body>
-</html><?php /**PATH C:\Users\RaydHil\Downloads\COCEC\resources\views/admin/accounts/moral/pdf.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\Users\user\Desktop\Microfinance\COCEC\resources\views/admin/accounts/moral/pdf.blade.php ENDPATH**/ ?>

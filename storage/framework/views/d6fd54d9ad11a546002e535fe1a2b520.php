@@ -27,6 +27,9 @@
     
     <!-- CSS Simulateur de Prêt -->
     <link rel="stylesheet" href="<?php echo e(asset('assets/css/loan-simulator.css')); ?>">
+    
+    <!-- CSS personnalisé pour le header -->
+    <link rel="stylesheet" href="<?php echo e(asset('assets/css/custom-header.css')); ?>">
 
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -60,6 +63,9 @@
     <script src="<?php echo e(asset('assets/main/js/vendor/nice-select.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/main/js/contact.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/main/js/main.js')); ?>"></script>
+    
+    <!-- Script personnalisé pour le header responsive -->
+    <script src="<?php echo e(asset('assets/js/header-responsive.js')); ?>"></script>
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

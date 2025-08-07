@@ -177,12 +177,12 @@
 
             <!-- Titre pour l'impression -->
             <h1 class="print-only" style="display: none; text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 30px;">
-                Détails de la soumission #<?php echo e($submission->id); ?>
+                Détails de la demande morale #<?php echo e($submission->id); ?>
 
             </h1>
             
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24 no-print">
-                <h6 class="fw-semibold mb-0">Détails de la soumission #<?php echo e($submission->id); ?></h6>
+                <h6 class="fw-semibold mb-0">Détails de la demande morale #<?php echo e($submission->id); ?></h6>
                 <ul class="d-flex align-items-center gap-2">
                     <li class="fw-medium">
                         <a href="<?php echo e(route('admin.dashboard')); ?>" class="d-flex align-items-center gap-1 hover-text-primary">
@@ -192,8 +192,8 @@
                     </li>
                     <li>-</li>
                     <li class="fw-medium">
-                        <a href="<?php echo e(route('accounts.physical.index')); ?>" class="hover-text-primary">
-                            Comptes physiques
+                        <a href="<?php echo e(route('accounts.moral.index')); ?>" class="hover-text-primary">
+                            Demandes morales
                         </a>
                     </li>
                     <li>-</li>
@@ -204,11 +204,11 @@
             <!-- Actions -->
             <div class="card mb-24 no-print">
                 <div class="card-body d-flex align-items-center gap-3">
-                    <a href="<?php echo e(route('accounts.physical.index')); ?>" class="btn btn-danger d-flex align-items-center gap-2">
+                    <a href="<?php echo e(route('accounts.moral.index')); ?>" class="btn btn-danger d-flex align-items-center gap-2">
                         <iconify-icon icon="lucide:arrow-left" class="icon"></iconify-icon>
                         Retour à la liste
                     </a>
-                    <a href="<?php echo e(route('accounts.physical.pdf', $submission->id)); ?>" class="btn btn-warning d-flex align-items-center gap-2">
+                    <a href="<?php echo e(route('accounts.moral.pdf', $submission->id)); ?>" class="btn btn-warning d-flex align-items-center gap-2">
                         <iconify-icon icon="lucide:file-text" class="icon"></iconify-icon>
                         Télécharger PDF
                     </a>
@@ -222,51 +222,47 @@
             <div class="row">
                 <!-- Informations principales -->
                 <div class="col-lg-8">
-                    <!-- Informations personnelles -->
+                    <!-- Informations de l'entreprise -->
                     <div class="card mb-24">
                         <div class="card-header bg-base py-16 px-24">
-                            <h6 class="fw-semibold mb-0">Informations personnelles</h6>
+                            <h6 class="fw-semibold mb-0">Informations de l'entreprise</h6>
                         </div>
                         <div class="card-body p-24">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nom complet</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->last_name); ?> <?php echo e($submission->first_names); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Genre</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->gender == 'M' ? 'Masculin' : 'Féminin'); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Date de naissance</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->birth_date ? $submission->birth_date->format('d/m/Y') : '-'); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Lieu de naissance</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->birth_place); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nationalité</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->nationality); ?></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nom du père</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->father_name); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nom de la mère</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->mother_name); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Téléphone</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->phone ?? '-'); ?></p>
+                                        <label class="text-sm text-secondary-light mb-4">Nom de l'entreprise</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->company_name); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Catégorie</label>
                                         <p class="fw-medium mb-0"><?php echo e($submission->category ?? '-'); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">RCCM</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->rccm); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Secteur d'activité</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->activity_sector); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Nationalité</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->company_nationality); ?></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Date de création</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->creation_date ? $submission->creation_date->format('d/m/Y') : '-'); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Lieu de création</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->creation_place); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Téléphone</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->company_phone); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Statut</label>
@@ -281,45 +277,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Informations professionnelles -->
-                    <div class="card mb-24">
-                        <div class="card-header bg-base py-16 px-24">
-                            <h6 class="fw-semibold mb-0">Informations professionnelles</h6>
-                        </div>
-                        <div class="card-body p-24">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Profession</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->occupation); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nom de l'entreprise</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->company_name_activity ?? '-'); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Type d'activité</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->activity_type ?? '-'); ?></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Statut marital</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->marital_status); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Nom du conjoint</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->spouse_name ?? '-'); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Téléphone du conjoint</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->spouse_phone ?? '-'); ?></p>
-                                    </div>
-                                </div>
-                            </div>
                             <?php if($submission->activity_description): ?>
                             <div class="mt-16">
                                 <label class="text-sm text-secondary-light mb-4">Description de l'activité</label>
@@ -329,53 +286,98 @@
                         </div>
                     </div>
 
-                    <!-- Adresses et coordonnées -->
+                    <!-- Informations du directeur -->
                     <div class="card mb-24">
                         <div class="card-header bg-base py-16 px-24">
-                            <h6 class="fw-semibold mb-0">Adresses et coordonnées</h6>
+                            <h6 class="fw-semibold mb-0">Informations du directeur</h6>
                         </div>
                         <div class="card-body p-24">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h6 class="fw-semibold mb-16">Résidence</h6>
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Description</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->residence_description ?? '-'); ?></p>
+                                        <label class="text-sm text-secondary-light mb-4">Nom complet</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->director_name); ?> <?php echo e($submission->director_first_name ?? ''); ?></p>
                                     </div>
-                                    <?php if($submission->residence_lat && $submission->residence_lng): ?>
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Coordonnées</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->residence_lat); ?>, <?php echo e($submission->residence_lng); ?></p>
-                                        <div id="residence-map" class="map-container mt-8"></div>
+                                        <label class="text-sm text-secondary-light mb-4">Poste</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->director_position); ?></p>
                                     </div>
-                                    <?php endif; ?>
-                                    <?php if($submission->residence_plan_path): ?>
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Plan de résidence</label>
-                                        <a href="<?php echo e(Storage::url($submission->residence_plan_path)); ?>" target="_blank" class="document-link">
-                                            <iconify-icon icon="lucide:download" class="icon"></iconify-icon>
-                                            Télécharger le plan
-                                        </a>
+                                        <label class="text-sm text-secondary-light mb-4">Genre</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->director_gender == 'M' ? 'Masculin' : 'Féminin'); ?></p>
                                     </div>
-                                    <?php endif; ?>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Date de naissance</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->director_birth_date ? $submission->director_birth_date->format('d/m/Y') : '-'); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Lieu de naissance</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->director_birth_place); ?></p>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6 class="fw-semibold mb-16">Lieu de travail</h6>
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Description</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->workplace_description ?? '-'); ?></p>
+                                        <label class="text-sm text-secondary-light mb-4">Nationalité</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->director_nationality); ?></p>
                                     </div>
-                                    <?php if($submission->workplace_lat && $submission->workplace_lng): ?>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Numéro de pièce</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->director_id_number); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Date d'émission</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->director_id_issue_date ? $submission->director_id_issue_date->format('d/m/Y') : '-'); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Téléphone</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->director_phone); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Nom du père</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->director_father_name ?? '-'); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Adresse de l'entreprise -->
+                    <div class="card mb-24">
+                        <div class="card-header bg-base py-16 px-24">
+                            <h6 class="fw-semibold mb-0">Adresse de l'entreprise</h6>
+                        </div>
+                        <div class="card-body p-24">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Adresse</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->company_address); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Ville</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->company_city ?? '-'); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Quartier</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->company_neighborhood ?? '-'); ?></p>
+                                    </div>
+                                    <div class="mb-16">
+                                        <label class="text-sm text-secondary-light mb-4">Boîte postale</label>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->company_postal_box ?? '-'); ?></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <?php if($submission->company_lat && $submission->company_lng): ?>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Coordonnées</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->workplace_lat); ?>, <?php echo e($submission->workplace_lng); ?></p>
-                                        <div id="workplace-map" class="map-container mt-8"></div>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->company_lat); ?>, <?php echo e($submission->company_lng); ?></p>
+                                        <div id="company-map" class="map-container mt-8"></div>
                                     </div>
                                     <?php endif; ?>
-                                    <?php if($submission->workplace_plan_path): ?>
+                                    <?php if($submission->company_plan_path): ?>
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Plan du lieu de travail</label>
-                                        <a href="<?php echo e(Storage::url($submission->workplace_plan_path)); ?>" target="_blank" class="document-link">
+                                        <label class="text-sm text-secondary-light mb-4">Plan de l'entreprise</label>
+                                        <a href="<?php echo e(Storage::url($submission->company_plan_path)); ?>" target="_blank" class="document-link">
                                             <iconify-icon icon="lucide:download" class="icon"></iconify-icon>
                                             Télécharger le plan
                                         </a>
@@ -395,20 +397,6 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Type de pièce</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->id_type); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Numéro de pièce</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->id_number); ?></p>
-                                    </div>
-                                    <div class="mb-16">
-                                        <label class="text-sm text-secondary-light mb-4">Date d'émission</label>
-                                        <p class="fw-medium mb-0"><?php echo e($submission->id_issue_date ? $submission->id_issue_date->format('d/m/Y') : '-'); ?></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Personne politiquement exposée (nationale)</label>
                                         <p class="fw-medium mb-0"><?php echo e($submission->is_ppe_national ? 'Oui' : 'Non'); ?></p>
                                     </div>
@@ -421,9 +409,6 @@
                                         <p class="fw-medium mb-0"><?php echo e(number_format($submission->initial_deposit, 2)); ?> FCFA</p>
                                     </div>
                                 </div>
-                            </div>
-                            <?php if($submission->sanctions || $submission->terrorism_financing): ?>
-                            <div class="row mt-16">
                                 <div class="col-md-6">
                                     <?php if($submission->sanctions): ?>
                                     <div class="mb-16">
@@ -431,8 +416,6 @@
                                         <p class="fw-medium mb-0"><?php echo e($submission->sanctions); ?></p>
                                     </div>
                                     <?php endif; ?>
-                                </div>
-                                <div class="col-md-6">
                                     <?php if($submission->terrorism_financing): ?>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Financement du terrorisme</label>
@@ -441,15 +424,14 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            <?php endif; ?>
                         </div>
                     </div>
 
-                    <!-- Références -->
-                    <?php if(!$submission->references->isEmpty()): ?>
+                    <!-- Co-directeurs -->
+                    <?php if(!$submission->coDirectors->isEmpty()): ?>
                     <div class="card mb-24">
                         <div class="card-header bg-base py-16 px-24">
-                            <h6 class="fw-semibold mb-0">Références</h6>
+                            <h6 class="fw-semibold mb-0">Co-directeurs</h6>
                         </div>
                         <div class="card-body p-24">
                             <div class="table-responsive">
@@ -457,14 +439,47 @@
                                     <thead>
                                         <tr>
                                             <th>Nom</th>
+                                            <th>Poste</th>
                                             <th>Téléphone</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $__currentLoopData = $submission->references; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $reference): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php $__currentLoopData = $submission->coDirectors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coDirector): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
-                                                <td><?php echo e($reference->name); ?></td>
-                                                <td><?php echo e($reference->phone); ?></td>
+                                                <td><?php echo e($coDirector->name); ?></td>
+                                                <td><?php echo e($coDirector->position); ?></td>
+                                                <td><?php echo e($coDirector->phone); ?></td>
+                                            </tr>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- Signataires du compte -->
+                    <?php if(!$submission->accountSignatories->isEmpty()): ?>
+                    <div class="card mb-24">
+                        <div class="card-header bg-base py-16 px-24">
+                            <h6 class="fw-semibold mb-0">Signataires du compte</h6>
+                        </div>
+                        <div class="card-body p-24">
+                            <div class="table-responsive">
+                                <table class="table table-bordered mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Type de signature</th>
+                                            <th>Numéro de pièce</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $__currentLoopData = $submission->accountSignatories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $signatory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <tr>
+                                                <td><?php echo e($signatory->name); ?></td>
+                                                <td><?php echo e($signatory->signature_type); ?></td>
+                                                <td><?php echo e($signatory->id_number ?? '-'); ?></td>
                                             </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>
@@ -516,14 +531,14 @@
                             <h6 class="fw-semibold mb-0">Documents</h6>
                         </div>
                         <div class="card-body p-24">
-                            <?php if($submission->photo_path): ?>
+                            <?php if($submission->responsible_persons_photo_path): ?>
                             <div class="mb-24">
-                                <label class="text-sm text-secondary-light mb-8">Photo d'identité</label>
+                                <label class="text-sm text-secondary-light mb-8">Photo des responsables</label>
                                 <div class="text-center">
-                                    <img src="<?php echo e(Storage::url($submission->photo_path)); ?>" alt="Photo d'identité" class="document-preview">
+                                    <img src="<?php echo e(Storage::url($submission->responsible_persons_photo_path)); ?>" alt="Photo des responsables" class="document-preview">
                                 </div>
                                 <div class="text-center mt-8">
-                                    <a href="<?php echo e(Storage::url($submission->photo_path)); ?>" target="_blank" class="document-link">
+                                    <a href="<?php echo e(Storage::url($submission->responsible_persons_photo_path)); ?>" target="_blank" class="document-link">
                                         <iconify-icon icon="lucide:external-link" class="icon"></iconify-icon>
                                         Voir en plein écran
                                     </a>
@@ -531,13 +546,13 @@
                             </div>
                             <?php endif; ?>
 
-                            <?php if($submission->id_scan_path): ?>
+                            <?php if($submission->company_document_path): ?>
                             <div class="mb-24">
-                                <label class="text-sm text-secondary-light mb-8">Scan de la pièce d'identité</label>
+                                <label class="text-sm text-secondary-light mb-8">Document de l'entreprise</label>
                                 <div class="text-center">
-                                    <a href="<?php echo e(Storage::url($submission->id_scan_path)); ?>" target="_blank" class="document-link">
+                                    <a href="<?php echo e(Storage::url($submission->company_document_path)); ?>" target="_blank" class="document-link">
                                         <iconify-icon icon="lucide:download" class="icon"></iconify-icon>
-                                        Télécharger le scan
+                                        Télécharger le document
                                     </a>
                                 </div>
                             </div>
@@ -554,10 +569,10 @@
                                     <?php endif; ?>
                                 </div>
                                 <div class="text-center mt-8">
-                                    <a href="<?php echo e($submission->signature_base64); ?>" target="_blank" class="document-link">
+                                    <button type="button" onclick="openSignatureFullscreen('<?php echo e($submission->signature_base64); ?>')" class="document-link" style="border: none; background: none; cursor: pointer;">
                                         <iconify-icon icon="lucide:external-link" class="icon"></iconify-icon>
                                         Voir en plein écran
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                             <?php elseif($submission->signature_method === 'upload' && $submission->signature_upload_path): ?>
@@ -607,7 +622,7 @@
                             <h6 class="fw-semibold mb-0">Mettre à jour le statut</h6>
                         </div>
                         <div class="card-body p-24">
-                            <form action="<?php echo e(route('accounts.physical.update', $submission->id)); ?>" method="POST">
+                            <form action="<?php echo e(route('accounts.moral.update', $submission->id)); ?>" method="POST">
                                 <?php echo csrf_field(); ?>
                                 <?php echo method_field('PUT'); ?>
                                 <div class="mb-16">
@@ -649,27 +664,83 @@
 <?php $__env->startSection('js'); ?>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Initialisation des cartes
-        <?php if($submission->residence_lat && $submission->residence_lng): ?>
-        const residenceMap = L.map('residence-map').setView([<?php echo e($submission->residence_lat); ?>, <?php echo e($submission->residence_lng); ?>], 15);
+        // Initialisation de la carte de l'entreprise
+        <?php if($submission->company_lat && $submission->company_lng): ?>
+        const companyMap = L.map('company-map').setView([<?php echo e($submission->company_lat); ?>, <?php echo e($submission->company_lng); ?>], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
-        }).addTo(residenceMap);
-        L.marker([<?php echo e($submission->residence_lat); ?>, <?php echo e($submission->residence_lng); ?>]).addTo(residenceMap)
-            .bindPopup('Résidence')
+        }).addTo(companyMap);
+        L.marker([<?php echo e($submission->company_lat); ?>, <?php echo e($submission->company_lng); ?>]).addTo(companyMap)
+            .bindPopup('<?php echo e($submission->company_name); ?>')
             .openPopup();
         <?php endif; ?>
 
-        <?php if($submission->workplace_lat && $submission->workplace_lng): ?>
-        const workplaceMap = L.map('workplace-map').setView([<?php echo e($submission->workplace_lat); ?>, <?php echo e($submission->workplace_lng); ?>], 15);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(workplaceMap);
-        L.marker([<?php echo e($submission->workplace_lat); ?>, <?php echo e($submission->workplace_lng); ?>]).addTo(workplaceMap)
-            .bindPopup('Lieu de travail')
-            .openPopup();
-        <?php endif; ?>
+        // Fonction pour ouvrir la signature en plein écran
+        function openSignatureFullscreen(signatureData) {
+            // Créer une nouvelle fenêtre
+            const newWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+            
+            // Préparer le contenu HTML
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Signature - Vue plein écran</title>
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 20px;
+                            background: #f8f9fa;
+                            font-family: Arial, sans-serif;
+                        }
+                        .container {
+                            max-width: 100%;
+                            text-align: center;
+                        }
+                        .signature-image {
+                            max-width: 100%;
+                            max-height: 80vh;
+                            border: 2px solid #ddd;
+                            border-radius: 8px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        }
+                        .title {
+                            color: #333;
+                            margin-bottom: 20px;
+                            font-size: 24px;
+                            font-weight: bold;
+                        }
+                        .close-btn {
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            background: #dc3545;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            font-size: 14px;
+                        }
+                        .close-btn:hover {
+                            background: #c82333;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <button class="close-btn" onclick="window.close()">Fermer</button>
+                    <div class="container">
+                        <h1 class="title">Signature</h1>
+                        <img src="${signatureData}" alt="Signature" class="signature-image">
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            // Écrire le contenu dans la nouvelle fenêtre
+            newWindow.document.write(htmlContent);
+            newWindow.document.close();
+        }
     </script>
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layout.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\user\Desktop\Microfinance\COCEC\resources\views/admin/accounts/physical/show.blade.php ENDPATH**/ ?>
+<?php $__env->stopSection(); ?> 
+<?php echo $__env->make('layout.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\user\Desktop\Microfinance\COCEC\resources\views/admin/accounts/moral/show.blade.php ENDPATH**/ ?>

@@ -47,15 +47,71 @@
         margin-bottom: 8px;
     }
 
+    /* SOLUTION RADICALE POUR CENTRER LES ICÔNES */
+    .input-group-custom {
+        position: relative;
+    }
+    
     .input-group-custom .icon {
-        position: absolute;
-        top: calc(50% + 12px);
-        transform: translateY(-50%);
-        left: 18px;
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        left: 18px !important;
         color: #adb5bd;
         font-size: 1.1rem;
         transition: color 0.3s ease;
         pointer-events: none;
+        z-index: 10 !important;
+        width: 20px !important;
+        height: 20px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* Override complet de tous les styles globaux */
+    .form-container .input-group-custom .icon,
+    .form-container .input-group-custom.icon-field .icon,
+    .form-container .col-md-6 .input-group-custom .icon,
+    .form-container .col-12 .input-group-custom .icon {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        position: absolute !important;
+        left: 18px !important;
+    }
+    
+    /* Style spécifique pour les inputs avec icônes */
+    .input-group-custom .form-control {
+        padding-left: 50px !important;
+        border-radius: 8px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+    
+    /* SOLUTION ULTIME - Styles avec spécificité maximale */
+    body .form-container .input-group-custom .icon,
+    html body .form-container .input-group-custom .icon {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        position: absolute !important;
+        left: 18px !important;
+        width: 20px !important;
+        height: 20px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Override pour tous les cas possibles */
+    .form-container .col-md-6 .input-group-custom .icon,
+    .form-container .col-12 .input-group-custom .icon,
+    .form-container .row .input-group-custom .icon {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        position: absolute !important;
+        left: 18px !important;
     }
 
     .input-group-custom .form-control {
@@ -467,13 +523,13 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom</label>
-                            <i class="icon fas fa-user"></i>
+                            <i class="icon fas fa-user" style="position: absolute !important; top: 50% !important; transform: translateY(-50%) !important; left: 18px !important; color: #adb5bd; font-size: 1.1rem; z-index: 10;"></i>
                             <input type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required>
                             <div class="invalid-feedback">@error('last_name') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Prénoms</label>
-                            <i class="icon fas fa-user-friends"></i>
+                            <i class="icon fas fa-user-friends" style="position: absolute !important; top: 50% !important; transform: translateY(-50%) !important; left: 18px !important; color: #adb5bd; font-size: 1.1rem; z-index: 10;"></i>
                             <input type="text" class="form-control @error('first_names') is-invalid @enderror" name="first_names" value="{{ old('first_names') }}" required>
                             <div class="invalid-feedback">@error('first_names') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
@@ -1344,6 +1400,7 @@
                 const hiddenInput = form.querySelector('#signature-data-physique');
                 const clearBtn = form.querySelector('#draw-area-physique .btn-clear');
                 let signaturePad = null;
+                let isInitialized = false;
 
                 const resizeCanvas = () => {
                     const ratio = Math.max(window.devicePixelRatio || 1, 1);
@@ -1361,16 +1418,27 @@
                             penColor: 'rgb(0, 0, 0)'
                         });
                         canvas.signaturePadInstance = signaturePad;
-                        signaturePad.fromData(data);
+                        
+                        // Restaurer les données si elles existent
+                        if (data.length > 0) {
+                            signaturePad.fromData(data);
+                        }
 
-                        signaturePad.addEventListener('endStroke', () => {
-                            if (!signaturePad.isEmpty()) {
-                                hiddenInput.value = signaturePad.toDataURL('image/png');
-                                form.querySelector('#signature-draw-error-physique').style.display = 'none';
-                            } else {
-                                hiddenInput.value = '';
-                            }
-                        });
+                        // Ajouter l'événement endStroke seulement une fois
+                        if (!isInitialized) {
+                            signaturePad.addEventListener('endStroke', () => {
+                                console.log('Signature stroke ended');
+                                if (!signaturePad.isEmpty()) {
+                                    const signatureData = signaturePad.toDataURL('image/png');
+                                    console.log('Signature data length:', signatureData.length);
+                                    hiddenInput.value = signatureData;
+                                    form.querySelector('#signature-draw-error-physique').style.display = 'none';
+                                } else {
+                                    hiddenInput.value = '';
+                                }
+                            });
+                            isInitialized = true;
+                        }
                     }
                 };
 
@@ -1386,7 +1454,28 @@
                     }
                     hiddenInput.value = '';
                     form.querySelector('#signature-draw-error-physique').style.display = 'none';
+                    console.log('Signature cleared');
                 });
+
+                // Ajouter un bouton de test pour vérifier la signature
+                const testBtn = document.createElement('button');
+                testBtn.type = 'button';
+                testBtn.textContent = 'Test Signature';
+                testBtn.style.position = 'absolute';
+                testBtn.style.top = '10px';
+                testBtn.style.right = '10px';
+                testBtn.style.zIndex = '1000';
+                testBtn.addEventListener('click', () => {
+                    if (signaturePad && !signaturePad.isEmpty()) {
+                        const data = signaturePad.toDataURL('image/png');
+                        console.log('Current signature data:', data.substring(0, 100) + '...');
+                        console.log('Data length:', data.length);
+                        alert('Signature data length: ' + data.length);
+                    } else {
+                        alert('No signature data available');
+                    }
+                });
+                canvas.parentElement.appendChild(testBtn);
 
                 return signaturePad;
             }
@@ -1394,9 +1483,62 @@
             setupSignatureChoice();
             // ==== FIN FONCTIONS SIGNATURE CORRIGÉES ====
 
+            // Fonction pour sauvegarder la signature avant soumission
+            form.addEventListener('submit', function(e) {
+                const signatureMethod = form.querySelector('input[name="signature_method"]:checked');
+                if (signatureMethod && signatureMethod.value === 'draw') {
+                    const canvas = form.querySelector('#signature-pad');
+                    const signaturePad = canvas.signaturePadInstance;
+                    const hiddenInput = form.querySelector('#signature-data-physique');
+                    
+                    if (signaturePad && !signaturePad.isEmpty()) {
+                        const signatureData = signaturePad.toDataURL('image/png');
+                        console.log('Saving signature before submit, length:', signatureData.length);
+                        hiddenInput.value = signatureData;
+                    } else {
+                        console.log('Signature pad is empty or not available');
+                        e.preventDefault();
+                        alert('Veuillez dessiner une signature avant de soumettre le formulaire.');
+                        return false;
+                    }
+                }
+            });
 
             showStep(currentStep);
         });
+    });
+    
+    // SCRIPT POUR FORCER LE CENTRAGE DES ICÔNES
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sélectionner toutes les icônes dans les champs input-group-custom
+        const icons = document.querySelectorAll('.input-group-custom .icon');
+        
+        icons.forEach(function(icon) {
+            // Appliquer les styles directement via JavaScript
+            icon.style.position = 'absolute';
+            icon.style.top = '50%';
+            icon.style.transform = 'translateY(-50%)';
+            icon.style.left = '18px';
+            icon.style.color = '#adb5bd';
+            icon.style.fontSize = '1.1rem';
+            icon.style.zIndex = '10';
+            icon.style.pointerEvents = 'none';
+            icon.style.width = '20px';
+            icon.style.height = '20px';
+            icon.style.display = 'flex';
+            icon.style.alignItems = 'center';
+            icon.style.justifyContent = 'center';
+            icon.style.margin = '0';
+            icon.style.padding = '0';
+        });
+        
+        // S'assurer que les styles sont appliqués même après les modifications dynamiques
+        setTimeout(function() {
+            icons.forEach(function(icon) {
+                icon.style.top = '50%';
+                icon.style.transform = 'translateY(-50%)';
+            });
+        }, 100);
     });
 </script>
 @endsection

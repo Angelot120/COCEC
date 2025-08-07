@@ -3829,6 +3829,7 @@ START: Header CSS
     -webkit-transform: translateX(0);
     transform: translateX(0);
 }
+
 @media only screen and (max-width: 992px) {
     .side-menu-wrapper {
         display: none;
@@ -7976,7 +7977,7 @@ START: Blog CSS
 
 .page-header-pro {
     position: relative;
-    padding: 120px 0;
+    padding: 170px 0;
     background-color: var(
         --dark-charcoal
     ); /* Couleur de base si l'image ne charge pas */

@@ -53,7 +53,7 @@
                                     <li class="{{ request()->routeIs('main.finance') ? 'active' : '' }}">
                                         <a href="{{ route('main.finance')}}">Finance Digitale</a>
                                     </li>
-                                    <li class="menu-item-has-children {{ request()->routeIs('career') || request()->routeIs('about') || request()->routeIs('main.finance') || request()->routeIs('main.faq') ? 'active' : '' }}">
+                                    <li class="menu-item-has-children {{ request()->routeIs('career') || request()->routeIs('about') || request()->routeIs('main.faq') ? 'active' : '' }}">
                                         <a href="#">Autres <i class="fa-solid fa-chevron-down"></i></a>
                                         <ul>
                                             <li class="{{ request()->routeIs('career') ? 'active' : '' }}">
@@ -131,7 +131,40 @@
                 <div class="side-menu-logo">
                     <a href="{{ route("index") }}"><img src="{{ URL::asset('assets/images/Logo.png') }}" alt="logo"></a>
                 </div>
-                <div class="side-menu-wrap"></div>
+                <div class="side-menu-wrap">
+                    <ul>
+                        <li class="{{ request()->routeIs('index') ? 'active' : '' }}">
+                            <a href="{{ route("index") }}">Accueil</a>
+                        </li>
+                        <li class="{{ request()->routeIs('product.*') ? 'active' : '' }}">
+                            <a href="{{ route("product.index") }}">Produits</a>
+                        </li>
+                        <li class="{{ request()->routeIs('agencies') ? 'active' : '' }}">
+                            <a href="{{ route("agencies") }}">Agences</a>
+                        </li>
+                        <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
+                            <a href="{{ route('contact') }}">Contact</a>
+                        </li>
+                        <li>
+                            <a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a>
+                        </li>
+                        <li class="{{ request()->routeIs('main.finance') ? 'active' : '' }}">
+                            <a href="{{ route('main.finance')}}">Finance Digitale</a>
+                        </li>
+                        <li class="{{ request()->routeIs('career') ? 'active' : '' }}">
+                            <a href="{{ route('career') }}">Carrière & Emploi</a>
+                        </li>
+                        <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
+                            <a href="{{ route('about')}}">À propos</a>
+                        </li>
+                        <li class="{{ request()->routeIs('blogs') ? 'active' : '' }}">
+                            <a href="{{ route("blogs") }}">Blog</a>
+                        </li>
+                        <li class="{{ request()->routeIs('main.faq') ? 'active' : '' }}">
+                            <a href="{{ route('main.faq') }}">Faq</a>
+                        </li>
+                    </ul>
+                </div>
                 <div class="side-menu-about">
                     <div class="side-menu-header">
                         <h3>À Propos</h3>

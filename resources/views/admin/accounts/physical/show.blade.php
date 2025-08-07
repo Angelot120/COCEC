@@ -546,7 +546,17 @@
                             <div class="mb-24">
                                 <label class="text-sm text-secondary-light mb-8">Signature</label>
                                 <div class="text-center">
-                                    <img src="data:image/png;base64,{{ $submission->signature_base64 }}" alt="Signature" class="document-preview">
+                                    @if(str_starts_with($submission->signature_base64, 'data:image/png;base64,'))
+                                        <img src="{{ $submission->signature_base64 }}" alt="Signature" class="document-preview">
+                                    @else
+                                        <img src="data:image/png;base64,{{ $submission->signature_base64 }}" alt="Signature" class="document-preview">
+                                    @endif
+                                </div>
+                                <div class="text-center mt-8">
+                                    <button type="button" onclick="openSignatureFullscreen('{{ $submission->signature_base64 }}')" class="document-link" style="border: none; background: none; cursor: pointer;">
+                                        <iconify-icon icon="lucide:external-link" class="icon"></iconify-icon>
+                                        Voir en plein écran
+                                    </button>
                                 </div>
                             </div>
                             @elseif($submission->signature_method === 'upload' && $submission->signature_upload_path)
@@ -658,5 +668,72 @@
             .bindPopup('Lieu de travail')
             .openPopup();
         @endif
+
+        // Fonction pour ouvrir la signature en plein écran
+        function openSignatureFullscreen(signatureData) {
+            // Créer une nouvelle fenêtre
+            const newWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+            
+            // Préparer le contenu HTML
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Signature - Vue plein écran</title>
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 20px;
+                            background: #f8f9fa;
+                            font-family: Arial, sans-serif;
+                        }
+                        .container {
+                            max-width: 100%;
+                            text-align: center;
+                        }
+                        .signature-image {
+                            max-width: 100%;
+                            max-height: 80vh;
+                            border: 2px solid #ddd;
+                            border-radius: 8px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        }
+                        .title {
+                            color: #333;
+                            margin-bottom: 20px;
+                            font-size: 24px;
+                            font-weight: bold;
+                        }
+                        .close-btn {
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            background: #dc3545;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            font-size: 14px;
+                        }
+                        .close-btn:hover {
+                            background: #c82333;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <button class="close-btn" onclick="window.close()">Fermer</button>
+                    <div class="container">
+                        <h1 class="title">Signature</h1>
+                        <img src="${signatureData}" alt="Signature" class="signature-image">
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            // Écrire le contenu dans la nouvelle fenêtre
+            newWindow.document.write(htmlContent);
+            newWindow.document.close();
+        }
     </script>
 @endsection

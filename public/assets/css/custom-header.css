@@ -1,20 +1,38 @@
-/* Solution professionnelle pour le header - Tailles fixes optimales */
+/* Solution simple : tailles optimales du 1714px appliquées à tous les écrans */
 
-/* ===== TAILLES FIXES OPTIMALES POUR TOUS LES ÉCRANS ===== */
-
-/* Taille fixe pour tous les écrans desktop (992px+) */
-@media (min-width: 992px) {
+/* Écrans très larges (1200px et plus) */
+@media (min-width: 1200px) {
     .header .primary-header-inner .header-menu-wrap ul li {
-        margin: 0 20px; /* Taille fixe optimale */
+        margin: 0 22px;
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 16px; /* Taille fixe optimale */
-        padding: 25px 0; /* Padding fixe optimal */
-        font-weight: 600;
-        line-height: 1.2;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        font-size: 14px;
+        padding: 26px 0;
+    }
+}
+
+/* Écrans larges (992px - 1199px) - NOUVELLE PLAGE */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .header .primary-header-inner .header-menu-wrap ul li {
+        margin: 0 18px; /* Réduit pour s'adapter à l'espace */
+    }
+    
+    .header .primary-header-inner .header-menu-wrap ul li a {
+        font-size: 13px; /* Taille réduite pour cette plage */
+        padding: 24px 0;
+    }
+    
+    /* Ajuster le logo pour cette plage */
+    .header .primary-header-inner .header-logo img {
+        max-width: 120px;
+        height: auto;
+    }
+    
+    /* Ajuster le bouton pour cette plage */
+    .header .primary-header-inner .header-right-wrap .header-right .bz-primary-btn {
+        padding: 11px 16px;
+        font-size: 13px;
     }
 }
 
@@ -25,7 +43,7 @@
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 15px;
+        font-size: 13px;
         padding: 22px 0;
     }
 }
@@ -37,14 +55,12 @@
     }
     
     .header .primary-header-inner .header-menu-wrap ul li a {
-        font-size: 14px;
+        font-size: 12px;
         padding: 20px 0;
     }
 }
 
-/* ===== GESTION DU MENU HAMBURGER ===== */
-
-/* Masquer le menu principal et afficher le hamburger sur mobile */
+/* Masquer le menu principal sur mobile et afficher le menu hamburger */
 @media (max-width: 991px) {
     .header .primary-header-inner .header-menu-wrap {
         display: none !important;
@@ -52,10 +68,25 @@
     
     .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
         display: block !important;
-        margin-left: 15px;
+    }
+}
+
+/* Afficher le menu principal sur desktop */
+@media (min-width: 992px) {
+    .header .primary-header-inner .header-menu-wrap {
+        display: flex !important;
     }
     
-    /* S'assurer que le bouton hamburger est visible */
+    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
+        display: none !important;
+    }
+}
+
+/* ===== RESTAURATION DU MENU BURGER RESPONSIVE ===== */
+
+/* S'assurer que le menu burger fonctionne */
+@media (max-width: 991px) {
+    /* S'assurer que le bouton hamburger est visible et fonctionnel */
     .header .primary-header-inner .header-right-wrap .header-right .sidebar-icon-2 .sidebar-trigger {
         display: flex !important;
         align-items: center;
@@ -76,7 +107,6 @@
         background-color: #333;
         margin: 3px 0;
         transition: 0.3s;
-        border-radius: 2px;
     }
     
     /* Animation du bouton hamburger au hover */
@@ -85,15 +115,44 @@
     }
 }
 
-/* Afficher le menu principal et masquer le hamburger sur desktop */
-@media (min-width: 992px) {
-    .header .primary-header-inner .header-menu-wrap {
-        display: flex !important;
-    }
-    
-    .header .primary-header-inner .header-right-wrap .sidebar-icon-2 {
-        display: none !important;
-    }
+/* ===== S'ASSURER QUE LE SIDEBAR FONCTIONNE ===== */
+
+/* S'assurer que le sidebar est visible quand ouvert */
+#sidebar-area {
+    z-index: 9999;
+}
+
+/* S'assurer que le contenu du sidebar est visible */
+.side-menu-wrap {
+    display: block !important;
+}
+
+/* S'assurer que les liens du sidebar sont accessibles */
+.side-menu-wrap ul {
+    display: block !important;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-menu-wrap ul li {
+    display: block !important;
+    margin: 0;
+    padding: 0;
+}
+
+.side-menu-wrap ul li a {
+    display: block !important;
+    padding: 15px 20px;
+    color: var(--bz-color-heading-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.side-menu-wrap ul li a:hover {
+    background-color: var(--bz-color-theme-primary);
+    color: white;
 }
 
 /* ===== RESTAURATION DU COMPORTEMENT ORIGINAL DU SOUS-MENU ===== */

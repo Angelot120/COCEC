@@ -81,7 +81,7 @@
 
     .input-group-custom .icon {
         position: absolute;
-        top: calc(50% + 12px);
+        top: 50%;
         transform: translateY(-50%);
         left: 18px;
         color: #adb5bd;

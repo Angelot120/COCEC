@@ -6,6 +6,7 @@ use App\Http\Controllers\AgencyLocationController;
 use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqCommentController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobOfferController;
@@ -50,7 +51,9 @@ Route::prefix('products')->group(function () {
 Route::get('/products-old', function() {
     return redirect()->route('product.index');
 })->name('products');
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/contact', [ViewsController::class, 'contact'])->name('contact');
+
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 Route::prefix('admin/jobList')->controller(JobController::class)->group(function () {

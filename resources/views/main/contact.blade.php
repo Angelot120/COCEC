@@ -160,7 +160,7 @@
                     <!-- ESPACE FORMULAIRE (DROITE) -->
                     <div class="form-space">
                         <h2>Envoyez-nous un message</h2>
-                        <form id="contact-prestige-form" action="mail.php" method="POST" novalidate>
+                        <form id="contact-prestige-form" action="{{ route('contact.store') }}" method="POST" novalidate>
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 input-line-group"><label for="fullname" class="form-label">Nom Complet</label><input type="text" class="form-control" id="fullname" name="fullname" placeholder="Ex: Jean Dupont" required><div class="invalid-feedback"></div></div>

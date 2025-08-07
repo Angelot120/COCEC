@@ -1,300 +1,402 @@
 <?php $__env->startSection('css'); ?>
 <style>
-    /* ----- Configuration Générale & Variables "Éclat Solaire" ----- */
+    /* Variables COCEC */
     :root {
-        --brand-red: #EC281C;
-        --brand-yellow: #FFCC00;
-
-        /* Notre dégradé star, parfait pour un fond clair */
-        --aurora-gradient: linear-gradient(125deg, #EC281C 0%, #ff7e5f 50%, #FFCC00 100%);
-
-        --light-bg: #f8f9fa;
-        --card-bg: #ffffff;
-        --card-border: #eef0f4;
-
-        --text-dark: #2d3748;
-        --text-muted: #718096;
-
-        /* L'ombre qui combine une ombre classique + une ombre colorée pour l'effet "glow" */
-        --cool-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04), 0 0 25px -5px rgba(236, 40, 28, 0.1);
-        --cool-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 0 40px -5px rgba(236, 40, 28, 0.25);
+        --primary-color: #EC281C;
+        --secondary-color: #FFCC00;
+        --text-dark: #2D3748;
+        --text-light: #4A5568;
+        --bg-light: #F7FAFC;
+        --white: #ffffff;
+        --border-color: #E2E8F0;
     }
 
-    /* ----- Section Principale ----- */
-    .account-section-reimagined {
-        background-color: var(--light-bg);
+    /* Reset du fond blanc */
+    body {
+        background-color: var(--bg-light) !important;
+    }
+
+    .account-section {
+        background-color: var(--bg-light);
         font-family: 'Poppins', sans-serif;
-        color: var(--text-dark);
-        overflow: hidden;
-        /* Important pour les effets de bord */
+        min-height: 100vh;
+        padding: 0;
     }
 
-    /* ----- Titre de section avec dégradé ----- */
-    .section-heading h2 {
+    .page-header-content-pro {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: var(--white);
+    }
+
+    .title-pro {
         font-size: 3rem;
-        font-weight: 800;
-        /* Plus gras pour un meilleur effet */
-        margin-bottom: 1rem;
-        /* La magie du texte en dégradé ! */
-        background: var(--aurora-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--white);
+    }
+
+    .breadcrumb-pro {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        gap: 10px;
+    }
+
+    .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .breadcrumb-item a:hover {
+        color: var(--secondary-color);
+    }
+
+    .breadcrumb-item.active {
+        color: var(--secondary-color);
+        font-weight: 600;
+    }
+
+    /* Section principale */
+    .main-content {
+        padding: 80px 0;
+        background-color: var(--bg-light);
+    }
+
+    .section-heading {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .section-heading h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 20px;
     }
 
     .section-heading p {
-        max-width: 750px;
-        margin-left: auto;
-        margin-right: auto;
-        color: var(--text-muted);
-        line-height: 1.8;
         font-size: 1.1rem;
+        color: var(--text-light);
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.7;
     }
 
     .section-heading a {
-        color: var(--brand-red);
+        color: var(--primary-color);
         font-weight: 600;
         text-decoration: none;
         transition: color 0.3s ease;
     }
 
     .section-heading a:hover {
-        color: var(--brand-yellow);
+        color: var(--secondary-color);
     }
 
-    /* ----- Cartes avec effet 3D et ombre colorée ----- */
-    .process-card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 24px;
-        padding: 40px 35px;
-        margin-bottom: 30px;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        box-shadow: var(--cool-shadow);
-        transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-
-        /* L'effet 3D est conservé */
-        transform: perspective(1500px) rotateY(-5deg);
+    /* Cartes de compte */
+    .account-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
     }
 
-    #card-morale .process-card {
-        transform: perspective(1500px) rotateY(5deg);
-    }
-
-    @media (max-width: 991.98px) {
-
-        .process-card,
-        #card-morale .process-card {
-            transform: none;
-        }
-    }
-
-    .process-card:hover {
-        transform: perspective(1500px) rotateY(0) scale(1.04) translateY(-10px);
-        box-shadow: var(--cool-shadow-hover);
-    }
-
-    /* ----- Titre dans la carte ----- */
-    .process-card .card-title {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: var(--text-dark);
-        margin-bottom: 30px;
-    }
-
-    /* ----- Liste des pré-requis ----- */
-    .process-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        flex-grow: 1;
-    }
-
-    .process-list li {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        font-size: 1rem;
-        color: var(--text-muted);
-        line-height: 1.6;
-    }
-
-    .process-list li i {
-        color: var(--brand-red);
-        font-size: 1.5rem;
-        margin-right: 20px;
-        width: 24px;
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
-    }
-
-    .process-card:hover .process-list li i {
-        transform: scale(1.3) rotate(-15deg);
-        color: var(--brand-yellow);
-    }
-
-    .process-list li a {
-        color: var(--brand-red);
-        font-weight: 500;
-        text-decoration: underline;
-        text-decoration-color: rgba(236, 40, 28, 0.3);
+    .account-card {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--border-color);
         transition: all 0.3s ease;
-    }
-
-    .process-list li a:hover {
-        color: #ff7e5f;
-        text-decoration-color: #ff7e5f;
-    }
-
-
-    /* ----- Bouton d'action "Remplissage Énergique" ----- */
-    .btn-custom-red {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        background: transparent;
-        color: var(--brand-red) !important;
-        border: 2px solid var(--brand-red);
-        padding: 14px 32px;
-        font-weight: 600;
-        border-radius: 50px;
-        transition: all 0.4s ease;
-        align-self: flex-start;
-        margin-top: auto;
         position: relative;
         overflow: hidden;
-        z-index: 1;
     }
 
-    .btn-custom-red:hover {
-        color: white !important;
-        border-color: transparent;
-        transform: translateY(-3px);
-    }
-
-    .btn-custom-red::before {
+    .account-card::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    }
+
+    .account-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .requirements-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px 0;
+    }
+
+    .requirements-list li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: var(--bg-light);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .requirements-list li:hover {
+        background: rgba(236, 40, 28, 0.05);
+        transform: translateX(5px);
+    }
+
+    .requirements-list li i {
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        margin-right: 15px;
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+
+    .requirements-list li span {
+        color: var(--text-light);
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+
+    .requirements-list li a {
+        color: var(--primary-color);
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .requirements-list li a:hover {
+        color: var(--secondary-color);
+    }
+
+    /* Bouton d'action */
+    .btn-create-account {
+        width: 100%;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #c41e12 100%);
+        color: var(--white);
+        border: none;
+        padding: 16px 32px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 12px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-create-account::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
         width: 100%;
         height: 100%;
-        background: var(--aurora-gradient);
-        transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
-        transform: scaleX(0);
-        transform-origin: right;
-        z-index: -1;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
     }
 
-    .btn-custom-red:hover::before {
-        transform: scaleX(1);
-        transform-origin: left;
+    .btn-create-account:hover::before {
+        left: 100%;
     }
 
-    .btn-custom-red .icon-arrow {
+    .btn-create-account:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(236, 40, 28, 0.3);
+        color: var(--white) !important;
+    }
+
+    .btn-create-account span,
+    .btn-create-account i {
+        color: var(--white) !important;
+        position: relative;
+        z-index: 2;
+    }
+
+    .btn-create-account i {
         transition: transform 0.3s ease;
     }
 
-    .btn-custom-red:hover .icon-arrow {
+    .btn-create-account:hover i {
         transform: translateX(5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .title-pro {
+            font-size: 2rem;
+        }
+
+        .section-heading h2 {
+            font-size: 2rem;
+        }
+
+        .account-cards {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .account-card {
+            padding: 30px 20px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+        }
     }
 </style>
 <?php $__env->stopSection(); ?>
 
-
 <?php $__env->startSection('content'); ?>
-<section class="account-section-reimagined py-5">
+<div class="account-section">
     <?php echo $__env->make('includes.main.loading', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <?php echo $__env->make('includes.main.header', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-    <br><br><br><br>
-
-    <div class="container pt-5 pb-5">
-        
-        <div class="section-heading mb-5 text-center">
-            <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Ouvrir un Compte</h4>
-            <h2 class="section-title">Adhérez à la COCEC</h2>
-            <p>
-                L’adhésion à la COCEC est libre et volontaire pour toute personne physique ou morale jouissant d’une bonne moralité.
-                Téléchargez la fiche d’adhésion, remplissez-la et envoyez-la par mail à <a href="mailto:cocec2004@yahoo.fr">cocec2004@yahoo.fr</a> ou <a href="mailto:cocec@cocectogo.org">cocec@cocectogo.org</a> avec les pièces requises, ou remplissez le formulaire en ligne.
-            </p>
+    <section class="page-header-pro">
+        <div class="page-header-overlay"></div>
+        <div class="container">
+            <div class="page-header-content-pro" data-aos="fade-up">
+                <h1 class="title-pro">Ouvrir un Compte</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb-pro">
+                        <li class="breadcrumb-item"><a href="<?php echo e(route('index')); ?>">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Ouvrir un Compte</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
+    </section>
 
-        <div class="row justify-content-center align-items-stretch g-lg-5">
-            <!-- Personne Physique -->
-            <div class="col-lg-6 col-md-12 d-flex mb-5 mb-lg-0" id="card-physique">
-                <div class="process-card">
-                    
+    <section class="main-content">
+        <div class="container">
+            <div class="section-heading" data-aos="fade-up">
+                <h2>Adhérez à la COCEC</h2>
+                <p>
+                    L'adhésion à la COCEC est libre et volontaire pour toute personne physique ou morale jouissant d'une bonne moralité.
+                    Téléchargez la fiche d'adhésion, remplissez-la et envoyez-la par mail à <a href="mailto:cocec2004@yahoo.fr">cocec2004@yahoo.fr</a> ou <a href="mailto:cocec@cocectogo.org">cocec@cocectogo.org</a> avec les pièces requises, ou remplissez le formulaire en ligne.
+                </p>
+            </div>
+
+            <div class="account-cards">
+                <!-- Personne Physique -->
+                <div class="account-card" data-aos="fade-up" data-aos-delay="200">
                     <h3 class="card-title">Personne Physique</h3>
-                    <ul class="process-list">
-                        <li><i class="fas fa-file-alt"></i><span>Remplir le <a href="<?php echo e(asset('documents/adhesion-physique.pdf')); ?>" target="_blank">formulaire d’adhésion</a> ou utiliser le formulaire en ligne.</span></li>
-                        <li><i class="fas fa-id-card"></i><span>Copie de la pièce d’identité (CNI, passeport, permis, etc.).</span></li>
-                        <li><i class="fas fa-camera"></i><span>Deux photos d’identité.</span></li>
-                        <li><i class="fas fa-coins"></i><span>Souscrire à une part sociale de 5 000 FCFA.</span></li>
-                        <li><i class="fas fa-hand-holding-usd"></i><span>Payer les frais d’adhésion de 2 000 FCFA.</span></li>
-                        <li><i class="fas fa-scroll"></i><span>Respecter les statuts et règlements intérieurs.</span></li>
+                    <ul class="requirements-list">
+                        <li>
+                            <i class="fas fa-file-alt"></i>
+                            <span>Remplir le <a href="<?php echo e(asset('documents/adhesion-physique.pdf')); ?>" target="_blank">formulaire d'adhésion</a> ou utiliser le formulaire en ligne.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-id-card"></i>
+                            <span>Copie de la pièce d'identité (CNI, passeport, permis, etc.).</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-camera"></i>
+                            <span>Deux photos d'identité.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-coins"></i>
+                            <span>Souscrire à une part sociale de 5 000 FCFA.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <span>Payer les frais d'adhésion de 2 000 FCFA.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-scroll"></i>
+                            <span>Respecter les statuts et règlements intérieurs.</span>
+                        </li>
                     </ul>
-                    
-                    <a href="<?php echo e(route('account.create.physic')); ?>" class="btn btn-custom-red">
+                    <a href="<?php echo e(route('account.create.physic')); ?>" class="btn-create-account">
                         <span>Remplir le formulaire</span>
-                        <i class="fas fa-arrow-right icon-arrow"></i>
+                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
-            </div>
 
-            <!-- Personne Morale -->
-            <div class="col-lg-6 col-md-12 d-flex" id="card-morale">
-                <div class="process-card">
-                    
+                <!-- Personne Morale -->
+                <div class="account-card" data-aos="fade-up" data-aos-delay="400">
                     <h3 class="card-title">Personne Morale</h3>
-                    <ul class="process-list">
-                        <li><i class="fas fa-file-signature"></i><span>Remplir le <a href="<?php echo e(asset('documents/adhesion-morale.pdf')); ?>" target="_blank">formulaire d’adhésion</a> ou utiliser le formulaire en ligne.</span></li>
-                        <li><i class="fas fa-building"></i><span>Copie du récépissé, carte d’opérateur économique, ou statuts.</span></li>
-                        <li><i class="fas fa-user-tie"></i><span>Copie des pièces d’identité des responsables.</span></li>
-                        <li><i class="fas fa-images"></i><span>Deux photos d’identité de chaque responsable.</span></li>
-                        <li><i class="fas fa-hand-holding-usd"></i><span>Verser les frais d’adhésion de 2 000 FCFA.</span></li>
-                        <li><i class="fas fa-layer-group"></i><span>Souscrire à trois parts sociales (15 000 FCFA).</span></li>
+                    <ul class="requirements-list">
+                        <li>
+                            <i class="fas fa-file-signature"></i>
+                            <span>Remplir le <a href="<?php echo e(asset('documents/adhesion-morale.pdf')); ?>" target="_blank">formulaire d'adhésion</a> ou utiliser le formulaire en ligne.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-building"></i>
+                            <span>Copie du récépissé, carte d'opérateur économique, ou statuts.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-tie"></i>
+                            <span>Copie des pièces d'identité des responsables.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-images"></i>
+                            <span>Deux photos d'identité de chaque responsable.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <span>Verser les frais d'adhésion de 2 000 FCFA.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-layer-group"></i>
+                            <span>Souscrire à trois parts sociales (15 000 FCFA).</span>
+                        </li>
                     </ul>
-                    
-                    <a href="<?php echo e(route('account.create.morale')); ?>" class="btn btn-custom-red">
+                    <a href="<?php echo e(route('account.create.morale')); ?>" class="btn-create-account">
                         <span>Remplir le formulaire</span>
-                        <i class="fas fa-arrow-right icon-arrow"></i>
+                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <br><br><br>
+    </section>
 
     <?php echo $__env->make('includes.main.scroll', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <?php echo $__env->make('includes.main.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-</section>
+</div>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('js'); ?>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        gsap.from('.section-heading', {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            ease: 'power3.out',
-            delay: 0.3
-        });
+        // Animation des cartes au scroll
+        const cards = document.querySelectorAll('.account-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
 
-        gsap.from('.process-card', {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            ease: 'power3.out',
-            stagger: 0.2,
-            delay: 0.6
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
         });
     });
 </script>

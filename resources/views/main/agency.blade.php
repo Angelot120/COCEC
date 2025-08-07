@@ -40,38 +40,49 @@
 
     .agency-search-bar {
         position: relative;
-        max-width: 600px;
+        max-width: 500px;
         margin: 0 auto;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        padding: 8px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .agency-search-bar .search-icon {
         position: absolute;
         top: 50%;
-        left: 20px;
+        left: 25px;
         transform: translateY(-50%);
-        color: #A0AEC0;
-        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1rem;
+        z-index: 2;
+        transition: all 0.3s ease;
     }
 
     .agency-search-bar input {
         width: 100%;
-        padding: 16px 20px 16px 55px;
-        border-radius: 10px;
-        border: 2px solid var(--border-color);
-        background-color: #FFFFFF;
+        padding: 15px 25px 15px 50px;
+        border-radius: 50px;
+        border: none;
+        background: transparent;
         font-size: 1rem;
-        color: var(--dark-charcoal);
+        color: #FFFFFF;
         outline: none;
         transition: all 0.3s ease;
     }
 
     .agency-search-bar input::placeholder {
-        color: #A0AEC0;
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 400;
     }
 
     .agency-search-bar input:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 4px rgba(236, 40, 28, 0.1);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .agency-search-bar input:focus+.search-icon {
+        color: var(--primary-color);
     }
 
     /* 3. SECTION PRINCIPALE */
@@ -187,7 +198,7 @@
         image-rendering: -webkit-optimize-contrast;
         image-rendering: crisp-edges;
     }
-    
+
 
 
     .agency-card .card-content {
@@ -330,13 +341,23 @@
 @include('includes.main.loading')
 @include('includes.main.header')
 
-<section class="agency-hero-section text-center">
+
+<section class="page-header-pro">
+    <div class="page-header-overlay"></div>
     <div class="container">
-        <h2 class="section-title">Notre Réseau d'Agences</h2>
-        <p class="lead">Proche de vous, pour vous servir. Trouvez l'agence COCEC qu'il vous faut.</p>
-        <div class="agency-search-bar">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" id="agency-search-input" placeholder="Rechercher par nom ou par ville...">
+        <div class="page-header-content-pro" data-aos="fade-up">
+            <h1 class="title-pro">Notre Réseau d'Agences</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb-pro">
+                    <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Agences</li>
+                </ol>
+            </nav>
+            <br><br>
+            <div class="agency-search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="agency-search-input" placeholder="Rechercher par nom ou par ville...">
+            </div>
         </div>
     </div>
 </section>
@@ -382,7 +403,7 @@
         const agencyListContainer = document.getElementById('agency-list');
         const searchInput = document.getElementById('agency-search-input');
         const agencyCountSpan = document.getElementById('agency-count');
-        
+
         console.log('Éléments DOM trouvés:');
         console.log('agencyListContainer:', agencyListContainer);
         console.log('searchInput:', searchInput);
@@ -419,11 +440,11 @@
         function renderListAndMarkers(filteredAgencies) {
             console.log('renderListAndMarkers appelée avec:', filteredAgencies);
             console.log('Nombre d\'agences à afficher:', filteredAgencies.length);
-            
+
             agencyListContainer.innerHTML = '';
             markersLayer.clearLayers();
             agencyCountSpan.textContent = `${filteredAgencies.length} agence(s) trouvée(s)`;
-            
+
             if (filteredAgencies.length === 0) {
                 console.log('Aucune agence à afficher');
                 agencyListContainer.innerHTML = `<div class="no-results-message"><i class="fas fa-store-slash"></i><p>Aucune agence ne correspond à votre recherche.</p></div>`;
@@ -513,26 +534,26 @@
         }
 
         searchInput.addEventListener('input', filterAgencies);
-        
+
         // Debug: vérifier les agences reçues
         console.log('=== DEBUG AGENCES ===');
         console.log('Agences reçues:', agencies);
         console.log('Nombre d\'agences:', agencies ? agencies.length : 'undefined');
         console.log('Type d\'agences:', typeof agencies);
         console.log('Est un tableau:', Array.isArray(agencies));
-        
+
         // S'assurer que agencies est un tableau
         if (!agencies || !Array.isArray(agencies)) {
             console.error('Erreur: agencies n\'est pas un tableau valide');
             agencies = [];
         }
-        
+
         console.log('Agences après vérification:', agencies);
         console.log('=== FIN DEBUG ===');
-        
+
         // Toujours afficher les agences, avec ou sans géolocalisation
         renderListAndMarkers(agencies);
-        
+
         // Si pas de coordonnées dans l'URL, essayer la géolocalisation
         if ('geolocation' in navigator && !window.location.search.includes('lat=')) {
             navigator.geolocation.getCurrentPosition(
@@ -547,8 +568,7 @@
                 function(error) {
                     console.log('Géolocalisation non disponible:', error.message);
                     // Les agences sont déjà affichées, pas besoin de refaire
-                },
-                {
+                }, {
                     enableHighAccuracy: true,
                     timeout: 5000,
                     maximumAge: 300000
