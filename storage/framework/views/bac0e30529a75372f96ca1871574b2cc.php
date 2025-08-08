@@ -40,7 +40,7 @@
         .status-accepter { background: #d4edda; color: #155724; }
         .status-refuser { background: #f8d7da; color: #721c24; }
 
-        /* Styles pour l'impression */
+        /* Styles pour l'impression - Design conforme au PDF */
         @media print {
             /* Masquer TOUS les éléments de navigation et boutons */
             .dashboard-main header,
@@ -49,29 +49,16 @@
             .btn,
             .dropdown,
             .alert,
-            .card-header,
             .no-print,
             .d-flex.flex-wrap.align-items-center.justify-content-between.gap-3.mb-24,
             .d-flex.align-items-center.gap-2,
             .breadcrumb,
             .navigation,
             .appbar,
-            .sidebar {
-                display: none !important;
-            }
-            
-            /* Masquer le breadcrumb */
-            .no-print {
-                display: none !important;
-            }
-            
-            /* Afficher le titre d'impression */
-            .print-only {
-                display: block !important;
-            }
-            
-            /* Masquer le titre normal */
-            h6.fw-semibold.mb-0 {
+            .sidebar,
+            .map-container,
+            .document-link,
+            .document-preview {
                 display: none !important;
             }
             
@@ -86,17 +73,18 @@
                 display: none !important;
             }
             
-            /* S'assurer que le titre s'affiche */
-            .fw-semibold.mb-0 {
+            /* Afficher le titre d'impression */
+            .print-only {
                 display: block !important;
-                font-size: 18px !important;
+                font-size: 24px !important;
                 font-weight: bold !important;
-                margin-bottom: 20px !important;
+                margin-bottom: 30px !important;
+                text-align: center !important;
+                color: #000000 !important;
             }
             
-            /* Masquer les cartes d'actions */
-            .card.mb-24.no-print,
-            .card:first-child {
+            /* Masquer le titre normal */
+            h6.fw-semibold.mb-0 {
                 display: none !important;
             }
             
@@ -104,24 +92,82 @@
             .dashboard-main {
                 margin: 0 !important;
                 padding: 0 !important;
+                background: white !important;
             }
             
             .dashboard-main-body {
                 padding: 0 !important;
             }
             
+            /* Style des cartes pour l'impression - EXACTEMENT comme le PDF */
             .card {
-                border: none !important;
+                border: 2px solid #EC281C !important;
                 box-shadow: none !important;
-                margin-bottom: 20px !important;
+                margin-bottom: 15px !important;
+                page-break-inside: avoid !important;
+                background: white !important;
             }
             
             .card-body {
-                padding: 15px !important;
+                padding: 10px !important;
+            }
+            
+            /* Style des titres de section - EXACTEMENT comme le PDF */
+            .card-header {
+                display: block !important;
+                background-color: #EC281C !important;
+                color: white !important;
+                padding: 8px 12px !important;
+                margin: -10px -10px 10px -10px !important;
+                font-weight: bold !important;
+                font-size: 14px !important;
+            }
+            
+            /* Style des informations - EXACTEMENT comme le PDF */
+            .text-sm.text-secondary-light {
+                font-weight: bold !important;
+                color: #000000 !important;
+                font-size: 11px !important;
+                margin-bottom: 2px !important;
+            }
+            
+            .fw-medium.mb-0 {
+                font-weight: normal !important;
+                color: #000000 !important;
+                font-size: 11px !important;
+                margin-bottom: 8px !important;
+            }
+            
+            /* Style des tableaux - EXACTEMENT comme le PDF */
+            .table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                font-size: 10px !important;
+            }
+            
+            .table th {
+                background-color: #EC281C !important;
+                color: white !important;
+                padding: 6px !important;
+                text-align: left !important;
+                font-weight: bold !important;
+                border: 1px solid #EC281C !important;
+            }
+            
+            .table td {
+                padding: 6px !important;
+                border: 1px solid #EC281C !important;
+                color: #000000 !important;
             }
             
             /* Masquer les cartes de mise à jour du statut */
             .col-lg-4 .card:last-child {
+                display: none !important;
+            }
+            
+            /* Masquer les cartes d'actions */
+            .card.mb-24.no-print,
+            .card:first-child {
                 display: none !important;
             }
             
@@ -147,6 +193,28 @@
             /* Forcer le masquage de tous les éléments avec no-print */
             *[class*="no-print"] {
                 display: none !important;
+            }
+            
+            /* Style du statut - EXACTEMENT comme le PDF */
+            .status-badge {
+                display: inline-block !important;
+                padding: 4px 8px !important;
+                border-radius: 4px !important;
+                font-size: 10px !important;
+                font-weight: bold !important;
+                color: white !important;
+            }
+            
+            .status-en_attente {
+                background-color: #FFA500 !important;
+            }
+            
+            .status-accepter {
+                background-color: #28a745 !important;
+            }
+            
+            .status-refuser {
+                background-color: #dc3545 !important;
             }
         }
     </style>
@@ -554,10 +622,10 @@
                                     <?php endif; ?>
                                 </div>
                                 <div class="text-center mt-8">
-                                    <a href="<?php echo e($submission->signature_base64); ?>" target="_blank" class="document-link">
+                                    <button type="button" onclick="openSignatureFullscreen('<?php echo e($submission->signature_base64); ?>')" class="document-link" style="border: none; background: none; cursor: pointer;">
                                         <iconify-icon icon="lucide:external-link" class="icon"></iconify-icon>
                                         Voir en plein écran
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                             <?php elseif($submission->signature_method === 'upload' && $submission->signature_upload_path): ?>
@@ -669,6 +737,73 @@
             .bindPopup('Lieu de travail')
             .openPopup();
         <?php endif; ?>
+
+        // Fonction pour ouvrir la signature en plein écran
+        function openSignatureFullscreen(signatureData) {
+            // Créer une nouvelle fenêtre
+            const newWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+            
+            // Préparer le contenu HTML
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Signature - Vue plein écran</title>
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 20px;
+                            background: #f8f9fa;
+                            font-family: Arial, sans-serif;
+                        }
+                        .container {
+                            max-width: 100%;
+                            text-align: center;
+                        }
+                        .signature-image {
+                            max-width: 100%;
+                            max-height: 80vh;
+                            border: 2px solid #ddd;
+                            border-radius: 8px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        }
+                        .title {
+                            color: #333;
+                            margin-bottom: 20px;
+                            font-size: 24px;
+                            font-weight: bold;
+                        }
+                        .close-btn {
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            background: #dc3545;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            font-size: 14px;
+                        }
+                        .close-btn:hover {
+                            background: #c82333;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <button class="close-btn" onclick="window.close()">Fermer</button>
+                    <div class="container">
+                        <h1 class="title">Signature</h1>
+                        <img src="${signatureData}" alt="Signature" class="signature-image">
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            // Écrire le contenu dans la nouvelle fenêtre
+            newWindow.document.write(htmlContent);
+            newWindow.document.close();
+        }
     </script>
 <?php $__env->stopSection(); ?>
 
