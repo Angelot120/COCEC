@@ -5,6 +5,9 @@ namespace App\Models {
     /**
      * App\Models\AccountSignatory
      *
+     * @property string|null $signature_upload_path
+     * @property string|null $signature_base64
+     * @property string|null $signature_method
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $id_number
@@ -20,6 +23,9 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereIdNumber($value)
      * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereSignatureMethod($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereSignatureBase64($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory whereSignatureUploadPath($value)
      * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<AccountSignatory>|AccountSignatory query()

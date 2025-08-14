@@ -103,6 +103,31 @@ class AccountController extends Controller
         return view('main.account.create');
     }
 
+    /**
+     * Display a listing of all accounts for the secretary role.
+     */
+    public function indexAccounts()
+    {
+        // Récupérer les comptes physiques et moraux
+        $physicalSubmissions = PhysicalPersonSubmission::latest()->take(5)->get();
+        $moralSubmissions = MoralPersonSubmission::latest()->take(5)->get();
+        
+        // Statistiques
+        $totalPhysical = PhysicalPersonSubmission::count();
+        $totalMoral = MoralPersonSubmission::count();
+        $pendingPhysical = PhysicalPersonSubmission::where('statut', 'en_attente')->count();
+        $pendingMoral = MoralPersonSubmission::where('statut', 'en_attente')->count();
+        
+        return view('admin.accounts.index', compact(
+            'physicalSubmissions', 
+            'moralSubmissions', 
+            'totalPhysical', 
+            'totalMoral', 
+            'pendingPhysical', 
+            'pendingMoral'
+        ));
+    }
+
     public function physic()
     {
         return view('main.account.physic');

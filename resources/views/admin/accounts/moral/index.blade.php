@@ -120,10 +120,10 @@
                                                 </a>
 
                                                 <!-- Bouton IMPRIMER -->
-                                                <button onclick="window.open('{{ route('accounts.moral.show', $submission->id) }}?print=1', '_blank')"
+                                                {{-- <button onclick="window.open('{{ route('accounts.moral.show', $submission->id) }}?print=1', '_blank')"
                                                     class="bg-danger-focus text-danger-600 bg-hover-danger-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle">
                                                     <iconify-icon icon="lucide:printer" class="menu-icon"></iconify-icon>
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         </td>
                                     </tr>

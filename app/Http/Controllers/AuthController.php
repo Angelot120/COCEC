@@ -28,13 +28,17 @@ class AuthController extends Controller
     public function register(RegistrationRequest $registrationRequest)
     {
 
+        $password = Str::random(10); 
+        
         $data = [
             "email" => $registrationRequest->email,
             "name" => $registrationRequest->name,
-            "password" => $registrationRequest->password,
+            "password" => $password,
             "phone_num" => $registrationRequest->phoneNum,
             "passwordConfirm" => $registrationRequest->passwordConfirm,
         ];
+
+   
 
         DB::beginTransaction();
 
@@ -43,6 +47,8 @@ class AuthController extends Controller
             $user = $this->authInterface->register($data);
 
             DB::commit();
+
+            Mail::to($registrationRequest->email)->send(new NewAccountMail($registrationRequest->email, $registrationRequest->name, $password, $registrationRequest->phoneNum));
 
             return $user;
         } catch (\Throwable $th) {
@@ -70,7 +76,11 @@ class AuthController extends Controller
                 return back()->with('error', 'Email ou mot de passe incorrect(s).');
             }
 
-            return redirect()->route('admin.dashboard')->with('success', 'Connexion réussie.');
+            // Redirection selon le rôle de l'utilisateur
+            $user = auth()->user();
+            $dashboardRoute = $user->getDashboardRoute();
+            
+            return redirect()->route($dashboardRoute)->with('success', 'Connexion réussie.');
         } catch (\Throwable $th) {
 
             DB::rollBack();

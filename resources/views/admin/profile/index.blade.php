@@ -105,7 +105,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary d-flex align-items-center gap-2">
+                                    <button type="submit" class="btn btn-warning d-flex align-items-center gap-2">
                                         <iconify-icon icon="lucide:save" class="icon"></iconify-icon>
                                         Mettre à jour le profil
                                     </button>

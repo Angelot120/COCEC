@@ -64,7 +64,7 @@ Route::prefix('admin/jobList')->controller(JobController::class)->group(function
 
 Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 
-Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/dashboard', [ViewsController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::get('/localities', [LocalityController::class, 'index'])->name('settings.localities');
@@ -94,6 +94,27 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
         Route::get('/{id}', 'showMoral')->name('accounts.moral.show');
         Route::put('/update/{id}', 'updateMoral')->name('accounts.moral.update');
         Route::get('/pdf/{id}', 'generateMoralPdf')->name('accounts.moral.pdf');
+    });
+
+    // Route pour la secrétaire - Vue d'ensemble des comptes
+    Route::get('/accounts', [AccountController::class, 'indexAccounts'])->name('admin.accounts.index');
+
+    // Routes du profil admin
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/profile', [AuthController::class, 'profile'])->name('admin.profile');
+    Route::put('/profile', [AuthController::class, 'updateProfile'])->name('admin.profile.update');
+    Route::put('/profile/password', [AuthController::class, 'updatePassword'])->name('admin.profile.password');
+
+    // Routes de gestion des utilisateurs (création de comptes)
+    Route::prefix('users')->controller(\App\Http\Controllers\Admin\UserManagementController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.users.index');
+        Route::get('/create', 'create')->name('admin.users.create');
+        Route::post('/', 'store')->name('admin.users.store');
+        Route::get('/{user}', 'show')->name('admin.users.show');
+        Route::get('/{user}/edit', 'edit')->name('admin.users.edit');
+        Route::put('/{user}', 'update')->name('admin.users.update');
+        Route::delete('/{user}', 'destroy')->name('admin.users.destroy');
+        Route::post('/{user}/reset-password', 'resetPassword')->name('admin.users.reset-password');
     });
 });
 
@@ -125,13 +146,6 @@ Route::prefix('admin/announcement')->controller(AnnouncementsController::class)-
     Route::post('/store', 'store')->name('announcement.store');
     Route::put('/update/{id}', 'update')->name('announcement.update');
     Route::delete('/destroy/{id}', 'destroy')->name('announcement.destroy');
-});
-
-Route::prefix('admin')->middleware(['auth'])->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/profile', [AuthController::class, 'profile'])->name('admin.profile');
-    Route::put('/profile', [AuthController::class, 'updateProfile'])->name('admin.profile.update');
-    Route::put('/profile/password', [AuthController::class, 'updatePassword'])->name('admin.profile.password');
 });
 
 Route::post('/login/processing', [AuthController::class, 'login'])->name('login.process');
