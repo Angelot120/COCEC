@@ -31,10 +31,10 @@
                     <h4 class="card-title">Détails de l'Utilisateur</h4>
                     <div>
                         <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Modifier
+                            <iconify-icon icon="lucide:edit" class="menu-icon"></iconify-icon> Modifier
                         </a>
                         <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Retour
+                            <iconify-icon icon="lucide:arrow-left" class="menu-icon"></iconify-icon> Retour
                         </a>
                     </div>
                 </div>
@@ -96,20 +96,16 @@
                     <div class="row mt-4">
                         <div class="col-12">
                             <h5>Actions disponibles</h5>
-                            <div class="btn-group" role="group">
-                                <form action="{{ route('admin.users.reset-password', $user) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="btn btn-secondary" onclick="return confirm('Réinitialiser le mot de passe ?')">
-                                        <i class="fas fa-key"></i> Réinitialiser le mot de passe
-                                    </button>
-                                </form>
-                                
+                            <div class="d-flex align-items-center gap-10 justify-content-center">
                                 @if($user->id !== auth()->id())
                                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
-                                            <i class="fas fa-trash"></i> Supprimer
+                                        <button type="submit" 
+                                                class="remove-item-btn bg-danger-focus text-danger-600 bg-hover-danger-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')"
+                                                title="Supprimer">
+                                            <iconify-icon icon="fluent:delete-24-regular" class="menu-icon"></iconify-icon>
                                         </button>
                                     </form>
                                 @endif

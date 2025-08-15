@@ -1,6 +1,6 @@
 
 
-<?php $__env->startSection('title', 'Créer un Compte Utilisateur'); ?>
+<?php $__env->startSection('title', 'Modifier l\'Utilisateur'); ?>
 
 <?php $__env->startSection('content'); ?>
 <?php echo $__env->make('includes.admin.sidebar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
@@ -10,7 +10,7 @@
 
     <div class="dashboard-main-body">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
-            <h6 class="fw-semibold mb-0">Créer un Compte Utilisateur</h6>
+            <h6 class="fw-semibold mb-0">Modifier l'Utilisateur</h6>
             <ul class="d-flex align-items-center gap-2">
                 <li class="fw-medium">
                     <a href="<?php echo e(route('admin.dashboard')); ?>" class="d-flex align-items-center gap-1 hover-text-primary">
@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <li>-</li>
-                <li class="fw-medium">Créer un Compte</li>
+                <li class="fw-medium">Modifier Utilisateur</li>
             </ul>
         </div>
 
@@ -28,11 +28,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Créer un Nouveau Compte Utilisateur</h4>
+                    <h4 class="card-title">Modifier l'Utilisateur : <?php echo e($user->name); ?></h4>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo e(route('admin.users.store')); ?>" method="POST">
+                    <form action="<?php echo e(route('admin.users.update', $user)); ?>" method="POST">
                         <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
                         
                         <div class="row">
                             <div class="col-md-6">
@@ -46,7 +47,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" 
-                                           id="name" name="name" value="<?php echo e(old('name')); ?>" required>
+                                           id="name" name="name" value="<?php echo e(old('name', $user->name)); ?>" required>
                                     <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -71,7 +72,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" 
-                                           id="email" name="email" value="<?php echo e(old('email')); ?>" required>
+                                           id="email" name="email" value="<?php echo e(old('email', $user->email)); ?>" required>
                                     <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -101,7 +102,7 @@ unset($__errorArgs, $__bag); ?>"
                                             id="role" name="role" required>
                                         <option value="">Sélectionner un rôle</option>
                                         <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($role->value); ?>" <?php echo e(old('role') == $role->value ? 'selected' : ''); ?>>
+                                            <option value="<?php echo e($role->value); ?>" <?php echo e(old('role', $user->role?->value) == $role->value ? 'selected' : ''); ?>>
                                                 <?php echo e($role->getLabel()); ?>
 
                                             </option>
@@ -131,7 +132,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" 
-                                           id="phone_num" name="phone_num" value="<?php echo e(old('phone_num')); ?>">
+                                           id="phone_num" name="phone_num" value="<?php echo e(old('phone_num', $user->phone_num)); ?>">
                                     <?php $__errorArgs = ['phone_num'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -146,15 +147,12 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
 
-                        <div class="alert alert-info">
-                            <iconify-icon icon="lucide:info" class="menu-icon"></iconify-icon>
-                            <strong>Information :</strong> Un mot de passe aléatoire sera généré et envoyé par email à l'utilisateur.
-                        </div>
-
                         <div class="d-flex justify-content-between">
-                            
-                            <button type="submit" class="btn btn-danger">
-                                Créer le Compte
+                            <a href="<?php echo e(route('admin.users.index')); ?>" class="btn btn-secondary">
+                                <i class="ri-arrow-left-line"></i> Retour
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="ri-save-line"></i> Mettre à Jour
                             </button>
                         </div>
                     </form>
@@ -166,4 +164,4 @@ unset($__errorArgs, $__bag); ?>
     </main>
 </div>
 <?php $__env->stopSection(); ?> 
-<?php echo $__env->make('layout.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\RaydHil\Downloads\COCEC\resources\views/admin/users/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layout.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\RaydHil\Downloads\COCEC\resources\views/admin/users/edit.blade.php ENDPATH**/ ?>

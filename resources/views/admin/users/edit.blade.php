@@ -92,10 +92,10 @@
 
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Retour
+                                <iconify-icon icon="lucide:arrow-left" class="menu-icon"></iconify-icon> Retour
                             </a>
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Mettre à Jour
+                                <iconify-icon icon="lucide:save" class="menu-icon"></iconify-icon> Mettre à Jour
                             </button>
                         </div>
                     </form>

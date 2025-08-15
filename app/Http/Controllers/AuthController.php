@@ -7,6 +7,8 @@ use App\Http\Requests\RegistrationRequest;
 use App\Interfaces\AuthInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -191,25 +193,67 @@ class AuthController extends Controller
     public function updatePassword(Request $request)
     {
         $request->validate([
-            'current_password' => 'required|current_password',
-            'password' => 'required|string|min:8|confirmed',
+            'current_password' => 'required',
+            'password' => 'required|min:8|confirmed',
         ], [
             'current_password.required' => 'Le mot de passe actuel est obligatoire.',
-            'current_password.current_password' => 'Le mot de passe actuel est incorrect.',
             'password.required' => 'Le nouveau mot de passe est obligatoire.',
-            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'password.min' => 'Le nouveau mot de passe doit contenir au moins 8 caractères.',
             'password.confirmed' => 'La confirmation du mot de passe ne correspond pas.',
         ]);
 
         try {
             $user = auth()->user();
+            
+            // Vérifier le mot de passe actuel
+            if (!Hash::check($request->current_password, $user->password)) {
+                return back()->withErrors(['current_password' => 'Le mot de passe actuel est incorrect.']);
+            }
+            
+            // Mettre à jour le mot de passe
             $user->update([
-                'password' => bcrypt($request->password),
+                'password' => Hash::make($request->password)
             ]);
 
             return back()->with('success', 'Mot de passe mis à jour avec succès.');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Une erreur est survenue lors de la mise à jour du mot de passe.');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Erreur lors de la mise à jour du mot de passe.');
+        }
+    }
+
+    /**
+     * Update the admin profile image.
+     */
+    public function updateProfileImage(Request $request)
+    {
+        $request->validate([
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'profile_image.required' => 'Veuillez sélectionner une image.',
+            'profile_image.image' => 'Le fichier doit être une image.',
+            'profile_image.mimes' => 'L\'image doit être au format JPEG, PNG, JPG ou GIF.',
+            'profile_image.max' => 'L\'image ne doit pas dépasser 2MB.',
+        ]);
+
+        try {
+            $user = auth()->user();
+            
+            // Supprimer l'ancienne image si elle existe
+            if ($user->profile_image && Storage::disk('public')->exists($user->profile_image)) {
+                Storage::disk('public')->delete($user->profile_image);
+            }
+            
+            // Stocker la nouvelle image
+            $imagePath = $request->file('profile_image')->store('profile-images', 'public');
+            
+            // Mettre à jour le profil
+            $user->update([
+                'profile_image' => $imagePath
+            ]);
+
+            return back()->with('success', 'Photo de profil mise à jour avec succès.');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Erreur lors de la mise à jour de la photo de profil.');
         }
     }
 }

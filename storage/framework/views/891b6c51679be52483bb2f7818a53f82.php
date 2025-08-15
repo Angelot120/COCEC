@@ -116,13 +116,21 @@
 
                 <div class="dropdown">
                     <button class="d-flex justify-content-center align-items-center rounded-circle" type="button" data-bs-toggle="dropdown">
-                        <img src="<?php echo e(URL::asset('assets/images/user.png')); ?>" alt="image" class="w-40-px h-40-px object-fit-cover rounded-circle">
+                        <?php if(Auth::user()->profile_image): ?>
+                            <img src="<?php echo e(Storage::url(Auth::user()->profile_image)); ?>" 
+                                 alt="Photo de profil" 
+                                 class="w-40-px h-40-px object-fit-cover rounded-circle">
+                        <?php else: ?>
+                            <div class="w-40-px h-40-px bg-<?php echo e(Auth::user()->role->value === 'super_admin' ? 'danger' : (Auth::user()->role->value === 'dg' ? 'warning' : (Auth::user()->role->value === 'informaticien' ? 'info' : 'success'))); ?> rounded-circle d-flex justify-content-center align-items-center">
+                                <iconify-icon icon="ph:user-fill" class="text-white text-lg"></iconify-icon>
+                            </div>
+                        <?php endif; ?>
                     </button>
                     <div class="dropdown-menu to-top dropdown-menu-sm">
                         <div class="py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2">
                             <div>
-                                <h6 class="text-lg text-primary-light fw-semibold mb-2"><?php echo e(Auth::user()->email); ?></h6>
-                                <span class="text-secondary-light fw-medium text-sm">Admin</span>
+                                <h6 class="text-lg text-primary-light fw-semibold mb-2"><?php echo e(Auth::user()->name); ?></h6>
+                                <span class="text-secondary-light fw-medium text-sm"><?php echo e(Auth::user()->role->getLabel()); ?></span>
                             </div>
                             <button type="button" class="hover-text-danger">
                                 <iconify-icon icon="radix-icons:cross-1" class="icon text-xl"></iconify-icon>

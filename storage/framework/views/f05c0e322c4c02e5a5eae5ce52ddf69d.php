@@ -33,7 +33,7 @@
                                 <p class="fw-medium text-muted mb-1">Total Comptes Physiques</p>
                                 <h6 class="mb-0"><?php echo e(number_format($totalPhysical)); ?></h6>
                             </div>
-                            <div class="w-50-px h-50-px bg-primary rounded-circle d-flex justify-content-center align-items-center">
+                            <div class="w-50-px h-50-px bg-danger1 rounded-circle d-flex justify-content-center align-items-center">
                                 <iconify-icon icon="ph:user-fill" class="text-white text-2xl"></iconify-icon>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                 <p class="fw-medium text-muted mb-1">En Attente Physiques</p>
                                 <h6 class="mb-0"><?php echo e(number_format($pendingPhysical)); ?></h6>
                             </div>
-                            <div class="w-50-px h-50-px bg-warning rounded-circle d-flex justify-content-center align-items-center">
+                            <div class="w-50-px h-50-px bg-warning1 rounded-circle d-flex justify-content-center align-items-center">
                                 <iconify-icon icon="ph:clock-fill" class="text-white text-2xl"></iconify-icon>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                                 <p class="fw-medium text-muted mb-1">En Attente Moraux</p>
                                 <h6 class="mb-0"><?php echo e(number_format($pendingMoral)); ?></h6>
                             </div>
-                            <div class="w-50-px h-50-px bg-info rounded-circle d-flex justify-content-center align-items-center">
+                            <div class="w-50-px h-50-px bg-danger1 rounded-circle d-flex justify-content-center align-items-center">
                                 <iconify-icon icon="ph:clock-fill" class="text-white text-2xl"></iconify-icon>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                 <div class="card shadow-none border">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">Comptes Physiques Récents</h5>
-                        <a href="<?php echo e(route('accounts.physical.index')); ?>" class="btn btn-primary btn-sm">
+                        <a href="<?php echo e(route('accounts.physical.index')); ?>" class="btn btn-danger btn-sm">
                             Voir tous
                         </a>
                     </div>
@@ -119,16 +119,21 @@
                                                 <td><?php echo e($submission->id); ?></td>
                                                 <td><?php echo e($submission->last_name); ?> <?php echo e($submission->first_names); ?></td>
                                                 <td>
-                                                    <span class="badge bg-<?php echo e($submission->statut === 'en_attente' ? 'warning' : ($submission->statut === 'accepter' ? 'success' : 'danger')); ?>">
+                                                    <span class="badge bg-<?php echo e($submission->statut === 'en_attente' ? 'warning' : ($submission->statut === 'accepter' ? 'success' : 'danger1')); ?>">
                                                         <?php echo e($submission->statut === 'en_attente' ? 'En attente' : ($submission->statut === 'accepter' ? 'Accepté' : 'Refusé')); ?>
 
                                                     </span>
                                                 </td>
                                                 <td><?php echo e($submission->created_at->format('d/m/Y H:i')); ?></td>
                                                 <td>
-                                                    <a href="<?php echo e(route('accounts.physical.show', $submission->id)); ?>" class="btn btn-sm btn-info">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
+                                                    <div class="d-flex align-items-center gap-10 justify-content-center">
+                                                        <!-- Bouton VOIR -->
+                                                        <a href="<?php echo e(route('accounts.physical.show', $submission->id)); ?>" 
+                                                           class="bg-info-focus text-info-600 bg-hover-info-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                                                           title="Voir">
+                                                            <iconify-icon icon="lucide:eye" class="menu-icon"></iconify-icon>
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -149,7 +154,7 @@
                 <div class="card shadow-none border">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">Comptes Moraux Récents</h5>
-                        <a href="<?php echo e(route('accounts.moral.index')); ?>" class="btn btn-primary btn-sm">
+                        <a href="<?php echo e(route('accounts.moral.index')); ?>" class="btn btn-danger btn-sm">
                             Voir tous
                         </a>
                     </div>
@@ -172,16 +177,21 @@
                                                 <td><?php echo e($submission->id); ?></td>
                                                 <td><?php echo e($submission->company_name); ?></td>
                                                 <td>
-                                                    <span class="badge bg-<?php echo e($submission->statut === 'en_attente' ? 'warning' : ($submission->statut === 'accepter' ? 'success' : 'danger')); ?>">
+                                                    <span class="badge bg-<?php echo e($submission->statut === 'en_attente' ? 'warning1' : ($submission->statut === 'accepter' ? 'success' : 'danger')); ?>">
                                                         <?php echo e($submission->statut === 'en_attente' ? 'En attente' : ($submission->statut === 'accepter' ? 'Accepté' : 'Refusé')); ?>
 
                                                     </span>
                                                 </td>
                                                 <td><?php echo e($submission->created_at->format('d/m/Y H:i')); ?></td>
                                                 <td>
-                                                    <a href="<?php echo e(route('accounts.moral.show', $submission->id)); ?>" class="btn btn-sm btn-info">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
+                                                    <div class="d-flex align-items-center gap-10 justify-content-center">
+                                                        <!-- Bouton VOIR -->
+                                                        <a href="<?php echo e(route('accounts.moral.show', $submission->id)); ?>" 
+                                                           class="bg-info-focus text-info-600 bg-hover-info-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                                                           title="Voir">
+                                                            <iconify-icon icon="lucide:eye" class="menu-icon"></iconify-icon>
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

@@ -29,8 +29,8 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">Gestion des Utilisateurs</h4>
-                    <a href="<?php echo e(route('admin.users.create')); ?>" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Créer un Compte
+                    <a href="<?php echo e(route('admin.users.create')); ?>" class="btn btn-danger">
+                         Créer un Compte
                     </a>
                 </div>
                 <div class="card-body">
@@ -70,7 +70,7 @@
                                         <td><?php echo e($user->name); ?></td>
                                         <td><?php echo e($user->email); ?></td>
                                         <td>
-                                            <span class="badge bg-<?php echo e($user->role->value === 'super_admin' ? 'danger' : ($user->role->value === 'dg' ? 'warning' : ($user->role->value === 'informaticien' ? 'info' : 'success'))); ?>">
+                                            <span class="badge bg-<?php echo e($user->role->value === 'super_admin' ? 'danger1' : ($user->role->value === 'dg' ? 'warning1' : ($user->role->value === 'informaticien' ? 'primary' : 'success'))); ?>">
                                                 <?php echo e($user->role->getLabel()); ?>
 
                                             </span>
@@ -78,25 +78,31 @@
                                         <td><?php echo e($user->phone_num ?? 'N/A'); ?></td>
                                         <td><?php echo e($user->created_at->format('d/m/Y H:i')); ?></td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                                <a href="<?php echo e(route('admin.users.show', $user)); ?>" class="btn btn-sm btn-info">
-                                                    <i class="fas fa-eye"></i>
+                                            <div class="d-flex align-items-center gap-10 justify-content-center">
+                                                <!-- Bouton VOIR -->
+                                                <a href="<?php echo e(route('admin.users.show', $user)); ?>" 
+                                                   class="bg-info-focus text-info-600 bg-hover-info-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                                                   title="Voir">
+                                                    <iconify-icon icon="lucide:eye" class="menu-icon"></iconify-icon>
                                                 </a>
-                                                <a href="<?php echo e(route('admin.users.edit', $user)); ?>" class="btn btn-sm btn-warning">
-                                                    <i class="fas fa-edit"></i>
+
+                                                <!-- Bouton MODIFIER -->
+                                                <a href="<?php echo e(route('admin.users.edit', $user)); ?>" 
+                                                   class="bg-warning-focus text-warning-600 bg-hover-warning-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                                                   title="Modifier">
+                                                    <iconify-icon icon="lucide:edit" class="menu-icon"></iconify-icon>
                                                 </a>
-                                                <form action="<?php echo e(route('admin.users.reset-password', $user)); ?>" method="POST" class="d-inline">
-                                                    <?php echo csrf_field(); ?>
-                                                    <button type="submit" class="btn btn-sm btn-secondary" onclick="return confirm('Réinitialiser le mot de passe ?')">
-                                                        <i class="fas fa-key"></i>
-                                                    </button>
-                                                </form>
+
+                                                <!-- Bouton SUPPRIMER -->
                                                 <?php if($user->id !== auth()->id()): ?>
                                                     <form action="<?php echo e(route('admin.users.destroy', $user)); ?>" method="POST" class="d-inline">
                                                         <?php echo csrf_field(); ?>
                                                         <?php echo method_field('DELETE'); ?>
-                                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
-                                                            <i class="fas fa-trash"></i>
+                                                        <button type="submit" 
+                                                                class="remove-item-btn bg-danger-focus text-danger-600 bg-hover-danger-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                                                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')"
+                                                                title="Supprimer">
+                                                            <iconify-icon icon="fluent:delete-24-regular" class="menu-icon"></iconify-icon>
                                                         </button>
                                                     </form>
                                                 <?php endif; ?>
@@ -125,5 +131,21 @@
         </div>
     </main>
 </div>
+<?php $__env->stopSection(); ?> 
+
+<?php $__env->startSection('js'); ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Confirmation avant suppression
+            document.querySelectorAll('.remove-item-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
+                        this.closest('form').submit();
+                    }
+                });
+            });
+        });
+    </script>
 <?php $__env->stopSection(); ?> 
 <?php echo $__env->make('layout.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\RaydHil\Downloads\COCEC\resources\views/admin/users/index.blade.php ENDPATH**/ ?>

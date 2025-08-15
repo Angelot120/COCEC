@@ -104,6 +104,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile'])->name('admin.profile');
     Route::put('/profile', [AuthController::class, 'updateProfile'])->name('admin.profile.update');
     Route::put('/profile/password', [AuthController::class, 'updatePassword'])->name('admin.profile.password');
+    Route::put('/profile/image', [AuthController::class, 'updateProfileImage'])->name('admin.profile.image');
 
     // Routes de gestion des utilisateurs (création de comptes)
     Route::prefix('users')->controller(\App\Http\Controllers\Admin\UserManagementController::class)->group(function () {

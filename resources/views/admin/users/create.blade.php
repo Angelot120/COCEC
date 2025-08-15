@@ -90,16 +90,16 @@
                         </div>
 
                         <div class="alert alert-info">
-                            <i class="fas fa-info-circle"></i>
+                            <iconify-icon icon="lucide:info" class="menu-icon"></iconify-icon>
                             <strong>Information :</strong> Un mot de passe aléatoire sera généré et envoyé par email à l'utilisateur.
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Retour
-                            </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Créer le Compte
+                            {{-- <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
+                                <iconify-icon icon="lucide:arrow-left" class="menu-icon"></iconify-icon> Retour
+                            </a> --}}
+                            <button type="submit" class="btn btn-danger">
+                                Créer le Compte
                             </button>
                         </div>
                     </form>
