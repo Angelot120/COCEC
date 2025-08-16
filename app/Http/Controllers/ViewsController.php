@@ -222,7 +222,7 @@ class ViewsController extends Controller
 
     public function finance()
     {
-        return view('main.digitalfinance');
+        return view('main.digitalfinance.index');
     }
 
     public function announcements()

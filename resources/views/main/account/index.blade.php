@@ -371,6 +371,27 @@
                     </a>
                 </div>
             </div>
+
+            <!-- Information sur le Consentement UEMOA -->
+            <div class="uemoa-consent-info" data-aos="fade-up" data-aos-delay="600">
+                <div class="consent-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Information Importante - Consentement UEMOA</h4>
+                </div>
+                <div class="consent-content">
+                    <p><strong>Conformément au système de partage d'information sur le crédit dans l'UEMOA</strong>, l'ouverture de votre compte implique :</p>
+                    <ul class="consent-details">
+                        <li><i class="fas fa-check-circle"></i> <span>Votre consentement au partage de vos informations de crédit avec les autres institutions financières de l'UEMOA</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>L'échange d'informations sur vos antécédents de crédit, remboursements et engagements</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>La possibilité pour d'autres institutions de consulter votre historique de crédit lors de nouvelles demandes</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Une meilleure évaluation de votre capacité de remboursement pour de futurs crédits</span></li>
+                    </ul>
+                    <div class="consent-note">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Ce système vise à améliorer l'accès au crédit et à réduire les risques pour les institutions financières de l'UEMOA.</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 

@@ -316,6 +316,40 @@
     <!-- ./ cta-section -->
 
 
+<!-- Styles pour le simulateur -->
+<style>
+    .loan-simulator-section .form-control.is-invalid,
+    .loan-simulator-section .form-select.is-invalid {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+    
+    .loan-simulator-section .form-control.is-invalid:focus,
+    .loan-simulator-section .form-select.is-invalid:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+    
+    .loan-simulator-section .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 8px;
+    }
+    
+    .loan-simulator-section .form-control,
+    .loan-simulator-section .form-select {
+        border-radius: 8px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+    
+    .loan-simulator-section .form-control:focus,
+    .loan-simulator-section .form-select:focus {
+        border-color: #EC281C;
+        box-shadow: 0 0 0 0.2rem rgba(236, 40, 28, 0.25);
+    }
+</style>
+
 <!-- Simulateur de Prêt Section -->
 <section class="loan-simulator-section pt-120 pb-120" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
     <div class="container-2">
@@ -352,11 +386,11 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="loan-amount" class="form-label">Montant (FCFA)</label>
-                                <input type="number" class="form-control" id="loan-amount" placeholder="Ex: 5000000" min="100000" step="10000">
+                                <input type="number" class="form-control" id="loan-amount" placeholder="Ex: 5000000" min="0" step="10000">
                             </div>
                             <div class="col-md-3">
                                 <label for="loan-duration" class="form-label">Durée (mois)</label>
-                                <input type="number" class="form-control" id="loan-duration" placeholder="Ex: 24" min="6" max="120" step="6">
+                                <input type="number" class="form-control" id="loan-duration" placeholder="Ex: 24" min="1" step="1">
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">&nbsp;</label>
@@ -431,7 +465,7 @@
 
                     <!-- Actions -->
                     <div class="simulation-actions text-center mt-4">
-                        <button type="button" class="bz-primary-btn hero-btn" onclick="refreshTable()">
+                        <button type="button" class="bz-primary-btn hero-btn" onclick="refreshLoanSimulator()">
                             <i class="fas fa-redo"></i> Actualiser
                         </button>
                     </div>
@@ -473,14 +507,20 @@
                             
                             for (let month = 1; month <= months; month++) {
                                 const interestPayment = remainingBalance * monthlyRate;
-                                const principalPayment = monthlyPayment - interestPayment;
+                                let principalPayment = monthlyPayment - interestPayment;
+                                
+                                // Pour le dernier mois, ajuster le principal pour éviter les arrondis
+                                if (month === months) {
+                                    principalPayment = remainingBalance;
+                                }
+                                
                                 remainingBalance -= principalPayment;
                                 
                                 table.push({
                                     month: month,
                                     principal: principalPayment,
                                     interest: interestPayment,
-                                    payment: monthlyPayment,
+                                    payment: month === months ? principalPayment + interestPayment : monthlyPayment,
                                     remaining: Math.max(0, remainingBalance)
                                 });
                             }
@@ -507,19 +547,50 @@
                             
                             console.log('Valeurs:', { type, amount, duration });
                             
-                            // Validation
-                            if (!type || !amount || !duration) {
-                                alert('Veuillez remplir tous les champs');
+                            // Validation avec feedback visuel
+                            let hasError = false;
+                            
+                            // Réinitialiser les styles d'erreur
+                            loanType.classList.remove('is-invalid');
+                            loanAmount.classList.remove('is-invalid');
+                            loanDuration.classList.remove('is-invalid');
+                            
+                            if (!type || type === '') {
+                                loanType.classList.add('is-invalid');
+                                hasError = true;
+                            }
+                            
+                            if (!amount || isNaN(amount)) {
+                                loanAmount.classList.add('is-invalid');
+                                hasError = true;
+                            }
+                            
+                            if (!duration || isNaN(duration)) {
+                                loanDuration.classList.add('is-invalid');
+                                hasError = true;
+                            }
+                            
+                            if (hasError) {
+                                if (typeof Swal !== 'undefined') {
+                                    Swal.fire({
+                                        icon: 'warning',
+                                        title: 'Champs manquants',
+                                        text: 'Veuillez remplir tous les champs correctement',
+                                        confirmButtonColor: '#EC281C'
+                                    });
+                                } else {
+                                    alert('Veuillez remplir tous les champs correctement');
+                                }
                                 return;
                             }
                             
-                            if (amount < 100000) {
-                                alert('Le montant minimum est de 100,000 FCFA');
+                            if (amount <= 0) {
+                                alert('Le montant doit être supérieur à 0 FCFA');
                                 return;
                             }
                             
-                            if (duration < 6 || duration > 120) {
-                                alert('La durée doit être entre 6 et 120 mois');
+                            if (duration < 1) {
+                                alert('La durée doit être d\'au moins 1 mois');
                                 return;
                             }
                             
@@ -602,8 +673,63 @@
                             }, 1500);
                         }
 
-                        // Rendre la fonction globale
+                        // Fonction pour actualiser le simulateur de prêt
+                        function refreshLoanSimulator() {
+                            // Réinitialiser les champs
+                            const loanType = document.getElementById('loan-type');
+                            const loanAmount = document.getElementById('loan-amount');
+                            const loanDuration = document.getElementById('loan-duration');
+                            
+                            // Réinitialiser le select (retour à la première option)
+                            loanType.selectedIndex = 0;
+                            
+                            // Vider les champs numériques
+                            loanAmount.value = '';
+                            loanDuration.value = '';
+                            
+                            // Supprimer les styles d'erreur
+                            loanType.classList.remove('is-invalid');
+                            loanAmount.classList.remove('is-invalid');
+                            loanDuration.classList.remove('is-invalid');
+                            
+                            // Remettre le focus sur le premier champ
+                            loanType.focus();
+                            
+                            // Masquer les résultats
+                            document.getElementById('loan-results').style.display = 'none';
+                            
+                            // Masquer le loading
+                            document.getElementById('loan-loading').style.display = 'none';
+                            
+                            // Réactiver le bouton de calcul
+                            const calculateBtn = document.getElementById('calculate-loan');
+                            if (calculateBtn) {
+                                calculateBtn.disabled = false;
+                                const btnText = calculateBtn.querySelector('.btn-text');
+                                const btnLoading = calculateBtn.querySelector('.btn-loading');
+                                if (btnText) btnText.style.display = 'inline-block';
+                                if (btnLoading) btnLoading.style.display = 'none';
+                            }
+                            
+                            // Scroll vers le haut du simulateur
+                            document.querySelector('.loan-simulator-section').scrollIntoView({ behavior: 'smooth' });
+                            
+                            // Message de confirmation
+                            if (typeof Swal !== 'undefined') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Simulateur actualisé !',
+                                    text: 'Vous pouvez maintenant effectuer une nouvelle simulation',
+                                    confirmButtonColor: '#EC281C'
+                                });
+                            } else {
+                                alert('Simulateur actualisé ! Vous pouvez maintenant effectuer une nouvelle simulation.');
+                            }
+                        }
+
+                        // Rendre les fonctions globales
                         window.calculateLoan = calculateLoan;
+                        window.refreshLoanSimulator = refreshLoanSimulator;
                     </script>
                 </div>
             </div>

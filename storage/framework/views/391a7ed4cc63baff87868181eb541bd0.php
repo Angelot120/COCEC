@@ -147,6 +147,27 @@
                 </ul>
             </li>
 
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:cellphone-banking" class="menu-icon"></iconify-icon>
+                    <span>Finance Digitale</span>
+                </a>
+                                   <ul class="sidebar-submenu">
+                       <li>
+                           <a href="<?php echo e(route('admin.digitalfinance.updates.index')); ?>">
+                               <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                               Formulaires de mise à jour
+                           </a>
+                       </li>
+                       <li>
+                           <a href="<?php echo e(route('admin.digitalfinance.contracts.index')); ?>">
+                               <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                               Contrats d'adhésion
+                           </a>
+                       </li>
+                   </ul>
+            </li>
+
         </ul>
     </div>
 </aside>

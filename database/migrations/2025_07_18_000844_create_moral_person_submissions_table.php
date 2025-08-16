@@ -17,7 +17,7 @@ return new class extends Migration
             // Step 1: Entity Information
             $table->string('company_name');
             $table->string('category')->nullable(); // Catégorie
-            $table->string('rccm');
+            $table->string('rccm')->nullable();
             $table->string('company_id_type')->nullable(); // Type de pièce d’identification
             $table->string('company_id_number')->nullable(); // Numéro de pièce
             $table->date('company_id_date')->nullable(); // Date d’enregistrement

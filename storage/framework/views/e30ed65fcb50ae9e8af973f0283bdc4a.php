@@ -1,8 +1,8 @@
-
-
 <?php $__env->startSection('css'); ?>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     .account-form-section {
         background-color: #f7f8fc;
@@ -196,30 +196,183 @@
         display: flex;
         justify-content: space-between;
         margin-top: 40px;
+        gap: 20px;
     }
 
     .btn-nav {
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-weight: 600;
+        padding: 15px 35px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 1rem;
         border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        min-width: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-nav:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-nav:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-nav::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn-nav:hover::before {
+        left: 100%;
     }
 
     .btn-prev {
-        background-color: #6c757d;
-        color: white;
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white !important;
+        border: 2px solid #6c757d;
+    }
+
+    .btn-prev:hover {
+        background: linear-gradient(135deg, #495057, #343a40);
+        border-color: #495057;
+        color: white !important;
     }
 
     .btn-next {
-        background-color: #EC281C;
-        color: white;
+        background: linear-gradient(135deg, #EC281C, #d4241a);
+        color: white !important;
+        border: 2px solid #EC281C;
+    }
+
+    .btn-next:hover {
+        background: linear-gradient(135deg, #d4241a, #b91c13);
+        border-color: #d4241a;
+        color: white !important;
     }
 
     .btn-submit-form {
-        font-size: 1rem;
-        border-radius: 8px;
-        padding: 14px 35px;
+        font-size: 1.1rem;
+        border-radius: 12px;
+        padding: 18px 40px;
         width: auto;
+        background: linear-gradient(135deg, #EC281C, #d4241a);
+        color: white !important;
+        border: 2px solid #EC281C;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 6px 20px rgba(236, 40, 28, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        min-width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-submit-form:hover {
+        background: linear-gradient(135deg, #d4241a, #b91c13);
+        border-color: #d4241a;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(236, 40, 28, 0.4);
+        color: white !important;
+    }
+
+    .btn-submit-form:active {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(236, 40, 28, 0.3);
+        color: white !important;
+    }
+
+    .btn-submit-form::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s;
+    }
+
+    .btn-submit-form:hover::before {
+        left: 100%;
+    }
+
+    /* Styles responsifs pour les boutons */
+    @media (max-width: 768px) {
+        .form-navigation-buttons {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn-nav, .btn-submit-form {
+            width: 100%;
+            min-width: auto;
+            padding: 18px 25px;
+        }
+        
+        .btn-nav {
+            font-size: 0.95rem;
+        }
+        
+        .btn-submit-form {
+            font-size: 1rem;
+            padding: 20px 30px;
+        }
+    }
+
+    /* Animation d'apparition des boutons */
+    .btn-nav, .btn-submit-form {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Effet de focus pour l'accessibilité */
+    .btn-nav:focus, .btn-submit-form:focus {
+        outline: 3px solid rgba(236, 40, 28, 0.5);
+        outline-offset: 2px;
+    }
+
+    /* État désactivé */
+    .btn-nav:disabled, .btn-submit-form:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none !important;
+    }
+
+    .btn-nav:disabled:hover, .btn-submit-form:disabled:hover {
+        transform: none !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
     }
 
     .file-upload-wrapper {
@@ -264,6 +417,74 @@
         font-style: italic;
         color: #000;
         font-weight: 500;
+    }
+
+    /* Styles améliorés pour la prévisualisation des images */
+    .file-upload-preview img {
+        max-width: 100%;
+        max-height: 200px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+    }
+
+    .file-upload-preview img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        border-color: #EC281C;
+    }
+
+    .file-upload-preview .preview-container {
+        position: relative;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .file-upload-preview .remove-preview {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 12px;
+        box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .file-upload-preview .remove-preview:hover {
+        background: #c82333;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+    }
+
+    .file-upload-preview .file-info {
+        margin-top: 8px;
+        padding: 8px 12px;
+        background: #f8f9fa;
+        border-radius: 6px;
+        border-left: 3px solid #EC281C;
+        font-size: 0.9rem;
+        color: #495057;
+    }
+
+    .file-upload-preview .file-info .file-name {
+        font-weight: 600;
+        color: #212529;
+        margin-bottom: 4px;
+    }
+
+    .file-upload-preview .file-info .file-size {
+        color: #6c757d;
+        font-size: 0.85rem;
     }
 
     .choice-container .choice-label {
@@ -402,6 +623,412 @@
         top: 10px;
         right: 10px;
     }
+
+    /* Style personnalisé pour les boutons "Ajouter" avec la charte graphique COCEC */
+    .dynamic-adder-btn {
+        background: linear-gradient(135deg, #EC281C, #d4241a) !important;
+        color: white !important;
+        border: 2px solid #EC281C !important;
+        border-radius: 10px !important;
+        padding: 12px 25px !important;
+        font-weight: 600 !important;
+        font-size: 0.95rem !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 15px rgba(236, 40, 28, 0.2) !important;
+        text-decoration: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    .dynamic-adder-btn:hover {
+        background: linear-gradient(135deg, #d4241a, #b91c13) !important;
+        border-color: #d4241a !important;
+        color: white !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(236, 40, 28, 0.3) !important;
+        text-decoration: none !important;
+    }
+
+    .dynamic-adder-btn:active {
+        transform: translateY(0) !important;
+        box-shadow: 0 4px 15px rgba(236, 40, 28, 0.2) !important;
+    }
+
+    .dynamic-adder-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .dynamic-adder-btn:hover::before {
+        left: 100%;
+    }
+
+    .dynamic-adder-btn i {
+        color: white !important;
+        font-size: 1rem !important;
+    }
+
+    /* Styles pour les champs optionnels */
+    .form-control[data-optional="true"] {
+        border-color: #e0e0e0;
+    }
+
+    .form-control[data-optional="true"]:focus {
+        border-color: #EC281C;
+        box-shadow: 0 0 0 0.25rem rgba(236, 40, 28, 0.25);
+    }
+
+    /* S'assurer que le champ RCCM n'a pas de style d'erreur */
+    .form-control[name="rccm"] {
+        border-color: #e0e0e0 !important;
+    }
+
+    .form-control[name="rccm"]:focus {
+        border-color: #EC281C !important;
+        box-shadow: 0 0 0 0.25rem rgba(236, 40, 28, 0.25) !important;
+    }
+
+    .form-control[name="rccm"].is-invalid {
+        border-color: #e0e0e0 !important;
+        box-shadow: none !important;
+    }
+
+    /* Messages d'erreur personnalisés et améliorés */
+    .custom-error-message {
+        margin-top: 15px;
+        padding: 16px 20px;
+        background: linear-gradient(135deg, #fff5f5, #fed7d7);
+        border: 2px solid #f56565;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(245, 101, 101, 0.15);
+        animation: errorShake 0.6s ease-in-out;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .custom-error-message::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #f56565, #e53e3e, #f56565);
+        animation: errorGlow 2s ease-in-out infinite;
+    }
+
+    .custom-error-message .error-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .custom-error-message .error-icon {
+        color: #e53e3e;
+        font-size: 1.5rem;
+        animation: errorPulse 2s ease-in-out infinite;
+        flex-shrink: 0;
+    }
+
+    .custom-error-message .error-text {
+        flex: 1;
+    }
+
+    .custom-error-message .error-text strong {
+        display: block;
+        color: #c53030;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .custom-error-message .error-text span {
+        color: #742a2a;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+    /* Animations pour les messages d'erreur */
+    @keyframes errorShake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    @keyframes errorGlow {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+
+    @keyframes errorPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    /* Hover effect pour les messages d'erreur */
+    .custom-error-message:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(245, 101, 101, 0.25);
+        border-color: #e53e3e;
+    }
+
+    /* Responsive pour les messages d'erreur */
+    @media (max-width: 768px) {
+        .custom-error-message {
+            padding: 14px 16px;
+        }
+        
+        .custom-error-message .error-content {
+            gap: 12px;
+        }
+        
+        .custom-error-message .error-icon {
+            font-size: 1.3rem;
+        }
+        
+        .custom-error-message .error-text strong {
+            font-size: 1rem;
+        }
+        
+        .custom-error-message .error-text span {
+            font-size: 0.95rem;
+        }
+    }
+
+    .custom-success-message {
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+        color: #3c763d;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .success-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .success-icon {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+
+    .success-text {
+        flex: 1;
+    }
+
+    .close-success {
+        background: none;
+        border: none;
+        color: #3c763d;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .custom-error-message {
+        background-color: #f2dede;
+        border-color: #ebccd1;
+        color: #a94442;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .error-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .error-icon {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+
+    .error-text {
+        flex: 1;
+    }
+
+    .close-error {
+        background: none;
+        border: none;
+        color: #a94442;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .form-control[name="rccm"].is-invalid {
+        border-color: #e0e0e0 !important;
+        box-shadow: none !important;
+    }
+
+    /* Messages de succès personnalisés avec le style COCEC */
+    .custom-success-message {
+        margin: 20px 0;
+        padding: 20px 25px;
+        background: linear-gradient(135deg, #d4edda, #c3e6cb);
+        border: 2px solid #28a745;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.15);
+        animation: successSlideIn 0.6s ease-out;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .custom-success-message::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #28a745, #20c997, #28a745);
+        animation: successGlow 2s ease-in-out infinite;
+    }
+
+    .custom-success-message .success-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .custom-success-message .success-icon {
+        color: #28a745;
+        font-size: 1.8rem;
+        animation: successPulse 2s ease-in-out infinite;
+        flex-shrink: 0;
+    }
+
+    .custom-success-message .success-text {
+        flex: 1;
+    }
+
+    .custom-success-message .success-text strong {
+        display: block;
+        color: #155724;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .custom-success-message .success-text span {
+        color: #155724;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5;
+    }
+
+    .custom-success-message .close-success {
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+
+    .custom-success-message .close-success:hover {
+        background: #218838;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+
+    /* Animations pour les messages de succès */
+    @keyframes successSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes successGlow {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+
+    @keyframes successPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    /* Hover effect pour les messages de succès */
+    .custom-success-message:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(40, 167, 69, 0.25);
+        border-color: #20c997;
+    }
+
+    /* Responsive pour les messages de succès */
+    @media (max-width: 768px) {
+        .custom-success-message {
+            padding: 16px 20px;
+        }
+        
+        .custom-success-message .success-content {
+            gap: 12px;
+        }
+        
+        .custom-success-message .success-icon {
+            font-size: 1.5rem;
+        }
+        
+        .custom-success-message .success-text strong {
+            font-size: 1.1rem;
+        }
+        
+        .custom-success-message .success-text span {
+            font-size: 0.95rem;
+        }
+    }
+
+    /* Styles pour le champ RCCM optionnel */
+    .form-control[data-optional="true"] {
+        border-color: #ced4da;
+    }
+
+    .form-control[data-optional="true"]:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    /* S'assurer que les messages d'erreur sont bien visibles en rouge */
+    .invalid-feedback {
+        color: #dc3545 !important;
+        font-weight: 500;
+    }
+
+    .form-control.is-invalid {
+        border-color: #dc3545 !important;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+    }
 </style>
 <?php $__env->stopSection(); ?>
 
@@ -465,47 +1092,27 @@
                 <?php echo csrf_field(); ?>
 
                 <div class="form-stepper">
-                    <div class="progress-line"></div>
                     <div class="step active" data-step="1">
                         <div class="step-icon">1</div>
                         <div class="step-label">Entité</div>
                     </div>
                     <div class="step" data-step="2">
                         <div class="step-icon">2</div>
-                        <div class="step-label">Dirigeant</div>
+                        <div class="step-label">Dirigeant & Contacts</div>
                     </div>
                     <div class="step" data-step="3">
                         <div class="step-icon">3</div>
-                        <div class="step-label">Procès-verbaux</div>
+                        <div class="step-label">Co-dirigeants & Signataires</div>
                     </div>
                     <div class="step" data-step="4">
                         <div class="step-icon">4</div>
-                        <div class="step-label">Contact d'urgence</div>
+                        <div class="step-label">Documents & Bénéficiaires</div>
                     </div>
                     <div class="step" data-step="5">
                         <div class="step-icon">5</div>
-                        <div class="step-label">Co-dirigeants</div>
+                        <div class="step-label">Versements & Informations</div>
                     </div>
-                    <div class="step" data-step="6">
-                        <div class="step-icon">6</div>
-                        <div class="step-label">Signataires</div>
-                    </div>
-                    <div class="step" data-step="7">
-                        <div class="step-icon">7</div>
-                        <div class="step-label">Documents</div>
-                    </div>
-                    <div class="step" data-step="8">
-                        <div class="step-icon">8</div>
-                        <div class="step-label">Bénéficiaires</div>
-                    </div>
-                    <div class="step" data-step="9">
-                        <div class="step-icon">9</div>
-                        <div class="step-label">Versements</div>
-                    </div>
-                    <div class="step" data-step="10">
-                        <div class="step-icon">10</div>
-                        <div class="step-label">Informations réservées</div>
-                    </div>
+                    <div class="progress-line"></div>
                 </div>
 
                 <!-- Étape 1: Entité -->
@@ -553,7 +1160,7 @@ endif;
 unset($__errorArgs, $__bag); ?></div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
-                            <label class="form-label">N° RCCM / Récépissé</label>
+                            <label class="form-label">N° RCCM / Récépissé <span class="text-muted">(optionnel)</span></label>
                             <i class="icon fas fa-file-contract"></i>
                             <input type="text" class="form-control <?php $__errorArgs = ['rccm'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -562,15 +1169,8 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" name="rccm" value="<?php echo e(old('rccm')); ?>" required>
-                            <div class="invalid-feedback"><?php $__errorArgs = ['rccm'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?></div>
+unset($__errorArgs, $__bag); ?>" name="rccm" value="<?php echo e(old('rccm')); ?>" data-optional="true">
+                            <div class="invalid-feedback">Ce champ est optionnel.</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Type de pièce d'identification</label>
@@ -902,7 +1502,7 @@ unset($__errorArgs, $__bag); ?></div>
                     </div>
                 </div>
 
-                <!-- Étape 2: Dirigeant -->
+                <!-- Étape 2: Dirigeant & Contacts -->
                 <div class="form-step-content" data-step="2">
                     <h4 class="form-section-title">Informations sur le Dirigeant</h4>
                     <div class="row">
@@ -1311,10 +1911,6 @@ endif;
 unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Étape 3: Procès-verbaux -->
-                <div class="form-step-content" data-step="3">
                     <h4 class="form-section-title">Procès-verbaux</h4>
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
@@ -1358,10 +1954,6 @@ endif;
 unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Étape 4: Contact d'urgence -->
-                <div class="form-step-content" data-step="4">
                     <h4 class="form-section-title">Contact d'Urgence</h4>
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
@@ -1427,23 +2019,28 @@ unset($__errorArgs, $__bag); ?></div>
                     </div>
                 </div>
 
-                <!-- Étape 5: Co-dirigeants -->
-                <div class="form-step-content" data-step="5">
+                <!-- Étape 3: Co-dirigeants & Signataires -->
+                <div class="form-step-content" data-step="3">
                     <h4 class="form-section-title">Co-dirigeants</h4>
                     <div id="co-directors-container"></div>
                     <button type="button" class="btn btn-outline-primary mt-2 dynamic-adder-btn" data-container="co-directors-container" data-type="co_director"><i class="fas fa-plus"></i> Ajouter un co-dirigeant</button>
-                </div>
 
-                <!-- Étape 6: Signataires du compte -->
-                <div class="form-step-content" data-step="6">
                     <h4 class="form-section-title">Signataires du Compte</h4>
                     <div id="account-signatories-container"></div>
                     <button type="button" class="btn btn-outline-primary mt-2 dynamic-adder-btn" data-container="account-signatories-container" data-type="account_signatory"><i class="fas fa-plus"></i> Ajouter un signataire</button>
-                    <div class="invalid-feedback" id="account-signatories-error" style="display: none;">Veuillez ajouter au moins deux signataires.</div>
+                    <div id="account-signatories-error" class="custom-error-message" style="display: none;">
+                        <div class="error-content">
+                            <i class="fas fa-exclamation-triangle error-icon"></i>
+                            <div class="error-text">
+                                <strong>Attention !</strong>
+                                <span>Veuillez ajouter au moins deux signataires.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Étape 7: Documents -->
-                <div class="form-step-content" data-step="7">
+                <!-- Étape 4: Documents & Bénéficiaires -->
+                <div class="form-step-content" data-step="4">
                     <h4 class="form-section-title">Documents Juridiques</h4>
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -1487,7 +2084,7 @@ unset($__errorArgs, $__bag); ?>">
                                     <p class="file-upload-text">Choisir une photo (JPEG, PNG, JPG)</p>
                                 </div>
                                 <div class="file-upload-preview"></div>
-                                <input type="file" name="responsible_persons_photo_path" accept="image/jpeg,image/png,image/jpg" required>
+                                <input type="file" name="responsible_persons_photo_path" id="responsible-photo-input" accept="image/jpeg,image/png,image/jpg" required>
                                 <div class="invalid-feedback"><?php $__errorArgs = ['responsible_persons_photo_path'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -1499,7 +2096,6 @@ unset($__errorArgs, $__bag); ?></div>
                             </div>
                         </div>
                     </div>
-
                     <!-- ==== BLOC SIGNATURE CORRIGÉ ==== -->
                     <h4 class="form-section-title mt-4">Signature du Dirigeant</h4>
                     <div class="row choice-container <?php $__errorArgs = ['signature_method'];
@@ -1562,18 +2158,47 @@ unset($__errorArgs, $__bag); ?></div>
                         </div>
                     </div>
                     <!-- ==== FIN BLOC SIGNATURE CORRIGÉ ==== -->
-                </div>
-
-                <!-- Étape 8: Bénéficiaires -->
-                <div class="form-step-content" data-step="8">
                     <h4 class="form-section-title">Bénéficiaires</h4>
+                    
+                    <!-- Champs PPE ajoutés pour résoudre l'erreur NOT NULL constraint -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="input-group-custom">
+                                <label class="form-label">Personne politiquement exposée (nationale) ?</label>
+                                <i class="icon fas fa-user-shield"></i>
+                                <select class="form-control" name="is_ppe_national" id="is_ppe_national" style="padding-left: 50px;">
+                                    <option value="0" <?php echo e(old('is_ppe_national', '0') == '0' ? 'selected' : ''); ?>>Non</option>
+                                    <option value="1" <?php echo e(old('is_ppe_national') == '1' ? 'selected' : ''); ?>>Oui</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group-custom">
+                                <label class="form-label">Personne politiquement exposée (étranger) ?</label>
+                                <i class="icon fas fa-globe"></i>
+                                <select class="form-control" name="ppe_foreign" id="ppe_foreign" style="padding-left: 50px;">
+                                    <option value="0" <?php echo e(old('ppe_foreign', '0') == '0' ? 'selected' : ''); ?>>Non</option>
+                                    <option value="1" <?php echo e(old('ppe_foreign') == '1' ? 'selected' : ''); ?>>Oui</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div id="beneficiaries-container"></div>
                     <button type="button" class="btn btn-outline-primary mt-2 dynamic-adder-btn" data-container="beneficiaries-container" data-type="beneficiary"><i class="fas fa-plus"></i> Ajouter un bénéficiaire</button>
-                    <div class="invalid-feedback" id="beneficiaries-error" style="display: none;">Veuillez ajouter au moins un bénéficiaire.</div>
+                    <div id="beneficiaries-error" class="custom-error-message" style="display: none;">
+                        <div class="error-content">
+                            <i class="fas fa-exclamation-triangle error-icon"></i>
+                            <div class="error-text">
+                                <strong>Attention !</strong>
+                                <span>Veuillez ajouter au moins un bénéficiaire.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Étape 9: Versements -->
-                <div class="form-step-content" data-step="9">
+                <!-- Étape 5: Versements & Informations -->
+                <div class="form-step-content" data-step="5">
                     <h4 class="form-section-title">Versements Initiaux</h4>
                     <div class="row align-items-center">
                         <div class="col-md-6">
@@ -1608,179 +2233,6 @@ unset($__errorArgs, $__bag); ?></div>
                     </div>
                 </div>
 
-                <!-- Étape 10: Informations réservées -->
-                <div class="form-step-content" data-step="10">
-                    <h4 class="form-section-title">Informations Réservées</h4>
-                    <div class="row">
-                        <div class="col-md-6 mb-3 input-group-custom">
-                            <label class="form-label">Date d'adhésion</label>
-                            <i class="icon fas fa-calendar-alt"></i>
-                            <input type="date" class="form-control <?php $__errorArgs = ['membership_date'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" name="membership_date" value="<?php echo e(old('membership_date')); ?>">
-                            <div class="invalid-feedback"><?php $__errorArgs = ['membership_date'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?></div>
-                        </div>
-                        <div class="col-md-6 mb-3 input-group-custom">
-                            <label class="form-label">Numéro de compte</label>
-                            <i class="icon fas fa-id-card"></i>
-                            <input type="text" class="form-control <?php $__errorArgs = ['account_number'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" name="account_number" value="<?php echo e(old('account_number')); ?>">
-                            <div class="invalid-feedback"><?php $__errorArgs = ['account_number'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?></div>
-                        </div>
-                        <div class="col-md-6 mb-3 input-group-custom">
-                            <label class="form-label">Date d'ouverture du compte</label>
-                            <i class="icon fas fa-calendar-alt"></i>
-                            <input type="date" class="form-control <?php $__errorArgs = ['account_opening_date'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" name="account_opening_date" value="<?php echo e(old('account_opening_date')); ?>">
-                            <div class="invalid-feedback"><?php $__errorArgs = ['account_opening_date'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?></div>
-                        </div>
-                        <div class="col-md-6 mb-3 input-group-custom">
-                            <label class="form-label">Personne politiquement exposée (national) ?</label>
-                            <i class="icon fas fa-user-shield"></i>
-                            <select class="form-control <?php $__errorArgs = ['is_ppe_national'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" name="is_ppe_national" id="is_ppe_national" style="padding-left: 50px;" required>
-                                <option value="0" <?php echo e(old('is_ppe_national', '0') == '0' ? 'selected' : ''); ?>>Non</option>
-                                <option value="1" <?php echo e(old('is_ppe_national') == '1' ? 'selected' : ''); ?>>Oui</option>
-                            </select>
-                            <div class="invalid-feedback"><?php $__errorArgs = ['is_ppe_national'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis. <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?></div>
-                        </div>
-                        <div class="col-md-6 mb-3 input-group-custom">
-                            <label class="form-label">Personne politiquement exposée (étranger) ? <span id="ppe-foreign-required" style="color: #dc3545; display: none;">*</span></label>
-                            <i class="icon fas fa-user-shield"></i>
-                            <select class="form-control <?php $__errorArgs = ['ppe_foreign'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" name="ppe_foreign" id="ppe_foreign" style="padding-left: 50px;" required>
-                                <option value="0" <?php echo e(old('ppe_foreign', '0') == '0' ? 'selected' : ''); ?>>Non</option>
-                                <option value="1" <?php echo e(old('ppe_foreign') == '1' ? 'selected' : ''); ?>>Oui</option>
-                            </select>
-                            <div class="invalid-feedback"><?php $__errorArgs = ['ppe_foreign'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est requis si vous n'êtes pas PPE national. <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?></div>
-                        </div>
-                        <div class="col-md-6 mb-3 input-group-custom">
-                            <label class="form-label">Sanctions financières</label>
-                            <i class="icon fas fa-gavel"></i>
-                            <input type="text" class="form-control <?php $__errorArgs = ['sanctions'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" name="sanctions" value="<?php echo e(old('sanctions')); ?>">
-                            <div class="invalid-feedback"><?php $__errorArgs = ['sanctions'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?></div>
-                        </div>
-                        <div class="col-md-6 mb-3 input-group-custom">
-                            <label class="form-label">Financement du terrorisme</label>
-                            <i class="icon fas fa-exclamation-triangle"></i>
-                            <input type="text" class="form-control <?php $__errorArgs = ['terrorism_financing'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" name="terrorism_financing" value="<?php echo e(old('terrorism_financing')); ?>">
-                            <div class="invalid-feedback"><?php $__errorArgs = ['terrorism_financing'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?></div>
-                        </div>
-                        <div class="col-md-12 mb-3 input-group-custom">
-                            <label class="form-label">Remarques particulières</label>
-                            <i class="icon fas fa-comment"></i>
-                            <textarea class="form-control <?php $__errorArgs = ['remarks'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" name="remarks" rows="4"><?php echo e(old('remarks')); ?></textarea>
-                            <div class="invalid-feedback"><?php $__errorArgs = ['remarks'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php else: ?> Ce champ est optionnel. <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?></div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="form-navigation-buttons">
                     <button type="button" class="btn btn-nav btn-prev" style="display: none;">Précédent</button>
                     <button type="button" class="btn btn-nav btn-next">Suivant</button>
@@ -1799,7 +2251,7 @@ unset($__errorArgs, $__bag); ?></div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const forms = document.querySelectorAll('.multi-step-form');
-        forms.forEach(form => {
+        forms.forEach((form, formIndex) => {
             const steps = form.querySelectorAll('.form-step-content');
             const stepperItems = form.querySelectorAll('.form-stepper .step');
             const progressLine = form.querySelector('.form-stepper .progress-line');
@@ -1858,9 +2310,9 @@ unset($__errorArgs, $__bag); ?></div>
                 });
 
                 // Validation spécifique pour les champs dynamiques
-                if (step === 6) { // Signataires
+                if (step === 3) { // Signataires
                     const container = currentStepContent.querySelector('#account-signatories-container');
-                    const errorElement = currentStepContent.querySelector('#account-signatories-error');
+                    const errorElement = document.getElementById('account-signatories-error');
                     if (container.children.length < 2) {
                         errorElement.style.display = 'block';
                         isValid = false;
@@ -1868,9 +2320,9 @@ unset($__errorArgs, $__bag); ?></div>
                         errorElement.style.display = 'none';
                     }
                 }
-                if (step === 8) { // Bénéficiaires
+                if (step === 4) { // Bénéficiaires
                     const container = currentStepContent.querySelector('#beneficiaries-container');
-                    const errorElement = currentStepContent.querySelector('#beneficiaries-error');
+                    const errorElement = document.getElementById('beneficiaries-error');
                     if (container.children.length < 1) {
                         errorElement.style.display = 'block';
                         isValid = false;
@@ -1892,7 +2344,7 @@ unset($__errorArgs, $__bag); ?></div>
                 }
 
                 // ==== BLOC VALIDATION SIGNATURE CORRIGÉ ====
-                if (step === 7) {
+                if (step === 4) {
                     const signatureMethod = currentStepContent.querySelector('input[name="signature_method"]:checked');
                     const choiceContainer = currentStepContent.querySelector('input[name="signature_method"]').closest('.choice-container');
 
@@ -1960,7 +2412,9 @@ unset($__errorArgs, $__bag); ?></div>
                 });
             }
 
-            form.querySelectorAll('.dynamic-adder-btn').forEach(btn => {
+            const dynamicButtons = form.querySelectorAll('.dynamic-adder-btn');
+
+            dynamicButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const containerId = btn.dataset.container;
                     const type = btn.dataset.type;
@@ -2344,21 +2798,123 @@ unset($__errorArgs, $__bag); ?></div>
                     }
                 });
 
-                const isPpeNationalSelect = form.querySelector('#is_ppe_national');
-                const ppeForeignSelect = form.querySelector('#ppe_foreign');
-                const ppeForeignRequired = form.querySelector('#ppe-foreign-required');
+                // Code supprimé car les éléments n'existent pas dans ce formulaire
 
-                function updatePpeForeignRequirement() {
-                    const isPpeNational = isPpeNationalSelect.value === '1';
-                    ppeForeignSelect.toggleAttribute('required', !isPpeNational);
-                    ppeForeignRequired.style.display = isPpeNational ? 'none' : 'inline';
-                    if (isPpeNational) {
-                        ppeForeignSelect.value = '';
-                    }
+                // ==== PRÉVISUALISATION PHOTO DES RESPONSABLES ====
+                const responsiblePhotoInput = form.querySelector('#responsible-photo-input');
+                if (responsiblePhotoInput) {
+                    responsiblePhotoInput.addEventListener('change', function() {
+                        const file = this.files[0];
+                        const previewContainer = this.closest('.file-upload-wrapper').querySelector('.file-upload-preview');
+                        
+                        if (file) {
+                            if (file.type.startsWith('image/')) {
+                                // Prévisualisation d'image
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    previewContainer.innerHTML = `
+                                        <div class="preview-container">
+                                            <img src="${e.target.result}" alt="Aperçu de la photo">
+                                            <button type="button" class="remove-preview" onclick="removePhotoPreview('${this.id}')">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    `;
+                                }.bind(this);
+                                reader.readAsDataURL(file);
+                            } else {
+                                // Informations sur le fichier
+                                previewContainer.innerHTML = `
+                                    <div class="file-info">
+                                        <div class="file-name">${file.name}</div>
+                                        <div class="file-size">${(file.size / 1024).toFixed(1)} KB</div>
+                                        <button type="button" class="remove-preview" onclick="removePhotoPreview('${this.id}')">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                `;
+                            }
+                            // Supprimer la classe d'erreur si elle existe
+                            this.closest('.file-upload-wrapper').classList.remove('is-invalid');
+                        } else {
+                            previewContainer.innerHTML = '';
+                        }
+                    });
                 }
 
-                isPpeNationalSelect.addEventListener('change', updatePpeForeignRequirement);
-                updatePpeForeignRequirement();
+                // Fonction pour supprimer la prévisualisation
+                window.removePhotoPreview = function(inputId) {
+                    const input = document.getElementById(inputId);
+                    const previewContainer = input.closest('.file-upload-wrapper').querySelector('.file-upload-preview');
+                    input.value = '';
+                    previewContainer.innerHTML = '';
+                    
+                    // Réappliquer la classe d'erreur si le champ est requis
+                    if (input.hasAttribute('required')) {
+                        input.closest('.file-upload-wrapper').classList.add('is-invalid');
+                    }
+                };
+                // ==== FIN PRÉVISUALISATION PHOTO DES RESPONSABLES ====
+
+                // ==== GESTION DES MESSAGES DE SUCCÈS/ERREUR AVEC SWEETALERT2 ====
+                // Détecter les messages de succès au chargement de la page
+                const successMessage = document.querySelector('.alert-success');
+                if (successMessage) {
+                    const messageText = successMessage.textContent.trim();
+                    Swal.fire({
+                        icon: "success",
+                        title: "Adhésion réussie ! 🎉",
+                        text: messageText,
+                        confirmButtonColor: "#EC281C",
+                        background: "#fff",
+                        backdrop: `
+                            rgba(0,0,123,0.4)
+                            url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23EC281C' fill-opacity='0.1'/%3E%3C/svg%3E")
+                        `
+                    });
+                    // Supprimer le message HTML après affichage du popup
+                    successMessage.remove();
+                }
+
+                // Détecter les messages d'erreur au chargement de la page
+                const errorMessage = document.querySelector('.alert-danger');
+                if (errorMessage) {
+                    const messageText = errorMessage.textContent.trim();
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Oups...",
+                        text: messageText,
+                        confirmButtonColor: "#EC281C",
+                        background: "#fff",
+                        backdrop: `
+                            rgba(220,53,69,0.4)
+                            url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23EC281C' fill-opacity='0.1'/%3E%3C/svg%3E")
+                        `
+                    });
+                    // Supprimer le message HTML après affichage du popup
+                    errorMessage.remove();
+                }
+
+                // Détecter les messages d'erreur de validation au chargement de la page
+                const validationErrors = document.querySelector('.alert-danger ul');
+                if (validationErrors) {
+                    const errorList = Array.from(validationErrors.querySelectorAll('li')).map(li => li.textContent.trim());
+                    const errorMessage = errorList.join('\n• ');
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Erreurs de validation",
+                        html: `<div style="text-align: left;"><strong>Veuillez corriger les erreurs suivantes :</strong><br><br>• ${errorMessage}</div>`,
+                        confirmButtonColor: "#EC281C",
+                        background: "#fff",
+                        backdrop: `
+                            rgba(220,53,69,0.4)
+                            url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23EC281C' fill-opacity='0.1'/%3E%3C/svg%3E")
+                        `
+                    });
+                    // Supprimer le message HTML après affichage du popup
+                    validationErrors.closest('.alert-danger').remove();
+                }
+                // ==== FIN GESTION DES MESSAGES AVEC SWEETALERT2 ====
 
                 showStep(currentStep);
             });

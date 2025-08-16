@@ -1,4 +1,3 @@
-```blade
 @extends('layout.admin')
 
 @section('content')
@@ -170,4 +169,3 @@
         });
     </script>
 @endsection
-```

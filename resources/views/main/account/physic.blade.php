@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     .account-form-section {
         background-color: #f7f8fc;
@@ -228,18 +229,55 @@
     .btn-nav {
         padding: 12px 30px;
         border-radius: 8px;
-        font-weight: 600;
+        font-weight: 700;
         border: none;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-nav::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn-nav:hover::before {
+        left: 100%;
     }
 
     .btn-prev {
-        background-color: #6c757d;
-        color: white;
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white !important;
+        border: 2px solid #6c757d;
+    }
+
+    .btn-prev:hover {
+        background: linear-gradient(135deg, #495057, #343a40);
+        border-color: #495057;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 
     .btn-next {
-        background-color: #EC281C;
-        color: white;
+        background: linear-gradient(135deg, #EC281C, #d4241a);
+        color: white !important;
+        border: 2px solid #EC281C;
+    }
+
+    .btn-next:hover {
+        background: linear-gradient(135deg, #d4241a, #b91c13);
+        border-color: #d4241a;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 
     .btn-submit-form {
@@ -247,6 +285,72 @@
         border-radius: 8px;
         padding: 14px 35px;
         width: auto;
+        background: linear-gradient(135deg, #EC281C, #d4241a);
+        color: white !important;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: 2px solid #EC281C;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-submit-form::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn-submit-form:hover::before {
+        left: 100%;
+    }
+
+    .btn-submit-form:hover {
+        background: linear-gradient(135deg, #d4241a, #b91c13);
+        border-color: #d4241a;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .dynamic-adder-btn {
+        background: linear-gradient(135deg, #EC281C, #d4241a);
+        color: white !important;
+        border: 2px solid #EC281C;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dynamic-adder-btn:hover {
+        background: linear-gradient(135deg, #d4241a, #b91c13);
+        border-color: #d4241a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Responsive pour les boutons */
+    @media (max-width: 768px) {
+        .btn-nav, .btn-submit-form {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .dynamic-adder-btn {
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
     }
 
     .file-upload-wrapper {
@@ -433,6 +537,56 @@
     .dynamic-field .remove-field {
         top: 10px;
         right: 10px;
+    }
+
+    /* Messages d'erreur personnalisés */
+    .custom-error-message {
+        background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        border: 2px solid #dc3545;
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin: 15px 0;
+        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        animation: errorShake 0.5s ease-in-out;
+    }
+
+    .custom-error-message .error-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .custom-error-message .error-icon {
+        color: #fff;
+        font-size: 1.5rem;
+        animation: errorPulse 2s infinite;
+    }
+
+    .custom-error-message .error-text {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .custom-error-message .error-text strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+    }
+
+    @keyframes errorShake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    @keyframes errorPulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    @keyframes errorGlow {
+        0%, 100% { box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3); }
+        50% { box-shadow: 0 4px 25px rgba(220, 53, 69, 0.6); }
     }
 </style>
 @endsection
@@ -765,6 +919,15 @@
                         @endif
                     </div>
                     <button type="button" class="btn btn-outline-primary mt-2 dynamic-adder-btn" data-container="references-container-physique" data-type="reference"><i class="fas fa-plus"></i> Ajouter une référence</button>
+                    <div id="references-error" class="custom-error-message" style="display: none;">
+                        <div class="error-content">
+                            <i class="fas fa-exclamation-triangle error-icon"></i>
+                            <div class="error-text">
+                                <strong>Attention !</strong>
+                                <span>Veuillez ajouter au moins une référence.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Étape 4: Documents -->
@@ -795,7 +958,7 @@
                             <div class="invalid-feedback">@error('id_issue_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Photo d’identité</label>
+                            <label class="form-label">Photo d'identité</label>
                             <div class="file-upload-wrapper @error('photo_path') is-invalid @enderror">
                                 <div class="file-upload-content">
                                     <i class="fas fa-camera file-upload-icon"></i>
@@ -888,6 +1051,15 @@
                         @endif
                     </div>
                     <button type="button" class="btn btn-outline-primary mt-2 dynamic-adder-btn" data-container="beneficiaries-container-physique" data-type="beneficiaire"><i class="fas fa-plus"></i> Ajouter un bénéficiaire</button>
+                    <div id="beneficiaries-error" class="custom-error-message" style="display: none;">
+                        <div class="error-content">
+                            <i class="fas fa-exclamation-triangle error-icon"></i>
+                            <div class="error-text">
+                                <strong>Attention !</strong>
+                                <span>Veuillez ajouter au moins un bénéficiaire.</span>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- ==== BLOC SIGNATURE CORRIGÉ ==== -->
                     <h4 class="form-section-title mt-4">Signature</h4>
@@ -911,7 +1083,15 @@
                             <button type="button" class="btn-clear">Effacer</button>
                         </div>
                         <input type="hidden" name="signature_data" id="signature-data-physique" value="{{ old('signature_data') }}">
-                        <div class="invalid-feedback" id="signature-draw-error-physique" style="display:none;">Veuillez dessiner une signature.</div>
+                        <div id="signature-draw-error-physique" class="custom-error-message" style="display:none;">
+                            <div class="error-content">
+                                <i class="fas fa-exclamation-triangle error-icon"></i>
+                                <div class="error-text">
+                                    <strong>Attention !</strong>
+                                    <span>Veuillez dessiner une signature.</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="method-area" id="upload-area-physique">
@@ -951,9 +1131,9 @@
                 </div>
 
                 <div class="form-navigation-buttons">
-                    <button type="button" class="btn btn-nav btn-prev" style="display: none;">Précédent</button>
-                    <button type="button" class="btn btn-nav btn-next">Suivant</button>
-                    <button type="submit" class="btn btn-submit-form btn-next" style="display: none;">Soumettre l'adhésion</button>
+                    <button type="button" class="btn btn-nav btn-prev" style="display: none;"><i class="fas fa-arrow-left"></i> Précédent</button>
+                    <button type="button" class="btn btn-nav btn-next">Suivant <i class="fas fa-arrow-right"></i></button>
+                    <button type="submit" class="btn btn-submit-form btn-next" style="display: none;"><i class="fas fa-check-circle"></i> Soumettre l'adhésion</button>
                 </div>
             </form>
         </div>
@@ -1113,22 +1293,21 @@
                 // Validation pour références et bénéficiaires
                 if (step === 3 || step === 4) {
                     const containerId = step === 3 ? 'references-container-physique' : 'beneficiaries-container-physique';
+                    const errorId = step === 3 ? 'references-error' : 'beneficiaries-error';
                     const container = currentStepContent.querySelector(`#${containerId}`);
+                    const errorDiv = currentStepContent.querySelector(`#${errorId}`);
+                    
                     if (container) {
                         const fields = container.querySelectorAll('.dynamic-field');
                         if (fields.length === 0) {
-                            let errorDiv = container.querySelector('.invalid-feedback');
-                            if (!errorDiv) {
-                                errorDiv = document.createElement('div');
-                                errorDiv.className = 'invalid-feedback';
-                                container.appendChild(errorDiv);
+                            if (errorDiv) {
+                                errorDiv.style.display = 'block';
                             }
-                            errorDiv.style.display = 'block';
-                            errorDiv.textContent = `Veuillez ajouter au moins une ${step === 3 ? 'référence' : 'bénéficiaire'}.`;
                             isValid = false;
                         } else {
-                            const errorDiv = container.querySelector('.invalid-feedback');
-                            if (errorDiv) errorDiv.remove();
+                            if (errorDiv) {
+                                errorDiv.style.display = 'none';
+                            }
                         }
                     }
                 }
@@ -1228,6 +1407,14 @@
                     container.insertAdjacentHTML('beforeend', template);
                     const errorDiv = container.querySelector('.invalid-feedback');
                     if (errorDiv) errorDiv.remove();
+                    
+                    // Masquer le message d'erreur personnalisé
+                    const customErrorId = type === 'beneficiaire' ? 'beneficiaries-error' : 'references-error';
+                    const customErrorDiv = document.getElementById(customErrorId);
+                    if (customErrorDiv) {
+                        customErrorDiv.style.display = 'none';
+                    }
+                    
                     container.querySelectorAll('.remove-field').forEach(removeBtn => {
                         removeBtn.addEventListener('click', () => removeBtn.closest('.dynamic-field').remove());
                     });
@@ -1457,26 +1644,6 @@
                     console.log('Signature cleared');
                 });
 
-                // Ajouter un bouton de test pour vérifier la signature
-                const testBtn = document.createElement('button');
-                testBtn.type = 'button';
-                testBtn.textContent = 'Test Signature';
-                testBtn.style.position = 'absolute';
-                testBtn.style.top = '10px';
-                testBtn.style.right = '10px';
-                testBtn.style.zIndex = '1000';
-                testBtn.addEventListener('click', () => {
-                    if (signaturePad && !signaturePad.isEmpty()) {
-                        const data = signaturePad.toDataURL('image/png');
-                        console.log('Current signature data:', data.substring(0, 100) + '...');
-                        console.log('Data length:', data.length);
-                        alert('Signature data length: ' + data.length);
-                    } else {
-                        alert('No signature data available');
-                    }
-                });
-                canvas.parentElement.appendChild(testBtn);
-
                 return signaturePad;
             }
 
@@ -1498,7 +1665,7 @@
                     } else {
                         console.log('Signature pad is empty or not available');
                         e.preventDefault();
-                        alert('Veuillez dessiner une signature avant de soumettre le formulaire.');
+                        form.querySelector('#signature-draw-error-physique').style.display = 'block';
                         return false;
                     }
                 }
@@ -1539,6 +1706,56 @@
                 icon.style.transform = 'translateY(-50%)';
             });
         }, 100);
+    });
+
+    // Intercepter les messages de validation après soumission
+    document.addEventListener('DOMContentLoaded', function() {
+        // Intercepter les messages de succès
+        const successAlert = document.querySelector('.alert-success');
+        if (successAlert) {
+            const message = successAlert.textContent.trim();
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès !',
+                text: message,
+                confirmButtonColor: '#EC281C',
+                background: '#fff',
+                backdrop: `
+                    rgba(0,0,123,0.4)
+                    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23EC281C' fill-opacity='0.1'/%3E%3C/svg%3E")
+                `
+            });
+            successAlert.remove();
+        }
+
+        // Intercepter les messages d'erreur
+        const errorAlert = document.querySelector('.alert-danger');
+        if (errorAlert) {
+            let message = '';
+            let title = 'Erreur !';
+            
+            // Vérifier s'il y a une liste d'erreurs de validation
+            const errorList = errorAlert.querySelector('ul');
+            if (errorList) {
+                title = 'Erreurs de validation';
+                message = errorList.outerHTML;
+            } else {
+                message = errorAlert.textContent.trim();
+            }
+            
+            Swal.fire({
+                icon: 'warning',
+                title: title,
+                html: message,
+                confirmButtonColor: '#EC281C',
+                background: '#fff',
+                backdrop: `
+                    rgba(0,0,123,0.4)
+                    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23EC281C' fill-opacity='0.1'/%3E%3C/svg%3E")
+                `
+            });
+            errorAlert.remove();
+        }
     });
 </script>
 @endsection
