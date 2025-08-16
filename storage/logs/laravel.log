@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2025-08-07 00:02:37] local.ERROR: Route [contact.store] not defined. (View: C:\Users\user\Desktop\Microfinance\COCEC\resources\views\main\contact.blade.php) {"exception":"[object] (Illuminate\\View\\ViewException(code: 0): Route [contact.store] not defined. (View: C:\\Users\\user\\Desktop\\Microfinance\\COCEC\\resources\\views\\main\\contact.blade.php) at C:\\Users\\user\\Desktop\\Microfinance\\COCEC\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php:526)
 [stacktrace]
 #0 C:\\Users\\user\\Desktop\\Microfinance\\COCEC\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(59): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(Symfony\\Component\\Routing\\Exception\\RouteNotFoundException), 1)
@@ -2098,3 +2099,5 @@
 #54 C:\\Users\\user\\Desktop\\Microfinance\\COCEC\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('C:\\\\Users\\\\user\\\\D...')
 #55 {main}
 "} 
+=======
+>>>>>>> 193ed44c85606a797f33fa8e3bf07f5c62e8b6d2

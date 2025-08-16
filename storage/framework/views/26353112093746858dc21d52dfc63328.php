@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demande morale #{{ $submission->id }}</title>
+    <title>Demande morale #<?php echo e($submission->id); ?></title>
     <style>
         @page {
             margin: 20mm;
@@ -214,10 +214,10 @@
     </style>
 </head>
 <body>
-    <div class="header {{ $submission->responsible_persons_photo_path ? '' : 'no-photo' }}">
-        @if($submission->responsible_persons_photo_path)
+    <div class="header <?php echo e($submission->responsible_persons_photo_path ? '' : 'no-photo'); ?>">
+        <?php if($submission->responsible_persons_photo_path): ?>
         <div class="header-photo">
-            @php
+            <?php
                 $photoHtml = '';
                 try {
                     $relativePath = str_replace('public/', '', $submission->responsible_persons_photo_path);
@@ -253,24 +253,25 @@
                 } catch (Exception $e) {
                     // Continuer sans photo en cas d'erreur
                 }
-            @endphp
+            ?>
             
-            {!! $photoHtml !!}
+            <?php echo $photoHtml; ?>
+
         </div>
-        @endif
+        <?php endif; ?>
 
         <div class="header-content">
             <h1>COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT</h1>
             <h2>ASSISTANCE - CONSEIL MICROFINANCEMENT</h2>
             <h3>FICHE D'ADHÉSION PERSONNE MORALE</h3>
             <div class="submission-details">
-                <p>N° de soumission : <strong>#{{ $submission->id }}</strong></p>
-                <p>Date : <strong>{{ $submission->created_at->format('d/m/Y') }}</strong></p>
-                <p>Statut : <strong class="status-{{ $submission->statut }}">
-                     @if($submission->statut == 'en_attente') En attente
-                     @elseif($submission->statut == 'accepter') Accepté
-                     @elseif($submission->statut == 'refuser') Refusé
-                     @else {{ $submission->statut }} @endif
+                <p>N° de soumission : <strong>#<?php echo e($submission->id); ?></strong></p>
+                <p>Date : <strong><?php echo e($submission->created_at->format('d/m/Y')); ?></strong></p>
+                <p>Statut : <strong class="status-<?php echo e($submission->statut); ?>">
+                     <?php if($submission->statut == 'en_attente'): ?> En attente
+                     <?php elseif($submission->statut == 'accepter'): ?> Accepté
+                     <?php elseif($submission->statut == 'refuser'): ?> Refusé
+                     <?php else: ?> <?php echo e($submission->statut); ?> <?php endif; ?>
                 </strong></p>
             </div>
         </div>
@@ -279,66 +280,68 @@
     <div class="section">
         <div class="section-title">Informations sur l'entreprise</div>
         <div class="info-grid">
-            <div class="info-item"><span class="info-label">Nom de l'entreprise</span><span class="info-value">{{ $submission->company_name }}</span></div>
-            <div class="info-item"><span class="info-label">Catégorie</span><span class="info-value">{{ $submission->category ?? 'N/A' }}</span></div>
-            <div class="info-item"><span class="info-label">RCCM</span><span class="info-value">{{ $submission->rccm }}</span></div>
-            <div class="info-item"><span class="info-label">Secteur d'activité</span><span class="info-value">{{ $submission->activity_sector }}</span></div>
-            <div class="info-item"><span class="info-label">Date de création</span><span class="info-value">{{ $submission->creation_date ? $submission->creation_date->format('d/m/Y') : 'N/A' }}</span></div>
-            <div class="info-item"><span class="info-label">Lieu de création</span><span class="info-value">{{ $submission->creation_place }}</span></div>
-            <div class="info-item"><span class="info-label">Nationalité</span><span class="info-value">{{ $submission->company_nationality }}</span></div>
-            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value">{{ $submission->company_phone }}</span></div>
-            <div class="info-item full-width"><span class="info-label">Adresse complète</span><span class="info-value">{{ $submission->company_address }}</span></div>
-            @if($submission->activity_description)
-            <div class="info-item full-width"><span class="info-label">Description de l'activité</span><span class="info-value">{{ $submission->activity_description }}</span></div>
-            @endif
+            <div class="info-item"><span class="info-label">Nom de l'entreprise</span><span class="info-value"><?php echo e($submission->company_name); ?></span></div>
+            <div class="info-item"><span class="info-label">Catégorie</span><span class="info-value"><?php echo e($submission->category ?? 'N/A'); ?></span></div>
+            <div class="info-item"><span class="info-label">RCCM</span><span class="info-value"><?php echo e($submission->rccm); ?></span></div>
+            <div class="info-item"><span class="info-label">Secteur d'activité</span><span class="info-value"><?php echo e($submission->activity_sector); ?></span></div>
+            <div class="info-item"><span class="info-label">Date de création</span><span class="info-value"><?php echo e($submission->creation_date ? $submission->creation_date->format('d/m/Y') : 'N/A'); ?></span></div>
+            <div class="info-item"><span class="info-label">Lieu de création</span><span class="info-value"><?php echo e($submission->creation_place); ?></span></div>
+            <div class="info-item"><span class="info-label">Nationalité</span><span class="info-value"><?php echo e($submission->company_nationality); ?></span></div>
+            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value"><?php echo e($submission->company_phone); ?></span></div>
+            <div class="info-item full-width"><span class="info-label">Adresse complète</span><span class="info-value"><?php echo e($submission->company_address); ?></span></div>
+            <?php if($submission->activity_description): ?>
+            <div class="info-item full-width"><span class="info-label">Description de l'activité</span><span class="info-value"><?php echo e($submission->activity_description); ?></span></div>
+            <?php endif; ?>
         </div>
     </div>
 
     <div class="section">
         <div class="section-title">Coordonnées géographiques</div>
         <div class="info-grid">
-            @if ($submission->company_lat && $submission->company_lng)
-            <div class="info-item"><span class="info-label">Coordonnées de l'entreprise</span><span class="info-value">{{ $submission->company_lat }}, {{ $submission->company_lng }}</span></div>
-            @endif
-            @if ($submission->director_lat && $submission->director_lng)
-            <div class="info-item"><span class="info-label">Coordonnées du directeur</span><span class="info-value">{{ $submission->director_lat }}, {{ $submission->director_lng }}</span></div>
-            @endif
+            <?php if($submission->company_lat && $submission->company_lng): ?>
+            <div class="info-item"><span class="info-label">Coordonnées de l'entreprise</span><span class="info-value"><?php echo e($submission->company_lat); ?>, <?php echo e($submission->company_lng); ?></span></div>
+            <?php endif; ?>
+            <?php if($submission->director_lat && $submission->director_lng): ?>
+            <div class="info-item"><span class="info-label">Coordonnées du directeur</span><span class="info-value"><?php echo e($submission->director_lat); ?>, <?php echo e($submission->director_lng); ?></span></div>
+            <?php endif; ?>
         </div>
         
-        {{-- CARTES STATIQUES --}}
-        @if ($submission->company_lat && $submission->company_lng)
+        
+        <?php if($submission->company_lat && $submission->company_lng): ?>
         <div style="margin-top: 10mm;">
             <div style="text-align: center; margin-bottom: 5mm;">
                 <strong style="color: #EC281C; font-size: 11pt;">Carte de l'entreprise</strong>
             </div>
             <div style="text-align: center; border: 2px solid #EC281C; padding: 5mm; background: #f8f9fa; border-radius: 5px;">
-                <img src="https://staticmap.openstreetmap.de/staticmap.php?center={{ $submission->company_lat }},{{ $submission->company_lng }}&zoom=15&size=400x200&markers={{ $submission->company_lat }},{{ $submission->company_lng }},red" 
+                <img src="https://staticmap.openstreetmap.de/staticmap.php?center=<?php echo e($submission->company_lat); ?>,<?php echo e($submission->company_lng); ?>&zoom=15&size=400x200&markers=<?php echo e($submission->company_lat); ?>,<?php echo e($submission->company_lng); ?>,red" 
                      style="width: 100%; height: 40mm; object-fit: cover; border-radius: 3px;" 
                      alt="Carte de l'entreprise">
                 <div style="margin-top: 3mm; font-size: 8pt; color: #666;">
-                    Coordonnées : {{ $submission->company_lat }}, {{ $submission->company_lng }}
+                    Coordonnées : <?php echo e($submission->company_lat); ?>, <?php echo e($submission->company_lng); ?>
+
                 </div>
             </div>
         </div>
-        @endif
+        <?php endif; ?>
         
-        @if ($submission->director_lat && $submission->director_lng)
+        <?php if($submission->director_lat && $submission->director_lng): ?>
         <div style="margin-top: 10mm;">
             <div style="text-align: center; margin-bottom: 5mm;">
                 <strong style="color: #EC281C; font-size: 11pt;">Carte du directeur</strong>
             </div>
             <div style="text-align: center; border: 2px solid #EC281C; padding: 5mm; background: #f8f9fa; border-radius: 5px;">
-                <img src="https://staticmap.openstreetmap.de/staticmap.php?center={{ $submission->director_lat }},{{ $submission->director_lng }}&zoom=15&size=400x200&markers={{ $submission->director_lat }},{{ $submission->director_lng }},red" 
+                <img src="https://staticmap.openstreetmap.de/staticmap.php?center=<?php echo e($submission->director_lat); ?>,<?php echo e($submission->director_lng); ?>&zoom=15&size=400x200&markers=<?php echo e($submission->director_lat); ?>,<?php echo e($submission->director_lng); ?>,red" 
                      style="width: 100%; height: 40mm; object-fit: cover; border-radius: 3px;" 
                      alt="Carte du directeur">
                 <div style="margin-top: 3mm; font-size: 8pt; color: #666;">
-                    Coordonnées : {{ $submission->director_lat }}, {{ $submission->director_lng }}
+                    Coordonnées : <?php echo e($submission->director_lat); ?>, <?php echo e($submission->director_lng); ?>
+
                 </div>
             </div>
         </div>
-        @endif
+        <?php endif; ?>
 
-        {{-- CSS pour les cartes Leaflet --}}
+        
         <style>
             @media print {
                 .leaflet-container,
@@ -361,51 +364,51 @@
             }
         </style>
 
-        {{-- JavaScript pour les cartes Leaflet --}}
+        
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
         <script>
-            @if ($submission->company_lat && $submission->company_lng)
+            <?php if($submission->company_lat && $submission->company_lng): ?>
             // Carte de l'entreprise
-            const companyMap = L.map('company-map').setView([{{ $submission->company_lat }}, {{ $submission->company_lng }}], 15);
+            const companyMap = L.map('company-map').setView([<?php echo e($submission->company_lat); ?>, <?php echo e($submission->company_lng); ?>], 15);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors'
             }).addTo(companyMap);
-            L.marker([{{ $submission->company_lat }}, {{ $submission->company_lng }}]).addTo(companyMap)
-                .bindPopup('{{ $submission->company_name }}')
+            L.marker([<?php echo e($submission->company_lat); ?>, <?php echo e($submission->company_lng); ?>]).addTo(companyMap)
+                .bindPopup('<?php echo e($submission->company_name); ?>')
                 .openPopup();
-            @endif
+            <?php endif; ?>
 
-            @if ($submission->director_lat && $submission->director_lng)
+            <?php if($submission->director_lat && $submission->director_lng): ?>
             // Carte du directeur
-            const directorMap = L.map('director-map').setView([{{ $submission->director_lat }}, {{ $submission->director_lng }}], 15);
+            const directorMap = L.map('director-map').setView([<?php echo e($submission->director_lat); ?>, <?php echo e($submission->director_lng); ?>], 15);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors'
             }).addTo(directorMap);
-            L.marker([{{ $submission->director_lat }}, {{ $submission->director_lng }}]).addTo(directorMap)
+            L.marker([<?php echo e($submission->director_lat); ?>, <?php echo e($submission->director_lng); ?>]).addTo(directorMap)
                 .bindPopup('Directeur')
                 .openPopup();
-            @endif
+            <?php endif; ?>
 
             // Forcer le rechargement des tuiles pour l'impression
             window.addEventListener('beforeprint', () => {
-                @if ($submission->company_lat && $submission->company_lng)
+                <?php if($submission->company_lat && $submission->company_lng): ?>
                 companyMap.invalidateSize();
                 companyMap.eachLayer(function (layer) {
                     if (layer instanceof L.TileLayer) {
                         layer.redraw();
                     }
                 });
-                @endif
+                <?php endif; ?>
 
-                @if ($submission->director_lat && $submission->director_lng)
+                <?php if($submission->director_lat && $submission->director_lng): ?>
                 directorMap.invalidateSize();
                 directorMap.eachLayer(function (layer) {
                     if (layer instanceof L.TileLayer) {
                         layer.redraw();
                     }
                 });
-                @endif
+                <?php endif; ?>
             });
         </script>
     </div>
@@ -413,28 +416,28 @@
     <div class="section">
         <div class="section-title">Informations sur le directeur</div>
         <div class="info-grid">
-            <div class="info-item"><span class="info-label">Nom complet</span><span class="info-value">{{ $submission->director_name }} {{ $submission->director_first_name ?? '' }}</span></div>
-            <div class="info-item"><span class="info-label">Poste</span><span class="info-value">{{ $submission->director_position }}</span></div>
-            <div class="info-item"><span class="info-label">Genre</span><span class="info-value">{{ $submission->director_gender == 'M' ? 'Masculin' : 'Féminin' }}</span></div>
-            <div class="info-item"><span class="info-label">Nationalité</span><span class="info-value">{{ $submission->director_nationality }}</span></div>
-            <div class="info-item"><span class="info-label">Date de naissance</span><span class="info-value">{{ $submission->director_birth_date ? $submission->director_birth_date->format('d/m/Y') : 'N/A' }}</span></div>
-            <div class="info-item"><span class="info-label">Lieu de naissance</span><span class="info-value">{{ $submission->director_birth_place }}</span></div>
-            <div class="info-item"><span class="info-label">N° Pièce d'identité</span><span class="info-value">{{ $submission->director_id_number }}</span></div>
-            <div class="info-item"><span class="info-label">Date d'émission</span><span class="info-value">{{ $submission->director_id_issue_date ? $submission->director_id_issue_date->format('d/m/Y') : 'N/A' }}</span></div>
-            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value">{{ $submission->director_phone }}</span></div>
-            <div class="info-item"><span class="info-label">Nom du père</span><span class="info-value">{{ $submission->director_father_name ?? 'N/A' }}</span></div>
-             <div class="info-item"><span class="info-label">Nom de la mère</span><span class="info-value">{{ $submission->director_mother_name ?? 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Nom complet</span><span class="info-value"><?php echo e($submission->director_name); ?> <?php echo e($submission->director_first_name ?? ''); ?></span></div>
+            <div class="info-item"><span class="info-label">Poste</span><span class="info-value"><?php echo e($submission->director_position); ?></span></div>
+            <div class="info-item"><span class="info-label">Genre</span><span class="info-value"><?php echo e($submission->director_gender == 'M' ? 'Masculin' : 'Féminin'); ?></span></div>
+            <div class="info-item"><span class="info-label">Nationalité</span><span class="info-value"><?php echo e($submission->director_nationality); ?></span></div>
+            <div class="info-item"><span class="info-label">Date de naissance</span><span class="info-value"><?php echo e($submission->director_birth_date ? $submission->director_birth_date->format('d/m/Y') : 'N/A'); ?></span></div>
+            <div class="info-item"><span class="info-label">Lieu de naissance</span><span class="info-value"><?php echo e($submission->director_birth_place); ?></span></div>
+            <div class="info-item"><span class="info-label">N° Pièce d'identité</span><span class="info-value"><?php echo e($submission->director_id_number); ?></span></div>
+            <div class="info-item"><span class="info-label">Date d'émission</span><span class="info-value"><?php echo e($submission->director_id_issue_date ? $submission->director_id_issue_date->format('d/m/Y') : 'N/A'); ?></span></div>
+            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value"><?php echo e($submission->director_phone); ?></span></div>
+            <div class="info-item"><span class="info-label">Nom du père</span><span class="info-value"><?php echo e($submission->director_father_name ?? 'N/A'); ?></span></div>
+             <div class="info-item"><span class="info-label">Nom de la mère</span><span class="info-value"><?php echo e($submission->director_mother_name ?? 'N/A'); ?></span></div>
         </div>
     </div>
 
     <div class="section">
         <div class="section-title">Informations sur le/la Conjoint(e)</div>
         <div class="info-grid">
-            <div class="info-item"><span class="info-label">Nom</span><span class="info-value">{{ $submission->director_spouse_name ?? 'N/A' }}</span></div>
-            <div class="info-item"><span class="info-label">Prénom</span><span class="info-value">{{ $submission->director_spouse_first_name ?? 'N/A' }}</span></div>
-            <div class="info-item"><span class="info-label">Profession</span><span class="info-value">{{ $submission->director_spouse_profession ?? 'N/A' }}</span></div>
-            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value">{{ $submission->director_spouse_phone ?? 'N/A' }}</span></div>
-            <div class="info-item full-width"><span class="info-label">Adresse</span><span class="info-value">{{ $submission->director_spouse_address ?? 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Nom</span><span class="info-value"><?php echo e($submission->director_spouse_name ?? 'N/A'); ?></span></div>
+            <div class="info-item"><span class="info-label">Prénom</span><span class="info-value"><?php echo e($submission->director_spouse_first_name ?? 'N/A'); ?></span></div>
+            <div class="info-item"><span class="info-label">Profession</span><span class="info-value"><?php echo e($submission->director_spouse_profession ?? 'N/A'); ?></span></div>
+            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value"><?php echo e($submission->director_spouse_phone ?? 'N/A'); ?></span></div>
+            <div class="info-item full-width"><span class="info-label">Adresse</span><span class="info-value"><?php echo e($submission->director_spouse_address ?? 'N/A'); ?></span></div>
         </div>
     </div>
 
@@ -443,34 +446,34 @@
     <div class="section">
         <div class="section-title">Personne à contacter en cas de besoin</div>
          <div class="info-grid">
-            <div class="info-item"><span class="info-label">Nom et prénom</span><span class="info-value">{{ $submission->emergency_contact_name ?? 'N/A' }}</span></div>
-            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value">{{ $submission->emergency_contact_phone ?? 'N/A' }}</span></div>
-            <div class="info-item full-width"><span class="info-label">Adresse</span><span class="info-value">{{ $submission->emergency_contact_address ?? 'N/A' }}</span></div>
+            <div class="info-item"><span class="info-label">Nom et prénom</span><span class="info-value"><?php echo e($submission->emergency_contact_name ?? 'N/A'); ?></span></div>
+            <div class="info-item"><span class="info-label">Téléphone</span><span class="info-value"><?php echo e($submission->emergency_contact_phone ?? 'N/A'); ?></span></div>
+            <div class="info-item full-width"><span class="info-label">Adresse</span><span class="info-value"><?php echo e($submission->emergency_contact_address ?? 'N/A'); ?></span></div>
         </div>
     </div>
 
     <div class="section">
         <div class="section-title">KYC (Know Your Customer)</div>
         <div class="info-grid">
-            <div class="info-item"><span class="info-label">Personne politiquement exposée (nationale)</span><span class="info-value">{{ $submission->is_ppe_national ? 'Oui' : 'Non' }}</span></div>
-            <div class="info-item"><span class="info-label">Personne politiquement exposée (étrangère)</span><span class="info-value">{{ $submission->ppe_foreign ? 'Oui' : 'Non' }}</span></div>
-            <div class="info-item"><span class="info-label">Sanction financière internationale</span><span class="info-value">{{ ($submission->sanctions && $submission->sanctions !== 'Non') ? 'Oui' : 'Non' }}</span></div>
-            <div class="info-item"><span class="info-label">Financement du terrorisme</span><span class="info-value">{{ ($submission->terrorism_financing && $submission->terrorism_financing !== 'Non') ? 'Oui' : 'Non' }}</span></div>
-            @if($submission->sanctions && $submission->sanctions !== 'Non')
-            <div class="info-item full-width"><span class="info-label">Détails des sanctions</span><span class="info-value">{{ $submission->sanctions }}</span></div>
-            @endif
+            <div class="info-item"><span class="info-label">Personne politiquement exposée (nationale)</span><span class="info-value"><?php echo e($submission->is_ppe_national ? 'Oui' : 'Non'); ?></span></div>
+            <div class="info-item"><span class="info-label">Personne politiquement exposée (étrangère)</span><span class="info-value"><?php echo e($submission->ppe_foreign ? 'Oui' : 'Non'); ?></span></div>
+            <div class="info-item"><span class="info-label">Sanction financière internationale</span><span class="info-value"><?php echo e(($submission->sanctions && $submission->sanctions !== 'Non') ? 'Oui' : 'Non'); ?></span></div>
+            <div class="info-item"><span class="info-label">Financement du terrorisme</span><span class="info-value"><?php echo e(($submission->terrorism_financing && $submission->terrorism_financing !== 'Non') ? 'Oui' : 'Non'); ?></span></div>
+            <?php if($submission->sanctions && $submission->sanctions !== 'Non'): ?>
+            <div class="info-item full-width"><span class="info-label">Détails des sanctions</span><span class="info-value"><?php echo e($submission->sanctions); ?></span></div>
+            <?php endif; ?>
         </div>
     </div>
     
     <div class="section">
         <div class="section-title">Informations sur le compte</div>
         <div class="info-grid">
-            <div class="info-item"><span class="info-label">Date d'adhésion</span><span class="info-value">{{ $submission->membership_date ? $submission->membership_date->format('d/m/Y') : 'N/A' }}</span></div>
-            <div class="info-item"><span class="info-label">Date d'ouverture</span><span class="info-value">{{ $submission->account_opening_date ? $submission->account_opening_date->format('d/m/Y') : 'N/A' }}</span></div>
-            <div class="info-item full-width"><span class="info-label">Numéro de compte</span><span class="info-value">{{ $submission->account_number ?? 'Non attribué' }}</span></div>
-            @if($submission->remarks)
-            <div class="info-item full-width"><span class="info-label">Remarques</span><span class="info-value">{{ $submission->remarks }}</span></div>
-            @endif
+            <div class="info-item"><span class="info-label">Date d'adhésion</span><span class="info-value"><?php echo e($submission->membership_date ? $submission->membership_date->format('d/m/Y') : 'N/A'); ?></span></div>
+            <div class="info-item"><span class="info-label">Date d'ouverture</span><span class="info-value"><?php echo e($submission->account_opening_date ? $submission->account_opening_date->format('d/m/Y') : 'N/A'); ?></span></div>
+            <div class="info-item full-width"><span class="info-label">Numéro de compte</span><span class="info-value"><?php echo e($submission->account_number ?? 'Non attribué'); ?></span></div>
+            <?php if($submission->remarks): ?>
+            <div class="info-item full-width"><span class="info-label">Remarques</span><span class="info-value"><?php echo e($submission->remarks); ?></span></div>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -479,31 +482,31 @@
         <table class="payment-table">
             <thead><tr><th>Désignation</th><th style="text-align: right;">Montant (FCFA)</th></tr></thead>
             <tbody>
-                <tr><td>Droit d'adhésion</td><td style="text-align: right;">{{ number_format(2000, 0, ',', ' ') }}</td></tr>
-                <tr><td>Part social</td><td style="text-align: right;">{{ number_format(15000, 0, ',', ' ') }}</td></tr>
-                <tr><td>Dépôts</td><td style="text-align: right;">{{ number_format($submission->initial_deposit, 0, ',', ' ') }}</td></tr>
-                <tr class="total-row"><td><strong>TOTAL</strong></td><td style="text-align: right;"><strong>{{ number_format(2000 + 15000 + $submission->initial_deposit, 0, ',', ' ') }}</strong></td></tr>
+                <tr><td>Droit d'adhésion</td><td style="text-align: right;"><?php echo e(number_format(2000, 0, ',', ' ')); ?></td></tr>
+                <tr><td>Part social</td><td style="text-align: right;"><?php echo e(number_format(15000, 0, ',', ' ')); ?></td></tr>
+                <tr><td>Dépôts</td><td style="text-align: right;"><?php echo e(number_format($submission->initial_deposit, 0, ',', ' ')); ?></td></tr>
+                <tr class="total-row"><td><strong>TOTAL</strong></td><td style="text-align: right;"><strong><?php echo e(number_format(2000 + 15000 + $submission->initial_deposit, 0, ',', ' ')); ?></strong></td></tr>
             </tbody>
         </table>
     </div>
 
-    @if (!$submission->accountSignatories->isEmpty())
+    <?php if(!$submission->accountSignatories->isEmpty()): ?>
     <div class="section">
         <div class="section-title">Signataires du compte</div>
         <table class="table">
             <thead><tr><th>Nom & Prénoms</th><th>Type de signature</th><th style="width: 30%;">Signature</th></tr></thead>
             <tbody>
-                @foreach ($submission->accountSignatories as $signatory)
+                <?php $__currentLoopData = $submission->accountSignatories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $signatory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td>{{ $signatory->name }}</td>
+                        <td><?php echo e($signatory->name); ?></td>
                         <td>
-                            @if($signatory->signature_type == 'unique') Unique
-                            @elseif($signatory->signature_type == 'conjointe') Conjointe
-                            @elseif($signatory->signature_type == 'unique_ou_conjointe') Unique ou Conjointe
-                            @else {{ $signatory->signature_type }} @endif
+                            <?php if($signatory->signature_type == 'unique'): ?> Unique
+                            <?php elseif($signatory->signature_type == 'conjointe'): ?> Conjointe
+                            <?php elseif($signatory->signature_type == 'unique_ou_conjointe'): ?> Unique ou Conjointe
+                            <?php else: ?> <?php echo e($signatory->signature_type); ?> <?php endif; ?>
                         </td>
                         <td style="height: 15mm;">
-                            @php
+                            <?php
                                 $hasSignature = false;
                                 $signatureHtml = '';
                                 
@@ -564,32 +567,33 @@
                                     // En cas d'erreur, continuer sans signature
                                     $hasSignature = false;
                                 }
-                            @endphp
+                            ?>
                             
-                            @if($hasSignature)
-                                {!! $signatureHtml !!}
-                            @endif
+                            <?php if($hasSignature): ?>
+                                <?php echo $signatureHtml; ?>
+
+                            <?php endif; ?>
                         </td>
                     </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>
         </table>
     </div>
-    @endif
+    <?php endif; ?>
     
     <div class="section">
         <div class="section-title">Procès-verbal et Déclaration</div>
         <p class="prose">
-            L'an {{ $submission->created_at->format('Y') }}, le {{ $submission->created_at->format('d/m/Y') }}, les membres de <strong>{{ $submission->company_name }}</strong> réunis en Assemblée Générale ont unanimement décidé d'ouvrir un compte à la COCEC et de donner mandat aux membres désignés comme signataires pour faire fonctionner ledit compte.
+            L'an <?php echo e($submission->created_at->format('Y')); ?>, le <?php echo e($submission->created_at->format('d/m/Y')); ?>, les membres de <strong><?php echo e($submission->company_name); ?></strong> réunis en Assemblée Générale ont unanimement décidé d'ouvrir un compte à la COCEC et de donner mandat aux membres désignés comme signataires pour faire fonctionner ledit compte.
         </p>
          <p class="prose">
-            Je soussigné(e), <strong>{{ $submission->director_name }} {{ $submission->director_first_name ?? '' }}</strong>, agissant en qualité de responsable, atteste sur l'honneur que les informations fournies sont exactes et sincères, et reconnais que toute fausse déclaration peut entraîner le rejet de cette demande ou la clôture du compte.
+            Je soussigné(e), <strong><?php echo e($submission->director_name); ?> <?php echo e($submission->director_first_name ?? ''); ?></strong>, agissant en qualité de responsable, atteste sur l'honneur que les informations fournies sont exactes et sincères, et reconnais que toute fausse déclaration peut entraîner le rejet de cette demande ou la clôture du compte.
         </p>
         <div class="signature-area">
-            <p><strong>Fait à Lomé, le {{ $submission->created_at->format('d/m/Y') }}</strong></p>
+            <p><strong>Fait à Lomé, le <?php echo e($submission->created_at->format('d/m/Y')); ?></strong></p>
             <p><strong>LE PRÉSIDENT / DIRECTEUR</strong></p>
             
-            @php
+            <?php
                 $hasSignature = false;
                 $signatureHtml = '';
                 
@@ -650,15 +654,16 @@
                     // En cas d'erreur, continuer sans signature
                     $hasSignature = false;
                 }
-            @endphp
+            ?>
             
-            @if($hasSignature)
+            <?php if($hasSignature): ?>
                 <div class="signature-display">
-                    {!! $signatureHtml !!}
+                    <?php echo $signatureHtml; ?>
+
                 </div>
-            @else
+            <?php else: ?>
                 <div class="signature-line">(Signature et Cachet)</div>
-            @endif
+            <?php endif; ?>
         </div>
     </div>
 
@@ -666,4 +671,4 @@
         <p>COCEC - Coopérative Chrétienne d'Épargne et de Crédit</p>
     </div>
 </body>
-</html>
+</html><?php /**PATH C:\Users\RaydHil\Downloads\COCEC\resources\views/admin/accounts/moral/pdf.blade.php ENDPATH**/ ?>
