@@ -18,8 +18,8 @@
                 </a>
             </li>
 
+            @if(auth()->user()->hasFullAccess())
             <li class="sidebar-menu-group-title">Actions</li>
-
 
             <li class="dropdown">
                 {{-- {{ route('admin.announcements') }} --}}
@@ -86,11 +86,34 @@
                             Localités
                         </a>
                     </li>
-
-
                 </ul>
             </li>
+            @endif
 
+            @if(auth()->user()->canCreateAccounts())
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:account-plus-outline" class="menu-icon"></iconify-icon>
+                    <span>Création de Comptes</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('admin.users.index') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Gestion des Utilisateurs
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.users.create') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Créer un Compte
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endif
+
+            @if(auth()->user()->hasFullAccess())
             <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="mdi:briefcase-outline" class="menu-icon"></iconify-icon>
@@ -110,7 +133,9 @@
 
                 </ul>
             </li>
+            @endif
 
+            @if(auth()->user()->hasFullAccess())
             <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="mdi:map-marker-outline" class="menu-icon"></iconify-icon>
@@ -127,6 +152,7 @@
 
                 </ul>
             </li>
+            @endif
 
 
             <li class="dropdown">
@@ -136,6 +162,7 @@
                 </a>
 
                 <ul class="sidebar-submenu">
+                    @if(auth()->user()->hasFullAccess())
                     <li>
                         <a href="{{ route('accounts.physical.index') }}">Demande physique</a>
                     </li>
@@ -143,7 +170,11 @@
                      <li>
                         <a href="{{ route('accounts.moral.index') }}">Demande morale</a>
                     </li> 
-
+                    @else
+                    <li>
+                        <a href="{{ route('admin.accounts.index') }}">Vue d'ensemble</a>
+                    </li>
+                    @endif
                 </ul>
             </li>
 

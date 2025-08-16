@@ -218,7 +218,7 @@
             max-width: 60mm;
             max-height: 25mm;
             min-height: 15mm;
-            border: 1px solid #EC281C;
+            /* border: 1px solid #EC281C; */
             border-radius: 3px;
             background-color: #ffffff;
             object-fit: contain;
@@ -669,7 +669,7 @@
                         
                         // Vérifier que c'est du base64 valide et non vide
                         if (base64_decode($cleanBase64, true) !== false && strlen($cleanBase64) > 100) {
-                            $signatureHtml = '<img src="data:image/png;base64,' . $cleanBase64 . '" alt="Signature" style="max-width: 60mm; max-height: 25mm; border: 1px solid #EC281C; border-radius: 3px; background: white;">';
+                            $signatureHtml = '<img src="data:image/png;base64,' . $cleanBase64 . '" alt="Signature" style="max-width: 60mm; max-height: 25mm; border-radius: 3px; background: white;">';
                             $hasSignature = true;
                         }
                     }
@@ -705,7 +705,7 @@
                                         $mimeType = $mimeTypes[$signatureType];
                                         $base64Data = base64_encode($signatureData);
                                         $signatureSrc = "data:image/$mimeType;base64,$base64Data";
-                                        $signatureHtml = '<img src="' . $signatureSrc . '" alt="Signature uploadée" style="max-width: 60mm; max-height: 25mm; border: 1px solid #EC281C; border-radius: 3px; background: white;">';
+                                        $signatureHtml = '<img src="' . $signatureSrc . '" alt="Signature uploadée" style="max-width: 60mm; max-height: 25mm; border-radius: 3px; background: white;">';
                                         $hasSignature = true;
                                     }
                                 }

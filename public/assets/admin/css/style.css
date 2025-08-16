@@ -8675,6 +8675,12 @@ h6, .h6 {
   border-color: var(--danger-main);
 }
 
+.bg-danger1{
+  background-color: #D0231A;
+  color: #fff;
+
+}
+
 
 .btn-danger:hover {
   background-color: var(--danger-hover);
@@ -8690,6 +8696,12 @@ h6, .h6 {
 
 .btn-warning {
   background-color: var(--warning-main);
+  color: #fff;
+  border-color: var(--warning-main);
+}
+
+.bg-warning1{
+   background-color: var(--warning-main);
   color: #fff;
   border-color: var(--warning-main);
 }

@@ -12,6 +12,9 @@ class AccountSignatory extends Model
         'name',
         'signature_type',
         'id_number',
+        'signature_method',
+        'signature_base64',
+        'signature_upload_path',
     ];
 
     public function moralPersonSubmission(): BelongsTo

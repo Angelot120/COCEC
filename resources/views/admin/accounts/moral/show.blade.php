@@ -279,10 +279,10 @@
                         <iconify-icon icon="lucide:file-text" class="icon"></iconify-icon>
                         Télécharger PDF
                     </a>
-                    <button onclick="window.print()" class="btn btn-danger d-flex align-items-center gap-2">
+                    {{-- <button onclick="window.print()" class="btn btn-danger d-flex align-items-center gap-2">
                         <iconify-icon icon="lucide:printer" class="icon"></iconify-icon>
                         Imprimer
-                    </button>
+                    </button> --}}
                 </div>
             </div>
 

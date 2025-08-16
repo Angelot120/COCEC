@@ -122,11 +122,11 @@
                                                 </a>
 
                                                 <!-- Bouton IMPRIMER -->
-                                                <button onclick="printSubmission({{ $submission->id }})"
+                                                {{-- <button onclick="printSubmission({{ $submission->id }})"
                                                     class="bg-secondary-focus text-secondary-600 bg-hover-secondary-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                                                     title="Imprimer">
                                                     <iconify-icon icon="lucide:printer" class="menu-icon"></iconify-icon>
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         </td>
                                     </tr>
