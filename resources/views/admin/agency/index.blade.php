@@ -116,10 +116,10 @@
                                         <td class="text-center">
                                             @if ($agency->status === 'Open')
                                                 <span
-                                                    class="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">Ouverte</span>
+                                                    class="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">Ouverte les samedi</span>
                                             @elseif ($agency->status === 'Close')
                                                 <span
-                                                    class="bg-neutral-200 text-neutral-600 border border-neutral-400 px-24 py-4 radius-4 fw-medium text-sm">Fermée</span>
+                                                    class="bg-danger-200 text-neutral-600 border border-danger-400 px-24 py-4 radius-4 fw-medium text-sm">Fermée les samedi</span>
                                             @else
                                                 <span
                                                     class="bg-neutral-200 text-neutral-600 border border-neutral-400 px-24 py-4 radius-4 fw-medium text-sm">Non
@@ -218,7 +218,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
                         </div>
                     </div>
                 </div>

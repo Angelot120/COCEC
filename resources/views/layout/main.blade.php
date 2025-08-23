@@ -6,8 +6,35 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="@yield('meta_description', 'COCEC - Coopérative d\'Épargne et de Crédit au Togo. Solutions financières, crédits, épargne et services bancaires depuis 2001. Votre partenaire financier de confiance pour vos projets.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'COCEC, microfinance, Togo, épargne, crédit, prêt, finance, coopérative, Lomé, Kanyikope, services bancaires, transfert d\'argent, tontine, investissement')">
+    <meta name="author" content="COCEC Togo">
+    <meta name="robots" content="@yield('meta_robots', 'index, follow')">
+    <meta name="language" content="fr">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="@yield('og_title', 'COCEC - Coopérative d\'Épargne et de Crédit au Togo')">
+    <meta property="og:description" content="@yield('og_description', 'Solutions financières, crédits, épargne et services bancaires depuis 2001. Votre partenaire financier de confiance.')">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="@yield('og_image', asset('assets/images/Logo.png'))">
+    <meta property="og:site_name" content="COCEC Togo">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('twitter_title', 'COCEC - Coopérative d\'Épargne et de Crédit au Togo')">
+    <meta name="twitter:description" content="@yield('twitter_description', 'Solutions financières, crédits, épargne et services bancaires depuis 2001.')">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('assets/images/Logo.png'))">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}">
+    
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/Logo.png') }}">
 
@@ -33,7 +60,9 @@
 
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <title>COCEC</title>
+    
+    <!-- Dynamic Title -->
+    <title>@yield('page_title', 'COCEC - Coopérative d\'Épargne et de Crédit au Togo | Solutions Financières')</title>
 </head>
 
 <body>
@@ -70,6 +99,46 @@
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
+    <!-- Bannière de Cookies -->
+    <div id="cookie-banner" class="cookie-banner" style="display: none;">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h4>🍪 Politique de Cookies</h4>
+                <p>Nous utilisons des cookies et du stockage local pour améliorer votre expérience sur notre site.</p>
+            </div>
+            <div class="cookie-actions">
+                <button id="accept-cookies" class="btn btn-primary">Accepter</button>
+                <button id="reject-cookies" class="btn btn-outline-secondary">Refuser</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script pour la bannière de cookies -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const rejectBtn = document.getElementById('reject-cookies');
+            
+            const cookieChoice = localStorage.getItem('cookieChoice');
+            
+            if (!cookieChoice) {
+                setTimeout(() => {
+                    cookieBanner.style.display = 'block';
+                }, 2000);
+            }
+            
+            acceptBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieChoice', 'accepted');
+                cookieBanner.style.display = 'none';
+            });
+            
+            rejectBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieChoice', 'rejected');
+                cookieBanner.style.display = 'none';
+            });
+        });
+    </script>
 
 </body>
 

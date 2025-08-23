@@ -47,6 +47,25 @@ class ViewsController extends Controller
 
     public function dashboard()
     {
+        // Vérifier que l'utilisateur est authentifié
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Veuillez vous connecter pour accéder au dashboard.');
+        }
+
+        $user = Auth::user();
+        
+        // Vérifier que l'utilisateur existe toujours en base
+        if (!$user) {
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Session expirée. Veuillez vous reconnecter.');
+        }
+
+        // Vérifier que l'utilisateur a un rôle valide
+        if (!$user->role) {
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Rôle utilisateur invalide. Veuillez contacter l\'administrateur.');
+        }
+
         // Total des visiteurs
         $totalVisitors = Visitor::count();
 
@@ -222,7 +241,7 @@ class ViewsController extends Controller
 
     public function finance()
     {
-        return view('main.digitalfinance');
+        return view('main.digitalfinance.index');
     }
 
     public function announcements()

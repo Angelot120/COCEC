@@ -151,7 +151,7 @@
                         <p class="panel-intro">Nous sommes à votre écoute. Utilisez les informations ci-dessous ou remplissez le formulaire pour une réponse rapide.</p>
                         <ul class="info-list">
                             <li class="info-item"><div class="icon"><i class="fas fa-map-marker-alt"></i></div><div class="content"><h4>Notre Siège</h4><p>Adidogomé, non loin du Supermarché "Le Champion", Lomé, Togo</p></div></li>
-                            <li class="info-item"><div class="icon"><i class="fas fa-phone-alt"></i></div><div class="content"><h4>Téléphone</h4><a href="tel:+22822270551">(+228) 22 27 05 51</a></div></li>
+                            <li class="info-item"><div class="icon"><i class="fas fa-phone-alt"></i></div><div class="content"><h4>Téléphone</h4><a href="tel:+22891126471">(+228) 91 12 64 71</a></div></li>
                             <li class="info-item"><div class="icon"><i class="fas fa-envelope"></i></div><div class="content"><h4>Email</h4><a href="mailto:cocec@cocectogo.org">cocec@cocectogo.org</a></div></li>
                             <li class="info-item"><div class="icon"><i class="fas fa-clock"></i></div><div class="content"><h4>Heures d'ouverture</h4><p>Lundi - Vendredi : 07h30 - 16h30</p></div></li>
                         </ul>

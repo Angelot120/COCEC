@@ -153,7 +153,19 @@ class AuthController extends Controller
      */
     public function profile()
     {
+        // Vérifier que l'utilisateur est authentifié
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Veuillez vous connecter pour accéder à votre profil.');
+        }
+
         $user = auth()->user();
+        
+        // Vérifier que l'utilisateur existe toujours en base
+        if (!$user) {
+            auth()->logout();
+            return redirect()->route('login')->with('error', 'Session expirée. Veuillez vous reconnecter.');
+        }
+
         return view('admin.profile.index', compact('user'));
     }
 

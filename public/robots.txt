@@ -1,2 +1,38 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap
+Sitemap: https://cocectogo.org/sitemap.xml
+
+# Empêcher l'indexation des dossiers sensibles
+Disallow: /admin/
+Disallow: /storage/
+Disallow: /vendor/
+Disallow: /bootstrap/
+Disallow: /config/
+Disallow: /database/
+Disallow: /resources/
+Disallow: /routes/
+Disallow: /tests/
+Disallow: /app/
+Disallow: /composer.json
+Disallow: /composer.lock
+Disallow: /artisan
+Disallow: /package.json
+Disallow: /webpack.mix.js
+Disallow: /yarn.lock
+Disallow: /node_modules/
+Disallow: /.env
+Disallow: /.git/
+Disallow: /.github/
+
+# Permettre l'accès aux ressources publiques
+Allow: /assets/
+Allow: /images/
+Allow: /css/
+Allow: /js/
+Allow: /fonts/
+Allow: /favicon.ico
+
+# Délai de crawl (en secondes)
+Crawl-delay: 1

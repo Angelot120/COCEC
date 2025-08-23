@@ -1,0 +1,180 @@
+/* Styles pour la section de consentement UEMOA */
+.uemoa-consent-info {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #007bff;
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 30px;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.uemoa-consent-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #007bff, #0056b3, #004085);
+}
+
+.consent-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.consent-header i {
+    font-size: 24px;
+    color: #007bff;
+    background: rgba(0, 123, 255, 0.1);
+    padding: 12px;
+    border-radius: 50%;
+}
+
+.consent-header h4 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.consent-content p {
+    color: #495057;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.consent-content p strong {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.consent-details {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.consent-details li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 15px;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    border-left: 4px solid #28a745;
+    transition: all 0.3s ease;
+}
+
+.consent-details li:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.consent-details li i {
+    color: #28a745;
+    font-size: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.consent-details li span {
+    color: #495057;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.consent-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.consent-note i {
+    color: #007bff;
+    font-size: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.consent-note span {
+    color: #495057;
+    font-size: 14px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .uemoa-consent-info {
+        padding: 20px;
+        margin-top: 25px;
+    }
+    
+    .consent-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .consent-header h4 {
+        font-size: 18px;
+    }
+    
+    .consent-content p {
+        font-size: 15px;
+    }
+    
+    .consent-details li {
+        padding: 10px 12px;
+        margin-bottom: 12px;
+    }
+    
+    .consent-details li span {
+        font-size: 14px;
+    }
+    
+    .consent-note {
+        padding: 12px;
+    }
+    
+    .consent-note span {
+        font-size: 13px;
+    }
+}
+
+/* Animation d'apparition */
+.uemoa-consent-info {
+    animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Effet de survol sur la carte */
+.uemoa-consent-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.15);
+    transition: all 0.3s ease;
+}

@@ -301,7 +301,6 @@ class AccountController extends Controller
         $validated = $request->validate([
             'company_name' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
-            'rccm' => 'required|string|max:255',
             'company_id_type' => 'nullable|string|max:255',
             'company_id_number' => 'nullable|string|max:255',
             'company_id_date' => 'nullable|date',
@@ -679,7 +678,6 @@ class AccountController extends Controller
         $validated = $request->validate([
             'company_name' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
-            'rccm' => 'required|string|max:255',
             'company_id_type' => 'nullable|string|max:255',
             'company_id_number' => 'nullable|string|max:255',
             'company_id_date' => 'nullable|date',

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- Page d'accueil -->
+    <url>
+        <loc>https://cocectogo.com/</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Page À propos -->
+    <url>
+        <loc>https://cocectogo.com/about</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Page Services -->
+    <url>
+        <loc>https://cocectogo.com/services</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Page Contact -->
+    <url>
+        <loc>https://cocectogo.com/contact</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Page Blog/Actualités -->
+    <url>
+        <loc>https://cocectogo.com/blog</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Page Carrières/Emplois -->
+    <url>
+        <loc>https://cocectogo.com/careers</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Page Simulateur de Prêt -->
+    <url>
+        <loc>https://cocectogo.com/loan-simulator</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Page Produits Financiers -->
+    <url>
+        <loc>https://cocectogo.com/financial-products</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Page Agences -->
+    <url>
+        <loc>https://cocectogo.com/agencies</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Page FAQ -->
+    <url>
+        <loc>https://cocectogo.com/faq</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+</urlset>

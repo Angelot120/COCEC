@@ -74,7 +74,7 @@
                     <span>Blog</span>
                 </a> -->
             </li>
-            <li class="dropdown">
+            {{-- <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="mdi:cog-outline" class="menu-icon"></iconify-icon>
                     <span>Système</span>
@@ -87,7 +87,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             @endif
 
             @if(auth()->user()->canCreateAccounts())
@@ -176,6 +176,27 @@
                     </li>
                     @endif
                 </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:cellphone-banking" class="menu-icon"></iconify-icon>
+                    <span>Finance Digitale</span>
+                </a>
+                                   <ul class="sidebar-submenu">
+                       <li>
+                           <a href="{{ route('admin.digitalfinance.updates.index') }}">
+                               <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                               Formulaires de mise à jour
+                           </a>
+                       </li>
+                       <li>
+                           <a href="{{ route('admin.digitalfinance.contracts.index') }}">
+                               <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                               Contrats d'adhésion
+                           </a>
+                       </li>
+                   </ul>
             </li>
 
         </ul>
