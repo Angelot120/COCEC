@@ -368,6 +368,43 @@
                             </label>
                             <div class="invalid-feedback"></div>
                         </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Document d'identité (PDF, JPG, PNG)</label>
+                            <label class="custom-file-upload"><input type="file" name="identity_document" accept=".pdf,.jpg,.jpeg,.png" required>
+                                <div class="upload-icon"><i class="fas fa-id-card"></i></div><span class="upload-text">Cliquez ou déposez votre document</span>
+                                <div class="upload-hint">PDF, JPG ou PNG, max 30Mo</div>
+                            </label>
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Photo passeport (JPG, PNG)</label>
+                            <label class="custom-file-upload"><input type="file" name="passport_photo" accept=".jpg,.jpeg,.png" required>
+                                <div class="upload-icon"><i class="fas fa-camera"></i></div><span class="upload-text">Cliquez ou déposez votre photo</span>
+                                <div class="upload-hint">JPG ou PNG, max 5Mo</div>
+                            </label>
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Type de document d'identité</label>
+                            <select class="form-control" name="identity_document_type" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="Carte nationale d'identité">Carte nationale d'identité</option>
+                                <option value="Passeport">Passeport</option>
+                                <option value="Permis de conduire">Permis de conduire</option>
+                                <option value="Carte d'électeur">Carte d'électeur</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Numéro du document d'identité</label>
+                            <input type="text" class="form-control" name="identity_document_number" placeholder="Ex: 123456789" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
                     </div>
                     <div class="text-center mt-5">
                         <button type="submit" id="submit-button" class="bz-primary-btn">

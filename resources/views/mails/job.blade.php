@@ -49,6 +49,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td style="padding: 8px 0; color: #555; font-weight: bold;">Téléphone :</td>
+                    <td style="padding: 8px 0; color: #333;">{{ $phone }}</td>
+                </tr>
+                <tr>
                     <td style="padding: 8px 0; color: #555; font-weight: bold;">Poste demandé :</td>
                     <td style="padding: 8px 0; color: #333;">{{ $application_type }}</td>
                 </tr>
@@ -58,6 +62,38 @@
                 </tr>
             </table>
         </div>
+
+        <!-- Photo passeport -->
+        @if($passport_photo_path)
+        <div style="background-color: #e8f5e8; padding: 20px; border-radius: 6px; margin: 20px 0; text-align: center;">
+            <h4 style="color: #2c3e50; margin: 0 0 15px 0;">📸 Photo Passeport :</h4>
+            <div style="max-width: 200px; margin: 0 auto;">
+                <img src="{{ asset('storage/' . $passport_photo_path) }}" 
+                     alt="Photo passeport de {{ $first_name }} {{ $last_name }}" 
+                     style="width: 100%; height: auto; border-radius: 8px; border: 2px solid #ddd;">
+            </div>
+            <p style="color: #555; font-size: 0.9em; margin: 10px 0 0 0;">
+                Photo de profil du candidat
+            </p>
+        </div>
+        @endif
+
+        <!-- Documents d'identité -->
+        @if($identity_document_type && $identity_document_number)
+        <div style="background-color: #fff3cd; padding: 20px; border-radius: 6px; margin: 20px 0;">
+            <h4 style="color: #856404; margin: 0 0 15px 0;">🆔 Document d'Identité :</h4>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 8px 0; color: #856404; font-weight: bold; width: 40%;">Type de document :</td>
+                    <td style="padding: 8px 0; color: #856404;">{{ $identity_document_type }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; color: #856404; font-weight: bold;">Numéro :</td>
+                    <td style="padding: 8px 0; color: #856404;">{{ $identity_document_number }}</td>
+                </tr>
+            </table>
+        </div>
+        @endif
         
         <!-- Actions à effectuer -->
         <div style="border-left: 4px solid #28a745; padding-left: 20px; margin: 25px 0;">

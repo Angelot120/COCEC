@@ -49,10 +49,16 @@ class JobController extends Controller
             'application_type' => 'required|in:emploi,stage',
             'cv' => 'required|file|mimes:pdf|max:30720', // 30MB Max
             'motivation_letter' => 'required|file|mimes:pdf|max:30720', // 30MB Max
+            'identity_document' => 'required|file|mimes:pdf,jpg,jpeg,png|max:30720', // 30MB Max
+            'passport_photo' => 'required|image|mimes:jpg,jpeg,png|max:5120', // 5MB Max
+            'identity_document_type' => 'required|string|max:100',
+            'identity_document_number' => 'required|string|max:100',
         ]);
 
         $cvPath = $request->file('cv')->store('resumes', 'public');
         $motivationLetterPath = $request->file('motivation_letter')->store('motivation_letters', 'public');
+        $identityDocumentPath = $request->file('identity_document')->store('identity_documents', 'public');
+        $passportPhotoPath = $request->file('passport_photo')->store('passport_photos', 'public');
 
         $response = $this->jobInterface->create([
             'last_name' => $validated['last_name'],
@@ -63,10 +69,27 @@ class JobController extends Controller
             'application_type' => $validated['application_type'],
             'cv_path' => $cvPath,
             'motivation_letter_path' => $motivationLetterPath,
+            'identity_document_path' => $identityDocumentPath,
+            'passport_photo_path' => $passportPhotoPath,
+            'identity_document_type' => $validated['identity_document_type'],
+            'identity_document_number' => $validated['identity_document_number'],
         ]);
 
         Mail::to($validated['email'])->send(new JobApplicationMail($validated['email'], $validated['application_type'], $validated['last_name'], $validated['first_name']));
-        Mail::to($mail)->send(new JobMail($validated['email'], $validated['application_type'], $validated['last_name'], $validated['first_name'], $validated['phone'], $validated['intitule']));
+        Mail::to($mail)->send(new JobMail(
+            $validated['email'], 
+            $validated['application_type'], 
+            $validated['last_name'], 
+            $validated['first_name'], 
+            $validated['phone'], 
+            $validated['intitule'],
+            $cvPath,
+            $motivationLetterPath,
+            $identityDocumentPath,
+            $passportPhotoPath,
+            $validated['identity_document_type'],
+            $validated['identity_document_number']
+        ));
 
         if (!$response) {
             return back()->withErrors(['error' => 'Une erreur est survenue lors de l\'envoi de votre candidature.']);
@@ -99,10 +122,16 @@ class JobController extends Controller
 
             'cv' => 'required|file|mimes:pdf|max:30720',
             'motivation_letter' => 'required|file|mimes:pdf|max:30720',
+            'identity_document' => 'required|file|mimes:pdf,jpg,jpeg,png|max:30720', // 30MB Max
+            'passport_photo' => 'required|image|mimes:jpg,jpeg,png|max:5120', // 5MB Max
+            'identity_document_type' => 'required|string|max:100',
+            'identity_document_number' => 'required|string|max:100',
         ]);
 
         $cvPath = $request->file('cv')->store('resumes', 'public');
         $motivationLetterPath = $request->file('motivation_letter')->store('motivation_letters', 'public');
+        $identityDocumentPath = $request->file('identity_document')->store('identity_documents', 'public');
+        $passportPhotoPath = $request->file('passport_photo')->store('passport_photos', 'public');
 
         $response = $this->jobInterface->create([
             'last_name' => $validated['last_name'],
@@ -113,6 +142,10 @@ class JobController extends Controller
             'application_type' => $validated['application_type'],
             'cv_path' => $cvPath,
             'motivation_letter_path' => $motivationLetterPath,
+            'identity_document_path' => $identityDocumentPath,
+            'passport_photo_path' => $passportPhotoPath,
+            'identity_document_type' => $validated['identity_document_type'],
+            'identity_document_number' => $validated['identity_document_number'],
             'job_offer_id' => $id,
         ]);
 
@@ -121,7 +154,20 @@ class JobController extends Controller
         }
 
         Mail::to($validated['email'])->send(new JobApplicationMail($validated['email'], $validated['application_type'], $validated['last_name'], $validated['first_name']));
-        Mail::to($mail)->send(new JobMail($validated['email'], $validated['application_type'], $validated['last_name'], $validated['first_name'], $validated['phone'], $validated['intitule']));
+        Mail::to($mail)->send(new JobMail(
+            $validated['email'], 
+            $validated['application_type'], 
+            $validated['last_name'], 
+            $validated['first_name'], 
+            $validated['phone'], 
+            $validated['intitule'],
+            $cvPath,
+            $motivationLetterPath,
+            $identityDocumentPath,
+            $passportPhotoPath,
+            $validated['identity_document_type'],
+            $validated['identity_document_number']
+        ));
 
 
         return back()->with('success', 'Votre candidature a bien été envoyée. Nous vous remercions !');

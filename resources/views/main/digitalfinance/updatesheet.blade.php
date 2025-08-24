@@ -1,7 +1,14 @@
 @extends('layout.main')
 
 @section('css')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
+
+    :root {
+        --primary-color: #EC281C;
+        --secondary-color: #ffcc00;
+        --red-light-color: #c53030;
+    }
     .update-form-container {
         min-height: 100vh;
         padding: 40px 0;
@@ -17,7 +24,6 @@
     }
 
     .form-header {
-        background: linear-gradient(135deg, #EC281C 0%, #c53030 100%);
         color: white;
         padding: 30px;
         text-align: center;
@@ -46,7 +52,7 @@
         padding: 25px;
         background: #f8fafc;
         border-radius: 15px;
-        border-left: 4px solid #EC281C;
+        border-left: 4px solid var(--primary-color);
     }
 
     .section-title {
@@ -93,17 +99,17 @@
 
     .form-input:focus {
         outline: none;
-        border-color: #EC281C;
+        border-color: var(--primary-color);
         box-shadow: 0 0 0 3px rgba(236, 40, 28, 0.15);
     }
 
     .form-input.error {
-        border-color: #e53e3e;
+        border-color: var(--red-light-color);
         box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15);
     }
 
     .error-message {
-        color: #e53e3e;
+        color: var(--red-light-color);
         font-size: 0.85rem;
         margin-top: 5px;
         display: block;
@@ -123,14 +129,14 @@
     }
 
     .checkbox-group:hover {
-        border-color: #EC281C;
+        border-color: var(--primary-color);
         box-shadow: 0 2px 8px rgba(236, 40, 28, 0.1);
     }
 
     .checkbox-group input[type="checkbox"] {
         width: 18px;
         height: 18px;
-        accent-color: #EC281C;
+        accent-color: var(--primary-color);
         cursor: pointer;
     }
 
@@ -162,11 +168,11 @@
         margin-bottom: 15px;
         text-align: center;
         padding-bottom: 8px;
-        border-bottom: 2px solid #EC281C;
+        border-bottom: 2px solid var(--primary-color);
     }
 
     .submit-btn {
-        background: linear-gradient(135deg, #EC281C 0%, #c53030 100%);
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--red-light-color) 100%);
         color: white;
         border: none;
         padding: 15px 40px;
@@ -219,7 +225,7 @@
     }
 
     .submit-btn.loading {
-        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--red-light-color) 100%);
         cursor: wait;
     }
 
@@ -265,7 +271,7 @@
         <div class="container">
             <div class="form-card">
                 <div class="form-header">
-                    <h1>📋 FICHE DE MISE À JOUR ET DE SOUSCRIPTION À LA FINANCE DIGITALE</h1>
+                    <h1>FICHE DE MISE À JOUR ET DE SOUSCRIPTION À LA FINANCE DIGITALE</h1>
                     <p class="subtitle">Remplissez ce formulaire pour mettre à jour vos informations et souscrire à nos services</p>
                 </div>
 
@@ -476,10 +482,7 @@
                         </div>
 
                         <button type="submit" class="submit-btn" id="submit-btn">
-                            <span class="btn-text">Soumettre le formulaire</span>
-                            <span class="btn-loading">
-                                <i class="fas fa-spinner fa-spin"></i> Envoi en cours...
-                            </span>
+                            <i class="fas fa-paper-plane"></i> Soumettre le formulaire
                         </button>
                     </form>
                 </div>
@@ -501,23 +504,20 @@
 
             const $form = $(this);
             const $submitBtn = $form.find('#submit-btn');
-            const $btnText = $submitBtn.find('.btn-text');
-            const $btnLoading = $submitBtn.find('.btn-loading');
-
-            console.log('Formulaire soumis, activation du loading...');
-            console.log('Bouton:', $submitBtn);
-            console.log('Texte:', $btnText);
-            console.log('Loading:', $btnLoading);
-
-            // Afficher le loading
-            $submitBtn.addClass('loading').prop('disabled', true);
-            
-            console.log('Classes du bouton après activation:', $submitBtn.attr('class'));
-            console.log('Bouton désactivé:', $submitBtn.prop('disabled'));
 
             // Nettoyer les erreurs précédentes
             $('.form-input').removeClass('error');
             $('.error-message').remove();
+
+            // Afficher le loader SweetAlert
+            Swal.fire({
+                title: 'Envoi en cours...',
+                text: 'Votre formulaire est en cours de transmission',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
 
             $.ajax({
                 url: $form.attr("action"),
@@ -529,10 +529,6 @@
                     "X-CSRF-TOKEN": $form.find('input[name="_token"]').val(),
                 },
                 success: function (data) {
-                    console.log('Succès, désactivation du loading...');
-                    // Masquer le loading
-                    $submitBtn.removeClass('loading').prop('disabled', false);
-                    
                     // Afficher le message de succès
                     Swal.fire({
                         icon: "success",
@@ -549,10 +545,6 @@
                     });
                 },
                 error: function (jqXHR) {
-                    console.log('Erreur, désactivation du loading...');
-                    // Masquer le loading
-                    $submitBtn.removeClass('loading').prop('disabled', false);
-                    
                     if (jqXHR.status === 422 && jqXHR.responseJSON && jqXHR.responseJSON.errors) {
                         // Afficher les erreurs de validation
                         const errors = jqXHR.responseJSON.errors;

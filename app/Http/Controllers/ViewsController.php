@@ -237,4 +237,9 @@ class ViewsController extends Controller
     {
         return view('admin.settings.localities');
     }
+
+    public function complaint()
+    {
+        return view('main.complaint');
+    }
 }

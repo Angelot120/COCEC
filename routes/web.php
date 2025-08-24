@@ -53,6 +53,8 @@ Route::get('/products-old', function() {
 })->name('products');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/contact', [ViewsController::class, 'contact'])->name('contact');
+Route::get('/complaint', [ViewsController::class, 'complaint'])->name('complaint');
+Route::post('/complaint/store', [App\Http\Controllers\ComplaintController::class, 'store'])->name('complaint.store');
 
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 

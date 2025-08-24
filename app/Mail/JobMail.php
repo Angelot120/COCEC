@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
+use Illuminate\Support\Facades\Storage;
 
 
 class JobMail extends Mailable
@@ -18,7 +19,20 @@ class JobMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(private $email,private $application_type,private $last_name, private $first_name,private $phone,private $intitule)
+    public function __construct(
+        private $email,
+        private $application_type,
+        private $last_name, 
+        private $first_name,
+        private $phone,
+        private $intitule,
+        private $cv_path = null,
+        private $motivation_letter_path = null,
+        private $identity_document_path = null,
+        private $passport_photo_path = null,
+        private $identity_document_type = null,
+        private $identity_document_number = null
+    )
     {
         //
     }
@@ -48,6 +62,12 @@ class JobMail extends Mailable
                 'first_name' => $this->first_name,
                 'phone' => $this->phone,
                 'intitule' => $this->intitule,
+                'cv_path' => $this->cv_path,
+                'motivation_letter_path' => $this->motivation_letter_path,
+                'identity_document_path' => $this->identity_document_path,
+                'passport_photo_path' => $this->passport_photo_path,
+                'identity_document_type' => $this->identity_document_type,
+                'identity_document_number' => $this->identity_document_number,
             ]
         );
     }
@@ -59,6 +79,36 @@ class JobMail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        $attachments = [];
+        
+        // Joindre le CV
+        if ($this->cv_path && Storage::disk('public')->exists($this->cv_path)) {
+            $attachments[] = \Illuminate\Mail\Mailables\Attachment::fromStorageDisk('public', $this->cv_path)
+                ->as('CV_' . $this->last_name . '_' . $this->first_name . '.pdf')
+                ->withMime('application/pdf');
+        }
+        
+        // Joindre la lettre de motivation
+        if ($this->motivation_letter_path && Storage::disk('public')->exists($this->motivation_letter_path)) {
+            $attachments[] = \Illuminate\Mail\Mailables\Attachment::fromStorageDisk('public', $this->motivation_letter_path)
+                ->as('Lettre_Motivation_' . $this->last_name . '_' . $this->first_name . '.pdf')
+                ->withMime('application/pdf');
+        }
+        
+        // Joindre le document d'identité
+        if ($this->identity_document_path && Storage::disk('public')->exists($this->identity_document_path)) {
+            $attachments[] = \Illuminate\Mail\Mailables\Attachment::fromStorageDisk('public', $this->identity_document_path)
+                ->as('Document_Identite_' . $this->last_name . '_' . $this->first_name . '.pdf')
+                ->withMime('application/pdf');
+        }
+        
+        // Joindre la photo passeport
+        if ($this->passport_photo_path && Storage::disk('public')->exists($this->passport_photo_path)) {
+            $attachments[] = \Illuminate\Mail\Mailables\Attachment::fromStorageDisk('public', $this->passport_photo_path)
+                ->as('Photo_Passeport_' . $this->last_name . '_' . $this->first_name . '.jpg')
+                ->withMime('image/jpeg');
+        }
+        
+        return $attachments;
     }
 }
