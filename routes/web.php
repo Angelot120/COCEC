@@ -157,7 +157,7 @@ Route::post('/login/processing', [AuthController::class, 'login'])->name('login.
 Route::prefix('digitalfinance')->group(function () {
     Route::get('/updates/create', [App\Http\Controllers\DigitalFinanceUpdateController::class, 'create'])->name('digitalfinance.updates.create');
     Route::post('/updates', [App\Http\Controllers\DigitalFinanceUpdateController::class, 'store'])->name('digitalfinance.updates.store');
-    
+
     // Routes pour les contrats
     Route::get('/contracts/create', [App\Http\Controllers\DigitalFinanceContractController::class, 'create'])->name('digitalfinance.contracts.create');
     Route::post('/contracts', [App\Http\Controllers\DigitalFinanceContractController::class, 'store'])->name('digitalfinance.contracts.store');
@@ -173,8 +173,10 @@ Route::middleware('auth:sanctum')->prefix('admin/digitalfinance')->group(functio
         Route::delete('/{id}', 'destroy')->name('admin.digitalfinance.updates.destroy');
         Route::patch('/{id}/approve', 'approve')->name('admin.digitalfinance.updates.approve');
         Route::patch('/{id}/reject', 'reject')->name('admin.digitalfinance.updates.reject');
+        Route::put('/{id}/status', 'updateStatus')->name('admin.digitalfinance.updates.updateStatus');
+        Route::get('/{id}/pdf', 'generatePdf')->name('admin.digitalfinance.updates.pdf');
     });
-    
+
     // Routes admin pour les contrats
     Route::prefix('contracts')->controller(App\Http\Controllers\DigitalFinanceContractController::class)->group(function () {
         Route::get('/', 'index')->name('admin.digitalfinance.contracts.index');
@@ -184,5 +186,7 @@ Route::middleware('auth:sanctum')->prefix('admin/digitalfinance')->group(functio
         Route::delete('/{id}', 'destroy')->name('admin.digitalfinance.contracts.destroy');
         Route::patch('/{id}/activate', 'activate')->name('admin.digitalfinance.contracts.activate');
         Route::patch('/{id}/terminate', 'terminate')->name('admin.digitalfinance.contracts.terminate');
+        Route::put('/{id}/status', 'updateStatus')->name('admin.digitalfinance.contracts.updateStatus');
+        Route::get('/{id}/pdf', 'generatePdf')->name('admin.digitalfinance.contracts.pdf');
     });
 });

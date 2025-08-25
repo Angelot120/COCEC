@@ -17,7 +17,7 @@ class DigitalFinanceContractController extends Controller
     public function index()
     {
         $contracts = DigitalFinanceContract::latest()->paginate(10);
-        return view('admin.digitalfinance.contracts.index', compact('contracts'));
+
     }
 
     /**
@@ -60,13 +60,13 @@ class DigitalFinanceContractController extends Controller
         ]);
 
         $data = $request->all();
-        
+
         // Convertir les checkboxes en booléens
         $data['mobile_money'] = (bool) $request->input('mobile_money');
         $data['mobile_banking'] = (bool) $request->input('mobile_banking');
         $data['web_banking'] = (bool) $request->input('web_banking');
         $data['sms_banking'] = (bool) $request->input('sms_banking');
-        
+
         // Ajouter la date du contrat et le statut par défaut
         $data['contract_date'] = now();
         $data['status'] = 'pending';
@@ -123,7 +123,7 @@ class DigitalFinanceContractController extends Controller
     public function update(Request $request, string $id)
     {
         $contract = DigitalFinanceContract::findOrFail($id);
-        
+
         $request->validate([
             'full_name' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
@@ -154,7 +154,7 @@ class DigitalFinanceContractController extends Controller
         ]);
 
         $data = $request->all();
-        
+
         // Convertir les checkboxes en booléens
         $data['mobile_money'] = (bool) $request->input('mobile_money');
         $data['mobile_banking'] = (bool) $request->input('mobile_banking');
@@ -200,4 +200,5 @@ class DigitalFinanceContractController extends Controller
 
         return redirect()->back()->with('success', 'Contrat terminé avec succès !');
     }
+
 }

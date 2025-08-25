@@ -74,7 +74,7 @@
                     <span>Blog</span>
                 </a> -->
             </li>
-            <li class="dropdown">
+            {{-- <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="mdi:cog-outline" class="menu-icon"></iconify-icon>
                     <span>Système</span>
@@ -87,7 +87,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             @endif
 
             @if(auth()->user()->canCreateAccounts())

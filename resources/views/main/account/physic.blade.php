@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     .account-form-section {
         background-color: #f7f8fc;
@@ -51,7 +52,7 @@
     .input-group-custom {
         position: relative;
     }
-    
+
     .input-group-custom .icon {
         position: absolute !important;
         top: 50% !important;
@@ -68,7 +69,7 @@
         align-items: center !important;
         justify-content: center !important;
     }
-    
+
     /* Override complet de tous les styles globaux */
     .form-container .input-group-custom .icon,
     .form-container .input-group-custom.icon-field .icon,
@@ -79,7 +80,7 @@
         position: absolute !important;
         left: 18px !important;
     }
-    
+
     /* Style spécifique pour les inputs avec icônes */
     .input-group-custom .form-control {
         padding-left: 50px !important;
@@ -87,7 +88,7 @@
         padding-top: 12px;
         padding-bottom: 12px;
     }
-    
+
     /* SOLUTION ULTIME - Styles avec spécificité maximale */
     body .form-container .input-group-custom .icon,
     html body .form-container .input-group-custom .icon {
@@ -103,7 +104,7 @@
         margin: 0 !important;
         padding: 0 !important;
     }
-    
+
     /* Override pour tous les cas possibles */
     .form-container .col-md-6 .input-group-custom .icon,
     .form-container .col-12 .input-group-custom .icon,
@@ -345,7 +346,7 @@
             padding: 10px 20px;
             font-size: 0.9rem;
         }
-        
+
         .dynamic-adder-btn {
             padding: 8px 16px;
             font-size: 0.8rem;
@@ -1100,7 +1101,7 @@
                                 <h6 class="mb-4"><strong>[PERSONNE PHYSIQUE]</strong></h6>
                             </div>
                         </div>
-                        
+
                         <!-- Checkboxes de consentement -->
                         <div class="col-12 mb-4">
                             <div class="consent-checkboxes">
@@ -1110,42 +1111,42 @@
                                         <strong>Accepte que les informations de crédit, historiques et courantes, me concernant notamment, les soldes approuvés et en souffrance, les limites de crédit, les cessations de paiement, le solde des arriérés auprès de la COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT (COCEC) soient transmises à CREDIT INFO VOLO COTE D'IVOIRE, Rue Des Jardins, Cocody, 2 Plateaux 01 BP 11266 Abidjan 01 - Côte d'Ivoire.</strong> <em>[Art 41 points 2, 3 et 4, Art 44, points 1 et 2]</em>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" type="checkbox" id="consent2" required>
                                     <label class="form-check-label" for="consent2">
                                         <strong>Accepte que les informations précitées soient communiquées par CREDIT INFO VOLO COTE D'IVOIRE aux établissements ayant accès à sa base de données, y compris ceux situés sur le territoire d'un autre Etat membre de l'UMOA.</strong> <em>[Art 42 point 1, Art 44, point 4]</em>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" type="checkbox" id="consent3" required>
                                     <label class="form-check-label" for="consent3">
                                         <strong>Comprends que ces informations ne peuvent, en aucun cas, porter sur mes dépôts</strong> <em>[Art 53, alinéa 3]</em>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" type="checkbox" id="consent4" required>
                                     <label class="form-check-label" for="consent4">
                                         <strong>Comprends que CREDIT INFO VOLO COTE D'IVOIRE ne diffusera que les informations dont l'ancienneté n'excède pas cinq (5) ans.</strong> <em>[Art 41, point 3]</em>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" type="checkbox" id="consent5" required>
                                     <label class="form-check-label" for="consent5">
                                         <strong>Comprends que CREDIT INFO VOLO COTE D'IVOIRE conservera ces informations pendant une durée de cinq (5) ans supplémentaire après la cession de la relation d'affaires avec la COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT (COCEC).</strong> <em>[Art 41, point 4]</em>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" type="checkbox" id="consent6" required>
                                     <label class="form-check-label" for="consent6">
                                         <strong>Comprends que j'ai le droit d'accès aux données me concernant dans la base de données CREDIT INFO VOLO COTE D'IVOIRE afin de vérifier mes historiques de crédit, de contester et faire corriger ou radier des informations erronées dans ladite base ou dans un rapport de crédit.</strong> <em>[Art 44, point 7]</em>
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" type="checkbox" id="consent7" required>
                                     <label class="form-check-label" for="consent7">
@@ -1154,7 +1155,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-12">
                             <div class="alert alert-info">
                                 <strong>Références de la Loi uniforme portant réglementation des BIC</strong>
@@ -1171,7 +1172,7 @@
                                 <strong>Information importante :</strong> Cette signature sera prise en compte pour l'ensemble de votre adhésion et les autres questionnaires de cette procédure.
                             </div>
                         </div>
-                        
+
                         <div class="col-12">
                     <div class="row choice-container @error('signature_method') is-invalid @enderror">
                         <div class="col-6">
@@ -1220,14 +1221,9 @@
                     </div>
                 </div>
 
-
-
                 <div class="form-navigation-buttons">
                     <button type="button" class="btn btn-nav btn-prev" style="display: none;"><i class="fas fa-arrow-left"></i> Précédent</button>
-                    <button type="button" class="btn btn-nav btn-next" style="margin-left: auto;">Suivant <i class="fas fa-arrow-right"></i></button>
-                    <button type="submit" class="btn btn-submit-form btn-next" style="display: none;" id="submit-btn-physic">
-                        <i class="fas fa-check-circle"></i> Soumettre l'adhésion
-                    </button>
+
                 </div>
             </form>
         </div>
@@ -1395,7 +1391,7 @@
                     // Vérifier que tous les checkboxes sont cochés
                     const checkboxes = currentStepContent.querySelectorAll('input[type="checkbox"]');
                     let uncheckedCount = 0;
-                    
+
                     checkboxes.forEach((checkbox, index) => {
                         if (!checkbox.checked) {
                             checkbox.classList.add('is-invalid');
@@ -1419,7 +1415,7 @@
                             }
                         }
                     });
-                    
+
                     // Afficher un message d'erreur général si des checkboxes ne sont pas cochés
                     let generalError = currentStepContent.querySelector('.umoa-general-error');
                     if (uncheckedCount > 0) {
@@ -1438,7 +1434,7 @@
                             generalError.remove();
                         }
                     }
-                    
+
                     // Vérifier la signature
                     const signatureMethod = currentStepContent.querySelector('input[name="signature_method"]:checked');
                     if (signatureMethod) {
@@ -1473,7 +1469,7 @@
                     const errorId = step === 3 ? 'references-error' : 'beneficiaries-error';
                     const container = currentStepContent.querySelector(`#${containerId}`);
                     const errorDiv = currentStepContent.querySelector(`#${errorId}`);
-                    
+
                     if (container) {
                         const fields = container.querySelectorAll('.dynamic-field');
                         if (fields.length === 0) {
@@ -1584,14 +1580,14 @@
                     container.insertAdjacentHTML('beforeend', template);
                     const errorDiv = container.querySelector('.invalid-feedback');
                     if (errorDiv) errorDiv.remove();
-                    
+
                     // Masquer le message d'erreur personnalisé
                     const customErrorId = type === 'beneficiaire' ? 'beneficiaries-error' : 'references-error';
                     const customErrorDiv = document.getElementById(customErrorId);
                     if (customErrorDiv) {
                         customErrorDiv.style.display = 'none';
                     }
-                    
+
                     container.querySelectorAll('.remove-field').forEach(removeBtn => {
                         removeBtn.addEventListener('click', () => removeBtn.closest('.dynamic-field').remove());
                     });
@@ -1782,7 +1778,7 @@
                             penColor: 'rgb(0, 0, 0)'
                         });
                         canvas.signaturePadInstance = signaturePad;
-                        
+
                         // Restaurer les données si elles existent
                         if (data.length > 0) {
                             signaturePad.fromData(data);
@@ -1832,13 +1828,13 @@
                 // ==== VALIDATION OBLIGATOIRE DES CHECKBOXES UMOA ====
                 const umoaCheckboxes = form.querySelectorAll('.consent-checkboxes input[type="checkbox"]');
                 let uncheckedCount = 0;
-                
+
                 umoaCheckboxes.forEach(checkbox => {
                     if (!checkbox.checked) {
                         uncheckedCount++;
                     }
                 });
-                
+
                 if (uncheckedCount > 0) {
                     e.preventDefault();
                     // Afficher un message d'erreur
@@ -1856,18 +1852,18 @@
                         confirmButtonColor: '#EC281C',
                         background: '#fff'
                     });
-                    
+
                     // Aller à l'étape 5 (UMOA)
                     currentStep = 5;
                     showStep(currentStep);
-                    
+
                     // Mettre en évidence les checkboxes non cochés
                     umoaCheckboxes.forEach(checkbox => {
                         if (!checkbox.checked) {
                             checkbox.classList.add('is-invalid');
                         }
                     });
-                    
+
                     // Afficher le message d'erreur général
                     let generalError = document.querySelector('.umoa-general-error');
                     if (!generalError) {
@@ -1883,7 +1879,7 @@
                             consentContainer.after(generalError);
                         }
                     }
-                    
+
                     return false;
                 }
 
@@ -1893,7 +1889,7 @@
                     const canvas = form.querySelector('#signature-pad');
                     const signaturePad = canvas.signaturePadInstance;
                     const hiddenInput = form.querySelector('#signature-data-physique');
-                    
+
                     if (signaturePad && !signaturePad.isEmpty()) {
                         const signatureData = signaturePad.toDataURL('image/png');
                         console.log('Saving signature before submit, length:', signatureData.length);
@@ -1901,27 +1897,14 @@
                     } else {
                         console.log('Signature pad is empty or not available');
                         e.preventDefault();
-                        
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Signature requise',
-                            text: 'Veuillez dessiner ou importer votre signature avant de continuer.',
-                            confirmButtonText: 'Comprendre',
-                            confirmButtonColor: '#EC281C',
-                            background: '#fff'
-                        });
-                        
-                        form.querySelector('#signature-draw-error-physique').style.display = 'block';
-                        // Aller à l'étape 5
-                        currentStep = 5;
-                        showStep(currentStep);
+
                         return false;
                     }
                 } else if (signatureMethod && signatureMethod.value === 'upload') {
                     const signatureUpload = form.querySelector('input[name="signature_upload"]');
                     if (!signatureUpload.files.length) {
                         e.preventDefault();
-                        
+
                         Swal.fire({
                             icon: 'warning',
                             title: 'Signature requise',
@@ -1930,7 +1913,7 @@
                             confirmButtonColor: '#EC281C',
                             background: '#fff'
                         });
-                        
+
                         signatureUpload.closest('.file-upload-wrapper').classList.add('is-invalid');
                         // Aller à l'étape 5
                         currentStep = 5;
@@ -1939,7 +1922,7 @@
                     }
                 } else {
                     e.preventDefault();
-                    
+
                     Swal.fire({
                         icon: 'warning',
                         title: 'Méthode de signature requise',
@@ -1948,7 +1931,7 @@
                         confirmButtonColor: '#EC281C',
                         background: '#fff'
                     });
-                    
+
                     // Aller à l'étape 5
                     currentStep = 5;
                     showStep(currentStep);
@@ -1973,7 +1956,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Sélectionner toutes les icônes dans les champs input-group-custom
         const icons = document.querySelectorAll('.input-group-custom .icon');
-        
+
         icons.forEach(function(icon) {
             // Appliquer les styles directement via JavaScript
             icon.style.position = 'absolute';
@@ -1992,7 +1975,7 @@
             icon.style.margin = '0';
             icon.style.padding = '0';
         });
-        
+
         // S'assurer que les styles sont appliqués même après les modifications dynamiques
         setTimeout(function() {
             icons.forEach(function(icon) {
@@ -2014,8 +1997,7 @@
                 text: message,
                 confirmButtonColor: '#EC281C',
                 background: '#fff',
-                showConfirmButton: true,
-                allowOutsideClick: true
+
             });
             successAlert.remove();
         }
@@ -2025,7 +2007,7 @@
         if (errorAlert) {
             let message = '';
             let title = 'Erreur !';
-            
+
             // Vérifier s'il y a une liste d'erreurs de validation
             const errorList = errorAlert.querySelector('ul');
             if (errorList) {
@@ -2034,81 +2016,18 @@
             } else {
                 message = errorAlert.textContent.trim();
             }
-            
+
             Swal.fire({
                 icon: 'warning',
                 title: title,
                 html: message,
                 confirmButtonColor: '#EC281C',
                 background: '#fff',
-                showConfirmButton: true,
-                allowOutsideClick: true
+
             });
             errorAlert.remove();
         }
     });
 
-    // ==== VALIDATION EN TEMPS RÉEL DES CHECKBOXES UMOA ====
-    function setupUmoaCheckboxValidation() {
-        const checkboxes = document.querySelectorAll('.consent-checkboxes input[type="checkbox"]');
-        
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                validateUmoaCheckboxes();
-            });
-        });
-    }
-
-    function validateUmoaCheckboxes() {
-        const checkboxes = document.querySelectorAll('.consent-checkboxes input[type="checkbox"]');
-        let uncheckedCount = 0;
-        
-        checkboxes.forEach(checkbox => {
-            if (!checkbox.checked) {
-                checkbox.classList.add('is-invalid');
-                uncheckedCount++;
-            } else {
-                checkbox.classList.remove('is-invalid');
-                // Supprimer le message d'erreur individuel
-                const errorDiv = checkbox.parentNode.querySelector('.umoa-checkbox-error');
-                if (errorDiv) {
-                    errorDiv.remove();
-                }
-            }
-        });
-        
-        // Gérer le message d'erreur général
-        let generalError = document.querySelector('.umoa-general-error');
-        if (uncheckedCount > 0) {
-            if (!generalError) {
-                generalError = document.createElement('div');
-                generalError.className = 'umoa-general-error alert alert-danger mt-3';
-                generalError.innerHTML = `
-                    <i class="fas fa-exclamation-triangle me-2"></i>
-                    <strong>Attention :</strong> Vous devez accepter tous les consentements UMOA pour continuer. 
-                    <span class="badge bg-danger ms-2">${uncheckedCount} consentement(s) manquant(s)</span>
-                `;
-                const consentContainer = document.querySelector('.consent-checkboxes');
-                if (consentContainer) {
-                    consentContainer.after(generalError);
-                }
-            } else {
-                // Mettre à jour le compteur
-                const badge = generalError.querySelector('.badge');
-                if (badge) {
-                    badge.textContent = `${uncheckedCount} consentement(s) manquant(s)`;
-                }
-            }
-        } else {
-            if (generalError) {
-                generalError.remove();
-            }
-        }
-    }
-
-    // Initialiser la validation en temps réel
-    document.addEventListener('DOMContentLoaded', function() {
-        setupUmoaCheckboxValidation();
-    });
 </script>
 @endsection

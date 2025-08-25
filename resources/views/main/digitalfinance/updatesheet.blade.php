@@ -1,14 +1,7 @@
 @extends('layout.main')
 
 @section('css')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<style>
 
-    :root {
-        --primary-color: #EC281C;
-        --secondary-color: #ffcc00;
-        --red-light-color: #c53030;
-    }
     .update-form-container {
         min-height: 100vh;
         padding: 40px 0;
@@ -24,6 +17,7 @@
     }
 
     .form-header {
+
         color: white;
         padding: 30px;
         text-align: center;
@@ -52,7 +46,7 @@
         padding: 25px;
         background: #f8fafc;
         border-radius: 15px;
-        border-left: 4px solid var(--primary-color);
+
     }
 
     .section-title {
@@ -99,17 +93,17 @@
 
     .form-input:focus {
         outline: none;
-        border-color: var(--primary-color);
+
         box-shadow: 0 0 0 3px rgba(236, 40, 28, 0.15);
     }
 
     .form-input.error {
-        border-color: var(--red-light-color);
+
         box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15);
     }
 
     .error-message {
-        color: var(--red-light-color);
+
         font-size: 0.85rem;
         margin-top: 5px;
         display: block;
@@ -129,14 +123,14 @@
     }
 
     .checkbox-group:hover {
-        border-color: var(--primary-color);
+
         box-shadow: 0 2px 8px rgba(236, 40, 28, 0.1);
     }
 
     .checkbox-group input[type="checkbox"] {
         width: 18px;
         height: 18px;
-        accent-color: var(--primary-color);
+
         cursor: pointer;
     }
 
@@ -168,11 +162,7 @@
         margin-bottom: 15px;
         text-align: center;
         padding-bottom: 8px;
-        border-bottom: 2px solid var(--primary-color);
-    }
 
-    .submit-btn {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--red-light-color) 100%);
         color: white;
         border: none;
         padding: 15px 40px;
@@ -225,7 +215,7 @@
     }
 
     .submit-btn.loading {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--red-light-color) 100%);
+
         cursor: wait;
     }
 
@@ -234,11 +224,11 @@
         .form-row {
             grid-template-columns: 1fr;
         }
-        
+
         .services-grid {
             grid-template-columns: 1fr;
         }
-        
+
         .form-body {
             padding: 25px;
         }
@@ -271,18 +261,18 @@
         <div class="container">
             <div class="form-card">
                 <div class="form-header">
-                    <h1>FICHE DE MISE À JOUR ET DE SOUSCRIPTION À LA FINANCE DIGITALE</h1>
+
                     <p class="subtitle">Remplissez ce formulaire pour mettre à jour vos informations et souscrire à nos services</p>
                 </div>
 
                 <div class="form-body">
                     <form id="digital-finance-form" action="{{ route('digitalfinance.updates.store') }}" method="POST">
                         @csrf
-                        
+
                         <!-- INFORMATIONS CLIENT -->
                         <div class="form-section">
                             <h3 class="section-title">📋 INFORMATIONS CLIENT</h3>
-                            
+
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="account_number" class="form-label">N° COMPTE *</label>
@@ -332,7 +322,7 @@
                         <!-- CONTACTS DU CLIENT -->
                         <div class="form-section">
                             <h3 class="section-title">📞 CONTACTS DU CLIENT</h3>
-                            
+
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="email" class="form-label">Email</label>
@@ -482,7 +472,7 @@
                         </div>
 
                         <button type="submit" class="submit-btn" id="submit-btn">
-                            <i class="fas fa-paper-plane"></i> Soumettre le formulaire
+
                         </button>
                     </form>
                 </div>
@@ -509,16 +499,6 @@
             $('.form-input').removeClass('error');
             $('.error-message').remove();
 
-            // Afficher le loader SweetAlert
-            Swal.fire({
-                title: 'Envoi en cours...',
-                text: 'Votre formulaire est en cours de transmission',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-
             $.ajax({
                 url: $form.attr("action"),
                 method: "POST",
@@ -529,6 +509,7 @@
                     "X-CSRF-TOKEN": $form.find('input[name="_token"]').val(),
                 },
                 success: function (data) {
+
                     // Afficher le message de succès
                     Swal.fire({
                         icon: "success",
@@ -545,15 +526,16 @@
                     });
                 },
                 error: function (jqXHR) {
+
                     if (jqXHR.status === 422 && jqXHR.responseJSON && jqXHR.responseJSON.errors) {
                         // Afficher les erreurs de validation
                         const errors = jqXHR.responseJSON.errors;
-                        
+
                         Object.keys(errors).forEach(field => {
                             const $input = $(`[name="${field}"]`);
                             if ($input.length) {
                                 $input.addClass('error');
-                                
+
                                 // Ajouter le message d'erreur
                                 const errorMessage = errors[field][0];
                                 $input.after(`<span class="error-message">${errorMessage}</span>`);
@@ -574,7 +556,7 @@
                         if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
                             errorMessage = jqXHR.responseJSON.message;
                         }
-                        
+
                         Swal.fire({
                             icon: "error",
                             title: "Oups...",
