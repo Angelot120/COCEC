@@ -30,8 +30,6 @@ class JobMail extends Mailable
         private $motivation_letter_path = null,
         private $identity_document_path = null,
         private $passport_photo_path = null,
-        private $identity_document_type = null,
-        private $identity_document_number = null
     )
     {
         //
@@ -66,8 +64,6 @@ class JobMail extends Mailable
                 'motivation_letter_path' => $this->motivation_letter_path,
                 'identity_document_path' => $this->identity_document_path,
                 'passport_photo_path' => $this->passport_photo_path,
-                'identity_document_type' => $this->identity_document_type,
-                'identity_document_number' => $this->identity_document_number,
             ]
         );
     }
@@ -94,13 +90,7 @@ class JobMail extends Mailable
                 ->as('Lettre_Motivation_' . $this->last_name . '_' . $this->first_name . '.pdf')
                 ->withMime('application/pdf');
         }
-        
-        // Joindre le document d'identité
-        if ($this->identity_document_path && Storage::disk('public')->exists($this->identity_document_path)) {
-            $attachments[] = \Illuminate\Mail\Mailables\Attachment::fromStorageDisk('public', $this->identity_document_path)
-                ->as('Document_Identite_' . $this->last_name . '_' . $this->first_name . '.pdf')
-                ->withMime('application/pdf');
-        }
+
         
         // Joindre la photo passeport
         if ($this->passport_photo_path && Storage::disk('public')->exists($this->passport_photo_path)) {

@@ -470,24 +470,6 @@
                             <div class="invalid-feedback"></div>
                         </div>
 
-                        <div class="col-md-6 form-floating-group">
-                            <select class="form-control" id="identity_document_type" name="identity_document_type" required>
-                                <option value="">Sélectionnez...</option>
-                                <option value="Carte nationale d'identité">Carte nationale d'identité</option>
-                                <option value="Passeport">Passeport</option>
-                                <option value="Permis de conduire">Permis de conduire</option>
-                                <option value="Carte d'électeur">Carte d'électeur</option>
-                                <option value="Autre">Autre</option>
-                            </select>
-                            <label for="identity_document_type" class="form-label">Type de document d'identité</label>
-                            <div class="invalid-feedback"></div>
-                        </div>
-
-                        <div class="col-md-6 form-floating-group">
-                            <input type="text" class="form-control" id="identity_document_number" name="identity_document_number" placeholder=" " required>
-                            <label for="identity_document_number" class="form-label">Numéro du document d'identité</label>
-                            <div class="invalid-feedback"></div>
-                        </div>
                     </div>
 
                     <div class="mt-4">

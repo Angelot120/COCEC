@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('css')
-
+<style>
     .contract-container {
         min-height: 100vh;
         padding: 40px 0;
@@ -11,6 +11,7 @@
         background: white;
         border-radius: 20px;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #EC281C;
         overflow: hidden;
         max-width: 1000px;
         margin: 0 auto;
@@ -152,7 +153,7 @@
     }
 
     .submit-btn {
-
+        background: #EC281C;
         color: white;
         border: none;
         padding: 15px 40px;
@@ -298,6 +299,27 @@
                 <!-- FORMULAIRE DE SOUSCRIPTION -->
                 <div class="contract-section">
 
+                    <form action="{{ route('digitalfinance.contracts.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="full_name" class="form-label">Nom et Prénoms *</label>
+                                <input type="text" id="full_name" name="full_name" class="form-input @error('full_name') error @enderror" value="{{ old('full_name') }}" required>
+                                @error('full_name')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Téléphone *</label>
+                                <input type="tel" id="phone" name="phone" class="form-input @error('phone') error @enderror" value="{{ old('phone') }}" required>
+                                @error('phone')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="cni_type" class="form-label">Type de document</label>
@@ -309,8 +331,35 @@
                                     <option value="Autre" {{ old('cni_type') == 'Autre' ? 'selected' : '' }}>Autre</option>
                                 </select>
                                 @error('cni_type')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cni_number" class="form-label">Numéro de document *</label>
+                                <input type="text" id="cni_number" name="cni_number" class="form-input @error('cni_number') error @enderror" value="{{ old('cni_number') }}" required>
+                                @error('cni_number')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
-                            @enderror
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="address" class="form-label">Adresse *</label>
+                                <input type="text" id="address" name="address" class="form-input @error('address') error @enderror" value="{{ old('address') }}" required>
+                                @error('address')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="account_number" class="form-label">Numéro de compte *</label>
+                                <input type="text" id="account_number" name="account_number" class="form-input @error('account_number') error @enderror" value="{{ old('account_number') }}" required>
+                                @error('account_number')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
                         <!-- SERVICES DIGITAUX -->
@@ -328,7 +377,7 @@
                                 <div class="service-category">
                                     <h4>💰 MOBILE MONEY</h4>
                                     <div class="checkbox-group">
-
+                                        <input type="checkbox" id="mobile_money" name="mobile_money" value="1" {{ old('mobile_money') ? 'checked' : '' }}>
                                         <label for="mobile_money">Souscrire au service Mobile Money</label>
                                     </div>
                                     <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
@@ -336,6 +385,10 @@
                                     </p>
                                 </div>
 
+                                <div class="service-category">
+                                    <h4>📱 MOBILE BANKING</h4>
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="mobile_banking" name="mobile_banking" value="1" {{ old('mobile_banking') ? 'checked' : '' }}>
                                         <label for="mobile_banking">Souscrire au service Mobile Banking</label>
                                     </div>
                                     <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
@@ -343,6 +396,10 @@
                                     </p>
                                 </div>
 
+                                <div class="service-category">
+                                    <h4>💻 WEB BANKING</h4>
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="web_banking" name="web_banking" value="1" {{ old('web_banking') ? 'checked' : '' }}>
                                         <label for="web_banking">Souscrire au service Web Banking</label>
                                     </div>
                                     <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
@@ -350,6 +407,10 @@
                                     </p>
                                 </div>
 
+                                <div class="service-category">
+                                    <h4>📨 SMS BANKING</h4>
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="sms_banking" name="sms_banking" value="1" {{ old('sms_banking') ? 'checked' : '' }}>
                                         <label for="sms_banking">Souscrire au service SMS Banking</label>
                                     </div>
                                     <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
@@ -361,13 +422,22 @@
 
                         <!-- NOTES -->
                         <div class="contract-section">
-
+                            <h3 class="section-title">Notes additionnelles</h3>
+                            <div class="form-group full-width">
+                                <label for="notes" class="form-label">Commentaires ou demandes spéciales</label>
+                                <textarea id="notes" name="notes" class="form-input" rows="4" placeholder="Vos commentaires...">{{ old('notes') }}</textarea>
+                                @error('notes')
+                                    <span class="error-message">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
                         <button type="submit" class="submit-btn" id="submit-btn">
-
+                            <span class="btn-text">Soumettre le contrat</span>
+                            <span class="btn-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                Envoi en cours...
+                            </span>
                         </button>
                     </form>
                 </div>
@@ -376,14 +446,17 @@
     </div>
     @include('includes.main.scroll')
     @include('includes.main.footer')
-</body>
 @endsection
 
 @section('js')
 <script>
     $(document).ready(function() {
-        // Gestion du formulaire avec AJAX comme la newsletter
-
+        // Gestion du formulaire avec AJAX
+        const $form = $('form');
+        
+        $form.on('submit', function(e) {
+            e.preventDefault();
+            
             // Nettoyer les erreurs précédentes
             $('.form-input').removeClass('error');
             $('.error-message').remove();
@@ -397,7 +470,7 @@
                 headers: {
                     "X-CSRF-TOKEN": $form.find('input[name="_token"]').val(),
                 },
-
+                success: function(response) {
                     // Afficher le message de succès
                     Swal.fire({
                         icon: "success",
@@ -413,7 +486,10 @@
                         $('.error-message').remove();
                     });
                 },
-
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status === 422) {
+                        // Erreurs de validation
+                        const errors = jqXHR.responseJSON.errors;
                         Object.keys(errors).forEach(field => {
                             const $input = $(`[name="${field}"]`);
                             if ($input.length) {
@@ -453,4 +529,5 @@
         });
     });
 </script>
+@endsection
 

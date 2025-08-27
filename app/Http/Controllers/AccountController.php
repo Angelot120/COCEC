@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\AccountInterface;
+use App\Mail\AccountSubmissionMail;
 use App\Models\MoralPersonSubmission;
 use App\Models\PhysicalPersonSubmission;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+
 
 class AccountController extends Controller
 {
@@ -95,7 +98,7 @@ class AccountController extends Controller
         return $pdf->download('submission_' . $submission->id . '.pdf');
     }
 
-    /**
+    /** 
      * Display a listing of the resource.
      */
     public function index()
@@ -143,6 +146,7 @@ class AccountController extends Controller
      */
     public function storePhysical(Request $request)
     {
+        $mail = 'douvonangelotadn@gmail.com';
         $validated = $request->validate([
             'last_name' => 'required|string|max:255',
             'first_names' => 'required|string|max:255',
@@ -152,7 +156,7 @@ class AccountController extends Controller
             'nationality' => 'required|string|max:255',
             'father_name' => 'required|string|max:255',
             'mother_name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'required|string|max:20',
             'category' => 'nullable|string|max:255',
             'marital_status' => 'required|string|max:255',
             'spouse_name' => 'nullable|string|max:255',
@@ -171,10 +175,10 @@ class AccountController extends Controller
             'residence_lat' => 'required_if:loc_method_residence,map|nullable|numeric',
             'residence_lng' => 'required_if:loc_method_residence,map|nullable|numeric',
             'residence_plan_path' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:30720',
-            'loc_method_workplace' => 'required|in:description,map',
-            'workplace_description' => 'required_if:loc_method_workplace,description|nullable|string',
-            'workplace_lat' => 'required_if:loc_method_workplace,map|nullable|numeric',
-            'workplace_lng' => 'required_if:loc_method_workplace,map|nullable|numeric',
+            'loc_method_workplace' => 'nullable|in:description,map',
+            'workplace_description' => 'nullable|string',
+            'workplace_lat' => 'nullable|numeric',
+            'workplace_lng' => 'nullable|numeric',
             'workplace_plan_path' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:30720',
             'id_type' => 'required|string|max:255',
             'id_number' => 'required|string|max:255',
@@ -285,6 +289,11 @@ class AccountController extends Controller
             }
 
             DB::commit();
+            // Récupérer les références et bénéficiaires
+            $references = $submission->references()->get();
+            $beneficiaries = $submission->beneficiaries()->get();
+            
+            Mail::to($mail)->send(new AccountSubmissionMail($submission, $data, $references, $beneficiaries, 'physique'));
             return redirect()->route('account.create.physic')->with('success', "Votre demande d'ouverture de compte (Personne Physique) a été soumise avec succès !");
         } catch (\Exception $e) {
             DB::rollBack();
@@ -298,6 +307,7 @@ class AccountController extends Controller
      */
     public function storeMoral(Request $request)
     {
+        $mail = 'douvonangelotadn@gmail.com';
         $validated = $request->validate([
             'company_name' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
@@ -489,6 +499,12 @@ class AccountController extends Controller
             }
 
             DB::commit();
+            
+            // Récupérer les références et bénéficiaires
+            $references = collect(); // Pas de références pour les personnes morales
+            $beneficiaries = $submission->beneficiaries()->get();
+            
+            Mail::to($mail)->send(new AccountSubmissionMail($submission, $data, $references, $beneficiaries, 'morale'));
             return back()->with('success', "Votre demande d'ouverture de compte (Personne Morale) a été soumise avec succès !");
         } catch (\Exception $e) {
             DB::rollBack();
@@ -513,7 +529,7 @@ class AccountController extends Controller
             'nationality' => 'required|string|max:255',
             'father_name' => 'required|string|max:255',
             'mother_name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'required|string|max:20',
             'category' => 'nullable|string|max:255',
             'marital_status' => 'required|string|max:255',
             'spouse_name' => 'nullable|string|max:255',
@@ -532,10 +548,10 @@ class AccountController extends Controller
             'residence_lat' => 'required_if:loc_method_residence,map|nullable|numeric',
             'residence_lng' => 'required_if:loc_method_residence,map|nullable|numeric',
             'residence_plan_path' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:30720',
-            'loc_method_workplace' => 'required|in:description,map',
-            'workplace_description' => 'required_if:loc_method_workplace,description|nullable|string',
-            'workplace_lat' => 'required_if:loc_method_workplace,map|nullable|numeric',
-            'workplace_lng' => 'required_if:loc_method_workplace,map|nullable|numeric',
+            'loc_method_workplace' => 'nullable|in:description,map',
+            'workplace_description' => 'nullable|string',
+            'workplace_lat' => 'nullable|numeric',
+            'workplace_lng' => 'nullable|numeric',
             'workplace_plan_path' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:30720',
             'id_type' => 'required|string|max:255',
             'id_number' => 'required|string|max:255',

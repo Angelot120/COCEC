@@ -100,128 +100,88 @@
 
 .form-select {
     border: 2px solid #e9ecef;
-    border-radius: 12px;
-    padding: 12px 16px;
+    border-radius: 10px;
+    padding: 12px 15px;
     font-size: 14px;
     transition: all 0.3s ease;
-    background: #f8f9fa;
-    width: 100%;
-    height: auto;
-    min-height: 45px;
+    background-color: #fff;
+    color: #495057;
 }
 
 .form-select:focus {
     border-color: #EC281C;
     box-shadow: 0 0 0 0.2rem rgba(236, 40, 28, 0.25);
-    background: #ffffff;
     outline: none;
 }
 
-/* Styles du tableau */
-.loan-table {
-    background: #ffffff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(236, 40, 28, 0.1);
+.form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: #495057;
 }
 
-.loan-table thead {
-    background: #EC281C;
+.form-control:focus {
+    border-color: #EC281C;
+    box-shadow: 0 0 0 0.2rem rgba(236, 40, 28, 0.25);
+    outline: none;
+}
+
+/* Tableau des résultats */
+.loan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
 .loan-table th {
-    color: #ffffff;
+    background: #EC281C;
+    color: #fff;
+    padding: 15px;
+    text-align: left;
     font-weight: 600;
-    padding: 15px 12px;
-    border: none;
     font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.loan-table tbody tr {
-    transition: all 0.3s ease;
-    border-bottom: 1px solid #f1f3f4;
-}
-
-.loan-table tbody tr:hover {
-    background: rgba(236, 40, 28, 0.05);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .loan-table td {
-    padding: 15px 12px;
-    vertical-align: middle;
-    border: none;
+    padding: 12px 15px;
+    border-bottom: 1px solid #e9ecef;
     font-size: 14px;
 }
 
-.loan-table .amount {
-    font-weight: 700;
-    color: #EC281C;
+.loan-table tr:hover {
+    background: #f8f9fa;
 }
 
-.loan-table .duration {
-    background: rgba(236, 40, 28, 0.1);
-    color: #EC281C;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.loan-table .type {
-    background: rgba(40, 167, 69, 0.1);
-    color: #28a745;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.loan-table .monthly {
-    font-weight: 600;
-    color: #2c3e50;
-}
-
-.loan-table .interest {
-    color: #ffc107;
-    font-weight: 600;
-}
-
-.loan-table .fees {
-    color: #6c757d;
-    font-size: 12px;
-}
-
-.loan-table .total {
-    font-weight: 700;
-    color: #28a745;
-    font-size: 16px;
-}
-
-/* Loading simple */
+/* Loading spinner */
 #loanTableLoading {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 12px;
-    margin: 20px 0;
+    text-align: center;
+    padding: 40px;
 }
 
 .loading-spinner {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
 }
 
 .spinner {
-    width: 100%;
-    height: 100%;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #EC281C;
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #EC281C;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+    margin-bottom: 20px;
 }
 
 @keyframes spin {
@@ -229,66 +189,63 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Info de prêt */
+/* Informations du prêt */
 .loan-info {
-    color: #EC281C;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
+    background: linear-gradient(135deg, #EC281C 0%, #ff6b6b 100%);
+    color: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
 }
 
-.loan-info:hover {
-    color: #d4241a;
-    text-decoration: none;
+.loan-info h4 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.loan-info .info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.loan-info .info-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.loan-info .info-item span {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.loan-info .info-item strong {
+    font-size: 16px;
+    font-weight: 700;
 }
 
 /* Actions de simulation */
 .simulation-actions {
+    text-align: center;
     margin-top: 30px;
-    padding-top: 30px;
-    border-top: 2px solid rgba(236, 40, 28, 0.1);
 }
 
 .simulation-actions .bz-primary-btn {
-    margin: 0 10px;
-    padding: 12px 25px;
-    font-size: 14px;
+    padding: 12px 30px;
+    font-size: 16px;
     font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
-/* Optimisations pour la section "Nos Produits Phares" */
-.service-section-3 {
-    will-change: auto;
-    transform: translateZ(0);
-}
-
-.service-item-3 {
-    will-change: auto;
-    transform: translateZ(0);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.service-item-3:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.service-thumb {
-    will-change: auto;
-    transform: translateZ(0);
-}
-
-.service-thumb img {
-    will-change: auto;
-    transform: translateZ(0);
-    transition: transform 0.3s ease;
-}
-
-.service-item-3:hover .service-thumb img {
-    transform: scale(1.05);
+.simulation-actions .bz-primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(236, 40, 28, 0.3);
 }
 
 /* Responsive */
@@ -300,6 +257,31 @@
     
     .simulator-header h3 {
         font-size: 24px;
+    }
+    
+    .simulation-form {
+        padding: 20px;
+    }
+    
+    .simulation-form .row > div {
+        margin-bottom: 15px;
+    }
+    
+    .result-card {
+        margin-bottom: 20px;
+    }
+    
+    .amortization-table-wrapper {
+        overflow-x: auto;
+    }
+    
+    .amortization-table-wrapper .table {
+        font-size: 12px;
+    }
+    
+    .amortization-table-wrapper .table thead th,
+    .amortization-table-wrapper .table tbody td {
+        padding: 8px 5px;
     }
     
     .table-filters .col-md-4 {
@@ -345,4 +327,4 @@
         width: 100%;
         height: auto;
     }
-} 
+}

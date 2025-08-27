@@ -78,26 +78,10 @@
         margin-bottom: 8px;
     }
 
-    .input-group-custom .icon {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 18px;
-        color: #adb5bd;
-        font-size: 1.1rem;
-        transition: color 0.3s ease;
-        pointer-events: none;
-    }
-
     .input-group-custom .form-control {
-        padding-left: 50px;
         border-radius: 8px;
         padding-top: 12px;
         padding-bottom: 12px;
-    }
-
-    .input-group-custom:focus-within .icon {
-        color: #EC281C;
     }
 
     .form-stepper {
@@ -1115,7 +1099,7 @@
                     </div>
                     <div class="step" data-step="5">
                         <div class="step-icon">5</div>
-
+                        <div class="step-label">Versements & Consentement UMOA</div>
                     </div>
                     <div class="progress-line"></div>
                 </div>
@@ -1126,91 +1110,76 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Dénomination / Raison Sociale</label>
-                            <i class="icon fas fa-building"></i>
                             <input type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" value="{{ old('company_name') }}" required>
                             <div class="invalid-feedback">@error('company_name') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Catégorie</label>
-                            <i class="icon fas fa-tags"></i>
                             <input type="text" class="form-control @error('category') is-invalid @enderror" name="category" value="{{ old('category') }}">
                             <div class="invalid-feedback">@error('category') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">N° RCCM / Récépissé <span class="text-muted">(optionnel)</span></label>
-                            <i class="icon fas fa-file-contract"></i>
                             <input type="text" class="form-control @error('rccm') is-invalid @enderror" name="rccm" value="{{ old('rccm') }}" data-optional="true">
                             <div class="invalid-feedback">Ce champ est optionnel.</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Type de pièce d'identification</label>
-                            <i class="icon fas fa-id-card"></i>
                             <input type="text" class="form-control @error('company_id_type') is-invalid @enderror" name="company_id_type" value="{{ old('company_id_type') }}">
                             <div class="invalid-feedback">@error('company_id_type') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Numéro de pièce</label>
-                            <i class="icon fas fa-id-card"></i>
                             <input type="text" class="form-control @error('company_id_number') is-invalid @enderror" name="company_id_number" value="{{ old('company_id_number') }}">
                             <div class="invalid-feedback">@error('company_id_number') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date d'enregistrement</label>
-                            <i class="icon fas fa-calendar-alt"></i>
                             <input type="date" class="form-control @error('company_id_date') is-invalid @enderror" name="company_id_date" value="{{ old('company_id_date') }}">
                             <div class="invalid-feedback">@error('company_id_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date de création</label>
-                            <i class="icon fas fa-calendar-alt"></i>
                             <input type="date" class="form-control @error('creation_date') is-invalid @enderror" name="creation_date" value="{{ old('creation_date') }}" max="{{ \Carbon\Carbon::today()->format('Y-m-d') }}" required>
                             <div class="invalid-feedback">@error('creation_date') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Lieu de création</label>
-                            <i class="icon fas fa-map-marker-alt"></i>
                             <input type="text" class="form-control @error('creation_place') is-invalid @enderror" name="creation_place" value="{{ old('creation_place') }}" required>
                             <div class="invalid-feedback">@error('creation_place') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Secteur d'activité</label>
-                            <i class="icon fas fa-briefcase"></i>
                             <input type="text" class="form-control @error('activity_sector') is-invalid @enderror" name="activity_sector" value="{{ old('activity_sector') }}" required>
                             <div class="invalid-feedback">@error('activity_sector') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Description de l'activité</label>
-                            <i class="icon fas fa-file-alt"></i>
                             <textarea class="form-control @error('activity_description') is-invalid @enderror" name="activity_description" rows="4">{{ old('activity_description') }}</textarea>
                             <div class="invalid-feedback">@error('activity_description') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nationalité de l'entreprise</label>
-                            <i class="icon fas fa-flag"></i>
                             <input type="text" class="form-control @error('company_nationality') is-invalid @enderror" name="company_nationality" value="{{ old('company_nationality') }}" required>
                             <div class="invalid-feedback">@error('company_nationality') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Téléphone</label>
-                            <i class="icon fas fa-phone"></i>
                             <input type="tel" class="form-control @error('company_phone') is-invalid @enderror" name="company_phone" value="{{ old('company_phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                             <div class="invalid-feedback">@error('company_phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Boîte postale</label>
-                            <i class="icon fas fa-mailbox"></i>
                             <input type="text" class="form-control @error('company_postal_box') is-invalid @enderror" name="company_postal_box" value="{{ old('company_postal_box') }}">
                             <div class="invalid-feedback">@error('company_postal_box') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Ville</label>
-                            <i class="icon fas fa-city"></i>
                             <input type="text" class="form-control @error('company_city') is-invalid @enderror" name="company_city" value="{{ old('company_city') }}">
                             <div class="invalid-feedback">@error('company_city') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Quartier</label>
-                            <i class="icon fas fa-map-signs"></i>
                             <input type="text" class="form-control @error('company_neighborhood') is-invalid @enderror" name="company_neighborhood" value="{{ old('company_neighborhood') }}">
                             <div class="invalid-feedback">@error('company_neighborhood') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
@@ -1253,6 +1222,28 @@
                             <div class="invalid-feedback">@error('company_plan_path') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                     </div>
+                    
+                    <!-- Champs PPE -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="input-group-custom">
+                                <label class="form-label">Personne politiquement exposée (nationale) ?</label>
+                                <select class="form-control" name="is_ppe_national" id="is_ppe_national">
+                                    <option value="0" {{ old('is_ppe_national', '0') == '0' ? 'selected' : '' }}>Non</option>
+                                    <option value="1" {{ old('is_ppe_national') == '1' ? 'selected' : '' }}>Oui</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group-custom">
+                                <label class="form-label">Personne politiquement exposée (étranger) ?</label>
+                                <select class="form-control" name="ppe_foreign" id="ppe_foreign">
+                                    <option value="0" {{ old('ppe_foreign', '0') == '0' ? 'selected' : '' }}>Non</option>
+                                    <option value="1" {{ old('ppe_foreign') == '1' ? 'selected' : '' }}>Oui</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Étape 2: Dirigeant & Contacts -->
@@ -1261,26 +1252,22 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom</label>
-                            <i class="icon fas fa-user-tie"></i>
                             <input type="text" class="form-control @error('director_name') is-invalid @enderror" name="director_name" value="{{ old('director_name') }}" required>
                             <div class="invalid-feedback">@error('director_name') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Prénoms</label>
-                            <i class="icon fas fa-user-tie"></i>
                             <input type="text" class="form-control @error('director_first_name') is-invalid @enderror" name="director_first_name" value="{{ old('director_first_name') }}">
                             <div class="invalid-feedback">@error('director_first_name') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Poste</label>
-                            <i class="icon fas fa-user-tag"></i>
                             <input type="text" class="form-control @error('director_position') is-invalid @enderror" name="director_position" value="{{ old('director_position') }}" required>
                             <div class="invalid-feedback">@error('director_position') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Sexe</label>
-                            <i class="icon fas fa-venus-mars"></i>
-                            <select class="form-control @error('director_gender') is-invalid @enderror" name="director_gender" style="padding-left: 50px;" required>
+                            <select class="form-control @error('director_gender') is-invalid @enderror" name="director_gender" required>
                                 <option value="">Sélectionner...</option>
                                 <option value="M" {{ old('director_gender') == 'M' ? 'selected' : '' }}>Masculin</option>
                                 <option value="F" {{ old('director_gender') == 'F' ? 'selected' : '' }}>Féminin</option>
@@ -1289,97 +1276,81 @@
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nationalité</label>
-                            <i class="icon fas fa-flag"></i>
                             <input type="text" class="form-control @error('director_nationality') is-invalid @enderror" name="director_nationality" value="{{ old('director_nationality') }}" required>
                             <div class="invalid-feedback">@error('director_nationality') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date de Naissance</label>
-                            <i class="icon fas fa-calendar-alt"></i>
                             <input type="date" class="form-control @error('director_birth_date') is-invalid @enderror" name="director_birth_date" value="{{ old('director_birth_date') }}" max="{{ \Carbon\Carbon::today()->subYears(18)->format('Y-m-d') }}" required>
                             <div class="invalid-feedback">@error('director_birth_date') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Lieu de Naissance</label>
-                            <i class="icon fas fa-map-marker-alt"></i>
                             <input type="text" class="form-control @error('director_birth_place') is-invalid @enderror" name="director_birth_place" value="{{ old('director_birth_place') }}" required>
                             <div class="invalid-feedback">@error('director_birth_place') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Numéro de pièce d'identité</label>
-                            <i class="icon fas fa-id-card"></i>
                             <input type="text" class="form-control @error('director_id_number') is-invalid @enderror" name="director_id_number" value="{{ old('director_id_number') }}" required>
                             <div class="invalid-feedback">@error('director_id_number') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date d'émission de la pièce</label>
-                            <i class="icon fas fa-calendar-alt"></i>
                             <input type="date" class="form-control @error('director_id_issue_date') is-invalid @enderror" name="director_id_issue_date" value="{{ old('director_id_issue_date') }}">
                             <div class="invalid-feedback">@error('director_id_issue_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Téléphone</label>
-                            <i class="icon fas fa-mobile-alt"></i>
                             <input type="tel" class="form-control @error('director_phone') is-invalid @enderror" name="director_phone" value="{{ old('director_phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                             <div class="invalid-feedback">@error('director_phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom du père</label>
-                            <i class="icon fas fa-user"></i>
                             <input type="text" class="form-control @error('director_father_name') is-invalid @enderror" name="director_father_name" value="{{ old('director_father_name') }}">
                             <div class="invalid-feedback">@error('director_father_name') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom de la mère</label>
-                            <i class="icon fas fa-user"></i>
                             <input type="text" class="form-control @error('director_mother_name') is-invalid @enderror" name="director_mother_name" value="{{ old('director_mother_name') }}">
                             <div class="invalid-feedback">@error('director_mother_name') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Boîte postale</label>
-                            <i class="icon fas fa-mailbox"></i>
                             <input type="text" class="form-control @error('director_postal_box') is-invalid @enderror" name="director_postal_box" value="{{ old('director_postal_box') }}">
                             <div class="invalid-feedback">@error('director_postal_box') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Ville</label>
-                            <i class="icon fas fa-city"></i>
                             <input type="text" class="form-control @error('director_city') is-invalid @enderror" name="director_city" value="{{ old('director_city') }}">
                             <div class="invalid-feedback">@error('director_city') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Quartier</label>
-                            <i class="icon fas fa-map-signs"></i>
                             <input type="text" class="form-control @error('director_neighborhood') is-invalid @enderror" name="director_neighborhood" value="{{ old('director_neighborhood') }}">
                             <div class="invalid-feedback">@error('director_neighborhood') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Adresse</label>
-                            <i class="icon fas fa-map-marker-alt"></i>
                             <textarea class="form-control @error('director_address') is-invalid @enderror" name="director_address" rows="4">{{ old('director_address') }}</textarea>
                             <div class="invalid-feedback">@error('director_address') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom du/de la conjoint(e)</label>
-                            <i class="icon fas fa-user-heart"></i>
                             <input type="text" class="form-control @error('director_spouse_name') is-invalid @enderror" name="director_spouse_name" value="{{ old('director_spouse_name') }}">
                             <div class="invalid-feedback">@error('director_spouse_name') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Profession du/de la conjoint(e)</label>
-                            <i class="icon fas fa-briefcase"></i>
                             <input type="text" class="form-control @error('director_spouse_occupation') is-invalid @enderror" name="director_spouse_occupation" value="{{ old('director_spouse_occupation') }}">
                             <div class="invalid-feedback">@error('director_spouse_occupation') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Téléphone du/de la conjoint(e)</label>
-                            <i class="icon fas fa-phone"></i>
                             <input type="tel" class="form-control @error('director_spouse_phone') is-invalid @enderror" name="director_spouse_phone" value="{{ old('director_spouse_phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}">
                             <div class="invalid-feedback">@error('director_spouse_phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Adresse du/de la conjoint(e)</label>
-                            <i class="icon fas fa-map-marker-alt"></i>
                             <textarea class="form-control @error('director_spouse_address') is-invalid @enderror" name="director_spouse_address" rows="4">{{ old('director_spouse_address') }}</textarea>
                             <div class="invalid-feedback">@error('director_spouse_address') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
@@ -1388,13 +1359,11 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Membres du procès-verbal</label>
-                            <i class="icon fas fa-users"></i>
                             <input type="text" class="form-control @error('minutes_members') is-invalid @enderror" name="minutes_members" value="{{ old('minutes_members') }}" required>
                             <div class="invalid-feedback">@error('minutes_members') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Réunion du procès-verbal</label>
-                            <i class="icon fas fa-file-alt"></i>
                             <input type="text" class="form-control @error('minutes_meeting') is-invalid @enderror" name="minutes_meeting" value="{{ old('minutes_meeting') }}" required>
                             <div class="invalid-feedback">@error('minutes_meeting') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
@@ -1403,19 +1372,16 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom & Prénoms</label>
-                            <i class="icon fas fa-user-check"></i>
                             <input type="text" class="form-control @error('emergency_contact_name') is-invalid @enderror" name="emergency_contact_name" value="{{ old('emergency_contact_name') }}" required>
                             <div class="invalid-feedback">@error('emergency_contact_name') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Téléphone</label>
-                            <i class="icon fas fa-phone"></i>
                             <input type="tel" class="form-control @error('emergency_contact_phone') is-invalid @enderror" name="emergency_contact_phone" value="{{ old('emergency_contact_phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                             <div class="invalid-feedback">@error('emergency_contact_phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                         </div>
                         <div class="col-md-12 mb-3 input-group-custom">
                             <label class="form-label">Adresse</label>
-                            <i class="icon fas fa-map-marker-alt"></i>
                             <textarea class="form-control @error('emergency_contact_address') is-invalid @enderror" name="emergency_contact_address" rows="4">{{ old('emergency_contact_address') }}</textarea>
                             <div class="invalid-feedback">@error('emergency_contact_address') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
@@ -1429,13 +1395,66 @@
                     <button type="button" class="btn btn-outline-primary mt-2 dynamic-adder-btn" data-container="co-directors-container" data-type="co_director"><i class="fas fa-plus"></i> Ajouter un co-dirigeant</button>
 
                     <h4 class="form-section-title">Signataires du Compte</h4>
+                    <div id="account-signatories-container">
+                        <!-- Signataire 1 (par défaut) -->
+                        <div class="dynamic-field p-3 mb-3 border rounded position-relative">
+                            <h5>Signataire 1</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 input-group-custom">
+                                    <label class="form-label">Nom</label>
+                                    <input type="text" class="form-control" name="account_signatories[0][name]" required>
+                                    <div class="invalid-feedback">Ce champ est requis.</div>
+                                </div>
+                                <div class="col-md-6 mb-3 input-group-custom">
+                                    <label class="form-label">Type de signature</label>
+                                    <select class="form-control" name="account_signatories[0][signature_type]" required>
+                                        <option value="">Sélectionner...</option>
+                                        <option value="unique">Unique</option>
+                                        <option value="conjointe">Conjointe</option>
+                                    </select>
+                                    <div class="invalid-feedback">Ce champ est requis.</div>
+                                </div>
+                                <div class="col-md-6 mb-3 input-group-custom">
+                                    <label class="form-label">Numéro de pièce d'identité</label>
+                                    <input type="text" class="form-control" name="account_signatories[0][id_number]">
+                                    <div class="invalid-feedback">Ce champ est optionnel.</div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- Signataire 2 (par défaut) -->
+                        <div class="dynamic-field p-3 mb-3 border rounded position-relative">
+                            <h5>Signataire 2</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 input-group-custom">
+                                    <label class="form-label">Nom</label>
+                                    <input type="text" class="form-control" name="account_signatories[1][name]" required>
+                                    <div class="invalid-feedback">Ce champ est requis.</div>
+                                </div>
+                                <div class="col-md-6 mb-3 input-group-custom">
+                                    <label class="form-label">Type de signature</label>
+                                    <select class="form-control" name="account_signatories[1][signature_type]" required>
+                                        <option value="">Sélectionner...</option>
+                                        <option value="unique">Unique</option>
+                                        <option value="conjointe">Conjointe</option>
+                                    </select>
+                                    <div class="invalid-feedback">Ce champ est requis.</div>
+                                </div>
+                                <div class="col-md-6 mb-3 input-group-custom">
+                                    <label class="form-label">Numéro de pièce d'identité</label>
+                                    <input type="text" class="form-control" name="account_signatories[1][id_number]">
+                                    <div class="invalid-feedback">Ce champ est optionnel.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary mt-2 dynamic-adder-btn" data-container="account-signatories-container" data-type="account_signatory"><i class="fas fa-plus"></i> Ajouter un signataire</button>
                     <div id="account-signatories-error" class="custom-error-message" style="display: none;">
                         <div class="error-content">
                             <i class="fas fa-exclamation-triangle error-icon"></i>
                             <div class="error-text">
                                 <strong>Attention !</strong>
-
+                                <span>Veuillez remplir les informations des deux signataires obligatoires.</span>
                             </div>
                         </div>
                     </div>
@@ -1470,13 +1489,51 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Signature supprimée de l'étape 4 - Déplacée à l'étape 5 -->
+                    <h4 class="form-section-title">Bénéficiaires</h4>
+                    
+                    <div id="beneficiaries-container">
+                        <!-- Bénéficiaire 1 (par défaut) -->
+                        <div class="dynamic-field p-3 mb-3 border rounded position-relative">
+                            <h5>Bénéficiaire 1</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 input-group-custom">
+                                    <label class="form-label">Nom & Prénoms</label>
+                                    <input type="text" class="form-control" name="beneficiaries[0][nom]" required>
+                                    <div class="invalid-feedback">Ce champ est requis.</div>
+                                </div>
+                                <div class="col-md-6 mb-3 input-group-custom">
+                                    <label class="form-label">Contact</label>
+                                    <input type="tel" class="form-control" name="beneficiaries[0][contact]" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
+                                    <div class="invalid-feedback">Numéro de téléphone invalide.</div>
+                                </div>
+                                <div class="col-md-6 mb-3 input-group-custom">
+                                    <label class="form-label">Lien / Relation</label>
+                                    <input type="text" class="form-control" name="beneficiaries[0][lien]" required>
+                                    <div class="invalid-feedback">Ce champ est requis.</div>
+                                </div>
+                                <div class="col-md-6 mb-3 input-group-custom">
+                                    <label class="form-label">Date de naissance</label>
+                                    <input type="date" class="form-control" name="beneficiaries[0][birth_date]">
+                                    <div class="invalid-feedback">Ce champ est optionnel.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary mt-2 dynamic-adder-btn" data-container="beneficiaries-container" data-type="beneficiary"><i class="fas fa-plus"></i> Ajouter un bénéficiaire</button>
+                    <br>
+                    <br>
+                    <!-- Section bénéficiaires supprimée - Déplacée plus haut dans l'étape 4 -->
+                </div>
 
+                <!-- Étape 5: Versements + Consentement UMOA + Signature -->
+                <div class="form-step-content" data-step="5">
+                    <!-- Section Versements -->
                     <h4 class="form-section-title">Versements Initiaux</h4>
                     <div class="row align-items-center mb-5">
                         <div class="col-md-6">
                             <div class="input-group-custom mb-3">
                                 <label class="form-label">Dépôt Initial (FCFA)</label>
-                                <i class="icon fas fa-money-bill-wave"></i>
                                 <input type="number" class="form-control @error('initial_deposit') is-invalid @enderror" id="depot-initial-morale" name="initial_deposit" value="{{ old('initial_deposit', 0) }}" min="0" step="1000" required>
                                 <div class="invalid-feedback">@error('initial_deposit') {{ $message }} @else Ce champ est requis. @enderror</div>
                             </div>
@@ -1490,6 +1547,137 @@
                         </div>
                     </div>
 
+                    <!-- Section Consentement UMOA -->
+                    <h4 class="form-section-title">Consentement UMOA - Personne Morale</h4>
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="consent-form-header text-center">
+                                <h5 class="mb-3"><strong>FORMULAIRE TYPE D'OBTENTION DU CONSENTEMENT DANS LE CADRE DU SYSTEME DE PARTAGE D'INFORMATION SUR LE CREDIT DANS L'UMOA</strong></h5>
+                                <h6 class="mb-4"><strong>[PERSONNE MORALE]</strong></h6>
+                            </div>
+                        </div>
+                        
+                        <!-- Checkboxes de consentement -->
+                        <div class="col-12 mb-4">
+                            <div class="consent-checkboxes">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent1-morale" required>
+                                    <label class="form-check-label" for="consent1-morale">
+                                        <strong>Accepte que les informations de crédit, historiques et courantes, me concernant notamment, les soldes approuvés et en souffrance, les limites de crédit, les cessations de paiement, le solde des arriérés auprès de la COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT (COCEC) soient transmises à CREDIT INFO VOLO COTE D'IVOIRE, Rue Des Jardins, Cocody, 2 Plateaux 01 BP 11266 Abidjan 01 - Côte d'Ivoire.</strong> <em>[Art 41 points 2, 3 et 4, Art 44, points 1 et 2]</em>
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent2-morale" required>
+                                    <label class="form-check-label" for="consent2-morale">
+                                        <strong>Accepte que les informations précitées soient communiquées par CREDIT INFO VOLO COTE D'IVOIRE aux établissements ayant accès à sa base de données, y compris ceux situés sur le territoire d'un autre Etat membre de l'UMOA.</strong> <em>[Art 42 point 1, Art 44, point 4]</em>
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent3-morale" required>
+                                    <label class="form-check-label" for="consent3-morale">
+                                        <strong>Comprends que ces informations ne peuvent, en aucun cas, porter sur mes dépôts</strong> <em>[Art 53, alinéa 3]</em>
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent4-morale" required>
+                                    <label class="form-check-label" for="consent4-morale">
+                                        <strong>Comprends que CREDIT INFO VOLO COTE D'IVOIRE ne diffusera que les informations dont l'ancienneté n'excède pas cinq (5) ans.</strong> <em>[Art 41, point 3]</em>
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent5-morale" required>
+                                    <label class="form-check-label" for="consent5-morale">
+                                        <strong>Comprends que CREDIT INFO VOLO COTE D'IVOIRE conservera ces informations pendant une durée de cinq (5) ans supplémentaire après la cession de la relation d'affaires avec la COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT (COCEC).</strong> <em>[Art 41, point 4]</em>
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent6-morale" required>
+                                    <label class="form-check-label" for="consent6-morale">
+                                        <strong>Comprends que j'ai le droit d'accès aux données me concernant dans la base de données CREDIT INFO VOLO COTE D'IVOIRE afin de vérifier mes historiques de crédit, de contester et faire corriger ou radier des informations erronées dans ladite base ou dans un rapport de crédit.</strong> <em>[Art 44, point 7]</em>
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent7-morale" required>
+                                    <label class="form-check-label" for="consent7-morale">
+                                        <strong>Comprends que j'ai le droit de recevoir toutes les informations conservées par CREDIT INFO VOLO COTE D'IVOIRE sur mon historique de crédit, sous la forme d'un rapport de crédit gratuitement une (1) fois par an et en cas de litige lié à une erreur dans les données, imputable à la COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT (COCEC) ou à CREDIT INFO VOLO COTE D'IVOIRE.</strong> <em>[Art 44, point 8]</em>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <strong>Références de la Loi uniforme portant réglementation des BIC</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Signature Unique -->
+                    <h4 class="form-section-title mt-5">Signature de l'Adhésion</h4>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="alert alert-warning">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Information importante :</strong> Cette signature sera prise en compte pour l'ensemble de votre adhésion et les autres questionnaires de cette procédure.
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="row choice-container @error('signature_method') is-invalid @enderror">
+                                <div class="col-6">
+                                    <input type="radio" name="signature_method" id="draw_morale" value="draw" {{ old('signature_method', 'draw') == 'draw' ? 'checked' : '' }} required>
+                                    <label for="draw_morale" class="choice-label"><i class="fas fa-pencil-alt"></i> Dessiner</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="radio" name="signature_method" id="upload_morale" value="upload" {{ old('signature_method') == 'upload' ? 'checked' : '' }}>
+                                    <label for="upload_morale" class="choice-label"><i class="fas fa-upload"></i> Importer</label>
+                                </div>
+                                <div class="invalid-feedback" id="signature-method-error">@error('signature_method') {{ $message }} @else Une méthode de signature est requise. @enderror</div>
+                            </div>
+
+                            <div class="method-area" id="draw-area-morale">
+                                <p class="text-muted small">Signez dans le cadre ci-dessous.</p>
+                                <canvas id="signature-pad-morale" width="600" height="200"></canvas>
+                                <div class="signature-controls">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" id="clear-signature-btn-morale-final">
+                                        <i class="fas fa-eraser me-2"></i>Effacer
+                                    </button>
+                                </div>
+                                <input type="hidden" name="signature_data" id="signature-data-morale" value="{{ old('signature_data') }}">
+                                <div id="signature-draw-error-morale" class="custom-error-message" style="display:none;">
+                                    <div class="error-content">
+                                        <i class="fas fa-exclamation-triangle error-icon"></i>
+                                        <div class="error-text">
+                                            <strong>Attention !</strong>
+                                            <span>Veuillez dessiner une signature.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="method-area" id="upload-area-morale">
+                                <div class="@error('signature_upload') is-invalid @enderror file-upload-wrapper">
+                                    <div class="file-upload-content">
+                                        <i class="fas fa-file-image file-upload-icon"></i>
+                                        <p class="file-upload-text">Importer (PNG)</p>
+                                    </div>
+                                    <div class="file-upload-preview"></div>
+                                    <input type="file" name="signature_upload" accept="image/png" />
+                                    <div class="invalid-feedback">@error('signature_upload') {{ $message }} @else L'import de la signature est requis. @enderror</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <div class="form-navigation-buttons">
                     <button type="button" class="btn btn-nav btn-prev" style="display: none;">Précédent</button>
                     <button type="button" class="btn btn-nav btn-next" style="margin-left: auto;">Suivant</button>
@@ -1502,6 +1690,7 @@
     </div>
 </section>
 @endsection
+
 
 @section('js')
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -1571,21 +1760,25 @@
                 if (step === 3) { // Signataires
                     const container = currentStepContent.querySelector('#account-signatories-container');
                     const errorElement = document.getElementById('account-signatories-error');
+                    if (container && errorElement) {
                     if (container.children.length < 2) {
                         errorElement.style.display = 'block';
                         isValid = false;
                     } else {
                         errorElement.style.display = 'none';
+                        }
                     }
                 }
                 if (step === 4) { // Bénéficiaires
                     const container = currentStepContent.querySelector('#beneficiaries-container');
                     const errorElement = document.getElementById('beneficiaries-error');
+                    if (container && errorElement) {
                     if (container.children.length < 1) {
                         errorElement.style.display = 'block';
                         isValid = false;
                     } else {
                         errorElement.style.display = 'none';
+                        }
                     }
                 }
 
@@ -1600,38 +1793,6 @@
                         choiceContainer.classList.remove('is-invalid');
                     }
                 }
-
-                // ==== BLOC VALIDATION SIGNATURE CORRIGÉ ====
-                if (step === 4) {
-                    const signatureMethod = currentStepContent.querySelector('input[name="signature_method"]:checked');
-                    const choiceContainer = currentStepContent.querySelector('input[name="signature_method"]').closest('.choice-container');
-
-                    if (signatureMethod) {
-                        choiceContainer.classList.remove('is-invalid');
-                        if (signatureMethod.value === 'draw') {
-                            const canvas = currentStepContent.querySelector('#signature-pad-morale');
-                            const signaturePad = canvas.signaturePadInstance;
-                            if (signaturePad && signaturePad.isEmpty()) {
-                                currentStepContent.querySelector('#signature-draw-error-morale').style.display = 'block';
-                                isValid = false;
-                            } else {
-                                currentStepContent.querySelector('#signature-draw-error-morale').style.display = 'none';
-                            }
-                        } else if (signatureMethod.value === 'upload') {
-                            const signatureUpload = currentStepContent.querySelector('input[name="signature_upload"]');
-                            if (!signatureUpload.files.length) {
-                                signatureUpload.closest('.file-upload-wrapper').classList.add('is-invalid');
-                                isValid = false;
-                            } else {
-                                signatureUpload.closest('.file-upload-wrapper').classList.remove('is-invalid');
-                            }
-                        }
-                    } else {
-                        choiceContainer.classList.add('is-invalid');
-                        isValid = false;
-                    }
-                }
-                // ==== FIN BLOC VALIDATION SIGNATURE CORRIGÉ ====
 
                 // Validation pour l'étape UMOA (étape 5)
                 if (step === 5) {
@@ -1682,30 +1843,36 @@
                         }
                     }
 
-                    // Vérifier la signature
+                    // Validation de la signature (seulement si les éléments existent)
                     const signatureMethod = currentStepContent.querySelector('input[name="signature_method"]:checked');
                     if (signatureMethod) {
                         if (signatureMethod.value === 'draw') {
                             const canvas = currentStepContent.querySelector('#signature-pad-morale');
+                            if (canvas && canvas.signaturePadInstance) {
                             const signaturePad = canvas.signaturePadInstance;
-                            if (signaturePad && signaturePad.isEmpty()) {
-                                currentStepContent.querySelector('#signature-draw-error-morale').style.display = 'block';
+                                if (signaturePad.isEmpty()) {
+                                    const errorElement = currentStepContent.querySelector('#signature-draw-error-morale');
+                                    if (errorElement) errorElement.style.display = 'block';
                                 isValid = false;
                             } else {
-                                currentStepContent.querySelector('#signature-draw-error-morale').style.display = 'none';
+                                    const errorElement = currentStepContent.querySelector('#signature-draw-error-morale');
+                                    if (errorElement) errorElement.style.display = 'none';
+                                }
                             }
                         } else if (signatureMethod.value === 'upload') {
                             const signatureUpload = currentStepContent.querySelector('input[name="signature_upload"]');
-                            if (!signatureUpload.files.length) {
-                                signatureUpload.closest('.file-upload-wrapper').classList.add('is-invalid');
+                            if (signatureUpload && !signatureUpload.files.length) {
+                                const wrapper = signatureUpload.closest('.file-upload-wrapper');
+                                if (wrapper) wrapper.classList.add('is-invalid');
                                 isValid = false;
-                            } else {
-                                signatureUpload.closest('.file-upload-wrapper').classList.remove('is-invalid');
+                            } else if (signatureUpload) {
+                                const wrapper = signatureUpload.closest('.file-upload-wrapper');
+                                if (wrapper) wrapper.classList.remove('is-invalid');
                             }
                         }
                     } else {
-                        const choiceContainer = currentStepContent.querySelector('input[name="signature_method"]').closest('.choice-container');
-                        choiceContainer.classList.add('is-invalid');
+                        const choiceContainer = currentStepContent.querySelector('input[name="signature_method"]')?.closest('.choice-container');
+                        if (choiceContainer) choiceContainer.classList.add('is-invalid');
                         isValid = false;
                     }
                 }
@@ -1748,13 +1915,18 @@
             }
 
             const dynamicButtons = form.querySelectorAll('.dynamic-adder-btn');
+            console.log('Boutons dynamiques trouvés:', dynamicButtons.length);
 
-            dynamicButtons.forEach(btn => {
+            dynamicButtons.forEach((btn, btnIndex) => {
+                console.log(`Attachement d'événement au bouton ${btnIndex + 1}:`, btn.dataset.type, btn.dataset.container);
                 btn.addEventListener('click', () => {
+                    console.log('Clic sur bouton dynamique:', btn.dataset.type, btn.dataset.container);
                     const containerId = btn.dataset.container;
                     const type = btn.dataset.type;
                     const container = document.getElementById(containerId);
+                    console.log('Container trouvé:', container);
                     const index = container.querySelectorAll('.dynamic-field').length;
+                    console.log('Index calculé:', index);
                     let template = '';
 
                     if (type === 'co_director') {
@@ -1765,20 +1937,17 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Nom</label>
-                                        <i class="icon fas fa-user"></i>
                                         <input type="text" class="form-control" name="co_directors[${index}][name]" required>
                                         <div class="invalid-feedback">Ce champ est requis.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Prénoms</label>
-                                        <i class="icon fas fa-user"></i>
                                         <input type="text" class="form-control" name="co_directors[${index}][first_name]">
                                         <div class="invalid-feedback">Ce champ est optionnel.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Sexe</label>
-                                        <i class="icon fas fa-venus-mars"></i>
-                                        <select class="form-control" name="co_directors[${index}][gender]" style="padding-left: 50px;" required>
+                                        <select class="form-control" name="co_directors[${index}][gender]" required>
                                             <option value="">Sélectionner...</option>
                                             <option value="M">Masculin</option>
                                             <option value="F">Féminin</option>
@@ -1787,61 +1956,51 @@
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Nationalité</label>
-                                        <i class="icon fas fa-flag"></i>
                                         <input type="text" class="form-control" name="co_directors[${index}][nationality]" required>
                                         <div class="invalid-feedback">Ce champ est requis.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Date de naissance</label>
-                                        <i class="icon fas fa-calendar-alt"></i>
                                         <input type="date" class="form-control" name="co_directors[${index}][birth_date]" max="{{ \Carbon\Carbon::today()->subYears(18)->format('Y-m-d') }}" required>
                                         <div class="invalid-feedback">Ce champ est requis.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Lieu de naissance</label>
-                                        <i class="icon fas fa-map-marker-alt"></i>
                                         <input type="text" class="form-control" name="co_directors[${index}][birth_place]" required>
                                         <div class="invalid-feedback">Ce champ est requis.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Numéro de pièce d'identité</label>
-                                        <i class="icon fas fa-id-card"></i>
                                         <input type="text" class="form-control" name="co_directors[${index}][id_number]" required>
                                         <div class="invalid-feedback">Ce champ est requis.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Date d'émission de la pièce</label>
-                                        <i class="icon fas fa-calendar-alt"></i>
                                         <input type="date" class="form-control" name="co_directors[${index}][id_issue_date]">
                                         <div class="invalid-feedback">Ce champ est optionnel.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Boîte postale</label>
-                                        <i class="icon fas fa-mailbox"></i>
                                         <input type="text" class="form-control" name="co_directors[${index}][postal_box]">
                                         <div class="invalid-feedback">Ce champ est optionnel.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Ville</label>
-                                        <i class="icon fas fa-city"></i>
                                         <input type="text" class="form-control" name="co_directors[${index}][city]">
                                         <div class="invalid-feedback">Ce champ est optionnel.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Quartier</label>
-                                        <i class="icon fas fa-map-signs"></i>
                                         <input type="text" class="form-control" name="co_directors[${index}][neighborhood]">
                                         <div class="invalid-feedback">Ce champ est optionnel.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Adresse</label>
-                                        <i class="icon fas fa-map-marker-alt"></i>
                                         <textarea class="form-control" name="co_directors[${index}][address]" rows="4"></textarea>
                                         <div class="invalid-feedback">Ce champ est optionnel.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Téléphone</label>
-                                        <i class="icon fas fa-phone"></i>
                                         <input type="tel" class="form-control" name="co_directors[${index}][phone]" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                         <div class="invalid-feedback">Numéro de téléphone invalide.</div>
                                     </div>
@@ -1855,14 +2014,12 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Nom</label>
-                                        <i class="icon fas fa-user"></i>
                                         <input type="text" class="form-control" name="account_signatories[${index}][name]" required>
                                         <div class="invalid-feedback">Ce champ est requis.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Type de signature</label>
-                                        <i class="icon fas fa-pen"></i>
-                                        <select class="form-control" name="account_signatories[${index}][signature_type]" style="padding-left: 50px;" required>
+                                        <select class="form-control" name="account_signatories[${index}][signature_type]" required>
                                             <option value="">Sélectionner...</option>
                                             <option value="unique">Unique</option>
                                             <option value="conjointe">Conjointe</option>
@@ -1871,7 +2028,6 @@
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Numéro de pièce d'identité</label>
-                                        <i class="icon fas fa-id-card"></i>
                                         <input type="text" class="form-control" name="account_signatories[${index}][id_number]">
                                         <div class="invalid-feedback">Ce champ est optionnel.</div>
                                     </div>
@@ -1885,25 +2041,21 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Nom & Prénoms</label>
-                                        <i class="icon fas fa-user"></i>
                                         <input type="text" class="form-control" name="beneficiaries[${index}][nom]" required>
                                         <div class="invalid-feedback">Ce champ est requis.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Contact</label>
-                                        <i class="icon fas fa-phone"></i>
                                         <input type="tel" class="form-control" name="beneficiaries[${index}][contact]" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                         <div class="invalid-feedback">Numéro de téléphone invalide.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Lien / Relation</label>
-                                        <i class="icon fas fa-users"></i>
                                         <input type="text" class="form-control" name="beneficiaries[${index}][lien]" required>
                                         <div class="invalid-feedback">Ce champ est requis.</div>
                                     </div>
                                     <div class="col-md-6 mb-3 input-group-custom">
                                         <label class="form-label">Date de naissance</label>
-                                        <i class="icon fas fa-calendar-alt"></i>
                                         <input type="date" class="form-control" name="beneficiaries[${index}][birth_date]">
                                         <div class="invalid-feedback">Ce champ est optionnel.</div>
                                     </div>
@@ -2032,17 +2184,22 @@
                         const selectedValue = form.querySelector('input[name="signature_method"]:checked')?.value;
                         if (!selectedValue) return;
 
+                        if (drawArea && uploadArea) {
                         drawArea.style.display = selectedValue === 'draw' ? 'block' : 'none';
                         uploadArea.style.display = selectedValue === 'upload' ? 'block' : 'none';
+                        }
+                        
+                        if (uploadInput) {
                         uploadInput.toggleAttribute('required', selectedValue === 'upload');
+                        }
 
-                        if (selectedValue === 'draw' && !signaturePadInstance) {
+                        if (selectedValue === 'draw' && !signaturePadInstance && canvas) {
                             signaturePadInstance = initializeSignaturePad(canvas);
                         }
                     }
 
                     radioButtons.forEach(radio => radio.addEventListener('change', updateSignatureArea));
-                    updateSignatureArea();
+                    updateSignatureArea(); // Lancer au chargement
                 }
 
                 function initializeSignaturePad(canvas) {
@@ -2078,12 +2235,11 @@
                             // Ajouter l'événement endStroke seulement une fois
                             if (!isInitialized) {
                                 signaturePad.addEventListener('endStroke', () => {
-                                    console.log('Signature stroke ended');
                                     if (!signaturePad.isEmpty()) {
                                         const signatureData = signaturePad.toDataURL('image/png');
-                                        console.log('Signature data length:', signatureData.length);
                                         hiddenInput.value = signatureData;
-                                        form.querySelector('#signature-draw-error-morale').style.display = 'none';
+                                        const errorElement = form.querySelector('#signature-draw-error-morale');
+                                        if (errorElement) errorElement.style.display = 'none';
                                     } else {
                                         hiddenInput.value = '';
                                     }
@@ -2098,45 +2254,21 @@
 
                     resizeCanvas();
 
+                    if (clearBtn) {
                     clearBtn.addEventListener('click', () => {
                         if (signaturePad) {
                             signaturePad.clear();
                         }
                         hiddenInput.value = '';
-                        form.querySelector('#signature-draw-error-morale').style.display = 'none';
+                            const errorElement = form.querySelector('#signature-draw-error-morale');
+                            if (errorElement) errorElement.style.display = 'none';
                     });
+                    }
 
                     return signaturePad;
                 }
 
-                // ==== FONCTION SETUP SIGNATURE CHOICE ====
-                function setupSignatureChoice() {
-                    const radioButtons = form.querySelectorAll('input[name="signature_method"]');
-                    if (!radioButtons.length) return;
-
-                    const drawArea = form.querySelector('#draw-area-morale-final');
-                    const uploadArea = form.querySelector('#upload-area-morale-final');
-                    const canvas = form.querySelector('#signature-pad-morale-final');
-                    const uploadInput = form.querySelector('input[name="signature_upload"]');
-                    let signaturePadInstance = null;
-
-                    function updateSignatureArea() {
-                        const selectedValue = form.querySelector('input[name="signature_method"]:checked')?.value;
-                        if (!selectedValue) return;
-
-                        drawArea.style.display = selectedValue === 'draw' ? 'block' : 'none';
-                        uploadArea.style.display = selectedValue === 'upload' ? 'block' : 'none';
-                        uploadInput.toggleAttribute('required', selectedValue === 'upload');
-
-                        if (selectedValue === 'draw' && !signaturePadInstance) {
-                            signaturePadInstance = initializeSignaturePad(canvas);
-                        }
-                    }
-
-                    radioButtons.forEach(radio => radio.addEventListener('change', updateSignatureArea));
-                    updateSignatureArea(); // Lancer au chargement
-                }
-
+                // Initialiser la signature
                 setupSignatureChoice();
                 // ==== FIN FONCTIONS SIGNATURE CORRIGÉES ====
 
@@ -2343,7 +2475,15 @@
                 const successMessage = document.querySelector('.alert-success');
                 if (successMessage) {
                     const messageText = successMessage.textContent.trim();
-
+                                    Swal.fire({
+                    icon: "success",
+                    title: "Adhésion réussie ! 🎉",
+                    text: messageText,
+                    confirmButtonColor: "#EC281C",
+                    background: "#fff",
+                    showConfirmButton: true,
+                    allowOutsideClick: true
+                });
                     // Supprimer le message HTML après affichage du popup
                     successMessage.remove();
                 }
@@ -2358,7 +2498,8 @@
                         text: messageText,
                         confirmButtonColor: "#EC281C",
                         background: "#fff",
-
+                        showConfirmButton: true,
+                        allowOutsideClick: true
                     });
                     // Supprimer le message HTML après affichage du popup
                     errorMessage.remove();
@@ -2375,7 +2516,8 @@
                         html: `<div style="text-align: left;"><strong>Veuillez corriger les erreurs suivantes :</strong><br><br>• ${errorMessage}</div>`,
                         confirmButtonColor: "#EC281C",
                         background: "#fff",
-
+                        showConfirmButton: true,
+                        allowOutsideClick: true
                     });
                     // Supprimer le message HTML après affichage du popup
                     validationErrors.closest('.alert-danger').remove();

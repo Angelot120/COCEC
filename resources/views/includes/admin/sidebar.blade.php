@@ -180,7 +180,7 @@
 
             <li class="dropdown">
                 <a href="javascript:void(0)">
-                    <iconify-icon icon="mdi:cellphone-banking" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="mdi:bank" class="menu-icon"></iconify-icon>
                     <span>Finance Digitale</span>
                 </a>
                                    <ul class="sidebar-submenu">

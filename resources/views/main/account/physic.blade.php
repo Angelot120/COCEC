@@ -48,83 +48,16 @@
         margin-bottom: 8px;
     }
 
-    /* SOLUTION RADICALE POUR CENTRER LES ICÔNES */
-    .input-group-custom {
-        position: relative;
-    }
 
-    .input-group-custom .icon {
-        position: absolute !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        left: 18px !important;
-        color: #adb5bd;
-        font-size: 1.1rem;
-        transition: color 0.3s ease;
-        pointer-events: none;
-        z-index: 10 !important;
-        width: 20px !important;
-        height: 20px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
 
-    /* Override complet de tous les styles globaux */
-    .form-container .input-group-custom .icon,
-    .form-container .input-group-custom.icon-field .icon,
-    .form-container .col-md-6 .input-group-custom .icon,
-    .form-container .col-12 .input-group-custom .icon {
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        position: absolute !important;
-        left: 18px !important;
-    }
-
-    /* Style spécifique pour les inputs avec icônes */
+    /* Style pour les inputs */
     .input-group-custom .form-control {
-        padding-left: 50px !important;
         border-radius: 8px;
         padding-top: 12px;
         padding-bottom: 12px;
     }
 
-    /* SOLUTION ULTIME - Styles avec spécificité maximale */
-    body .form-container .input-group-custom .icon,
-    html body .form-container .input-group-custom .icon {
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        position: absolute !important;
-        left: 18px !important;
-        width: 20px !important;
-        height: 20px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
 
-    /* Override pour tous les cas possibles */
-    .form-container .col-md-6 .input-group-custom .icon,
-    .form-container .col-12 .input-group-custom .icon,
-    .form-container .row .input-group-custom .icon {
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        position: absolute !important;
-        left: 18px !important;
-    }
-
-    .input-group-custom .form-control {
-        padding-left: 50px;
-        border-radius: 8px;
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
-
-    .input-group-custom:focus-within .icon {
-        color: #EC281C;
-    }
 
     .form-stepper {
         display: flex;
@@ -224,6 +157,15 @@
         display: flex;
         justify-content: space-between;
         margin-top: 40px;
+        align-items: center;
+    }
+
+    .form-navigation-buttons .btn-next {
+        margin-left: auto;
+    }
+
+    .form-navigation-buttons .btn-submit-form {
+        margin-left: auto;
     }
 
     .btn-nav {
@@ -682,32 +624,27 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom</label>
-                            <i class="icon fas fa-user" style="position: absolute !important; top: 50% !important; transform: translateY(-50%) !important; left: 18px !important; color: #adb5bd; font-size: 1.1rem; z-index: 10;"></i>
                             <input type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required>
                             <div class="invalid-feedback">@error('last_name') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Prénoms</label>
-                            <i class="icon fas fa-user-friends" style="position: absolute !important; top: 50% !important; transform: translateY(-50%) !important; left: 18px !important; color: #adb5bd; font-size: 1.1rem; z-index: 10;"></i>
                             <input type="text" class="form-control @error('first_names') is-invalid @enderror" name="first_names" value="{{ old('first_names') }}" required>
                             <div class="invalid-feedback">@error('first_names') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom du père</label>
-                            <i class="icon fas fa-user"></i>
                             <input type="text" class="form-control @error('father_name') is-invalid @enderror" name="father_name" value="{{ old('father_name') }}" required>
                             <div class="invalid-feedback">@error('father_name') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom de la mère</label>
-                            <i class="icon fas fa-user"></i>
                             <input type="text" class="form-control @error('mother_name') is-invalid @enderror" name="mother_name" value="{{ old('mother_name') }}" required>
                             <div class="invalid-feedback">@error('mother_name') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Sexe</label>
-                            <i class="icon fas fa-venus-mars"></i>
-                            <select class="form-control @error('gender') is-invalid @enderror" name="gender" style="padding-left: 50px;" required>
+                            <select class="form-control @error('gender') is-invalid @enderror" name="gender" required>
                                 <option value="">Sélectionner...</option>
                                 <option value="M" {{ old('gender') == 'M' ? 'selected' : '' }}>Masculin</option>
                                 <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>Féminin</option>
@@ -716,26 +653,27 @@
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date de naissance</label>
-                            <i class="icon fas fa-calendar-alt"></i>
                             <input type="date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" max="{{ \Carbon\Carbon::today()->subYears(18)->format('Y-m-d') }}" required>
                             <div class="invalid-feedback">@error('birth_date') {{ $message }} @else Ce champ est requis et doit être antérieur à aujourd'hui. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Lieu de naissance</label>
-                            <i class="icon fas fa-map-marker-alt"></i>
                             <input type="text" class="form-control @error('birth_place') is-invalid @enderror" name="birth_place" value="{{ old('birth_place') }}" required>
                             <div class="invalid-feedback">@error('birth_place') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
-                            <label class="form-label">Nationalité</label>
-                            <i class="icon fas fa-flag"></i>
+                            <label class="form-label">Nationalité(TOGO)</label>
                             <input type="text" class="form-control @error('nationality') is-invalid @enderror" name="nationality" value="{{ old('nationality') }}" required>
                             <div class="invalid-feedback">@error('nationality') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
+                            <label class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
+                            <div class="invalid-feedback">@error('phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
+                        </div>
+                        <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">État Civil</label>
-                            <i class="icon fas fa-ring"></i>
-                            <select class="form-control @error('marital_status') is-invalid @enderror" name="marital_status" style="padding-left: 50px;" required>
+                            <select class="form-control @error('marital_status') is-invalid @enderror" name="marital_status" required>
                                 <option value="">Sélectionner...</option>
                                 <option value="Célibataire" {{ old('marital_status') == 'Célibataire' ? 'selected' : '' }}>Célibataire</option>
                                 <option value="Marié(e)" {{ old('marital_status') == 'Marié(e)' ? 'selected' : '' }}>Marié(e)</option>
@@ -746,14 +684,12 @@
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom du/de la Conjoint(e) (si applicable)</label>
-                            <i class="icon fas fa-user-heart"></i>
                             <input type="text" class="form-control @error('spouse_name') is-invalid @enderror" name="spouse_name" value="{{ old('spouse_name') }}">
                             <div class="invalid-feedback">@error('spouse_name') {{ $message }} @else Ce champ est requis si marié(e). @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Personne politiquement exposée (national) ?</label>
-                            <i class="icon fas fa-user-shield"></i>
-                            <select class="form-control @error('is_ppe_national') is-invalid @enderror" name="is_ppe_national" id="is_ppe_national" style="padding-left: 50px;" required>
+                            <select class="form-control @error('is_ppe_national') is-invalid @enderror" name="is_ppe_national" id="is_ppe_national" required>
                                 <option value="0" {{ old('is_ppe_national', '0') == '0' ? 'selected' : '' }}>Non</option>
                                 <option value="1" {{ old('is_ppe_national') == '1' ? 'selected' : '' }}>Oui</option>
                             </select>
@@ -761,8 +697,7 @@
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Personne politiquement exposée (étranger) ? <span id="ppe-foreign-required" style="color: #dc3545; display: none;">*</span></label>
-                            <i class="icon fas fa-user-shield"></i>
-                            <select class="form-control @error('ppe_foreign') is-invalid @enderror" name="ppe_foreign" id="ppe_foreign" style="padding-left: 50px;" required>
+                            <select class="form-control @error('ppe_foreign') is-invalid @enderror" name="ppe_foreign" id="ppe_foreign" required>
                                 <option value="0" {{ old('ppe_foreign', '0') == '0' ? 'selected' : '' }}>Non</option>
                                 <option value="1" {{ old('ppe_foreign') == '1' ? 'selected' : '' }}>Oui</option>
                             </select>
@@ -816,10 +751,10 @@
                         </div>
                     </div>
 
-                    <h4 class="form-section-title mt-4">Adresse du Lieu de Travail</h4>
+                    <h4 class="form-section-title mt-4">Adresse du Lieu de Travail(SI APPLICABLE)</h4>
                     <div class="row mb-3 choice-container @error('loc_method_workplace') is-invalid @enderror">
                         <div class="col-6">
-                            <input type="radio" name="loc_method_workplace" id="desc_workplace" value="description" {{ old('loc_method_workplace', 'description') == 'description' ? 'checked' : '' }} required>
+                            <input type="radio" name="loc_method_workplace" id="desc_workplace" value="description" {{ old('loc_method_workplace') == 'description' ? 'checked' : '' }}>
                             <label for="desc_workplace" class="choice-label"><i class="fas fa-keyboard"></i> Décrire l'adresse</label>
                         </div>
                         <div class="col-6">
@@ -831,16 +766,17 @@
                     <div class="method-area" id="description-area-workplace">
                         <div class="input-group-custom">
                             <label class="form-label">Description détaillée du lieu de travail</label>
-                            <textarea class="form-control @error('workplace_description') is-invalid @enderror" name="workplace_description" rows="4" placeholder="Indiquer ville, quartier, rue, repères..." {{ old('loc_method_workplace') == 'description' ? 'required' : '' }}>{{ old('workplace_description') }}</textarea>
-                            <div class="invalid-feedback">@error('workplace_description') {{ $message }} @else Ce champ est requis si vous choisissez de décrire l'adresse. @enderror</div>
+                            <textarea class="form-control @error('workplace_description') is-invalid @enderror" name="workplace_description" rows="4" placeholder="Indiquer ville, quartier, rue, repères... (facultatif)">{{ old('workplace_description') }}</textarea>
+                            <div class="invalid-feedback">@error('workplace_description') {{ $message }} @enderror</div>
                         </div>
                     </div>
                     <div class="method-area" id="map-area-workplace">
                         <label class="form-label">Cliquez sur la carte ou déplacez le marqueur pour indiquer votre lieu de travail</label>
                         <div id="map-container-workplace" class="map-container"></div>
-                        <input type="hidden" name="workplace_lat" id="latitude-workplace" value="{{ old('workplace_lat') }}" {{ old('loc_method_workplace') == 'map' ? 'required' : '' }}>
-                        <input type="hidden" name="workplace_lng" id="longitude-workplace" value="{{ old('workplace_lng') }}" {{ old('loc_method_workplace') == 'map' ? 'required' : '' }}>
-                        <div class="invalid-feedback">@error('workplace_lat') Une position sur la carte est requise. @else Veuillez sélectionner un point sur la carte. @enderror</div>
+                        <input type="hidden" name="workplace_lat" id="latitude-workplace" value="{{ old('workplace_lat') }}">
+                        <input type="hidden" name="workplace_lng" id="longitude-workplace" value="{{ old('workplace_lng') }}">
+                        <small class="text-muted">(facultatif)</small>
+
                     </div>
                     <div class="mt-3 col-12 mb-3">
                         <label class="form-label">Plan du lieu de travail (optionnel)</label>
@@ -862,19 +798,16 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Profession / Type d'activité</label>
-                            <i class="icon fas fa-briefcase"></i>
                             <input type="text" class="form-control @error('occupation') is-invalid @enderror" name="occupation" value="{{ old('occupation') }}" required>
                             <div class="invalid-feedback">@error('occupation') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom de l'entreprise (si applicable)</label>
-                            <i class="icon fas fa-building"></i>
                             <input type="text" class="form-control @error('company_name_activity') is-invalid @enderror" name="company_name_activity" value="{{ old('company_name_activity') }}">
                             <div class="invalid-feedback">@error('company_name_activity') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-12 mb-3 input-group-custom">
                             <label class="form-label">Description de l'activité</label>
-                            <i class="icon fas fa-info-circle"></i>
                             <textarea class="form-control @error('activity_description') is-invalid @enderror" name="activity_description" rows="3">{{ old('activity_description') }}</textarea>
                             <div class="invalid-feedback">@error('activity_description') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
@@ -889,13 +822,11 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Nom & Prénoms</label>
-                                    <i class="icon fas fa-user-check"></i>
                                     <input type="text" class="form-control @error(" references.$index.name") is-invalid @enderror" name="references[{{ $index }}][name]" value="{{ $reference['name'] }}" required>
                                     <div class="invalid-feedback">@error("references.$index.name") {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Téléphone</label>
-                                    <i class="icon fas fa-phone"></i>
                                     <input type="tel" class="form-control @error(" references.$index.phone") is-invalid @enderror" name="references[{{ $index }}][phone]" value="{{ $reference['phone'] }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                     <div class="invalid-feedback">@error("references.$index.phone") {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                                 </div>
@@ -909,13 +840,11 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Nom & Prénoms</label>
-                                    <i class="icon fas fa-user-check"></i>
                                     <input type="text" class="form-control @error('references.0.name') is-invalid @enderror" name="references[0][name]" value="{{ old('references.0.name') }}" required>
                                     <div class="invalid-feedback">@error('references.0.name') {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Téléphone</label>
-                                    <i class="icon fas fa-phone"></i>
                                     <input type="tel" class="form-control @error('references.0.phone') is-invalid @enderror" name="references[0][phone]" value="{{ old('references.0.phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                     <div class="invalid-feedback">@error('references.0.phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                                 </div>
@@ -941,8 +870,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Type de pièce d'identité</label>
-                            <i class="icon fas fa-id-card"></i>
-                            <select class="form-control @error('id_type') is-invalid @enderror" name="id_type" style="padding-left: 50px;" required>
+                            <select class="form-control @error('id_type') is-invalid @enderror" name="id_type" required>
                                 <option value="">Sélectionner...</option>
                                 <option value="CNI" {{ old('id_type') == 'CNI' ? 'selected' : '' }}>Carte Nationale d'Identité</option>
                                 <option value="Passeport" {{ old('id_type') == 'Passeport' ? 'selected' : '' }}>Passeport</option>
@@ -952,13 +880,11 @@
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Numéro de la pièce</label>
-                            <i class="icon fas fa-hashtag"></i>
                             <input type="text" class="form-control @error('id_number') is-invalid @enderror" name="id_number" value="{{ old('id_number') }}" required>
                             <div class="invalid-feedback">@error('id_number') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date d'émission de la pièce (optionnel)</label>
-                            <i class="icon fas fa-calendar-alt"></i>
                             <input type="date" class="form-control @error('id_issue_date') is-invalid @enderror" name="id_issue_date" value="{{ old('id_issue_date') }}">
                             <div class="invalid-feedback">@error('id_issue_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
@@ -997,25 +923,21 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Nom & Prénoms</label>
-                                    <i class="icon fas fa-user"></i>
                                     <input type="text" class="form-control @error(" beneficiaries.$index.nom") is-invalid @enderror" name="beneficiaries[{{ $index }}][nom]" value="{{ $beneficiary['nom'] }}" required>
                                     <div class="invalid-feedback">@error("beneficiaries.$index.nom") {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Lien / Relation</label>
-                                    <i class="icon fas fa-users"></i>
                                     <input type="text" class="form-control @error(" beneficiaries.$index.lien") is-invalid @enderror" name="beneficiaries[{{ $index }}][lien]" value="{{ $beneficiary['lien'] }}" required>
                                     <div class="invalid-feedback">@error("beneficiaries.$index.lien") {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Téléphone</label>
-                                    <i class="icon fas fa-phone"></i>
                                     <input type="tel" class="form-control @error(" beneficiaries.$index.contact") is-invalid @enderror" name="beneficiaries[{{ $index }}][contact]" value="{{ $beneficiary['contact'] }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                     <div class="invalid-feedback">@error("beneficiaries.$index.contact") {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Date de naissance</label>
-                                    <i class="icon fas fa-calendar-alt"></i>
                                     <input type="date" class="form-control @error(" beneficiaries.$index.birth_date") is-invalid @enderror" name="beneficiaries[{{ $index }}][birth_date]" value="{{ $beneficiary['birth_date'] }}">
                                     <div class="invalid-feedback">@error("beneficiaries.$index.birth_date") {{ $message }} @else Ce champ est optionnel. @enderror</div>
                                 </div>
@@ -1029,25 +951,21 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Nom & Prénoms</label>
-                                    <i class="icon fas fa-user"></i>
                                     <input type="text" class="form-control @error('beneficiaries.0.nom') is-invalid @enderror" name="beneficiaries[0][nom]" value="{{ old('beneficiaries.0.nom') }}" required>
                                     <div class="invalid-feedback">@error('beneficiaries.0.nom') {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Lien / Relation</label>
-                                    <i class="icon fas fa-users"></i>
                                     <input type="text" class="form-control @error('beneficiaries.0.lien') is-invalid @enderror" name="beneficiaries[0][lien]" value="{{ old('beneficiaries.0.lien') }}" required>
                                     <div class="invalid-feedback">@error('beneficiaries.0.lien') {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Téléphone</label>
-                                    <i class="icon fas fa-phone"></i>
                                     <input type="tel" class="form-control @error('beneficiaries.0.contact') is-invalid @enderror" name="beneficiaries[0][contact]" value="{{ old('beneficiaries.0.contact') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                     <div class="invalid-feedback">@error('beneficiaries.0.contact') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Date de naissance</label>
-                                    <i class="icon fas fa-calendar-alt"></i>
                                     <input type="date" class="form-control @error('beneficiaries.0.birth_date') is-invalid @enderror" name="beneficiaries[0][birth_date]" value="{{ old('beneficiaries.0.birth_date') }}">
                                     <div class="invalid-feedback">@error('beneficiaries.0.birth_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                                 </div>
@@ -1078,7 +996,6 @@
                         <div class="col-md-6">
                             <div class="input-group-custom mb-3">
                                 <label class="form-label">Dépôt Initial (FCFA)</label>
-                                <i class="icon fas fa-money-bill-wave"></i>
                                 <input type="number" class="form-control @error('initial_deposit') is-invalid @enderror" id="depot-initial-physique" name="initial_deposit" value="{{ old('initial_deposit', 0) }}" min="0" step="1000" required>
                                 <div class="invalid-feedback">@error('initial_deposit') {{ $message }} @else Ce champ est requis. @enderror</div>
                             </div>
@@ -1223,7 +1140,8 @@
 
                 <div class="form-navigation-buttons">
                     <button type="button" class="btn btn-nav btn-prev" style="display: none;"><i class="fas fa-arrow-left"></i> Précédent</button>
-
+                    <button type="button" class="btn btn-nav btn-next">Suivant <i class="fas fa-arrow-right"></i> </button>
+                    <button type="submit" class="btn btn-submit-form" style="display: none;"><i class="fas fa-paper-plane"></i> Soumettre l'Adhésion</button>
                 </div>
             </form>
         </div>
@@ -1334,29 +1252,28 @@
                     isValid = false;
                 }
 
-                // Validation pour loc_method_workplace
+                // Validation pour loc_method_workplace - TOUJOURS FACULTATIF
                 const locMethodWorkplace = currentStepContent.querySelector('input[name="loc_method_workplace"]:checked');
                 if (locMethodWorkplace) {
+                    // Si l'utilisateur a choisi une méthode, on peut valider les champs correspondants
+                    // MAIS on ne force jamais l'utilisateur à choisir une méthode
                     if (locMethodWorkplace.value === 'description') {
                         const descInput = currentStepContent.querySelector('textarea[name="workplace_description"]');
-                        if (descInput && !descInput.value.trim()) {
-                            descInput.classList.add('is-invalid');
-                            isValid = false;
+                        // Le champ reste facultatif même si la méthode est choisie
+                        if (descInput && descInput.value.trim()) {
+                            descInput.classList.remove('is-invalid');
                         }
                     } else if (locMethodWorkplace.value === 'map') {
                         const latInput = currentStepContent.querySelector('input[name="workplace_lat"]');
                         const lngInput = currentStepContent.querySelector('input[name="workplace_lng"]');
-                        if (latInput && lngInput && (!latInput.value || !lngInput.value)) {
-                            latInput.classList.add('is-invalid');
-                            lngInput.classList.add('is-invalid');
-                            isValid = false;
+                        // Les coordonnées restent facultatives même si la méthode est choisie
+                        if (latInput && lngInput && latInput.value && lngInput.value) {
+                            latInput.classList.remove('is-invalid');
+                            lngInput.classList.remove('is-invalid');
                         }
                     }
-                } else if (step === 2 && currentStepContent.querySelector('input[name="loc_method_workplace"]')) {
-                    const choiceContainer = currentStepContent.querySelector('input[name="loc_method_workplace"]').closest('.choice-container');
-                    choiceContainer.classList.add('is-invalid');
-                    isValid = false;
                 }
+                // SUPPRIMÉ : Plus de validation obligatoire pour loc_method_workplace
 
                 // ==== BLOC VALIDATION SIGNATURE CORRIGÉ ====
                 const signatureMethod = currentStepContent.querySelector('input[name="signature_method"]:checked');
@@ -1535,25 +1452,21 @@
                         <div class="row">
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Nom & Prénoms</label>
-                                <i class="icon fas fa-user"></i>
                                 <input type="text" class="form-control" name="beneficiaries[${index}][nom]" required>
                                 <div class="invalid-feedback">Ce champ est requis.</div>
                             </div>
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Lien / Relation</label>
-                                <i class="icon fas fa-users"></i>
                                 <input type="text" class="form-control" name="beneficiaries[${index}][lien]" required>
                                 <div class="invalid-feedback">Ce champ est requis.</div>
                             </div>
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Téléphone</label>
-                                <i class="icon fas fa-phone"></i>
                                 <input type="tel" class="form-control" name="beneficiaries[${index}][contact]" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                 <div class="invalid-feedback">Numéro de téléphone invalide.</div>
                             </div>
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Date de naissance</label>
-                                <i class="icon fas fa-calendar-alt"></i>
                                 <input type="date" class="form-control" name="beneficiaries[${index}][birth_date]">
                                 <div class="invalid-feedback">Ce champ est optionnel.</div>
                             </div>
@@ -1565,13 +1478,11 @@
                         <div class="row">
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Nom & Prénoms</label>
-                                <i class="icon fas fa-user-check"></i>
                                 <input type="text" class="form-control" name="references[${index}][name]" required>
                                 <div class="invalid-feedback">Ce champ est requis.</div>
                             </div>
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Téléphone</label>
-                                <i class="icon fas fa-phone"></i>
                                 <input type="tel" class="form-control" name="references[${index}][phone]" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                 <div class="invalid-feedback">Numéro de téléphone invalide.</div>
                             </div>
@@ -1651,21 +1562,38 @@
                     const latInput = mapArea.querySelector('input[name="workplace_lat"]');
                     const lngInput = mapArea.querySelector('input[name="workplace_lng"]');
 
-                    descArea.style.display = radio.value === 'description' ? 'block' : 'none';
-                    mapArea.style.display = radio.value === 'map' ? 'block' : 'none';
-                    descInput.toggleAttribute('required', radio.value === 'description');
-                    latInput.toggleAttribute('required', radio.value === 'map');
-                    lngInput.toggleAttribute('required', radio.value === 'map');
-
-                    if (radio.value === 'map') {
+                    // Afficher la zone correspondante au choix
+                    if (radio.value === 'description') {
+                        descArea.style.display = 'block';
+                        mapArea.style.display = 'none';
+                    } else if (radio.value === 'map') {
+                        descArea.style.display = 'none';
+                        mapArea.style.display = 'block';
+                        
                         const mapObj = maps.get('map-container-workplace');
                         if (mapObj) {
                             setTimeout(() => mapObj.invalidate(), 100);
                         }
                     }
+                    
+                    // JAMAIS d'attribut required - TOUJOURS facultatif
+                    descInput.removeAttribute('required');
+                    latInput.removeAttribute('required');
+                    lngInput.removeAttribute('required');
                 });
-                if (radio.checked) radio.dispatchEvent(new Event('change'));
+                
+                // Afficher la zone par défaut selon le choix initial
+                if (radio.checked) {
+                    radio.dispatchEvent(new Event('change'));
+                }
             });
+            
+            // Afficher la zone de description par défaut si aucune méthode n'est sélectionnée
+            const defaultWorkplaceMethod = form.querySelector('input[name="loc_method_workplace"]:checked');
+            if (!defaultWorkplaceMethod) {
+                const descArea = form.querySelector('#description-area-workplace');
+                descArea.style.display = 'block';
+            }
 
             function initializeLeafletMap(mapId, latInputId, lonInputId) {
                 const mapContainer = document.getElementById(mapId);
@@ -1898,6 +1826,18 @@
                         console.log('Signature pad is empty or not available');
                         e.preventDefault();
 
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Signature requise',
+                            text: 'Veuillez dessiner votre signature avant de continuer.',
+                            confirmButtonText: 'Comprendre',
+                            confirmButtonColor: '#EC281C',
+                            background: '#fff'
+                        });
+
+                        // Aller à l'étape 5
+                        currentStep = 5;
+                        showStep(currentStep);
                         return false;
                     }
                 } else if (signatureMethod && signatureMethod.value === 'upload') {
@@ -1952,38 +1892,7 @@
         });
     });
 
-    // SCRIPT POUR FORCER LE CENTRAGE DES ICÔNES
-    document.addEventListener('DOMContentLoaded', function() {
-        // Sélectionner toutes les icônes dans les champs input-group-custom
-        const icons = document.querySelectorAll('.input-group-custom .icon');
 
-        icons.forEach(function(icon) {
-            // Appliquer les styles directement via JavaScript
-            icon.style.position = 'absolute';
-            icon.style.top = '50%';
-            icon.style.transform = 'translateY(-50%)';
-            icon.style.left = '18px';
-            icon.style.color = '#adb5bd';
-            icon.style.fontSize = '1.1rem';
-            icon.style.zIndex = '10';
-            icon.style.pointerEvents = 'none';
-            icon.style.width = '20px';
-            icon.style.height = '20px';
-            icon.style.display = 'flex';
-            icon.style.alignItems = 'center';
-            icon.style.justifyContent = 'center';
-            icon.style.margin = '0';
-            icon.style.padding = '0';
-        });
-
-        // S'assurer que les styles sont appliqués même après les modifications dynamiques
-        setTimeout(function() {
-            icons.forEach(function(icon) {
-                icon.style.top = '50%';
-                icon.style.transform = 'translateY(-50%)';
-            });
-        }, 100);
-    });
 
     // Intercepter les messages de validation après soumission
     document.addEventListener('DOMContentLoaded', function() {
