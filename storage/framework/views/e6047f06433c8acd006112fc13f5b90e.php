@@ -1,32 +1,34 @@
 
-@extends('layout.admin')
 
-@section('content')
-    @include('includes.admin.sidebar')
+
+<?php $__env->startSection('content'); ?>
+    <?php echo $__env->make('includes.admin.sidebar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <main class="dashboard-main">
-        @include('includes.admin.appbar')
+        <?php echo $__env->make('includes.admin.appbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
         <div class="dashboard-main-body">
-            @if (session('success'))
+            <?php if(session('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+                    <?php echo e(session('success')); ?>
 
-            @if (session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            @endif
+            <?php endif; ?>
+
+            <?php if(session('error')): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?php echo e(session('error')); ?>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
 
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
                 <h6 class="fw-semibold mb-0">Soumissions des comptes physiques</h6>
                 <ul class="d-flex align-items-center gap-2">
                     <li class="fw-medium">
-                        <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">
+                        <a href="<?php echo e(route('admin.dashboard')); ?>" class="d-flex align-items-center gap-1 hover-text-primary">
                             <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
                             Dashboard
                         </a>
@@ -38,18 +40,18 @@
 
             <div class="card h-100 p-0 radius-12">
                 <div class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
-                    <form action="{{ route('accounts.physical.index') }}" method="GET" class="d-flex align-items-center flex-wrap gap-3">
+                    <form action="<?php echo e(route('accounts.physical.index')); ?>" method="GET" class="d-flex align-items-center flex-wrap gap-3">
                         <div class="d-flex align-items-center gap-3">
                             <span class="text-md fw-medium text-secondary-light mb-0">Afficher</span>
                             <select name="per_page" class="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px" onchange="this.form.submit()">
-                                <option value="5" {{ request('per_page') == 5 ? 'selected' : '' }}>5</option>
-                                <option value="10" {{ request('per_page', 10) == 10 ? 'selected' : '' }}>10</option>
-                                <option value="20" {{ request('per_page') == 20 ? 'selected' : '' }}>20</option>
-                                <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                                <option value="5" <?php echo e(request('per_page') == 5 ? 'selected' : ''); ?>>5</option>
+                                <option value="10" <?php echo e(request('per_page', 10) == 10 ? 'selected' : ''); ?>>10</option>
+                                <option value="20" <?php echo e(request('per_page') == 20 ? 'selected' : ''); ?>>20</option>
+                                <option value="50" <?php echo e(request('per_page') == 50 ? 'selected' : ''); ?>>50</option>
                             </select>
                         </div>
                         <div class="navbar-search">
-                            <input type="text" class="bg-base h-40-px w-auto" name="search" placeholder="Rechercher par nom ou numéro de compte..." value="{{ request('search') }}">
+                            <input type="text" class="bg-base h-40-px w-auto" name="search" placeholder="Rechercher par nom ou numéro de compte..." value="<?php echo e(request('search')); ?>">
                             <button type="submit" style="border:none; background:transparent; cursor:pointer;">
                                 <iconify-icon icon="ion:search-outline" class="icon"></iconify-icon>
                             </button>
@@ -57,9 +59,9 @@
                         <div class="d-flex align-items-center gap-3">
                             <select name="status" class="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px">
                                 <option value="">Tous les statuts</option>
-                                <option value="en_attente" {{ request('status') == 'en_attente' ? 'selected' : '' }}>En attente</option>
-                                <option value="accepter" {{ request('status') == 'accepter' ? 'selected' : '' }}>Accepté</option>
-                                <option value="refuser" {{ request('status') == 'refuser' ? 'selected' : '' }}>Refusé</option>
+                                <option value="en_attente" <?php echo e(request('status') == 'en_attente' ? 'selected' : ''); ?>>En attente</option>
+                                <option value="accepter" <?php echo e(request('status') == 'accepter' ? 'selected' : ''); ?>>Accepté</option>
+                                <option value="refuser" <?php echo e(request('status') == 'refuser' ? 'selected' : ''); ?>>Refusé</option>
                             </select>
                         </div>
                     </form>
@@ -79,58 +81,54 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($submissions as $submission)
+                                <?php $__empty_1 = true; $__currentLoopData = $submissions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $submission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr>
-                                        <td>{{ $submission->created_at->format('d M Y') }}</td>
+                                        <td><?php echo e($submission->created_at->format('d M Y')); ?></td>
                                         <td>
                                             <div class="d-flex flex-column">
-                                                <span class="fw-medium">{{ $submission->last_name }}</span>
-                                                <span class="text-sm text-secondary-light">{{ $submission->first_names }}</span>
+                                                <span class="fw-medium"><?php echo e($submission->last_name); ?></span>
+                                                <span class="text-sm text-secondary-light"><?php echo e($submission->first_names); ?></span>
                                             </div>
                                         </td>
-                                        <td>{{ $submission->phone ?? '-' }}</td>
+                                        <td><?php echo e($submission->phone ?? '-'); ?></td>
                                         <td>
-                                            @if($submission->account_number)
-                                                <span class="fw-medium text-primary">{{ $submission->account_number }}</span>
-                                            @else
+                                            <?php if($submission->account_number): ?>
+                                                <span class="fw-medium text-primary"><?php echo e($submission->account_number); ?></span>
+                                            <?php else: ?>
                                                 <span class="text-muted">-</span>
-                                            @endif
+                                            <?php endif; ?>
                                         </td>
                                         <td class="text-center">
-                                            @if ($submission->statut === 'accepter')
+                                            <?php if($submission->statut === 'accepter'): ?>
                                                 <span class="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">Accepté</span>
-                                            @elseif ($submission->statut === 'refuser')
+                                            <?php elseif($submission->statut === 'refuser'): ?>
                                                 <span class="bg-danger-focus text-danger-600 border border-danger-main px-24 py-4 radius-4 fw-medium text-sm">Refusé</span>
-                                            @else
+                                            <?php else: ?>
                                                 <span class="bg-warning-focus text-warning-600 border border-warning-main px-24 py-4 radius-4 fw-medium text-sm">En attente</span>
-                                            @endif
+                                            <?php endif; ?>
                                         </td>
                                         <td class="text-center">
                                             <div class="d-flex align-items-center gap-10 justify-content-center">
                                                 <!-- Bouton VOIR -->
-                                                <a href="{{ route('accounts.physical.show', $submission->id) }}"
+                                                <a href="<?php echo e(route('accounts.physical.show', $submission->id)); ?>"
                                                     class="bg-info-focus text-info-600 bg-hover-info-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                                                     title="Voir les détails">
                                                     <iconify-icon icon="lucide:eye" class="menu-icon"></iconify-icon>
                                                 </a>
 
                                                 <!-- Bouton PDF -->
-                                                <a href="{{ route('accounts.physical.pdf', $submission->id) }}"
+                                                <a href="<?php echo e(route('accounts.physical.pdf', $submission->id)); ?>"
                                                     class="bg-primary-focus text-primary-600 bg-hover-primary-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
                                                     title="Télécharger PDF">
                                                     <iconify-icon icon="lucide:file-text" class="menu-icon"></iconify-icon>
                                                 </a>
 
                                                 <!-- Bouton IMPRIMER -->
-                                                <!-- {{-- <button onclick="printSubmission({{ $submission->id }})"
-                                                    class="bg-secondary-focus text-secondary-600 bg-hover-secondary-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                                    title="Imprimer">
-                                                    <iconify-icon icon="lucide:printer" class="menu-icon"></iconify-icon>
-                                                </button> --}} -->
+                                                <!--  -->
                                             </div>
                                         </td>
                                     </tr>
-                                @empty
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                     <tr>
                                         <td colspan="6" class="text-center py-24">
                                             <div class="d-flex flex-column align-items-center gap-3">
@@ -139,24 +137,25 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforelse
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="mt-24">
-                        {{ $submissions->appends(request()->query())->links() }}
+                        <?php echo e($submissions->appends(request()->query())->links()); ?>
+
                     </div>
                 </div>
             </div>
         </div>
 
-        @include('includes.admin.footer')
+        <?php echo $__env->make('includes.admin.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     </main>
 
     <script>
         function printSubmission(id) {
-            window.open('{{ url('admin/accounts/physical') }}/' + id + '?print=1', '_blank');
+            window.open('<?php echo e(url('admin/accounts/physical')); ?>/' + id + '?print=1', '_blank');
         }
     </script>
 
@@ -178,4 +177,6 @@
             }
         }
     </style>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\COCEC\resources\views/admin/accounts/physical/index.blade.php ENDPATH**/ ?>

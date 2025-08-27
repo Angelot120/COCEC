@@ -1,7 +1,4 @@
-
-@extends('layout.admin')
-
-@section('css')
+<?php $__env->startSection('css'); ?>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         .map-container {
@@ -221,46 +218,49 @@
             }
         }
     </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
-    @include('includes.admin.sidebar')
+<?php $__env->startSection('content'); ?>
+    <?php echo $__env->make('includes.admin.sidebar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <main class="dashboard-main">
-        @include('includes.admin.appbar')
+        <?php echo $__env->make('includes.admin.appbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
         <div class="dashboard-main-body">
-            @if (session('success'))
+            <?php if(session('success')): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+                    <?php echo e(session('success')); ?>
 
-            @if (session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            @endif
+            <?php endif; ?>
+
+            <?php if(session('error')): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?php echo e(session('error')); ?>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
 
             <!-- Titre pour l'impression -->
             <h1 class="print-only" style="display: none; text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 30px;">
-                Détails de la soumission #{{ $submission->id }}
+                Détails de la soumission #<?php echo e($submission->id); ?>
+
             </h1>
             
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24 no-print">
-                <h6 class="fw-semibold mb-0">Détails de la soumission #{{ $submission->id }}</h6>
+                <h6 class="fw-semibold mb-0">Détails de la soumission #<?php echo e($submission->id); ?></h6>
                 <ul class="d-flex align-items-center gap-2">
                     <li class="fw-medium">
-                        <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">
+                        <a href="<?php echo e(route('admin.dashboard')); ?>" class="d-flex align-items-center gap-1 hover-text-primary">
                             <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
                             Dashboard
                         </a>
                     </li>
                     <li>-</li>
                     <li class="fw-medium">
-                        <a href="{{ route('accounts.physical.index') }}" class="hover-text-primary">
+                        <a href="<?php echo e(route('accounts.physical.index')); ?>" class="hover-text-primary">
                             Comptes physiques
                         </a>
                     </li>
@@ -272,11 +272,11 @@
             <!-- Actions -->
             <div class="card mb-24 no-print">
                 <div class="card-body d-flex align-items-center gap-3">
-                    <a href="{{ route('accounts.physical.index') }}" class="btn btn-danger d-flex align-items-center gap-2">
+                    <a href="<?php echo e(route('accounts.physical.index')); ?>" class="btn btn-danger d-flex align-items-center gap-2">
                         <iconify-icon icon="lucide:arrow-left" class="icon"></iconify-icon>
                         Retour à la liste
                     </a>
-                    <a href="{{ route('accounts.physical.pdf', $submission->id) }}" class="btn btn-warning d-flex align-items-center gap-2">
+                    <a href="<?php echo e(route('accounts.physical.pdf', $submission->id)); ?>" class="btn btn-warning d-flex align-items-center gap-2">
                         <iconify-icon icon="lucide:file-text" class="icon"></iconify-icon>
                         Télécharger PDF
                     </a>
@@ -300,50 +300,51 @@
                                 <div class="col-md-6">
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Nom complet</label>
-                                        <p class="fw-medium mb-0">{{ $submission->last_name }} {{ $submission->first_names }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->last_name); ?> <?php echo e($submission->first_names); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Genre</label>
-                                        <p class="fw-medium mb-0">{{ $submission->gender == 'M' ? 'Masculin' : 'Féminin' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->gender == 'M' ? 'Masculin' : 'Féminin'); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Date de naissance</label>
-                                        <p class="fw-medium mb-0">{{ $submission->birth_date ? $submission->birth_date->format('d/m/Y') : '-' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->birth_date ? $submission->birth_date->format('d/m/Y') : '-'); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Lieu de naissance</label>
-                                        <p class="fw-medium mb-0">{{ $submission->birth_place }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->birth_place); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Nationalité</label>
-                                        <p class="fw-medium mb-0">{{ $submission->nationality }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->nationality); ?></p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Nom du père</label>
-                                        <p class="fw-medium mb-0">{{ $submission->father_name }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->father_name); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Nom de la mère</label>
-                                        <p class="fw-medium mb-0">{{ $submission->mother_name }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->mother_name); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Téléphone</label>
-                                        <p class="fw-medium mb-0">{{ $submission->phone ?? '-' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->phone ?? '-'); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Catégorie</label>
-                                        <p class="fw-medium mb-0">{{ $submission->category ?? '-' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->category ?? '-'); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Statut</label>
-                                        <span class="status-badge status-{{ $submission->statut }}">
-                                            @if($submission->statut == 'en_attente') En attente
-                                            @elseif($submission->statut == 'accepter') Accepté
-                                            @elseif($submission->statut == 'refuser') Refusé
-                                            @else {{ $submission->statut }}
-                                            @endif
+                                        <span class="status-badge status-<?php echo e($submission->statut); ?>">
+                                            <?php if($submission->statut == 'en_attente'): ?> En attente
+                                            <?php elseif($submission->statut == 'accepter'): ?> Accepté
+                                            <?php elseif($submission->statut == 'refuser'): ?> Refusé
+                                            <?php else: ?> <?php echo e($submission->statut); ?>
+
+                                            <?php endif; ?>
                                         </span>
                                     </div>
                                 </div>
@@ -361,38 +362,38 @@
                                 <div class="col-md-6">
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Profession</label>
-                                        <p class="fw-medium mb-0">{{ $submission->occupation }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->occupation); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Nom de l'entreprise</label>
-                                        <p class="fw-medium mb-0">{{ $submission->company_name_activity ?? '-' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->company_name_activity ?? '-'); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Type d'activité</label>
-                                        <p class="fw-medium mb-0">{{ $submission->activity_type ?? '-' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->activity_type ?? '-'); ?></p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Statut marital</label>
-                                        <p class="fw-medium mb-0">{{ $submission->marital_status }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->marital_status); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Nom du conjoint</label>
-                                        <p class="fw-medium mb-0">{{ $submission->spouse_name ?? '-' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->spouse_name ?? '-'); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Téléphone du conjoint</label>
-                                        <p class="fw-medium mb-0">{{ $submission->spouse_phone ?? '-' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->spouse_phone ?? '-'); ?></p>
                                     </div>
                                 </div>
                             </div>
-                            @if($submission->activity_description)
+                            <?php if($submission->activity_description): ?>
                             <div class="mt-16">
                                 <label class="text-sm text-secondary-light mb-4">Description de l'activité</label>
-                                <p class="fw-medium mb-0">{{ $submission->activity_description }}</p>
+                                <p class="fw-medium mb-0"><?php echo e($submission->activity_description); ?></p>
                             </div>
-                            @endif
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -407,47 +408,47 @@
                                     <h6 class="fw-semibold mb-16">Résidence</h6>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Description</label>
-                                        <p class="fw-medium mb-0">{{ $submission->residence_description ?? '-' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->residence_description ?? '-'); ?></p>
                                     </div>
-                                    @if ($submission->residence_lat && $submission->residence_lng)
+                                    <?php if($submission->residence_lat && $submission->residence_lng): ?>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Coordonnées</label>
-                                        <p class="fw-medium mb-0">{{ $submission->residence_lat }}, {{ $submission->residence_lng }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->residence_lat); ?>, <?php echo e($submission->residence_lng); ?></p>
                                         <div id="residence-map" class="map-container mt-8"></div>
                                     </div>
-                                    @endif
-                                    @if ($submission->residence_plan_path)
+                                    <?php endif; ?>
+                                    <?php if($submission->residence_plan_path): ?>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Plan de résidence</label>
-                                        <a href="{{ Storage::url($submission->residence_plan_path) }}" target="_blank" class="document-link">
+                                        <a href="<?php echo e(Storage::url($submission->residence_plan_path)); ?>" target="_blank" class="document-link">
                                             <iconify-icon icon="lucide:download" class="icon"></iconify-icon>
                                             Télécharger le plan
                                         </a>
                                     </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-md-6">
                                     <h6 class="fw-semibold mb-16">Lieu de travail</h6>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Description</label>
-                                        <p class="fw-medium mb-0">{{ $submission->workplace_description ?? '-' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->workplace_description ?? '-'); ?></p>
                                     </div>
-                                    @if ($submission->workplace_lat && $submission->workplace_lng)
+                                    <?php if($submission->workplace_lat && $submission->workplace_lng): ?>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Coordonnées</label>
-                                        <p class="fw-medium mb-0">{{ $submission->workplace_lat }}, {{ $submission->workplace_lng }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->workplace_lat); ?>, <?php echo e($submission->workplace_lng); ?></p>
                                         <div id="workplace-map" class="map-container mt-8"></div>
                                     </div>
-                                    @endif
-                                    @if ($submission->workplace_plan_path)
+                                    <?php endif; ?>
+                                    <?php if($submission->workplace_plan_path): ?>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Plan du lieu de travail</label>
-                                        <a href="{{ Storage::url($submission->workplace_plan_path) }}" target="_blank" class="document-link">
+                                        <a href="<?php echo e(Storage::url($submission->workplace_plan_path)); ?>" target="_blank" class="document-link">
                                             <iconify-icon icon="lucide:download" class="icon"></iconify-icon>
                                             Télécharger le plan
                                         </a>
                                     </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -463,57 +464,57 @@
                                 <div class="col-md-6">
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Type de pièce</label>
-                                        <p class="fw-medium mb-0">{{ $submission->id_type }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->id_type); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Numéro de pièce</label>
-                                        <p class="fw-medium mb-0">{{ $submission->id_number }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->id_number); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Date d'émission</label>
-                                        <p class="fw-medium mb-0">{{ $submission->id_issue_date ? $submission->id_issue_date->format('d/m/Y') : '-' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->id_issue_date ? $submission->id_issue_date->format('d/m/Y') : '-'); ?></p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Personne politiquement exposée (nationale)</label>
-                                        <p class="fw-medium mb-0">{{ $submission->is_ppe_national ? 'Oui' : 'Non' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->is_ppe_national ? 'Oui' : 'Non'); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Personne politiquement exposée (étrangère)</label>
-                                        <p class="fw-medium mb-0">{{ $submission->ppe_foreign ? 'Oui' : 'Non' }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->ppe_foreign ? 'Oui' : 'Non'); ?></p>
                                     </div>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Dépôt initial</label>
-                                        <p class="fw-medium mb-0">{{ number_format($submission->initial_deposit, 2) }} FCFA</p>
+                                        <p class="fw-medium mb-0"><?php echo e(number_format($submission->initial_deposit, 2)); ?> FCFA</p>
                                     </div>
                                 </div>
                             </div>
-                            @if($submission->sanctions || $submission->terrorism_financing)
+                            <?php if($submission->sanctions || $submission->terrorism_financing): ?>
                             <div class="row mt-16">
                                 <div class="col-md-6">
-                                    @if($submission->sanctions)
+                                    <?php if($submission->sanctions): ?>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Sanctions</label>
-                                        <p class="fw-medium mb-0">{{ $submission->sanctions }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->sanctions); ?></p>
                                     </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-md-6">
-                                    @if($submission->terrorism_financing)
+                                    <?php if($submission->terrorism_financing): ?>
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Financement du terrorisme</label>
-                                        <p class="fw-medium mb-0">{{ $submission->terrorism_financing }}</p>
+                                        <p class="fw-medium mb-0"><?php echo e($submission->terrorism_financing); ?></p>
                                     </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                             </div>
-                            @endif
+                            <?php endif; ?>
                         </div>
                     </div>
 
                     <!-- Références -->
-                    @if (!$submission->references->isEmpty())
+                    <?php if(!$submission->references->isEmpty()): ?>
                     <div class="card mb-24">
                         <div class="card-header bg-base py-16 px-24">
                             <h6 class="fw-semibold mb-0">Références</h6>
@@ -528,21 +529,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($submission->references as $reference)
+                                        <?php $__currentLoopData = $submission->references; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $reference): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
-                                                <td>{{ $reference->name }}</td>
-                                                <td>{{ $reference->phone }}</td>
+                                                <td><?php echo e($reference->name); ?></td>
+                                                <td><?php echo e($reference->phone); ?></td>
                                             </tr>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    @endif
+                    <?php endif; ?>
 
                     <!-- Bénéficiaires -->
-                    @if (!$submission->beneficiaries->isEmpty())
+                    <?php if(!$submission->beneficiaries->isEmpty()): ?>
                     <div class="card mb-24">
                         <div class="card-header bg-base py-16 px-24">
                             <h6 class="fw-semibold mb-0">Bénéficiaires</h6>
@@ -559,20 +560,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($submission->beneficiaries as $beneficiary)
+                                        <?php $__currentLoopData = $submission->beneficiaries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $beneficiary): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
-                                                <td>{{ $beneficiary->nom }}</td>
-                                                <td>{{ $beneficiary->contact }}</td>
-                                                <td>{{ $beneficiary->lien }}</td>
-                                                <td>{{ $beneficiary->birth_date ? $beneficiary->birth_date->format('d/m/Y') : '-' }}</td>
+                                                <td><?php echo e($beneficiary->nom); ?></td>
+                                                <td><?php echo e($beneficiary->contact); ?></td>
+                                                <td><?php echo e($beneficiary->lien); ?></td>
+                                                <td><?php echo e($beneficiary->birth_date ? $beneficiary->birth_date->format('d/m/Y') : '-'); ?></td>
                                             </tr>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
 
                 <!-- Sidebar -->
@@ -583,61 +584,61 @@
                             <h6 class="fw-semibold mb-0">Documents</h6>
                         </div>
                         <div class="card-body p-24">
-                            @if($submission->photo_path)
+                            <?php if($submission->photo_path): ?>
                             <div class="mb-24">
                                 <label class="text-sm text-secondary-light mb-8">Photo d'identité</label>
                                 <div class="text-center">
-                                    <img src="{{ Storage::url($submission->photo_path) }}" alt="Photo d'identité" class="document-preview">
+                                    <img src="<?php echo e(Storage::url($submission->photo_path)); ?>" alt="Photo d'identité" class="document-preview">
                                 </div>
                                 <div class="text-center mt-8">
-                                    <a href="{{ Storage::url($submission->photo_path) }}" target="_blank" class="document-link">
+                                    <a href="<?php echo e(Storage::url($submission->photo_path)); ?>" target="_blank" class="document-link">
                                         <iconify-icon icon="lucide:external-link" class="icon"></iconify-icon>
                                         Voir en plein écran
                                     </a>
                                 </div>
                             </div>
-                            @endif
+                            <?php endif; ?>
 
-                            @if($submission->id_scan_path)
+                            <?php if($submission->id_scan_path): ?>
                             <div class="mb-24">
                                 <label class="text-sm text-secondary-light mb-8">Scan de la pièce d'identité</label>
                                 <div class="text-center">
-                                    <a href="{{ Storage::url($submission->id_scan_path) }}" target="_blank" class="document-link">
+                                    <a href="<?php echo e(Storage::url($submission->id_scan_path)); ?>" target="_blank" class="document-link">
                                         <iconify-icon icon="lucide:download" class="icon"></iconify-icon>
                                         Télécharger le scan
                                     </a>
                                 </div>
                             </div>
-                            @endif
+                            <?php endif; ?>
 
-                            @if($submission->signature_method === 'draw' && $submission->signature_base64)
+                            <?php if($submission->signature_method === 'draw' && $submission->signature_base64): ?>
                             <div class="mb-24">
                                 <label class="text-sm text-secondary-light mb-8">Signature</label>
                                 <div class="text-center">
-                                    @if(str_starts_with($submission->signature_base64, 'data:image/png;base64,'))
-                                        <img src="{{ $submission->signature_base64 }}" alt="Signature" class="document-preview">
-                                    @else
-                                        <img src="data:image/png;base64,{{ $submission->signature_base64 }}" alt="Signature" class="document-preview">
-                                    @endif
+                                    <?php if(str_starts_with($submission->signature_base64, 'data:image/png;base64,')): ?>
+                                        <img src="<?php echo e($submission->signature_base64); ?>" alt="Signature" class="document-preview">
+                                    <?php else: ?>
+                                        <img src="data:image/png;base64,<?php echo e($submission->signature_base64); ?>" alt="Signature" class="document-preview">
+                                    <?php endif; ?>
                                 </div>
                                 <div class="text-center mt-8">
-                                    <button type="button" onclick="openSignatureFullscreen('{{ $submission->signature_base64 }}')" class="document-link" style="border: none; background: none; cursor: pointer;">
+                                    <button type="button" onclick="openSignatureFullscreen('<?php echo e($submission->signature_base64); ?>')" class="document-link" style="border: none; background: none; cursor: pointer;">
                                         <iconify-icon icon="lucide:external-link" class="icon"></iconify-icon>
                                         Voir en plein écran
                                     </button>
                                 </div>
                             </div>
-                            @elseif($submission->signature_method === 'upload' && $submission->signature_upload_path)
+                            <?php elseif($submission->signature_method === 'upload' && $submission->signature_upload_path): ?>
                             <div class="mb-24">
                                 <label class="text-sm text-secondary-light mb-8">Signature</label>
                                 <div class="text-center">
-                                    <a href="{{ Storage::url($submission->signature_upload_path) }}" target="_blank" class="document-link">
+                                    <a href="<?php echo e(Storage::url($submission->signature_upload_path)); ?>" target="_blank" class="document-link">
                                         <iconify-icon icon="lucide:download" class="icon"></iconify-icon>
                                         Télécharger la signature
                                     </a>
                                 </div>
                             </div>
-                            @endif
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -649,22 +650,22 @@
                         <div class="card-body p-24">
                             <div class="mb-16">
                                 <label class="text-sm text-secondary-light mb-4">Numéro de compte</label>
-                                <p class="fw-medium mb-0">{{ $submission->account_number ?? 'Non attribué' }}</p>
+                                <p class="fw-medium mb-0"><?php echo e($submission->account_number ?? 'Non attribué'); ?></p>
                             </div>
                             <div class="mb-16">
                                 <label class="text-sm text-secondary-light mb-4">Date d'adhésion</label>
-                                <p class="fw-medium mb-0">{{ $submission->membership_date ? $submission->membership_date->format('d/m/Y') : 'Non définie' }}</p>
+                                <p class="fw-medium mb-0"><?php echo e($submission->membership_date ? $submission->membership_date->format('d/m/Y') : 'Non définie'); ?></p>
                             </div>
                             <div class="mb-16">
                                 <label class="text-sm text-secondary-light mb-4">Date d'ouverture</label>
-                                <p class="fw-medium mb-0">{{ $submission->account_opening_date ? $submission->account_opening_date->format('d/m/Y') : 'Non définie' }}</p>
+                                <p class="fw-medium mb-0"><?php echo e($submission->account_opening_date ? $submission->account_opening_date->format('d/m/Y') : 'Non définie'); ?></p>
                             </div>
-                            @if($submission->remarks)
+                            <?php if($submission->remarks): ?>
                             <div class="mb-16">
                                 <label class="text-sm text-secondary-light mb-4">Remarques</label>
-                                <p class="fw-medium mb-0">{{ $submission->remarks }}</p>
+                                <p class="fw-medium mb-0"><?php echo e($submission->remarks); ?></p>
                             </div>
-                            @endif
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -674,32 +675,32 @@
                             <h6 class="fw-semibold mb-0">Mettre à jour le statut</h6>
                         </div>
                         <div class="card-body p-24">
-                            <form action="{{ route('accounts.physical.update', $submission->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
+                            <form action="<?php echo e(route('accounts.physical.update', $submission->id)); ?>" method="POST">
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('PUT'); ?>
                                 <div class="mb-16">
                                     <label for="statut" class="form-label">Statut</label>
                                     <select name="statut" id="statut" class="form-select">
-                                        <option value="en_attente" {{ $submission->statut == 'en_attente' ? 'selected' : '' }}>En attente</option>
-                                        <option value="accepter" {{ $submission->statut == 'accepter' ? 'selected' : '' }}>Accepté</option>
-                                        <option value="refuser" {{ $submission->statut == 'refuser' ? 'selected' : '' }}>Refusé</option>
+                                        <option value="en_attente" <?php echo e($submission->statut == 'en_attente' ? 'selected' : ''); ?>>En attente</option>
+                                        <option value="accepter" <?php echo e($submission->statut == 'accepter' ? 'selected' : ''); ?>>Accepté</option>
+                                        <option value="refuser" <?php echo e($submission->statut == 'refuser' ? 'selected' : ''); ?>>Refusé</option>
                                     </select>
                                 </div>
                                 <div class="mb-16">
                                     <label for="account_number" class="form-label">Numéro de compte</label>
-                                    <input type="text" name="account_number" id="account_number" class="form-control" value="{{ $submission->account_number }}">
+                                    <input type="text" name="account_number" id="account_number" class="form-control" value="<?php echo e($submission->account_number); ?>">
                                 </div>
                                 <div class="mb-16">
                                     <label for="membership_date" class="form-label">Date d'adhésion</label>
-                                    <input type="date" name="membership_date" id="membership_date" class="form-control" value="{{ $submission->membership_date ? $submission->membership_date->format('Y-m-d') : '' }}">
+                                    <input type="date" name="membership_date" id="membership_date" class="form-control" value="<?php echo e($submission->membership_date ? $submission->membership_date->format('Y-m-d') : ''); ?>">
                                 </div>
                                 <div class="mb-16">
                                     <label for="account_opening_date" class="form-label">Date d'ouverture de compte</label>
-                                    <input type="date" name="account_opening_date" id="account_opening_date" class="form-control" value="{{ $submission->account_opening_date ? $submission->account_opening_date->format('Y-m-d') : '' }}">
+                                    <input type="date" name="account_opening_date" id="account_opening_date" class="form-control" value="<?php echo e($submission->account_opening_date ? $submission->account_opening_date->format('Y-m-d') : ''); ?>">
                                 </div>
                                 <div class="mb-16">
                                     <label for="remarks" class="form-label">Remarques</label>
-                                    <textarea name="remarks" id="remarks" class="form-control" rows="4">{{ $submission->remarks }}</textarea>
+                                    <textarea name="remarks" id="remarks" class="form-control" rows="4"><?php echo e($submission->remarks); ?></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-danger w-100">Mettre à jour</button>
                             </form>
@@ -709,33 +710,33 @@
             </div>
         </div>
 
-        @include('includes.admin.footer')
+        <?php echo $__env->make('includes.admin.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     </main>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // Initialisation des cartes
-        @if ($submission->residence_lat && $submission->residence_lng)
-        const residenceMap = L.map('residence-map').setView([{{ $submission->residence_lat }}, {{ $submission->residence_lng }}], 15);
+        <?php if($submission->residence_lat && $submission->residence_lng): ?>
+        const residenceMap = L.map('residence-map').setView([<?php echo e($submission->residence_lat); ?>, <?php echo e($submission->residence_lng); ?>], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(residenceMap);
-        L.marker([{{ $submission->residence_lat }}, {{ $submission->residence_lng }}]).addTo(residenceMap)
+        L.marker([<?php echo e($submission->residence_lat); ?>, <?php echo e($submission->residence_lng); ?>]).addTo(residenceMap)
             .bindPopup('Résidence')
             .openPopup();
-        @endif
+        <?php endif; ?>
 
-        @if ($submission->workplace_lat && $submission->workplace_lng)
-        const workplaceMap = L.map('workplace-map').setView([{{ $submission->workplace_lat }}, {{ $submission->workplace_lng }}], 15);
+        <?php if($submission->workplace_lat && $submission->workplace_lng): ?>
+        const workplaceMap = L.map('workplace-map').setView([<?php echo e($submission->workplace_lat); ?>, <?php echo e($submission->workplace_lng); ?>], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(workplaceMap);
-        L.marker([{{ $submission->workplace_lat }}, {{ $submission->workplace_lng }}]).addTo(workplaceMap)
+        L.marker([<?php echo e($submission->workplace_lat); ?>, <?php echo e($submission->workplace_lng); ?>]).addTo(workplaceMap)
             .bindPopup('Lieu de travail')
             .openPopup();
-        @endif
+        <?php endif; ?>
 
         // Fonction pour ouvrir la signature en plein écran
         function openSignatureFullscreen(signatureData) {
@@ -804,4 +805,6 @@
             newWindow.document.close();
         }
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\COCEC\resources\views/admin/accounts/physical/show.blade.php ENDPATH**/ ?>
