@@ -199,6 +199,21 @@
                    </ul>
             </li>
 
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:message-text-outline" class="menu-icon"></iconify-icon>
+                    <span>Plaintes</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('admin.complaint.index') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Gestion des plaintes
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
         </ul>
     </div>
 </aside>

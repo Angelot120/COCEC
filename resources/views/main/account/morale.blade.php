@@ -1024,7 +1024,7 @@
 @endsection
 
 @section('content')
-<section class="account-form-section py-5">
+<section class="account-form-section">
     @include('includes.main.loading')
     @include('includes.main.header')
 
@@ -1032,6 +1032,7 @@
         <div class="page-header-overlay"></div>
         <div class="container">
             <div class="page-header-content-pro" data-aos="fade-up">
+                <br>
                 <h1 class="title-pro">Compte en Ligne - Personne Morale</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb-pro">

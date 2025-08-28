@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use App\Mail\ComplaintNotificationMail;
 use App\Models\Complaint;
-use Illuminate\Support\Facades\Log;
 
 class ComplaintController extends Controller
 {
@@ -116,19 +116,69 @@ class ComplaintController extends Controller
     /**
      * Afficher la liste des plaintes (admin)
      */
-    public function indexAdmin()
+    public function adminIndex(Request $request)
     {
-        $complaints = Complaint::latest()->paginate(20);
-        return view('admin.complaints.index', compact('complaints'));
+        // Debug: Vérifier si des plaintes existent
+        $totalComplaints = Complaint::count();
+        Log::info('Total complaints in database: ' . $totalComplaints);
+        
+        $query = Complaint::query();
+        
+        // Filtres
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        
+        if ($request->filled('category')) {
+            $query->where('category', $request->category);
+        }
+        
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('member_name', 'like', "%{$search}%")
+                  ->orWhere('member_number', 'like', "%{$search}%")
+                  ->orWhere('reference', 'like', "%{$search}%")
+                  ->orWhere('subject', 'like', "%{$search}%");
+            });
+        }
+        
+        $perPage = $request->get('per_page', 10);
+        $complaints = $query->latest()->paginate($perPage);
+        
+        // Debug: Vérifier la pagination
+        Log::info('Complaints pagination: ' . $complaints->total() . ' total, ' . $complaints->count() . ' current page');
+        
+        // Statistiques
+        $stats = [
+            'total' => $totalComplaints,
+            'pending' => Complaint::where('status', 'pending')->count(),
+            'processing' => Complaint::where('status', 'processing')->count(),
+            'resolved' => Complaint::where('status', 'resolved')->count(),
+            'closed' => Complaint::where('status', 'closed')->count(),
+        ];
+        
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'data' => $complaints->items(),
+                'current_page' => $complaints->currentPage(),
+                'last_page' => $complaints->lastPage(),
+                'per_page' => $complaints->perPage(),
+                'total' => $complaints->total(),
+                'stats' => $stats
+            ]);
+        }
+        
+        return view('admin.complaint.index', compact('complaints', 'stats'));
     }
 
     /**
      * Afficher les détails d'une plainte (admin)
      */
-    public function show($id)
+    public function adminShow($id)
     {
         $complaint = Complaint::findOrFail($id);
-        return view('admin.complaints.show', compact('complaint'));
+        return view('admin.complaint.show', compact('complaint'));
     }
 
     /**
@@ -144,7 +194,10 @@ class ComplaintController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
         }
 
         $complaint->status = $request->status;
@@ -152,6 +205,56 @@ class ComplaintController extends Controller
         $complaint->resolved_at = $request->status === 'resolved' ? now() : null;
         $complaint->save();
 
-        return back()->with('success', 'Le statut de la plainte a été mis à jour avec succès.');
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Le statut de la plainte a été mis à jour avec succès.',
+                'complaint' => $complaint
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Le statut de la plainte a été mis à jour avec succès.');
+    }
+
+    /**
+     * Mettre à jour les notes administratives d'une plainte (admin)
+     */
+    public function updateNotes(Request $request, $id)
+    {
+        $complaint = Complaint::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'admin_notes' => 'required|string|max:1000'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $complaint->admin_notes = $request->admin_notes;
+        $complaint->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Les notes administratives ont été mises à jour avec succès.',
+            'complaint' => $complaint
+        ]);
+    }
+
+    /**
+     * Supprimer une plainte (admin)
+     */
+    public function destroy($id)
+    {
+        $complaint = Complaint::findOrFail($id);
+        $complaint->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'La plainte a été supprimée avec succès.'
+        ]);
     }
 }

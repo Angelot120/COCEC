@@ -138,6 +138,28 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Plaintes en attente -->
+            <div class="col">
+                <div class="card shadow-none border h-100">
+                    <div class="card-body p-20">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="fw-medium text-muted mb-1">Plaintes en attente</p>
+                                <h6 class="mb-0">{{ number_format($pendingComplaints ?? 0) }}</h6>
+                            </div>
+                            <div class="w-50-px h-50-px bg-warning rounded-circle d-flex justify-content-center align-items-center">
+                                <iconify-icon icon="mdi:cellphone-banking" class="text-white text-2xl"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <a href="{{ route('admin.complaint.index') }}" class="text-decoration-none small text-muted">
+                                Voir toutes les plaintes →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <br><br>

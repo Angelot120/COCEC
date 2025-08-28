@@ -53,7 +53,7 @@
                                     <li class="<?php echo e(request()->routeIs('main.finance') ? 'active' : ''); ?>">
                                         <a href="<?php echo e(route('main.finance')); ?>">Finance Digitale</a>
                                     </li>
-                                    <li class="menu-item-has-children <?php echo e(request()->routeIs('career') || request()->routeIs('about') || request()->routeIs('main.faq') ? 'active' : ''); ?>">
+                                    <li class="menu-item-has-children <?php echo e(request()->routeIs('career') || request()->routeIs('about') ||  request()->routeIs('blogs') || request()->routeIs('main.faq') || request()->routeIs('complaint') ? 'active' : ''); ?>">
                                         <a href="#">Autres <i class="fa-solid fa-chevron-down"></i></a>
                                         <ul>
                                             <li class="<?php echo e(request()->routeIs('career') ? 'active' : ''); ?>">
@@ -68,8 +68,8 @@
                                             <li class="<?php echo e(request()->routeIs('main.faq') ? 'active' : ''); ?>">
                                                 <a href="<?php echo e(route('main.faq')); ?>">Faq</a>
                                             </li>
-                                            <li>
-                                                <a href="<?php echo e(route('complaint')); ?>" >Gestion des plaintes</a>
+                                            <li class="<?php echo e(request()->routeIs('complaint') ? 'active' : ''); ?>">
+                                                <a href="<?php echo e(route('complaint')); ?>">Gestion des plaintes</a>
                                             </li>
                                         </ul>
                                     </li>

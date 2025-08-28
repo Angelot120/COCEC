@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AgencyLocation;
 use App\Models\Announcements;
 use App\Models\Blog;
+use App\Models\Complaint;
 use App\Models\FaqComment;
 use App\Models\JobApplication;
 use App\Models\JobOffer;
@@ -108,6 +109,12 @@ class ViewsController extends Controller
         $totalSubscribers = NewsletterSubscriber::count();
         $jobOffers = JobOffer::count();
         $jobApplications = JobApplication::count();
+        
+        // Statistiques des plaintes
+        $totalComplaints = Complaint::count();
+        $pendingComplaints = Complaint::where('status', 'pending')->count();
+        $processingComplaints = Complaint::where('status', 'processing')->count();
+        $resolvedComplaints = Complaint::where('status', 'resolved')->count();
 
         return view('admin.dashboard', compact(
             'totalVisitors',
@@ -117,7 +124,11 @@ class ViewsController extends Controller
             'totalSubscribers',
             'subscribersByMonth',
             'jobOffers',
-            'jobApplications'
+            'jobApplications',
+            'totalComplaints',
+            'pendingComplaints',
+            'processingComplaints',
+            'resolvedComplaints'
         ));
     }
 

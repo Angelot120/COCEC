@@ -198,9 +198,8 @@
         flex: 1;
     }
 
-    /* === CORRECTION DU BOUTON DE SOUMISSION === */
+    /* === BOUTON DE SOUMISSION === */
     .submit-btn {
-        position: relative; /* Contexte pour le positionnement absolu */
         background: var(--primary-color);
         color: white;
         border: none;
@@ -215,7 +214,9 @@
         width: 100%;
         margin-top: 20px;
         min-height: 60px;
-        overflow: hidden; /* Empêche tout débordement */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .submit-btn:hover {
@@ -227,38 +228,6 @@
         opacity: 0.7;
         cursor: not-allowed;
         transform: none;
-    }
-
-    .submit-btn .btn-text,
-    .submit-btn .btn-loading {
-        transition: opacity 0.2s ease;
-    }
-
-    .submit-btn .btn-loading {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        opacity: 0;
-        visibility: hidden;
-    }
-    
-    /* Gère l'état de chargement */
-    .submit-btn.loading .btn-text {
-        opacity: 0;
-        visibility: hidden;
-    }
-    .submit-btn.loading .btn-loading {
-        opacity: 1;
-        visibility: visible;
-    }
-    .submit-btn.loading {
-        cursor: wait;
     }
 
     @media (max-width: 768px) {
@@ -400,10 +369,7 @@
                         </div>
 
                         <button type="submit" class="submit-btn" id="submit-btn">
-                            <span class="btn-text">Envoyer ma demande</span>
-                            <span class="btn-loading">
-                                <i class="fas fa-spinner fa-spin"></i> Envoi en cours...
-                            </span>
+                            Envoyer ma demande
                         </button>
                     </form>
                 </div>
@@ -422,72 +388,83 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('digital-finance-form');
     const submitBtn = document.getElementById('submit-btn');
 
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            submitBtn.disabled = true;
-            submitBtn.classList.add('loading');
-
-            document.querySelectorAll('.error-message').forEach(el => el.remove());
-            document.querySelectorAll('.form-input, .form-select').forEach(el => el.classList.remove('error'));
-
-            const formData = new FormData(form);
-            
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                    'Accept': 'application/json',
-                }
-            })
-            .then(response => response.json().then(data => ({ status: response.status, body: data })))
-            .then(({ status, body }) => {
-                if (status === 200 || status === 201) {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Demande Envoyée !",
-                        text: "Votre formulaire a été soumis avec succès. Nous vous contacterons bientôt.",
-                        confirmButtonColor: "#EC281C",
-                    }).then(() => {
-                        form.reset();
-                    });
-                } else if (status === 422) {
-                    Object.keys(body.errors).forEach(field => {
-                        const input = document.querySelector(`[name="${field}"]`);
-                        if (input) {
-                            input.classList.add('error');
-                            const errorSpan = document.createElement('span');
-                            errorSpan.className = 'error-message';
-                            errorSpan.textContent = body.errors[field][0];
-                            input.closest('.form-group').appendChild(errorSpan);
-                        }
-                    });
-                    Swal.fire({
-                        icon: "warning",
-                        title: "Erreurs de validation",
-                        text: "Veuillez corriger les champs en rouge.",
-                        confirmButtonColor: "#EC281C",
-                    });
-                } else {
-                    throw new Error(body.message || 'Une erreur inattendue est survenue.');
-                }
-            })
-            .catch(error => {
+            if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Afficher le loading avec SweetAlert
                 Swal.fire({
-                    icon: "error",
-                    title: "Oups...",
-                    text: "Une erreur de communication est survenue. Veuillez réessayer plus tard.",
-                    confirmButtonColor: "#EC281C",
+                    title: 'Envoi en cours...',
+                    text: 'Veuillez patienter pendant l\'envoi de votre demande',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
                 });
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('loading');
+
+                document.querySelectorAll('.error-message').forEach(el => el.remove());
+                document.querySelectorAll('.form-input, .form-select').forEach(el => el.classList.remove('error'));
+
+                const formData = new FormData(form);
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                        'Accept': 'application/json',
+                    }
+                })
+                .then(response => response.json().then(data => ({ status: response.status, body: data })))
+                .then(({ status, body }) => {
+                    // Fermer le loading
+                    Swal.close();
+                    
+                    if (status === 200 || status === 201) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Demande Envoyée !",
+                            text: "Votre formulaire a été soumis avec succès. Nous vous contacterons bientôt.",
+                            confirmButtonColor: "#EC281C",
+                        }).then(() => {
+                            form.reset();
+                        });
+                    } else if (status === 422) {
+                        Object.keys(body.errors).forEach(field => {
+                            const input = document.querySelector(`[name="${field}"]`);
+                            if (input) {
+                                input.classList.add('error');
+                                const errorSpan = document.createElement('span');
+                                errorSpan.className = 'error-message';
+                                errorSpan.textContent = body.errors[field][0];
+                                input.closest('.form-group').appendChild(errorSpan);
+                            }
+                        });
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Erreurs de validation",
+                            text: "Veuillez corriger les champs en rouge.",
+                            confirmButtonColor: "#EC281C",
+                        });
+                    } else {
+                        throw new Error(body.message || 'Une erreur inattendue est survenue.');
+                    }
+                })
+                .catch(error => {
+                    // Fermer le loading en cas d'erreur
+                    Swal.close();
+                    
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oups...",
+                        text: "Une erreur de communication est survenue. Veuillez réessayer plus tard.",
+                        confirmButtonColor: "#EC281C",
+                    });
+                });
             });
-        });
-    }
+        }
 });
 </script>
 <?php $__env->stopSection(); ?>

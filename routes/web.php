@@ -6,6 +6,7 @@ use App\Http\Controllers\AgencyLocationController;
 use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqCommentController;
 use App\Http\Controllers\JobController;
@@ -54,7 +55,7 @@ Route::get('/products-old', function() {
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/contact', [ViewsController::class, 'contact'])->name('contact');
 Route::get('/complaint', [ViewsController::class, 'complaint'])->name('complaint');
-Route::post('/complaint/store', [App\Http\Controllers\ComplaintController::class, 'store'])->name('complaint.store');
+Route::post('/complaint/store', [ComplaintController::class, 'store'])->name('complaint.store');
 
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
@@ -190,3 +191,12 @@ Route::middleware('auth:sanctum')->prefix('admin/digitalfinance')->group(functio
         Route::get('/{id}/pdf', 'generatePdf')->name('admin.digitalfinance.contracts.pdf');
     });
 });
+
+    // Routes admin pour la gestion des plaintes
+    Route::middleware('auth:sanctum')->prefix('admin/complaint')->controller(App\Http\Controllers\ComplaintController::class)->group(function () {
+        Route::get('/', 'adminIndex')->name('admin.complaint.index');
+        Route::get('/{id}', 'adminShow')->name('admin.complaint.show');
+        Route::put('/{id}/status', 'updateStatus')->name('admin.complaint.updateStatus');
+        Route::put('/{id}/notes', 'updateNotes')->name('admin.complaint.updateNotes');
+        Route::delete('/{id}', 'destroy')->name('admin.complaint.destroy');
+    });

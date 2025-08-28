@@ -1,13 +1,7 @@
 
-/************ TABLE OF CONTENTS ***************
 
-	01. Template Default CSS
-	02. background CSS
-	03. buttons css
-
-**********************************************/
 /**----------------------------------------
-START: Template Default CSS
+START:  CSS
 ----------------------------------------*/
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap");
 :root {
@@ -3217,20 +3211,20 @@ START: Header CSS
     border-color: transparent;
 }
 .header .primary-header-inner .header-menu-wrap ul li li:hover a {
-    color: var(--bz-color-common-white);
+    color: var(--bz-color-common-white) !important;
 }
 .header .primary-header-inner .header-menu-wrap ul li li ul {
     top: 0;
     left: 100%;
 }
 .header .primary-header-inner .header-menu-wrap ul li li ul li a {
-    color: var(--bz-color-common-white);
+    color: var(--bz-color-common-white) !important;
 }
 .header .primary-header-inner .header-menu-wrap ul li li:hover a {
     color: var(--bz-color-common-white);
 }
 .header .primary-header-inner .header-menu-wrap ul li li:hover li a {
-    color: var(--bz-color-heading-primary);
+    color: var(--bz-color-heading-primary) !important;
 }
 .header .primary-header-inner .header-menu-wrap ul li li:hover li a:hover {
     color: var(--bz-color-common-white);
@@ -3255,7 +3249,7 @@ START: Header CSS
     color: var(--bz-color-heading-primary);
 }
 .header .primary-header-inner .header-menu-wrap ul li.active ul li:hover a {
-    color: var(--bz-color-common-white);
+    color: var(--bz-color-common-white) !important;
 }
 
 /* Style pour les éléments de sous-menu actifs */
@@ -11498,6 +11492,7 @@ blockquote .content .author span {
 }
 .comment-item.item-2 {
     padding-left: 135px;
+    width: 100%;
 }
 @media only screen and (max-width: 767px) {
     .comment-item.item-2 {
