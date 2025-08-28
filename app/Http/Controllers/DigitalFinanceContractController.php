@@ -16,8 +16,30 @@ class DigitalFinanceContractController extends Controller
      */
     public function index()
     {
-        $contracts = DigitalFinanceContract::latest()->paginate(10);
-        return view('admin.digitalfinance.contracts.index', compact('contracts'));
+        try {
+            $contracts = DigitalFinanceContract::latest()->paginate(10);
+            
+            // Calculer les statistiques
+            $totalContracts = DigitalFinanceContract::count();
+            $pendingContracts = DigitalFinanceContract::where('status', 'pending')->count();
+            $activeContracts = DigitalFinanceContract::where('status', 'active')->count();
+            $terminatedContracts = DigitalFinanceContract::where('status', 'terminated')->count();
+            
+            return view('admin.digitalfinance.contracts.index', compact(
+                'contracts', 
+                'totalContracts', 
+                'pendingContracts', 
+                'activeContracts', 
+                'terminatedContracts'
+            ));
+        } catch (\Exception $e) {
+            // Log l'erreur
+            Log::error('Erreur dans DigitalFinanceContractController@index: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            
+            // Retourner une vue d'erreur ou rediriger
+            return back()->with('error', 'Une erreur est survenue lors du chargement des contrats: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -199,5 +221,56 @@ class DigitalFinanceContractController extends Controller
         $contract->update(['status' => 'terminated']);
 
         return redirect()->back()->with('success', 'Contrat terminé avec succès !');
+    }
+
+    /**
+     * Mettre à jour le statut depuis la page de détail
+     */
+    public function updateStatus(Request $request, string $id)
+    {
+        $contract = DigitalFinanceContract::findOrFail($id);
+        
+        $request->validate([
+            'status' => 'required|in:pending,active,terminated',
+            'notes' => 'nullable|string',
+        ]);
+
+        $contract->update([
+            'status' => $request->status,
+            'notes' => $request->notes,
+        ]);
+
+        return redirect()->route('admin.digitalfinance.contracts.show', $contract->id)
+            ->with('success', 'Statut mis à jour avec succès !');
+    }
+
+    /**
+     * Générer le PDF du contrat
+     */
+    public function generatePdf(string $id)
+    {
+        try {
+            if (!is_numeric($id)) {
+                return redirect()->back()->with('error', 'ID de contrat invalide.');
+            }
+            $contract = DigitalFinanceContract::findOrFail($id);
+            $data = ['contract' => $contract];
+
+            // Rendre la vue Blade manuellement
+            $html = view('admin.digitalfinance.contracts.pdf', $data)->render();
+
+            $pdf = \PDF::loadHTML($html)
+                ->setOptions([
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                    'defaultFont' => 'Arial',
+                ]);
+            return $pdf->download('contrat_adhesion_' . $contract->id . '.pdf');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Contrat non trouvé.');
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la génération du PDF : ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Erreur lors de la génération du PDF.');
+        }
     }
 }

@@ -56,7 +56,13 @@ class User extends Authenticatable
      */
     public function getRole(): UserRole
     {
-        return $this->role ?? UserRole::SUPER_ADMIN;
+        // Vérifier que le rôle existe et est valide
+        if (!$this->role || !($this->role instanceof UserRole)) {
+            // Retourner un rôle par défaut sécurisé
+            return UserRole::SUPER_ADMIN;
+        }
+        
+        return $this->role;
     }
 
     /**
@@ -64,7 +70,13 @@ class User extends Authenticatable
      */
     public function hasFullAccess(): bool
     {
-        return $this->getRole()->hasFullAccess();
+        try {
+            $role = $this->getRole();
+            return $role->hasFullAccess();
+        } catch (\Error $e) {
+            // En cas d'erreur, retourner false par sécurité
+            return false;
+        }
     }
 
     /**
@@ -72,7 +84,13 @@ class User extends Authenticatable
      */
     public function canCreateAccounts(): bool
     {
-        return $this->getRole()->canCreateAccounts();
+        try {
+            $role = $this->getRole();
+            return $role->canCreateAccounts();
+        } catch (\Error $e) {
+            // En cas d'erreur, retourner false par sécurité
+            return false;
+        }
     }
 
     /**
@@ -80,7 +98,13 @@ class User extends Authenticatable
      */
     public function canManageAccounts(): bool
     {
-        return $this->getRole()->canManageAccounts();
+        try {
+            $role = $this->getRole();
+            return $role->canManageAccounts();
+        } catch (\Error $e) {
+            // En cas d'erreur, retourner false par sécurité
+            return false;
+        }
     }
 
     /**
@@ -88,7 +112,13 @@ class User extends Authenticatable
      */
     public function getDashboardRoute(): string
     {
-        return $this->getRole()->getDashboardRoute();
+        try {
+            $role = $this->getRole();
+            return $role->getDashboardRoute();
+        } catch (\Error $e) {
+            // En cas d'erreur, retourner une route par défaut sécurisée
+            return 'admin.dashboard';
+        }
     }
 
     /**
@@ -96,7 +126,13 @@ class User extends Authenticatable
      */
     public function hasRole(UserRole $role): bool
     {
-        return $this->getRole() === $role;
+        try {
+            $userRole = $this->getRole();
+            return $userRole === $role;
+        } catch (\Error $e) {
+            // En cas d'erreur, retourner false par sécurité
+            return false;
+        }
     }
 
     /**
@@ -104,6 +140,12 @@ class User extends Authenticatable
      */
     public function hasAnyRole(array $roles): bool
     {
-        return in_array($this->getRole(), $roles);
+        try {
+            $userRole = $this->getRole();
+            return in_array($userRole, $roles);
+        } catch (\Error $e) {
+            // En cas d'erreur, retourner false par sécurité
+            return false;
+        }
     }
 }

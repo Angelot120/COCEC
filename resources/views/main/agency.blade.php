@@ -415,22 +415,44 @@
             popupAnchor: [0, -36]
         });
 
-        function getDynamicAgencyStatus() {
+        function getDynamicAgencyStatus(status) {
             const now = new Date();
             const day = now.getDay();
             const hour = now.getHours();
-            if (day === 0 || day === 6) {
+            const minute = now.getMinutes();
+            const currentTime = hour + minute / 60; // Convertir en heures décimales
+            
+            // Dimanche : toujours fermé
+            if (day === 0) {
                 return {
                     text: 'Fermé',
                     className: 'Close'
                 };
             }
-            if (hour >= 9 && hour < 17) {
+            
+            // Samedi : vérifier le statut de l'agence
+            if (day === 6) {
+                if (status === 'Open' && currentTime >= 8.0 && currentTime < 12.0) {
+                    return {
+                        text: 'Ouvert',
+                        className: 'Open'
+                    };
+                } else {
+                    return {
+                        text: 'Fermé',
+                        className: 'Close'
+                    };
+                }
+            }
+            
+            // Lundi à Vendredi : 7h30-15h00
+            if (currentTime >= 7.5 && currentTime < 15.0) {
                 return {
                     text: 'Ouvert',
                     className: 'Open'
                 };
             }
+            
             return {
                 text: 'Fermé',
                 className: 'Close'
@@ -450,10 +472,9 @@
                 agencyListContainer.innerHTML = `<div class="no-results-message"><i class="fas fa-store-slash"></i><p>Aucune agence ne correspond à votre recherche.</p></div>`;
                 return;
             }
-            const dynamicStatus = getDynamicAgencyStatus();
             filteredAgencies.forEach(agency => {
-                const statusText = dynamicStatus.text;
-                const statusClass = dynamicStatus.className;
+                const statusText = getDynamicAgencyStatus(agency.status).text;
+                const statusClass = getDynamicAgencyStatus(agency.status).className;
                 // Optimisation des images : format WebP si supporté, sinon JPEG optimisé
                 const imageUrl = agency.image ? `/storage/${agency.image}` : `/storage/agency/placeholder.jpg`;
                 // Pour l'instant, utiliser la même image car WebP n'existe pas encore

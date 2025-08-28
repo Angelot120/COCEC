@@ -52,7 +52,7 @@
                         <div class="footer-widget">
                             <div class="widget-header header-2">
                                 <div class="footer-logo">
-                                    <a href="index.html"><img src="<?php echo e(URL::asset('assets/images/Logo.png')); ?>" alt="logo"" alt=" img"></a>
+                                    <a href="<?php echo e(route('index')); ?>"><img src="<?php echo e(URL::asset('assets/images/Logo.png')); ?>" alt="logo"" alt=" img"></a>
                                 </div>
                             </div>
                             <p>Quartier KANYIKOPE à 50m du Lycée FOLLY-BEBE en allant vers KAGOME</p>

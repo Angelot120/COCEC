@@ -53,7 +53,7 @@
                                     <li class="{{ request()->routeIs('main.finance') ? 'active' : '' }}">
                                         <a href="{{ route('main.finance')}}">Finance Digitale</a>
                                     </li>
-                                    <li class="menu-item-has-children {{ request()->routeIs('career') || request()->routeIs('about') || request()->routeIs('main.faq') ? 'active' : '' }}">
+                                    <li class="menu-item-has-children {{ request()->routeIs('career') || request()->routeIs('about') ||  request()->routeIs('blogs') || request()->routeIs('main.faq') || request()->routeIs('complaint') ? 'active' : '' }}">
                                         <a href="#">Autres <i class="fa-solid fa-chevron-down"></i></a>
                                         <ul>
                                             <li class="{{ request()->routeIs('career') ? 'active' : '' }}">
@@ -68,8 +68,8 @@
                                             <li class="{{ request()->routeIs('main.faq') ? 'active' : '' }}">
                                                 <a href="{{ route('main.faq') }}">Faq</a>
                                             </li>
-                                            <li>
-                                                <a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a>
+                                            <li class="{{ request()->routeIs('complaint') ? 'active' : '' }}">
+                                                <a href="{{ route('complaint') }}">Gestion des plaintes</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -162,6 +162,9 @@
                         </li>
                         <li class="{{ request()->routeIs('main.faq') ? 'active' : '' }}">
                             <a href="{{ route('main.faq') }}">Faq</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('complaint') }}">Gestion des plaintes</a>
                         </li>
                     </ul>
                 </div>

@@ -433,11 +433,15 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    @if ($submission->company_lat && $submission->company_lng)
+                                    @if (!$submission->company_address &&  $submission->company_lat && $submission->company_lng)
                                     <div class="mb-16">
                                         <label class="text-sm text-secondary-light mb-4">Coordonnées</label>
                                         <p class="fw-medium mb-0">{{ $submission->company_lat }}, {{ $submission->company_lng }}</p>
-                                        <div id="company-map" class="map-container mt-8"></div>
+                                        @if (empty($submission->company_address))
+                                                {{-- La chaîne vide ou null sera TRUE ici --}}
+                                                <div id="company-map" class="map-container mt-8"></div>
+                                            @endif
+                                        {{-- <div id="company-map" class="map-container mt-8"></div> --}}
                                     </div>
                                     @endif
                                     @if ($submission->company_plan_path)
@@ -731,7 +735,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // Initialisation de la carte de l'entreprise
-        @if ($submission->company_lat && $submission->company_lng)
+        @if ($submission->company_lat && $submission->company_lng && empty(trim($submission->company_address)))
         const companyMap = L.map('company-map').setView([{{ $submission->company_lat }}, {{ $submission->company_lng }}], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'

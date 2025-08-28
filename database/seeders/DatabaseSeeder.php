@@ -22,5 +22,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make("Jq]\hE[Wh?]~,Npq048U-7uNpw"),
             'is_admin' => true,
         ]);
+
+        // Ajouter le seeder des plaintes
+        $this->call([
+            ComplaintSeeder::class,
+        ]);
     }
 }

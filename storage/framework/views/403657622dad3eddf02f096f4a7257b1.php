@@ -1,2 +1,0 @@
-        <div id="scroll-percentage" style="--bz-color-theme-primary: #EC281C"><span id="scroll-percentage-value"></span></div>
-        <!--scrollup--><?php /**PATH C:\Users\RaydHil\Downloads\COCEC\resources\views/includes/main/scroll.blade.php ENDPATH**/ ?>

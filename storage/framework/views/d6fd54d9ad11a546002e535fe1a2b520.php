@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="<?php echo $__env->yieldContent('meta_description', 'COCEC - Coopérative d\'Épargne et de Crédit au Togo. Solutions financières, crédits, épargne et services bancaires depuis 2001. Votre partenaire financier de confiance pour vos projets.'); ?>">
     <meta name="keywords" content="<?php echo $__env->yieldContent('meta_keywords', 'COCEC, microfinance, Togo, épargne, crédit, prêt, finance, coopérative, Lomé, Kanyikope, services bancaires, transfert d\'argent, tontine, investissement'); ?>">
@@ -16,7 +16,7 @@
     <meta name="revisit-after" content="7 days">
     <meta name="distribution" content="global">
     <meta name="rating" content="general">
-    
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="<?php echo $__env->yieldContent('og_title', 'COCEC - Coopérative d\'Épargne et de Crédit au Togo'); ?>">
     <meta property="og:description" content="<?php echo $__env->yieldContent('og_description', 'Solutions financières, crédits, épargne et services bancaires depuis 2001. Votre partenaire financier de confiance.'); ?>">
@@ -25,16 +25,16 @@
     <meta property="og:image" content="<?php echo $__env->yieldContent('og_image', asset('assets/images/Logo.png')); ?>">
     <meta property="og:site_name" content="COCEC Togo">
     <meta property="og:locale" content="fr_FR">
-    
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?php echo $__env->yieldContent('twitter_title', 'COCEC - Coopérative d\'Épargne et de Crédit au Togo'); ?>">
     <meta name="twitter:description" content="<?php echo $__env->yieldContent('twitter_description', 'Solutions financières, crédits, épargne et services bancaires depuis 2001.'); ?>">
     <meta name="twitter:image" content="<?php echo $__env->yieldContent('twitter_image', asset('assets/images/Logo.png')); ?>">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="<?php echo e(url()->current()); ?>">
-    
+
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo e(asset('assets/images/Logo.png')); ?>">
 
@@ -51,16 +51,16 @@
     <link rel="stylesheet" href="<?php echo e(asset('assets/main/css/swiper.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('assets/main/css/slick.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('assets/main/css/main.css')); ?>">
-    
+
     <!-- CSS Simulateur de Prêt -->
     <link rel="stylesheet" href="<?php echo e(asset('assets/css/loan-simulator.css')); ?>">
-    
+
     <!-- CSS personnalisé pour le header -->
     <link rel="stylesheet" href="<?php echo e(asset('assets/css/custom-header.css')); ?>">
 
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    
+
     <!-- Dynamic Title -->
     <title><?php echo $__env->yieldContent('page_title', 'COCEC - Coopérative d\'Épargne et de Crédit au Togo | Solutions Financières'); ?></title>
 </head>
@@ -92,13 +92,13 @@
     <script src="<?php echo e(asset('assets/main/js/vendor/nice-select.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/main/js/contact.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/main/js/main.js')); ?>"></script>
-    
+
     <!-- Script personnalisé pour le header responsive -->
     <script src="<?php echo e(asset('assets/js/header-responsive.js')); ?>"></script>
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <!-- Bannière de Cookies -->
     <div id="cookie-banner" class="cookie-banner" style="display: none;">
         <div class="cookie-content">
@@ -119,20 +119,20 @@
             const cookieBanner = document.getElementById('cookie-banner');
             const acceptBtn = document.getElementById('accept-cookies');
             const rejectBtn = document.getElementById('reject-cookies');
-            
+
             const cookieChoice = localStorage.getItem('cookieChoice');
-            
+
             if (!cookieChoice) {
                 setTimeout(() => {
                     cookieBanner.style.display = 'block';
                 }, 2000);
             }
-            
+
             acceptBtn.addEventListener('click', function() {
                 localStorage.setItem('cookieChoice', 'accepted');
                 cookieBanner.style.display = 'none';
             });
-            
+
             rejectBtn.addEventListener('click', function() {
                 localStorage.setItem('cookieChoice', 'rejected');
                 cookieBanner.style.display = 'none';

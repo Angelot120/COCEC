@@ -19,6 +19,10 @@ class JobApplication extends Model
         'application_type',
         'cv_path',
         'motivation_letter_path',
+        'identity_document_path',
+        'passport_photo_path',
+        'identity_document_type',
+        'identity_document_number',
         'job_offer_id'
     ];
 

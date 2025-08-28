@@ -449,6 +449,27 @@
                             </label>
                             <div class="invalid-feedback"></div>
                         </div>
+
+                        <div class="col-md-6">
+                            <label class="file-upload-wrapper">
+                                <input type="file" name="identity_document" accept=".pdf,.jpg,.jpeg,.png" required>
+                                <div class="upload-icon"><i class="fas fa-id-card"></i></div>
+                                <div class="upload-text">Déposez votre document d'identité</div>
+                                <div class="upload-hint">PDF, JPG ou PNG</div>
+                            </label>
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="file-upload-wrapper">
+                                <input type="file" name="passport_photo" accept=".jpg,.jpeg,.png" required>
+                                <div class="upload-icon"><i class="fas fa-camera"></i></div>
+                                <div class="upload-text">Déposez votre photo passeport</div>
+                                <div class="upload-hint">JPG ou PNG uniquement</div>
+                            </label>
+                            <div class="invalid-feedback"></div>
+                        </div>
+
                     </div>
 
                     <div class="mt-4">

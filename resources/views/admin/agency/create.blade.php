@@ -199,11 +199,11 @@
                     @enderror
                 </div>
                 <div class="col-12">
-                    <label for="status" class="form-label">Statut</label>
+                    <label for="status" class="form-label">Agence Ouverte les samedi ?</label>
                     <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
                         <option value="" {{ old('status') == null ? 'selected' : '' }}>Non défini</option>
-                        <option value="Open" {{ old('status') == 'Open' ? 'selected' : '' }}>Ouverte</option>
-                        <option value="Close" {{ old('status') == 'Close' ? 'selected' : '' }}>Fermée</option>
+                        <option value="Open" {{ old('status') == 'Open' ? 'selected' : '' }}>Ouverte les samedi</option>
+                        <option value="Close" {{ old('status') == 'Close' ? 'selected' : '' }}>Fermée les samedi</option>
                     </select>
                     @error('status')
                         <div class="invalid-feedback">{{ $message }}</div>

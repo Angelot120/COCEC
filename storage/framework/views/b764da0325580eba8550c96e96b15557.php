@@ -6,7 +6,7 @@
 
         <!-- Votre contenu original est maintenant ici à l'intérieur -->
         <section id="popup-data">
-            <?php if($announcement): ?>
+            <?php if(isset($announcement) && $announcement): ?>
             <div id="popup-announcement" class="popup-content">
                 <h2><?php echo e($announcement->title); ?></h2>
                 <?php if($announcement->image): ?>

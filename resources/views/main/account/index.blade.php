@@ -243,29 +243,91 @@
     .btn-create-account:hover i {
         transform: translateX(5px);
     }
+    
+    /* Styles pour la section Consentement UEMOA */
+    .uemoa-consent-info {
+        margin-top: 80px;
+        background: var(--white);
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+    }
+    .consent-header {
+        /* LIGNE MODIFIÉE : Fond retiré */
+        background: transparent;
+        padding: 25px 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        /* LIGNE AJOUTÉE : Texte en couleur sombre */
+        color: var(--text-dark);
+        border-bottom: 1px solid var(--border-color);
+    }
+    .consent-header i {
+        font-size: 1.8rem;
+        color: var(--primary-color);
+    }
+    .consent-header h4 {
+        margin: 0;
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+    .consent-content {
+        padding: 30px;
+    }
+    .consent-content p {
+        font-size: 1.1rem;
+        color: var(--text-dark);
+        margin-bottom: 25px;
+        line-height: 1.7;
+    }
+    .consent-details {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 25px 0;
+    }
+    .consent-details li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+    .consent-details li i {
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        margin-right: 12px;
+        margin-top: 4px;
+    }
+    .consent-details li span {
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+    .consent-note {
+        background: var(--bg-light);
+        border-left: 4px solid var(--secondary-color);
+        padding: 20px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    .consent-note i {
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+    }
+    .consent-note span {
+        color: var(--text-light);
+        font-weight: 500;
+        line-height: 1.6;
+    }
 
     /* Responsive */
     @media (max-width: 768px) {
-        .title-pro {
-            font-size: 2rem;
-        }
-
-        .section-heading h2 {
-            font-size: 2rem;
-        }
-
-        .account-cards {
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-
-        .account-card {
-            padding: 30px 20px;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-        }
+        .title-pro { font-size: 2rem; }
+        .section-heading h2 { font-size: 2rem; }
+        .account-cards { grid-template-columns: 1fr; gap: 30px; }
+        .account-card { padding: 30px 20px; }
+        .card-title { font-size: 1.5rem; }
     }
 </style>
 @endsection
@@ -309,26 +371,11 @@
                             <i class="fas fa-file-alt"></i>
                             <span>Remplir le <a href="{{ asset('documents/adhesion-physique.pdf') }}" target="_blank">formulaire d'adhésion</a> ou utiliser le formulaire en ligne.</span>
                         </li>
-                        <li>
-                            <i class="fas fa-id-card"></i>
-                            <span>Copie de la pièce d'identité (CNI, passeport, permis, etc.).</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-camera"></i>
-                            <span>Deux photos d'identité.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-coins"></i>
-                            <span>Souscrire à une part sociale de 5 000 FCFA.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-hand-holding-usd"></i>
-                            <span>Payer les frais d'adhésion de 2 000 FCFA.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-scroll"></i>
-                            <span>Respecter les statuts et règlements intérieurs.</span>
-                        </li>
+                        <li><i class="fas fa-id-card"></i><span>Copie de la pièce d'identité (CNI, passeport, permis, etc.).</span></li>
+                        <li><i class="fas fa-camera"></i><span>Deux photos d'identité.</span></li>
+                        <li><i class="fas fa-coins"></i><span>Souscrire à une part sociale de 5 000 FCFA.</span></li>
+                        <li><i class="fas fa-hand-holding-usd"></i><span>Payer les frais d'adhésion de 2 000 FCFA.</span></li>
+                        <li><i class="fas fa-scroll"></i><span>Respecter les statuts et règlements intérieurs.</span></li>
                     </ul>
                     <a href="{{ route('account.create.physic') }}" class="btn-create-account">
                         <span>Remplir le formulaire</span>
@@ -340,30 +387,12 @@
                 <div class="account-card" data-aos="fade-up" data-aos-delay="400">
                     <h3 class="card-title">Personne Morale</h3>
                     <ul class="requirements-list">
-                        <li>
-                            <i class="fas fa-file-signature"></i>
-                            <span>Remplir le <a href="{{ asset('documents/adhesion-morale.pdf') }}" target="_blank">formulaire d'adhésion</a> ou utiliser le formulaire en ligne.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-building"></i>
-                            <span>Copie du récépissé, carte d'opérateur économique, ou statuts.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-user-tie"></i>
-                            <span>Copie des pièces d'identité des responsables.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-images"></i>
-                            <span>Deux photos d'identité de chaque responsable.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-hand-holding-usd"></i>
-                            <span>Verser les frais d'adhésion de 2 000 FCFA.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-layer-group"></i>
-                            <span>Souscrire à trois parts sociales (15 000 FCFA).</span>
-                        </li>
+                        <li><i class="fas fa-file-signature"></i><span>Remplir le <a href="{{ asset('documents/adhesion-morale.pdf') }}" target="_blank">formulaire d'adhésion</a> ou utiliser le formulaire en ligne.</span></li>
+                        <li><i class="fas fa-building"></i><span>Copie du récépissé, carte d'opérateur économique, ou statuts.</span></li>
+                        <li><i class="fas fa-user-tie"></i><span>Copie des pièces d'identité des responsables.</span></li>
+                        <li><i class="fas fa-images"></i><span>Deux photos d'identité de chaque responsable.</span></li>
+                        <li><i class="fas fa-hand-holding-usd"></i><span>Verser les frais d'adhésion de 2 000 FCFA.</span></li>
+                        <li><i class="fas fa-layer-group"></i><span>Souscrire à trois parts sociales (15 000 FCFA).</span></li>
                     </ul>
                     <a href="{{ route('account.create.morale') }}" class="btn-create-account">
                         <span>Remplir le formulaire</span>
@@ -403,24 +432,19 @@
 @section('js')
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Animation des cartes au scroll
-        const cards = document.querySelectorAll('.account-card');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+        if ('IntersectionObserver' in window) {
+            const elementsToAnimate = document.querySelectorAll('[data-aos]');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('aos-animate');
+                    }
+                });
+            }, { threshold: 0.1 });
+            elementsToAnimate.forEach(element => {
+                observer.observe(element);
             });
-        }, { threshold: 0.1 });
-
-        cards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
-        });
+        }
     });
 </script>
 @endsection

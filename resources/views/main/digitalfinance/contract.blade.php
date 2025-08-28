@@ -11,13 +11,14 @@
         background: white;
         border-radius: 20px;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #EC281C;
         overflow: hidden;
         max-width: 1000px;
         margin: 0 auto;
     }
 
     .contract-header {
-        background: linear-gradient(135deg, #EC281C 0%, #c53030 100%);
+
         color: white;
         padding: 30px;
         text-align: center;
@@ -46,7 +47,7 @@
         padding: 25px;
         background: #f8fafc;
         border-radius: 15px;
-        border-left: 4px solid #EC281C;
+
     }
 
     .section-title {
@@ -100,12 +101,12 @@
 
     .form-input:focus {
         outline: none;
-        border-color: #EC281C;
+
         box-shadow: 0 0 0 3px rgba(236, 40, 28, 0.15);
     }
 
     .form-input.error {
-        border-color: #EC281C;
+
         box-shadow: 0 0 0 3px rgba(236, 40, 28, 0.15);
     }
 
@@ -118,7 +119,7 @@
     .checkbox-group input[type="checkbox"] {
         margin-right: 10px;
         transform: scale(1.2);
-        accent-color: #EC281C;
+
     }
 
     .checkbox-group label {
@@ -152,11 +153,11 @@
     }
 
     .submit-btn {
-        background: linear-gradient(135deg, #EC281C 0%, #c53030 100%);
+        background: #EC281C;
         color: white;
         border: none;
         padding: 15px 40px;
-        border-radius: 8px;
+        border-radius: 12px;
         font-size: 1.1rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -165,8 +166,6 @@
         transition: all 0.3s ease;
         width: 100%;
         margin-top: 20px;
-        position: relative;
-        overflow: hidden;
         min-height: 60px;
         display: flex;
         align-items: center;
@@ -182,31 +181,6 @@
         opacity: 0.7;
         cursor: not-allowed;
         transform: none;
-    }
-
-    .submit-btn .btn-text {
-        display: inline-block;
-        transition: all 0.3s ease;
-    }
-
-    .submit-btn .btn-loading {
-        display: none;
-        align-items: center;
-        gap: 10px;
-        transition: all 0.3s ease;
-    }
-
-    .submit-btn.loading .btn-text {
-        display: none !important;
-    }
-
-    .submit-btn.loading .btn-loading {
-        display: flex !important;
-    }
-
-    .submit-btn.loading {
-        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-        cursor: wait;
     }
 
     .alert {
@@ -248,7 +222,7 @@
     }
 
     .error-message {
-        color: #EC281C;
+
         font-size: 0.85rem;
         margin-top: 5px;
         display: block;
@@ -258,11 +232,7 @@
         .form-row {
             grid-template-columns: 1fr;
         }
-        
-        .services-grid {
-            grid-template-columns: 1fr;
-        }
-        
+
         .contract-body {
             padding: 20px;
         }
@@ -271,6 +241,7 @@
 @endsection
 
 @section('content')
+
 <body>
     @include('includes.main.loading')
     @include('includes.main.header')
@@ -300,16 +271,14 @@
             <div class="contract-body">
                 <!-- FORMULAIRE DE SOUSCRIPTION -->
                 <div class="contract-section">
-                    <h3 class="section-title">📝 INFORMATIONS DU SOUSCRIPTEUR</h3>
-                    
-                    <form id="digital-finance-contract-form" action="{{ route('digitalfinance.contracts.store') }}" method="POST">
+
+                    <form action="{{ route('digitalfinance.contracts.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="full_name" class="form-label">Nom & Prénoms *</label>
-                                <input type="text" id="full_name" name="full_name" class="form-input @error('full_name') error @enderror" 
-                                       value="{{ old('full_name') }}" placeholder="Nom et prénom complet" required>
+                                <label for="full_name" class="form-label">Nom et Prénoms *</label>
+                                <input type="text" id="full_name" name="full_name" class="form-input @error('full_name') error @enderror" value="{{ old('full_name') }}" required>
                                 @error('full_name')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -317,14 +286,13 @@
                             
                             <div class="form-group">
                                 <label for="phone" class="form-label">Téléphone *</label>
-                                <input type="text" id="phone" name="phone" class="form-input @error('phone') error @enderror" 
-                                       value="{{ old('phone') }}" placeholder="Numéro de téléphone" required>
+                                <input type="tel" id="phone" name="phone" class="form-input @error('phone') error @enderror" value="{{ old('phone') }}" required>
                                 @error('phone')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="cni_type" class="form-label">Type de document</label>
@@ -341,37 +309,35 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="cni_number" class="form-label">N° CNI ou AUTRE *</label>
-                                <input type="text" id="cni_number" name="cni_number" class="form-input @error('cni_number') error @enderror" 
-                                       value="{{ old('cni_number') }}" placeholder="Numéro du document" required>
+                                <label for="cni_number" class="form-label">Numéro de document *</label>
+                                <input type="text" id="cni_number" name="cni_number" class="form-input @error('cni_number') error @enderror" value="{{ old('cni_number') }}" required>
                                 @error('cni_number')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="address" class="form-label">Adresse *</label>
-                            <textarea id="address" name="address" class="form-input @error('address') error @enderror" rows="3" 
-                                      placeholder="Adresse complète" required>{{ old('address') }}</textarea>
-                            @error('address')
-                                <span class="error-message">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="account_number" class="form-label">N° Compte *</label>
-                            <input type="text" id="account_number" name="account_number" class="form-input @error('account_number') error @enderror" 
-                                   value="{{ old('account_number') }}" placeholder="Numéro de compte COCEC" required>
-                            @error('account_number')
-                                <span class="error-message">{{ $message }}</span>
-                            @enderror
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="address" class="form-label">Adresse *</label>
+                                <input type="text" id="address" name="address" class="form-input @error('address') error @enderror" value="{{ old('address') }}" required>
+                                @error('address')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="account_number" class="form-label">Numéro de compte *</label>
+                                <input type="text" id="account_number" name="account_number" class="form-input @error('account_number') error @enderror" value="{{ old('account_number') }}" required>
+                                @error('account_number')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
                         <!-- SERVICES DIGITAUX -->
                         <div class="contract-section">
-                            <h3 class="section-title">🚀 SOUSCRIPTION AUX SERVICES DIGITAUX</h3>
-                            
+
                             <div class="info-box">
                                 <h3>📱 Services Disponibles</h3>
                                 <p><strong>Mobile Money :</strong> Consultation de solde, mini relevé, dépôts/retraits, transferts</p>
@@ -379,49 +345,45 @@
                                 <p><strong>Web Banking :</strong> Accès via navigateur web pour toutes les opérations</p>
                                 <p><strong>SMS Banking :</strong> Alertes et notifications par SMS</p>
                             </div>
-                            
+
                             <div class="services-grid">
                                 <div class="service-category">
                                     <h4>💰 MOBILE MONEY</h4>
                                     <div class="checkbox-group">
-                                        <input type="checkbox" id="mobile_money" name="mobile_money" 
-                                               {{ old('mobile_money') ? 'checked' : '' }}>
+                                        <input type="checkbox" id="mobile_money" name="mobile_money" value="1" {{ old('mobile_money') ? 'checked' : '' }}>
                                         <label for="mobile_money">Souscrire au service Mobile Money</label>
                                     </div>
                                     <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
                                         <strong>Coût :</strong> 1000 F/an
                                     </p>
                                 </div>
-                                
+
                                 <div class="service-category">
                                     <h4>📱 MOBILE BANKING</h4>
                                     <div class="checkbox-group">
-                                        <input type="checkbox" id="mobile_banking" name="mobile_banking" 
-                                               {{ old('mobile_banking') ? 'checked' : '' }}>
+                                        <input type="checkbox" id="mobile_banking" name="mobile_banking" value="1" {{ old('mobile_banking') ? 'checked' : '' }}>
                                         <label for="mobile_banking">Souscrire au service Mobile Banking</label>
                                     </div>
                                     <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
                                         <strong>Coût :</strong> 1000 F/an
                                     </p>
                                 </div>
-                                
+
                                 <div class="service-category">
-                                    <h4>🌐 WEB BANKING</h4>
+                                    <h4>💻 WEB BANKING</h4>
                                     <div class="checkbox-group">
-                                        <input type="checkbox" id="web_banking" name="web_banking" 
-                                               {{ old('web_banking') ? 'checked' : '' }}>
+                                        <input type="checkbox" id="web_banking" name="web_banking" value="1" {{ old('web_banking') ? 'checked' : '' }}>
                                         <label for="web_banking">Souscrire au service Web Banking</label>
                                     </div>
                                     <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
                                         <strong>Coût :</strong> 600 F/an
                                     </p>
                                 </div>
-                                
+
                                 <div class="service-category">
                                     <h4>📨 SMS BANKING</h4>
                                     <div class="checkbox-group">
-                                        <input type="checkbox" id="sms_banking" name="sms_banking" 
-                                               {{ old('sms_banking') ? 'checked' : '' }}>
+                                        <input type="checkbox" id="sms_banking" name="sms_banking" value="1" {{ old('sms_banking') ? 'checked' : '' }}>
                                         <label for="sms_banking">Souscrire au service SMS Banking</label>
                                     </div>
                                     <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
@@ -433,11 +395,10 @@
 
                         <!-- NOTES -->
                         <div class="contract-section">
-                            <h3 class="section-title">📝 NOTES ADDITIONNELLES</h3>
+                            <h3 class="section-title">Notes additionnelles</h3>
                             <div class="form-group full-width">
-                                <label for="notes" class="form-label">Commentaires ou observations</label>
-                                <textarea id="notes" name="notes" class="form-input @error('notes') error @enderror" rows="4" 
-                                          placeholder="Ajoutez ici vos commentaires ou observations...">{{ old('notes') }}</textarea>
+                                <label for="notes" class="form-label">Commentaires ou demandes spéciales</label>
+                                <textarea id="notes" name="notes" class="form-input" rows="4" placeholder="Vos commentaires...">{{ old('notes') }}</textarea>
                                 @error('notes')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -445,10 +406,7 @@
                         </div>
 
                         <button type="submit" class="submit-btn" id="submit-btn">
-                            <span class="btn-text">Soumettre le Contrat</span>
-                            <span class="btn-loading">
-                                <i class="fas fa-spinner fa-spin"></i> Envoi en cours...
-                            </span>
+                            Soumettre le contrat
                         </button>
                     </form>
                 </div>
@@ -457,111 +415,95 @@
     </div>
     @include('includes.main.scroll')
     @include('includes.main.footer')
-</body>
 @endsection
 
 @section('js')
 <script>
-    $(document).ready(function() {
-        // Gestion du formulaire avec AJAX comme la newsletter
-        $("#digital-finance-contract-form").on("submit", function (e) {
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-
-            const $form = $(this);
-            const $submitBtn = $form.find('#submit-btn');
-            const $btnText = $submitBtn.find('.btn-text');
-            const $btnLoading = $submitBtn.find('.btn-loading');
-
-            console.log('Formulaire soumis, activation du loading...');
-            console.log('Bouton:', $submitBtn);
-            console.log('Texte:', $btnText);
-            console.log('Loading:', $btnLoading);
-
-            // Afficher le loading
-            $submitBtn.addClass('loading').prop('disabled', true);
             
-            console.log('Classes du bouton après activation:', $submitBtn.attr('class'));
-            console.log('Bouton désactivé:', $submitBtn.prop('disabled'));
+            // Afficher le loading avec SweetAlert
+            Swal.fire({
+                title: 'Envoi en cours...',
+                text: 'Veuillez patienter pendant l\'envoi de votre contrat',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
 
-            // Nettoyer les erreurs précédentes
-            $('.form-input').removeClass('error');
-            $('.error-message').remove();
+            document.querySelectorAll('.error-message').forEach(el => el.remove());
+            document.querySelectorAll('.form-input').forEach(el => el.classList.remove('error'));
 
-            $.ajax({
-                url: $form.attr("action"),
-                method: "POST",
-                data: new FormData(this),
-                processData: false,
-                contentType: false,
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
                 headers: {
-                    "X-CSRF-TOKEN": $form.find('input[name="_token"]').val(),
-                },
-                success: function (data) {
-                    console.log('Succès, désactivation du loading...');
-                    // Masquer le loading
-                    $submitBtn.removeClass('loading').prop('disabled', false);
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => response.json().then(data => ({ status: response.status, body: data })))
+                            .then(({ status, body }) => {
+                    // Fermer le loading
+                    Swal.close();
                     
-                    // Afficher le message de succès
+                    if (status === 200 || status === 201) {
                     Swal.fire({
                         icon: "success",
                         title: "Contrat soumis avec succès ! 🎉",
                         text: "Votre contrat d'adhésion a été enregistré. Nous vous contacterons bientôt.",
                         confirmButtonColor: "#EC281C",
-                        confirmButtonText: "Parfait !"
                     }).then(() => {
-                        // Réinitialiser le formulaire au lieu de rediriger
-                        $form[0].reset();
+                        form.reset();
                         // Nettoyer les erreurs
-                        $('.form-input').removeClass('error');
-                        $('.error-message').remove();
+                        document.querySelectorAll('.form-input').forEach(el => el.classList.remove('error'));
+                        document.querySelectorAll('.error-message').forEach(el => el.remove());
                     });
-                },
-                error: function (jqXHR) {
-                    console.log('Erreur, désactivation du loading...');
-                    // Masquer le loading
-                    $submitBtn.removeClass('loading').prop('disabled', false);
-                    
-                    if (jqXHR.status === 422 && jqXHR.responseJSON && jqXHR.responseJSON.errors) {
-                        // Afficher les erreurs de validation
-                        const errors = jqXHR.responseJSON.errors;
-                        
-                        Object.keys(errors).forEach(field => {
-                            const $input = $(`[name="${field}"]`);
-                            if ($input.length) {
-                                $input.addClass('error');
-                                
-                                // Ajouter le message d'erreur
-                                const errorMessage = errors[field][0];
-                                $input.after(`<span class="error-message">${errorMessage}</span>`);
-                            }
-                        });
-
-                        // Afficher un popup d'erreur
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Veuillez corriger les erreurs",
-                            text: "Certains champs contiennent des erreurs. Veuillez les corriger et réessayer.",
-                            confirmButtonColor: "#EC281C",
-                            confirmButtonText: "Je corrige"
-                        });
-                    } else {
-                        // Erreur générale
-                        let errorMessage = "Une erreur est survenue. Veuillez réessayer.";
-                        if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
-                            errorMessage = jqXHR.responseJSON.message;
+                } else if (status === 422) {
+                    Object.keys(body.errors).forEach(field => {
+                        const input = document.querySelector(`[name="${field}"]`);
+                        if (input) {
+                            input.classList.add('error');
+                            const errorSpan = document.createElement('span');
+                            errorSpan.className = 'error-message';
+                            errorSpan.textContent = body.errors[field][0];
+                            input.closest('.form-group').appendChild(errorSpan);
                         }
-                        
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oups...",
-                            text: errorMessage,
-                            confirmButtonColor: "#EC281C",
-                            confirmButtonText: "D'accord"
-                        });
-                    }
-                },
+                    });
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Veuillez corriger les erreurs",
+                        text: "Certains champs contiennent des erreurs. Veuillez les corriger et réessayer.",
+                        confirmButtonColor: "#EC281C",
+                    });
+                } else {
+                    throw new Error(body.message || 'Une erreur inattendue est survenue.');
+                }
+            })
+                            .catch(error => {
+                    // Fermer le loading en cas d'erreur
+                    Swal.close();
+                    
+                    Swal.fire({
+                    icon: "error",
+                    title: "Oups...",
+                    text: "Une erreur de communication est survenue. Veuillez réessayer plus tard.",
+                    confirmButtonColor: "#EC281C",
+                });
+                            });
             });
-        });
-    });
+        }
+});
 </script>
 @endsection
+
