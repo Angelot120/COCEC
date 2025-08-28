@@ -16,21 +16,30 @@ class DigitalFinanceContractController extends Controller
      */
     public function index()
     {
-        $contracts = DigitalFinanceContract::latest()->paginate(10);
-        
-        // Calculer les statistiques
-        $totalContracts = DigitalFinanceContract::count();
-        $pendingContracts = DigitalFinanceContract::where('status', 'pending')->count();
-        $activeContracts = DigitalFinanceContract::where('status', 'active')->count();
-        $terminatedContracts = DigitalFinanceContract::where('status', 'terminated')->count();
-        
-        return view('admin.digitalfinance.contracts.index', compact(
-            'contracts', 
-            'totalContracts', 
-            'pendingContracts', 
-            'activeContracts', 
-            'terminatedContracts'
-        ));
+        try {
+            $contracts = DigitalFinanceContract::latest()->paginate(10);
+            
+            // Calculer les statistiques
+            $totalContracts = DigitalFinanceContract::count();
+            $pendingContracts = DigitalFinanceContract::where('status', 'pending')->count();
+            $activeContracts = DigitalFinanceContract::where('status', 'active')->count();
+            $terminatedContracts = DigitalFinanceContract::where('status', 'terminated')->count();
+            
+            return view('admin.digitalfinance.contracts.index', compact(
+                'contracts', 
+                'totalContracts', 
+                'pendingContracts', 
+                'activeContracts', 
+                'terminatedContracts'
+            ));
+        } catch (\Exception $e) {
+            // Log l'erreur
+            Log::error('Erreur dans DigitalFinanceContractController@index: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            
+            // Retourner une vue d'erreur ou rediriger
+            return back()->with('error', 'Une erreur est survenue lors du chargement des contrats: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -260,7 +269,7 @@ class DigitalFinanceContractController extends Controller
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->with('error', 'Contrat non trouvé.');
         } catch (\Exception $e) {
-            \Log::error('Erreur lors de la génération du PDF : ' . $e->getMessage());
+            Log::error('Erreur lors de la génération du PDF : ' . $e->getMessage());
             return redirect()->back()->with('error', 'Erreur lors de la génération du PDF.');
         }
     }

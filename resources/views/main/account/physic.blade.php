@@ -48,83 +48,16 @@
         margin-bottom: 8px;
     }
 
-    /* SOLUTION RADICALE POUR CENTRER LES ICÔNES */
-    .input-group-custom {
-        position: relative;
-    }
-    
-    .input-group-custom .icon {
-        position: absolute !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        left: 18px !important;
-        color: #adb5bd;
-        font-size: 1.1rem;
-        transition: color 0.3s ease;
-        pointer-events: none;
-        z-index: 10 !important;
-        width: 20px !important;
-        height: 20px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-    
-    /* Override complet de tous les styles globaux */
-    .form-container .input-group-custom .icon,
-    .form-container .input-group-custom.icon-field .icon,
-    .form-container .col-md-6 .input-group-custom .icon,
-    .form-container .col-12 .input-group-custom .icon {
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        position: absolute !important;
-        left: 18px !important;
-    }
-    
-    /* Style spécifique pour les inputs avec icônes */
-    .input-group-custom .form-control {
-        padding-left: 50px !important;
-        border-radius: 8px;
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
-    
-    /* SOLUTION ULTIME - Styles avec spécificité maximale */
-    body .form-container .input-group-custom .icon,
-    html body .form-container .input-group-custom .icon {
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        position: absolute !important;
-        left: 18px !important;
-        width: 20px !important;
-        height: 20px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Override pour tous les cas possibles */
-    .form-container .col-md-6 .input-group-custom .icon,
-    .form-container .col-12 .input-group-custom .icon,
-    .form-container .row .input-group-custom .icon {
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        position: absolute !important;
-        left: 18px !important;
-    }
 
+
+    /* Style pour les inputs */
     .input-group-custom .form-control {
-        padding-left: 50px;
         border-radius: 8px;
         padding-top: 12px;
         padding-bottom: 12px;
     }
 
-    .input-group-custom:focus-within .icon {
-        color: #EC281C;
-    }
+
 
     .form-stepper {
         display: flex;
@@ -224,6 +157,15 @@
         display: flex;
         justify-content: space-between;
         margin-top: 40px;
+        align-items: center;
+    }
+
+    .form-navigation-buttons .btn-next {
+        margin-left: auto;
+    }
+
+    .form-navigation-buttons .btn-submit-form {
+        margin-left: auto;
     }
 
     .btn-nav {
@@ -346,7 +288,7 @@
             padding: 10px 20px;
             font-size: 0.9rem;
         }
-        
+
         .dynamic-adder-btn {
             padding: 8px 16px;
             font-size: 0.8rem;
@@ -514,6 +456,11 @@
         box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
     }
 
+    /* Masquer les éléments de sélection SweetAlert2 inutiles */
+    .nice-select.swal2-select {
+        display: none !important;
+    }
+
     .invalid-feedback {
         display: none;
         width: 100%;
@@ -667,7 +614,7 @@
                     </div>
                     <div class="step" data-step="5">
                         <div class="step-icon">5</div>
-                        <div class="step-label">Versements</div>
+                        <div class="step-label">Versements & Consentement UMOA</div>
                     </div>
                 </div>
 
@@ -677,32 +624,27 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom</label>
-                            <i class="icon fas fa-user" style="position: absolute !important; top: 50% !important; transform: translateY(-50%) !important; left: 18px !important; color: #adb5bd; font-size: 1.1rem; z-index: 10;"></i>
                             <input type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required>
                             <div class="invalid-feedback">@error('last_name') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Prénoms</label>
-                            <i class="icon fas fa-user-friends" style="position: absolute !important; top: 50% !important; transform: translateY(-50%) !important; left: 18px !important; color: #adb5bd; font-size: 1.1rem; z-index: 10;"></i>
                             <input type="text" class="form-control @error('first_names') is-invalid @enderror" name="first_names" value="{{ old('first_names') }}" required>
                             <div class="invalid-feedback">@error('first_names') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom du père</label>
-                            <i class="icon fas fa-user"></i>
                             <input type="text" class="form-control @error('father_name') is-invalid @enderror" name="father_name" value="{{ old('father_name') }}" required>
                             <div class="invalid-feedback">@error('father_name') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom de la mère</label>
-                            <i class="icon fas fa-user"></i>
                             <input type="text" class="form-control @error('mother_name') is-invalid @enderror" name="mother_name" value="{{ old('mother_name') }}" required>
                             <div class="invalid-feedback">@error('mother_name') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Sexe</label>
-                            <i class="icon fas fa-venus-mars"></i>
-                            <select class="form-control @error('gender') is-invalid @enderror" name="gender" style="padding-left: 50px;" required>
+                            <select class="form-control @error('gender') is-invalid @enderror" name="gender" required>
                                 <option value="">Sélectionner...</option>
                                 <option value="M" {{ old('gender') == 'M' ? 'selected' : '' }}>Masculin</option>
                                 <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>Féminin</option>
@@ -711,26 +653,27 @@
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date de naissance</label>
-                            <i class="icon fas fa-calendar-alt"></i>
                             <input type="date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date') }}" max="{{ \Carbon\Carbon::today()->subYears(18)->format('Y-m-d') }}" required>
                             <div class="invalid-feedback">@error('birth_date') {{ $message }} @else Ce champ est requis et doit être antérieur à aujourd'hui. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Lieu de naissance</label>
-                            <i class="icon fas fa-map-marker-alt"></i>
                             <input type="text" class="form-control @error('birth_place') is-invalid @enderror" name="birth_place" value="{{ old('birth_place') }}" required>
                             <div class="invalid-feedback">@error('birth_place') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
-                            <label class="form-label">Nationalité</label>
-                            <i class="icon fas fa-flag"></i>
+                            <label class="form-label">Nationalité(TOGO)</label>
                             <input type="text" class="form-control @error('nationality') is-invalid @enderror" name="nationality" value="{{ old('nationality') }}" required>
                             <div class="invalid-feedback">@error('nationality') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
+                            <label class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
+                            <div class="invalid-feedback">@error('phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
+                        </div>
+                        <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">État Civil</label>
-                            <i class="icon fas fa-ring"></i>
-                            <select class="form-control @error('marital_status') is-invalid @enderror" name="marital_status" style="padding-left: 50px;" required>
+                            <select class="form-control @error('marital_status') is-invalid @enderror" name="marital_status" required>
                                 <option value="">Sélectionner...</option>
                                 <option value="Célibataire" {{ old('marital_status') == 'Célibataire' ? 'selected' : '' }}>Célibataire</option>
                                 <option value="Marié(e)" {{ old('marital_status') == 'Marié(e)' ? 'selected' : '' }}>Marié(e)</option>
@@ -741,14 +684,12 @@
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom du/de la Conjoint(e) (si applicable)</label>
-                            <i class="icon fas fa-user-heart"></i>
                             <input type="text" class="form-control @error('spouse_name') is-invalid @enderror" name="spouse_name" value="{{ old('spouse_name') }}">
                             <div class="invalid-feedback">@error('spouse_name') {{ $message }} @else Ce champ est requis si marié(e). @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Personne politiquement exposée (national) ?</label>
-                            <i class="icon fas fa-user-shield"></i>
-                            <select class="form-control @error('is_ppe_national') is-invalid @enderror" name="is_ppe_national" id="is_ppe_national" style="padding-left: 50px;" required>
+                            <select class="form-control @error('is_ppe_national') is-invalid @enderror" name="is_ppe_national" id="is_ppe_national" required>
                                 <option value="0" {{ old('is_ppe_national', '0') == '0' ? 'selected' : '' }}>Non</option>
                                 <option value="1" {{ old('is_ppe_national') == '1' ? 'selected' : '' }}>Oui</option>
                             </select>
@@ -756,8 +697,7 @@
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Personne politiquement exposée (étranger) ? <span id="ppe-foreign-required" style="color: #dc3545; display: none;">*</span></label>
-                            <i class="icon fas fa-user-shield"></i>
-                            <select class="form-control @error('ppe_foreign') is-invalid @enderror" name="ppe_foreign" id="ppe_foreign" style="padding-left: 50px;" required>
+                            <select class="form-control @error('ppe_foreign') is-invalid @enderror" name="ppe_foreign" id="ppe_foreign" required>
                                 <option value="0" {{ old('ppe_foreign', '0') == '0' ? 'selected' : '' }}>Non</option>
                                 <option value="1" {{ old('ppe_foreign') == '1' ? 'selected' : '' }}>Oui</option>
                             </select>
@@ -811,10 +751,10 @@
                         </div>
                     </div>
 
-                    <h4 class="form-section-title mt-4">Adresse du Lieu de Travail</h4>
+                    <h4 class="form-section-title mt-4">Adresse du Lieu de Travail(SI APPLICABLE)</h4>
                     <div class="row mb-3 choice-container @error('loc_method_workplace') is-invalid @enderror">
                         <div class="col-6">
-                            <input type="radio" name="loc_method_workplace" id="desc_workplace" value="description" {{ old('loc_method_workplace', 'description') == 'description' ? 'checked' : '' }} required>
+                            <input type="radio" name="loc_method_workplace" id="desc_workplace" value="description" {{ old('loc_method_workplace') == 'description' ? 'checked' : '' }}>
                             <label for="desc_workplace" class="choice-label"><i class="fas fa-keyboard"></i> Décrire l'adresse</label>
                         </div>
                         <div class="col-6">
@@ -826,16 +766,17 @@
                     <div class="method-area" id="description-area-workplace">
                         <div class="input-group-custom">
                             <label class="form-label">Description détaillée du lieu de travail</label>
-                            <textarea class="form-control @error('workplace_description') is-invalid @enderror" name="workplace_description" rows="4" placeholder="Indiquer ville, quartier, rue, repères..." {{ old('loc_method_workplace') == 'description' ? 'required' : '' }}>{{ old('workplace_description') }}</textarea>
-                            <div class="invalid-feedback">@error('workplace_description') {{ $message }} @else Ce champ est requis si vous choisissez de décrire l'adresse. @enderror</div>
+                            <textarea class="form-control @error('workplace_description') is-invalid @enderror" name="workplace_description" rows="4" placeholder="Indiquer ville, quartier, rue, repères... (facultatif)">{{ old('workplace_description') }}</textarea>
+                            <div class="invalid-feedback">@error('workplace_description') {{ $message }} @enderror</div>
                         </div>
                     </div>
                     <div class="method-area" id="map-area-workplace">
                         <label class="form-label">Cliquez sur la carte ou déplacez le marqueur pour indiquer votre lieu de travail</label>
                         <div id="map-container-workplace" class="map-container"></div>
-                        <input type="hidden" name="workplace_lat" id="latitude-workplace" value="{{ old('workplace_lat') }}" {{ old('loc_method_workplace') == 'map' ? 'required' : '' }}>
-                        <input type="hidden" name="workplace_lng" id="longitude-workplace" value="{{ old('workplace_lng') }}" {{ old('loc_method_workplace') == 'map' ? 'required' : '' }}>
-                        <div class="invalid-feedback">@error('workplace_lat') Une position sur la carte est requise. @else Veuillez sélectionner un point sur la carte. @enderror</div>
+                        <input type="hidden" name="workplace_lat" id="latitude-workplace" value="{{ old('workplace_lat') }}">
+                        <input type="hidden" name="workplace_lng" id="longitude-workplace" value="{{ old('workplace_lng') }}">
+                        <small class="text-muted">(facultatif)</small>
+
                     </div>
                     <div class="mt-3 col-12 mb-3">
                         <label class="form-label">Plan du lieu de travail (optionnel)</label>
@@ -857,19 +798,16 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Profession / Type d'activité</label>
-                            <i class="icon fas fa-briefcase"></i>
                             <input type="text" class="form-control @error('occupation') is-invalid @enderror" name="occupation" value="{{ old('occupation') }}" required>
                             <div class="invalid-feedback">@error('occupation') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Nom de l'entreprise (si applicable)</label>
-                            <i class="icon fas fa-building"></i>
                             <input type="text" class="form-control @error('company_name_activity') is-invalid @enderror" name="company_name_activity" value="{{ old('company_name_activity') }}">
                             <div class="invalid-feedback">@error('company_name_activity') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-12 mb-3 input-group-custom">
                             <label class="form-label">Description de l'activité</label>
-                            <i class="icon fas fa-info-circle"></i>
                             <textarea class="form-control @error('activity_description') is-invalid @enderror" name="activity_description" rows="3">{{ old('activity_description') }}</textarea>
                             <div class="invalid-feedback">@error('activity_description') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
@@ -884,13 +822,11 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Nom & Prénoms</label>
-                                    <i class="icon fas fa-user-check"></i>
                                     <input type="text" class="form-control @error(" references.$index.name") is-invalid @enderror" name="references[{{ $index }}][name]" value="{{ $reference['name'] }}" required>
                                     <div class="invalid-feedback">@error("references.$index.name") {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Téléphone</label>
-                                    <i class="icon fas fa-phone"></i>
                                     <input type="tel" class="form-control @error(" references.$index.phone") is-invalid @enderror" name="references[{{ $index }}][phone]" value="{{ $reference['phone'] }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                     <div class="invalid-feedback">@error("references.$index.phone") {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                                 </div>
@@ -904,13 +840,11 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Nom & Prénoms</label>
-                                    <i class="icon fas fa-user-check"></i>
                                     <input type="text" class="form-control @error('references.0.name') is-invalid @enderror" name="references[0][name]" value="{{ old('references.0.name') }}" required>
                                     <div class="invalid-feedback">@error('references.0.name') {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Téléphone</label>
-                                    <i class="icon fas fa-phone"></i>
                                     <input type="tel" class="form-control @error('references.0.phone') is-invalid @enderror" name="references[0][phone]" value="{{ old('references.0.phone') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                     <div class="invalid-feedback">@error('references.0.phone') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                                 </div>
@@ -936,8 +870,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Type de pièce d'identité</label>
-                            <i class="icon fas fa-id-card"></i>
-                            <select class="form-control @error('id_type') is-invalid @enderror" name="id_type" style="padding-left: 50px;" required>
+                            <select class="form-control @error('id_type') is-invalid @enderror" name="id_type" required>
                                 <option value="">Sélectionner...</option>
                                 <option value="CNI" {{ old('id_type') == 'CNI' ? 'selected' : '' }}>Carte Nationale d'Identité</option>
                                 <option value="Passeport" {{ old('id_type') == 'Passeport' ? 'selected' : '' }}>Passeport</option>
@@ -947,13 +880,11 @@
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Numéro de la pièce</label>
-                            <i class="icon fas fa-hashtag"></i>
                             <input type="text" class="form-control @error('id_number') is-invalid @enderror" name="id_number" value="{{ old('id_number') }}" required>
                             <div class="invalid-feedback">@error('id_number') {{ $message }} @else Ce champ est requis. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Date d'émission de la pièce (optionnel)</label>
-                            <i class="icon fas fa-calendar-alt"></i>
                             <input type="date" class="form-control @error('id_issue_date') is-invalid @enderror" name="id_issue_date" value="{{ old('id_issue_date') }}">
                             <div class="invalid-feedback">@error('id_issue_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
@@ -992,25 +923,21 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Nom & Prénoms</label>
-                                    <i class="icon fas fa-user"></i>
                                     <input type="text" class="form-control @error(" beneficiaries.$index.nom") is-invalid @enderror" name="beneficiaries[{{ $index }}][nom]" value="{{ $beneficiary['nom'] }}" required>
                                     <div class="invalid-feedback">@error("beneficiaries.$index.nom") {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Lien / Relation</label>
-                                    <i class="icon fas fa-users"></i>
                                     <input type="text" class="form-control @error(" beneficiaries.$index.lien") is-invalid @enderror" name="beneficiaries[{{ $index }}][lien]" value="{{ $beneficiary['lien'] }}" required>
                                     <div class="invalid-feedback">@error("beneficiaries.$index.lien") {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Téléphone</label>
-                                    <i class="icon fas fa-phone"></i>
                                     <input type="tel" class="form-control @error(" beneficiaries.$index.contact") is-invalid @enderror" name="beneficiaries[{{ $index }}][contact]" value="{{ $beneficiary['contact'] }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                     <div class="invalid-feedback">@error("beneficiaries.$index.contact") {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Date de naissance</label>
-                                    <i class="icon fas fa-calendar-alt"></i>
                                     <input type="date" class="form-control @error(" beneficiaries.$index.birth_date") is-invalid @enderror" name="beneficiaries[{{ $index }}][birth_date]" value="{{ $beneficiary['birth_date'] }}">
                                     <div class="invalid-feedback">@error("beneficiaries.$index.birth_date") {{ $message }} @else Ce champ est optionnel. @enderror</div>
                                 </div>
@@ -1024,25 +951,21 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Nom & Prénoms</label>
-                                    <i class="icon fas fa-user"></i>
                                     <input type="text" class="form-control @error('beneficiaries.0.nom') is-invalid @enderror" name="beneficiaries[0][nom]" value="{{ old('beneficiaries.0.nom') }}" required>
                                     <div class="invalid-feedback">@error('beneficiaries.0.nom') {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Lien / Relation</label>
-                                    <i class="icon fas fa-users"></i>
                                     <input type="text" class="form-control @error('beneficiaries.0.lien') is-invalid @enderror" name="beneficiaries[0][lien]" value="{{ old('beneficiaries.0.lien') }}" required>
                                     <div class="invalid-feedback">@error('beneficiaries.0.lien') {{ $message }} @else Ce champ est requis. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Téléphone</label>
-                                    <i class="icon fas fa-phone"></i>
                                     <input type="tel" class="form-control @error('beneficiaries.0.contact') is-invalid @enderror" name="beneficiaries[0][contact]" value="{{ old('beneficiaries.0.contact') }}" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                     <div class="invalid-feedback">@error('beneficiaries.0.contact') {{ $message }} @else Numéro de téléphone invalide. @enderror</div>
                                 </div>
                                 <div class="col-md-6 mb-3 input-group-custom">
                                     <label class="form-label">Date de naissance</label>
-                                    <i class="icon fas fa-calendar-alt"></i>
                                     <input type="date" class="form-control @error('beneficiaries.0.birth_date') is-invalid @enderror" name="beneficiaries[0][birth_date]" value="{{ old('beneficiaries.0.birth_date') }}">
                                     <div class="invalid-feedback">@error('beneficiaries.0.birth_date') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                                 </div>
@@ -1062,8 +985,112 @@
                     </div>
 
                     <!-- ==== BLOC SIGNATURE CORRIGÉ ==== -->
-                    <h4 class="form-section-title mt-4">Signature</h4>
 
+                </div>
+
+                <!-- Étape 5: Versements + Consentement UMOA + Signature -->
+                <div class="form-step-content" data-step="5">
+                    <!-- Section Versements -->
+                    <h4 class="form-section-title">Versements Initiaux</h4>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-md-6">
+                            <div class="input-group-custom mb-3">
+                                <label class="form-label">Dépôt Initial (FCFA)</label>
+                                <input type="number" class="form-control @error('initial_deposit') is-invalid @enderror" id="depot-initial-physique" name="initial_deposit" value="{{ old('initial_deposit', 0) }}" min="0" step="1000" required>
+                                <div class="invalid-feedback">@error('initial_deposit') {{ $message }} @else Ce champ est requis. @enderror</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="versemants-summary">
+                                <div class="row-item"><span class="label">Droit d'adhésion</span> <span class="value">2,000 FCFA</span></div>
+                                <div class="row-item"><span class="label">Part Sociale</span> <span class="value">5,000 FCFA</span></div>
+                                <div class="row-item total-row"><span class="total-label">TOTAL À VERSER</span> <span class="total-value" id="total-versement-physique">7,000 FCFA</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Consentement UMOA -->
+                    <h4 class="form-section-title">Consentement UMOA - Personne Physique</h4>
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="consent-form-header text-center">
+                                <h5 class="mb-3"><strong>FORMULAIRE TYPE D'OBTENTION DU CONSENTEMENT DANS LE CADRE DU SYSTEME DE PARTAGE D'INFORMATION SUR LE CREDIT DANS L'UMOA</strong></h5>
+                                <h6 class="mb-4"><strong>[PERSONNE PHYSIQUE]</strong></h6>
+                            </div>
+                        </div>
+
+                        <!-- Checkboxes de consentement -->
+                        <div class="col-12 mb-4">
+                            <div class="consent-checkboxes">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent1" required>
+                                    <label class="form-check-label" for="consent1">
+                                        <strong>Accepte que les informations de crédit, historiques et courantes, me concernant notamment, les soldes approuvés et en souffrance, les limites de crédit, les cessations de paiement, le solde des arriérés auprès de la COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT (COCEC) soient transmises à CREDIT INFO VOLO COTE D'IVOIRE, Rue Des Jardins, Cocody, 2 Plateaux 01 BP 11266 Abidjan 01 - Côte d'Ivoire.</strong> <em>[Art 41 points 2, 3 et 4, Art 44, points 1 et 2]</em>
+                                    </label>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent2" required>
+                                    <label class="form-check-label" for="consent2">
+                                        <strong>Accepte que les informations précitées soient communiquées par CREDIT INFO VOLO COTE D'IVOIRE aux établissements ayant accès à sa base de données, y compris ceux situés sur le territoire d'un autre Etat membre de l'UMOA.</strong> <em>[Art 42 point 1, Art 44, point 4]</em>
+                                    </label>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent3" required>
+                                    <label class="form-check-label" for="consent3">
+                                        <strong>Comprends que ces informations ne peuvent, en aucun cas, porter sur mes dépôts</strong> <em>[Art 53, alinéa 3]</em>
+                                    </label>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent4" required>
+                                    <label class="form-check-label" for="consent4">
+                                        <strong>Comprends que CREDIT INFO VOLO COTE D'IVOIRE ne diffusera que les informations dont l'ancienneté n'excède pas cinq (5) ans.</strong> <em>[Art 41, point 3]</em>
+                                    </label>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent5" required>
+                                    <label class="form-check-label" for="consent5">
+                                        <strong>Comprends que CREDIT INFO VOLO COTE D'IVOIRE conservera ces informations pendant une durée de cinq (5) ans supplémentaire après la cession de la relation d'affaires avec la COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT (COCEC).</strong> <em>[Art 41, point 4]</em>
+                                    </label>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent6" required>
+                                    <label class="form-check-label" for="consent6">
+                                        <strong>Comprends que j'ai le droit d'accès aux données me concernant dans la base de données CREDIT INFO VOLO COTE D'IVOIRE afin de vérifier mes historiques de crédit, de contester et faire corriger ou radier des informations erronées dans ladite base ou dans un rapport de crédit.</strong> <em>[Art 44, point 7]</em>
+                                    </label>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent7" required>
+                                    <label class="form-check-label" for="consent7">
+                                        <strong>Comprends que j'ai le droit de recevoir toutes les informations conservées par CREDIT INFO VOLO COTE D'IVOIRE sur mon historique de crédit, sous la forme d'un rapport de crédit gratuitement une (1) fois par an et en cas de litige lié à une erreur dans les données, imputable à la COOPERATIVE CHRETIENNE D'EPARGNE ET DE CREDIT (COCEC) ou à CREDIT INFO VOLO COTE D'IVOIRE.</strong> <em>[Art 44, point 8]</em>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <strong>Références de la Loi uniforme portant réglementation des BIC</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Signature Unique -->
+                    <h4 class="form-section-title mt-5">Signature de l'Adhésion</h4>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="alert alert-warning">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Information importante :</strong> Cette signature sera prise en compte pour l'ensemble de votre adhésion et les autres questionnaires de cette procédure.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
                     <div class="row choice-container @error('signature_method') is-invalid @enderror">
                         <div class="col-6">
                             <input type="radio" name="signature_method" id="draw_physique" value="draw" {{ old('signature_method', 'draw') == 'draw' ? 'checked' : '' }} required>
@@ -1079,9 +1106,11 @@
                     <div class="method-area" id="draw-area-physique">
                         <p class="text-muted small">Signez dans le cadre ci-dessous.</p>
                         <canvas id="signature-pad" width="600" height="200"></canvas>
-                        <div class="signature-controls">
-                            <button type="button" class="btn-clear">Effacer</button>
-                        </div>
+                                                 <div class="signature-controls">
+                             <button type="button" class="btn btn-outline-danger btn-sm" id="clear-signature-btn">
+                                 <i class="fas fa-eraser me-2"></i>Effacer
+                             </button>
+                         </div>
                         <input type="hidden" name="signature_data" id="signature-data-physique" value="{{ old('signature_data') }}">
                         <div id="signature-draw-error-physique" class="custom-error-message" style="display:none;">
                             <div class="error-content">
@@ -1105,35 +1134,14 @@
                             <div class="invalid-feedback">@error('signature_upload') {{ $message }} @else L'import de la signature est requis. @enderror</div>
                         </div>
                     </div>
-                    <!-- ==== FIN BLOC SIGNATURE CORRIGÉ ==== -->
-                </div>
-
-                <!-- Étape 5: Versements -->
-                <div class="form-step-content" data-step="5">
-                    <h4 class="form-section-title">Versements Initiaux</h4>
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <div class="input-group-custom mb-3">
-                                <label class="form-label">Dépôt Initial (FCFA)</label>
-                                <i class="icon fas fa-money-bill-wave"></i>
-                                <input type="number" class="form-control @error('initial_deposit') is-invalid @enderror" id="depot-initial-physique" name="initial_deposit" value="{{ old('initial_deposit', 0) }}" min="0" step="1000" required>
-                                <div class="invalid-feedback">@error('initial_deposit') {{ $message }} @else Ce champ est requis. @enderror</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="versemants-summary">
-                                <div class="row-item"><span class="label">Droit d'adhésion</span> <span class="value">2,000 FCFA</span></div>
-                                <div class="row-item"><span class="label">Part Sociale</span> <span class="value">5,000 FCFA</span></div>
-                                <div class="row-item total-row"><span class="total-label">TOTAL À VERSER</span> <span class="total-value" id="total-versement-physique">7,000 FCFA</span></div>
-                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-navigation-buttons">
                     <button type="button" class="btn btn-nav btn-prev" style="display: none;"><i class="fas fa-arrow-left"></i> Précédent</button>
-                    <button type="button" class="btn btn-nav btn-next">Suivant <i class="fas fa-arrow-right"></i></button>
-                    <button type="submit" class="btn btn-submit-form btn-next" style="display: none;"><i class="fas fa-check-circle"></i> Soumettre l'adhésion</button>
+                    <button type="button" class="btn btn-nav btn-next">Suivant <i class="fas fa-arrow-right"></i> </button>
+                    <button type="submit" class="btn btn-submit-form" style="display: none;"><i class="fas fa-paper-plane"></i> Soumettre l'Adhésion</button>
                 </div>
             </form>
         </div>
@@ -1144,6 +1152,8 @@
 @section('js')
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const forms = document.querySelectorAll('.multi-step-form');
@@ -1193,6 +1203,11 @@
                 const requiredInputs = currentStepContent.querySelectorAll('input[required], select[required], textarea[required]');
                 let isValid = true;
 
+                // Réinitialiser tous les états d'erreur
+                currentStepContent.querySelectorAll('.is-invalid').forEach(element => {
+                    element.classList.remove('is-invalid');
+                });
+
                 requiredInputs.forEach(input => {
                     // Ne pas valider les champs de signature ici, ils ont leur propre logique
                     if (input.name.includes('signature')) return;
@@ -1237,29 +1252,28 @@
                     isValid = false;
                 }
 
-                // Validation pour loc_method_workplace
+                // Validation pour loc_method_workplace - TOUJOURS FACULTATIF
                 const locMethodWorkplace = currentStepContent.querySelector('input[name="loc_method_workplace"]:checked');
                 if (locMethodWorkplace) {
+                    // Si l'utilisateur a choisi une méthode, on peut valider les champs correspondants
+                    // MAIS on ne force jamais l'utilisateur à choisir une méthode
                     if (locMethodWorkplace.value === 'description') {
                         const descInput = currentStepContent.querySelector('textarea[name="workplace_description"]');
-                        if (descInput && !descInput.value.trim()) {
-                            descInput.classList.add('is-invalid');
-                            isValid = false;
+                        // Le champ reste facultatif même si la méthode est choisie
+                        if (descInput && descInput.value.trim()) {
+                            descInput.classList.remove('is-invalid');
                         }
                     } else if (locMethodWorkplace.value === 'map') {
                         const latInput = currentStepContent.querySelector('input[name="workplace_lat"]');
                         const lngInput = currentStepContent.querySelector('input[name="workplace_lng"]');
-                        if (latInput && lngInput && (!latInput.value || !lngInput.value)) {
-                            latInput.classList.add('is-invalid');
-                            lngInput.classList.add('is-invalid');
-                            isValid = false;
+                        // Les coordonnées restent facultatives même si la méthode est choisie
+                        if (latInput && lngInput && latInput.value && lngInput.value) {
+                            latInput.classList.remove('is-invalid');
+                            lngInput.classList.remove('is-invalid');
                         }
                     }
-                } else if (step === 2 && currentStepContent.querySelector('input[name="loc_method_workplace"]')) {
-                    const choiceContainer = currentStepContent.querySelector('input[name="loc_method_workplace"]').closest('.choice-container');
-                    choiceContainer.classList.add('is-invalid');
-                    isValid = false;
                 }
+                // SUPPRIMÉ : Plus de validation obligatoire pour loc_method_workplace
 
                 // ==== BLOC VALIDATION SIGNATURE CORRIGÉ ====
                 const signatureMethod = currentStepContent.querySelector('input[name="signature_method"]:checked');
@@ -1289,6 +1303,82 @@
                 }
                 // ==== FIN BLOC VALIDATION SIGNATURE CORRIGÉ ====
 
+                // Validation pour l'étape UMOA (étape 5)
+                if (step === 5) {
+                    // Vérifier que tous les checkboxes sont cochés
+                    const checkboxes = currentStepContent.querySelectorAll('input[type="checkbox"]');
+                    let uncheckedCount = 0;
+
+                    checkboxes.forEach((checkbox, index) => {
+                        if (!checkbox.checked) {
+                            checkbox.classList.add('is-invalid');
+                            // Ajouter un message d'erreur sous chaque checkbox non coché
+                            let errorDiv = checkbox.parentNode.querySelector('.umoa-checkbox-error');
+                            if (!errorDiv) {
+                                errorDiv = document.createElement('div');
+                                errorDiv.className = 'umoa-checkbox-error invalid-feedback';
+                                errorDiv.style.display = 'block';
+                                errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Ce consentement est obligatoire pour continuer.';
+                                checkbox.parentNode.appendChild(errorDiv);
+                            }
+                            uncheckedCount++;
+                            isValid = false;
+                        } else {
+                            checkbox.classList.remove('is-invalid');
+                            // Supprimer le message d'erreur si le checkbox est coché
+                            const errorDiv = checkbox.parentNode.querySelector('.umoa-checkbox-error');
+                            if (errorDiv) {
+                                errorDiv.remove();
+                            }
+                        }
+                    });
+
+                    // Afficher un message d'erreur général si des checkboxes ne sont pas cochés
+                    let generalError = currentStepContent.querySelector('.umoa-general-error');
+                    if (uncheckedCount > 0) {
+                        if (!generalError) {
+                            generalError = document.createElement('div');
+                            generalError.className = 'umoa-general-error alert alert-danger mt-3';
+                            generalError.innerHTML = `
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Attention :</strong> Vous devez accepter tous les consentements UMOA pour continuer. 
+                                <span class="badge bg-danger ms-2">${uncheckedCount} consentement(s) manquant(s)</span>
+                            `;
+                            currentStepContent.querySelector('.consent-checkboxes').after(generalError);
+                        }
+                    } else {
+                        if (generalError) {
+                            generalError.remove();
+                        }
+                    }
+
+                    // Vérifier la signature
+                    const signatureMethod = currentStepContent.querySelector('input[name="signature_method"]:checked');
+                    if (signatureMethod) {
+                        if (signatureMethod.value === 'draw') {
+                            const canvas = currentStepContent.querySelector('#signature-pad');
+                            const signaturePad = canvas.signaturePadInstance;
+                            if (signaturePad && signaturePad.isEmpty()) {
+                                currentStepContent.querySelector('#signature-draw-error-physique').style.display = 'block';
+                                isValid = false;
+                            } else {
+                                currentStepContent.querySelector('#signature-draw-error-physique').style.display = 'none';
+                            }
+                        } else if (signatureMethod.value === 'upload') {
+                            const signatureUpload = currentStepContent.querySelector('input[name="signature_upload"]');
+                            if (!signatureUpload.files.length) {
+                                signatureUpload.closest('.file-upload-wrapper').classList.add('is-invalid');
+                                isValid = false;
+                            } else {
+                                signatureUpload.closest('.file-upload-wrapper').classList.remove('is-invalid');
+                            }
+                        }
+                    } else {
+                        const choiceContainer = currentStepContent.querySelector('input[name="signature_method"]').closest('.choice-container');
+                        choiceContainer.classList.add('is-invalid');
+                        isValid = false;
+                    }
+                }
 
                 // Validation pour références et bénéficiaires
                 if (step === 3 || step === 4) {
@@ -1296,7 +1386,7 @@
                     const errorId = step === 3 ? 'references-error' : 'beneficiaries-error';
                     const container = currentStepContent.querySelector(`#${containerId}`);
                     const errorDiv = currentStepContent.querySelector(`#${errorId}`);
-                    
+
                     if (container) {
                         const fields = container.querySelectorAll('.dynamic-field');
                         if (fields.length === 0) {
@@ -1362,25 +1452,21 @@
                         <div class="row">
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Nom & Prénoms</label>
-                                <i class="icon fas fa-user"></i>
                                 <input type="text" class="form-control" name="beneficiaries[${index}][nom]" required>
                                 <div class="invalid-feedback">Ce champ est requis.</div>
                             </div>
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Lien / Relation</label>
-                                <i class="icon fas fa-users"></i>
                                 <input type="text" class="form-control" name="beneficiaries[${index}][lien]" required>
                                 <div class="invalid-feedback">Ce champ est requis.</div>
                             </div>
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Téléphone</label>
-                                <i class="icon fas fa-phone"></i>
                                 <input type="tel" class="form-control" name="beneficiaries[${index}][contact]" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                 <div class="invalid-feedback">Numéro de téléphone invalide.</div>
                             </div>
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Date de naissance</label>
-                                <i class="icon fas fa-calendar-alt"></i>
                                 <input type="date" class="form-control" name="beneficiaries[${index}][birth_date]">
                                 <div class="invalid-feedback">Ce champ est optionnel.</div>
                             </div>
@@ -1392,13 +1478,11 @@
                         <div class="row">
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Nom & Prénoms</label>
-                                <i class="icon fas fa-user-check"></i>
                                 <input type="text" class="form-control" name="references[${index}][name]" required>
                                 <div class="invalid-feedback">Ce champ est requis.</div>
                             </div>
                             <div class="col-md-6 mb-3 input-group-custom">
                                 <label class="form-label">Téléphone</label>
-                                <i class="icon fas fa-phone"></i>
                                 <input type="tel" class="form-control" name="references[${index}][phone]" pattern="\+?[0-9\s\-\(\)]{7,15}" required>
                                 <div class="invalid-feedback">Numéro de téléphone invalide.</div>
                             </div>
@@ -1407,14 +1491,14 @@
                     container.insertAdjacentHTML('beforeend', template);
                     const errorDiv = container.querySelector('.invalid-feedback');
                     if (errorDiv) errorDiv.remove();
-                    
+
                     // Masquer le message d'erreur personnalisé
                     const customErrorId = type === 'beneficiaire' ? 'beneficiaries-error' : 'references-error';
                     const customErrorDiv = document.getElementById(customErrorId);
                     if (customErrorDiv) {
                         customErrorDiv.style.display = 'none';
                     }
-                    
+
                     container.querySelectorAll('.remove-field').forEach(removeBtn => {
                         removeBtn.addEventListener('click', () => removeBtn.closest('.dynamic-field').remove());
                     });
@@ -1478,21 +1562,38 @@
                     const latInput = mapArea.querySelector('input[name="workplace_lat"]');
                     const lngInput = mapArea.querySelector('input[name="workplace_lng"]');
 
-                    descArea.style.display = radio.value === 'description' ? 'block' : 'none';
-                    mapArea.style.display = radio.value === 'map' ? 'block' : 'none';
-                    descInput.toggleAttribute('required', radio.value === 'description');
-                    latInput.toggleAttribute('required', radio.value === 'map');
-                    lngInput.toggleAttribute('required', radio.value === 'map');
-
-                    if (radio.value === 'map') {
+                    // Afficher la zone correspondante au choix
+                    if (radio.value === 'description') {
+                        descArea.style.display = 'block';
+                        mapArea.style.display = 'none';
+                    } else if (radio.value === 'map') {
+                        descArea.style.display = 'none';
+                        mapArea.style.display = 'block';
+                        
                         const mapObj = maps.get('map-container-workplace');
                         if (mapObj) {
                             setTimeout(() => mapObj.invalidate(), 100);
                         }
                     }
+                    
+                    // JAMAIS d'attribut required - TOUJOURS facultatif
+                    descInput.removeAttribute('required');
+                    latInput.removeAttribute('required');
+                    lngInput.removeAttribute('required');
                 });
-                if (radio.checked) radio.dispatchEvent(new Event('change'));
+                
+                // Afficher la zone par défaut selon le choix initial
+                if (radio.checked) {
+                    radio.dispatchEvent(new Event('change'));
+                }
             });
+            
+            // Afficher la zone de description par défaut si aucune méthode n'est sélectionnée
+            const defaultWorkplaceMethod = form.querySelector('input[name="loc_method_workplace"]:checked');
+            if (!defaultWorkplaceMethod) {
+                const descArea = form.querySelector('#description-area-workplace');
+                descArea.style.display = 'block';
+            }
 
             function initializeLeafletMap(mapId, latInputId, lonInputId) {
                 const mapContainer = document.getElementById(mapId);
@@ -1585,7 +1686,7 @@
                 if (!canvas) return null;
 
                 const hiddenInput = form.querySelector('#signature-data-physique');
-                const clearBtn = form.querySelector('#draw-area-physique .btn-clear');
+                const clearBtn = form.querySelector('#clear-signature-btn');
                 let signaturePad = null;
                 let isInitialized = false;
 
@@ -1605,7 +1706,7 @@
                             penColor: 'rgb(0, 0, 0)'
                         });
                         canvas.signaturePadInstance = signaturePad;
-                        
+
                         // Restaurer les données si elles existent
                         if (data.length > 0) {
                             signaturePad.fromData(data);
@@ -1652,12 +1753,71 @@
 
             // Fonction pour sauvegarder la signature avant soumission
             form.addEventListener('submit', function(e) {
+                // ==== VALIDATION OBLIGATOIRE DES CHECKBOXES UMOA ====
+                const umoaCheckboxes = form.querySelectorAll('.consent-checkboxes input[type="checkbox"]');
+                let uncheckedCount = 0;
+
+                umoaCheckboxes.forEach(checkbox => {
+                    if (!checkbox.checked) {
+                        uncheckedCount++;
+                    }
+                });
+
+                if (uncheckedCount > 0) {
+                    e.preventDefault();
+                    // Afficher un message d'erreur
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Consentements UMOA requis',
+                        html: `
+                            <div class="text-center">
+                                <i class="fas fa-exclamation-triangle text-warning mb-3" style="font-size: 3rem;"></i>
+                                <p><strong>Vous devez accepter tous les consentements UMOA pour continuer.</strong></p>
+                                <p class="text-muted">${uncheckedCount} consentement(s) manquant(s)</p>
+                            </div>
+                        `,
+                        confirmButtonText: 'Comprendre',
+                        confirmButtonColor: '#EC281C',
+                        background: '#fff'
+                    });
+
+                    // Aller à l'étape 5 (UMOA)
+                    currentStep = 5;
+                    showStep(currentStep);
+
+                    // Mettre en évidence les checkboxes non cochés
+                    umoaCheckboxes.forEach(checkbox => {
+                        if (!checkbox.checked) {
+                            checkbox.classList.add('is-invalid');
+                        }
+                    });
+
+                    // Afficher le message d'erreur général
+                    let generalError = document.querySelector('.umoa-general-error');
+                    if (!generalError) {
+                        generalError = document.createElement('div');
+                        generalError.className = 'umoa-general-error alert alert-danger mt-3';
+                        generalError.innerHTML = `
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Attention :</strong> Vous devez accepter tous les consentements UMOA pour continuer. 
+                            <span class="badge bg-danger ms-2">${uncheckedCount} consentement(s) manquant(s)</span>
+                        `;
+                        const consentContainer = document.querySelector('.consent-checkboxes');
+                        if (consentContainer) {
+                            consentContainer.after(generalError);
+                        }
+                    }
+
+                    return false;
+                }
+
+                // ==== VALIDATION DE LA SIGNATURE ====
                 const signatureMethod = form.querySelector('input[name="signature_method"]:checked');
                 if (signatureMethod && signatureMethod.value === 'draw') {
                     const canvas = form.querySelector('#signature-pad');
                     const signaturePad = canvas.signaturePadInstance;
                     const hiddenInput = form.querySelector('#signature-data-physique');
-                    
+
                     if (signaturePad && !signaturePad.isEmpty()) {
                         const signatureData = signaturePad.toDataURL('image/png');
                         console.log('Saving signature before submit, length:', signatureData.length);
@@ -1665,48 +1825,74 @@
                     } else {
                         console.log('Signature pad is empty or not available');
                         e.preventDefault();
-                        form.querySelector('#signature-draw-error-physique').style.display = 'block';
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Signature requise',
+                            text: 'Veuillez dessiner votre signature avant de continuer.',
+                            confirmButtonText: 'Comprendre',
+                            confirmButtonColor: '#EC281C',
+                            background: '#fff'
+                        });
+
+                        // Aller à l'étape 5
+                        currentStep = 5;
+                        showStep(currentStep);
                         return false;
                     }
-                }
-            });
+                } else if (signatureMethod && signatureMethod.value === 'upload') {
+                    const signatureUpload = form.querySelector('input[name="signature_upload"]');
+                    if (!signatureUpload.files.length) {
+                        e.preventDefault();
 
-            showStep(currentStep);
-        });
-    });
-    
-    // SCRIPT POUR FORCER LE CENTRAGE DES ICÔNES
-    document.addEventListener('DOMContentLoaded', function() {
-        // Sélectionner toutes les icônes dans les champs input-group-custom
-        const icons = document.querySelectorAll('.input-group-custom .icon');
-        
-        icons.forEach(function(icon) {
-            // Appliquer les styles directement via JavaScript
-            icon.style.position = 'absolute';
-            icon.style.top = '50%';
-            icon.style.transform = 'translateY(-50%)';
-            icon.style.left = '18px';
-            icon.style.color = '#adb5bd';
-            icon.style.fontSize = '1.1rem';
-            icon.style.zIndex = '10';
-            icon.style.pointerEvents = 'none';
-            icon.style.width = '20px';
-            icon.style.height = '20px';
-            icon.style.display = 'flex';
-            icon.style.alignItems = 'center';
-            icon.style.justifyContent = 'center';
-            icon.style.margin = '0';
-            icon.style.padding = '0';
-        });
-        
-        // S'assurer que les styles sont appliqués même après les modifications dynamiques
-        setTimeout(function() {
-            icons.forEach(function(icon) {
-                icon.style.top = '50%';
-                icon.style.transform = 'translateY(-50%)';
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Signature requise',
+                            text: 'Veuillez importer votre signature avant de continuer.',
+                            confirmButtonText: 'Comprendre',
+                            confirmButtonColor: '#EC281C',
+                            background: '#fff'
+                        });
+
+                        signatureUpload.closest('.file-upload-wrapper').classList.add('is-invalid');
+                        // Aller à l'étape 5
+                        currentStep = 5;
+                        showStep(currentStep);
+                        return false;
+                    }
+                } else {
+                    e.preventDefault();
+
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Méthode de signature requise',
+                        text: 'Veuillez choisir une méthode de signature (dessiner ou importer).',
+                        confirmButtonText: 'Comprendre',
+                        confirmButtonColor: '#EC281C',
+                        background: '#fff'
+                    });
+
+                    // Aller à l'étape 5
+                    currentStep = 5;
+                    showStep(currentStep);
+                    return false;
+                }
+
+                // ==== TOUTES LES VALIDATIONS SONT PASSÉES - SOUMISSION ====
+                // Afficher le loader SweetAlert avant soumission
+                Swal.fire({
+                    title: 'Envoi en cours...',
+                    text: 'Votre adhésion est en cours de transmission',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
             });
-        }, 100);
+        });
     });
+
+
 
     // Intercepter les messages de validation après soumission
     document.addEventListener('DOMContentLoaded', function() {
@@ -1720,10 +1906,7 @@
                 text: message,
                 confirmButtonColor: '#EC281C',
                 background: '#fff',
-                backdrop: `
-                    rgba(0,0,123,0.4)
-                    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23EC281C' fill-opacity='0.1'/%3E%3C/svg%3E")
-                `
+
             });
             successAlert.remove();
         }
@@ -1733,7 +1916,7 @@
         if (errorAlert) {
             let message = '';
             let title = 'Erreur !';
-            
+
             // Vérifier s'il y a une liste d'erreurs de validation
             const errorList = errorAlert.querySelector('ul');
             if (errorList) {
@@ -1742,20 +1925,18 @@
             } else {
                 message = errorAlert.textContent.trim();
             }
-            
+
             Swal.fire({
                 icon: 'warning',
                 title: title,
                 html: message,
                 confirmButtonColor: '#EC281C',
                 background: '#fff',
-                backdrop: `
-                    rgba(0,0,123,0.4)
-                    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23EC281C' fill-opacity='0.1'/%3E%3C/svg%3E")
-                `
+
             });
             errorAlert.remove();
         }
     });
+
 </script>
 @endsection

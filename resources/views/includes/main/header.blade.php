@@ -69,7 +69,7 @@
                                                 <a href="{{ route('main.faq') }}">Faq</a>
                                             </li>
                                             <li>
-                                                <a href="https://www.ebindoo.com/" target="_blank">Compte en ligne</a>
+                                                <a href="{{ route('complaint') }}" >Gestion des plaintes</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -162,6 +162,9 @@
                         </li>
                         <li class="{{ request()->routeIs('main.faq') ? 'active' : '' }}">
                             <a href="{{ route('main.faq') }}">Faq</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('complaint') }}">Gestion des plaintes</a>
                         </li>
                     </ul>
                 </div>

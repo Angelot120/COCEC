@@ -1,43 +1,256 @@
 @extends('layout.main')
 
-@section('content')
+@section('css')
+<style>
+    /* Styles généraux du simulateur */
+    .loan-simulator-section .form-control.is-invalid,
+    .loan-simulator-section .form-select.is-invalid {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
 
-<!-- Script de diagnostic -->
-<script>
-    console.log('=== DIAGNOSTIC SIMULATEUR ===');
-    console.log('Page chargée:', new Date().toLocaleString());
-    
-    // Vérifier si jQuery est chargé
-    console.log('jQuery disponible:', typeof $ !== 'undefined');
-    
-    // Vérifier si SweetAlert2 est chargé
-    console.log('SweetAlert2 disponible:', typeof Swal !== 'undefined');
-    
-    // Attendre que le DOM soit chargé
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM chargé');
-        
-        // Vérifier les éléments du simulateur
-        const simulatorElements = {
-            loanType: document.getElementById('loan-type'),
-            loanAmount: document.getElementById('loan-amount'),
-            loanDuration: document.getElementById('loan-duration'),
-            calculateBtn: document.getElementById('calculate-loan')
-        };
-        
-        console.log('Éléments du simulateur:', simulatorElements);
-        
-        // Vérifier si les fonctions sont disponibles
-        setTimeout(() => {
-            console.log('Fonctions après délai:', {
-                calculateLoan: typeof window.calculateLoan,
-                calculateMonthlyPayment: typeof window.calculateMonthlyPayment,
-                formatCurrency: typeof window.formatCurrency,
-                loanRates: window.loanRates
-            });
-        }, 1000);
-    });
-</script>
+    .loan-simulator-section .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 8px;
+    }
+
+    .loan-simulator-section .form-control,
+    .loan-simulator-section .form-select {
+        border-radius: 8px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+    .loan-simulator-section .form-control:focus,
+    .loan-simulator-section .form-select:focus {
+        border-color: #EC281C;
+        box-shadow: 0 0 0 0.2rem rgba(236, 40, 28, 0.25);
+    }
+
+    /* Correction du bug d'affichage du sélecteur */
+    .simulation-form,
+    .loan-simulator-card {
+        overflow: visible !important;
+    }
+
+    /* Style de la carte jaune */
+    .promo-section .promo-item.credit-card-middle .overlay {
+        background: linear-gradient(180deg, rgba(255, 204, 0, 0) 0%, #ffc400 58.48%);
+    }
+
+    .promo-section .promo-item.credit-card-middle .overlay-2 {
+        background: rgba(255, 204, 0, 0.45);
+        mix-blend-mode: normal;
+    }
+
+    .promo-section .promo-item.credit-card-middle .bz-primary-btn.red-btn {
+        background-color: #EC281C;
+        color: white;
+    }
+
+    .promo-section .promo-item.credit-card-middle {
+        transform: translateY(-20px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    /* NOUVEAUX STYLES POUR LA CARTE "RÉSUMÉ DU PRÊT" */
+    .result-card {
+        background: linear-gradient(145deg, var(--bz-color-heading-secondary), #2c3e50);
+        color: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        height: 100%;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        border-top: 4px solid var(--bz-color-theme-primary);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .result-card h4 {
+        color: #ffffff;
+        margin-bottom: 25px;
+        font-size: 22px;
+        font-weight: 700;
+        text-align: center;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+    }
+
+    .result-card h4::before {
+        content: '\f543';
+        /* Icône calculatrice FontAwesome */
+        font-family: "Font Awesome 6 Pro";
+        font-weight: 900;
+        margin-right: 10px;
+        color: var(--bz-color-theme-secondary);
+    }
+
+    .result-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 15px;
+    }
+
+    .result-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .result-item span {
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+    }
+
+    .result-item span::before {
+        font-family: "Font Awesome 6 Pro";
+        font-weight: 900;
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+        color: var(--bz-color-theme-secondary);
+        font-size: 14px;
+    }
+
+    .result-item:nth-child(2) span::before {
+        content: '\f0d6';
+    }
+
+    /* Montant */
+    .result-item:nth-child(3) span::before {
+        content: '\f2f2';
+    }
+
+    /* Durée */
+    .result-item:nth-child(4) span::before {
+        content: '\f52c';
+    }
+
+    /* Taux */
+    .result-item:nth-child(5) span::before {
+        content: '\f783';
+    }
+
+    /* Première Échéance */
+    .result-item:nth-child(6) span::before {
+        content: '\f782';
+    }
+
+    /* Dernière Échéance */
+    .result-item:nth-child(7) span::before {
+        content: '\f651';
+    }
+
+    /* Total Intérêts */
+    .result-item:nth-child(8) span::before {
+        content: '\f09d';
+    }
+
+    /* Total à Rembourser */
+    .result-item strong {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--bz-color-theme-secondary);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Styles pour le tableau d'amortissement */
+    .amortization-table-wrapper {
+        background: #ffffff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .amortization-table-wrapper h4 {
+        color: var(--bz-color-heading-secondary);
+        font-weight: 700;
+        margin-bottom: 25px;
+        font-size: 22px;
+        text-align: center;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 15px;
+    }
+
+    .amortization-table-wrapper .table-responsive {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .amortization-table-wrapper .table {
+        border-collapse: separate;
+        border-spacing: 0 5px;
+    }
+
+    .amortization-table-wrapper .table thead th {
+        background: var(--bz-color-theme-red);
+        color: white;
+        border: none;
+        padding: 16px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .amortization-table-wrapper .table thead th:first-child {
+        border-radius: 8px 0 0 8px;
+    }
+
+    .amortization-table-wrapper .table thead th:last-child {
+        border-radius: 0 8px 8px 0;
+    }
+
+    .amortization-table-wrapper .table tbody tr {
+        background-color: #f8f9fa;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .amortization-table-wrapper .table tbody tr:hover {
+        background-color: #ffffff;
+        transform: scale(1.02);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        z-index: 2;
+        position: relative;
+    }
+
+    .amortization-table-wrapper .table tbody td {
+        padding: 15px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 14px;
+        color: #495057;
+        border: none;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .amortization-table-wrapper .table tbody tr td:first-child {
+        border-left: 1px solid #e9ecef;
+        border-radius: 8px 0 0 8px;
+        font-weight: 600;
+        color: var(--bz-color-theme-red);
+    }
+
+    .amortization-table-wrapper .table tbody tr td:last-child {
+        border-right: 1px solid #e9ecef;
+        border-radius: 0 8px 8px 0;
+        font-weight: 500;
+    }
+
+    .amortization-table-wrapper .table tbody tr:last-child td {
+        border-bottom: 1px solid #e9ecef;
+    }
+</style>
+@endsection
+
+@section('content')
 
 <body>
     @include('includes.main.loading')
@@ -47,22 +260,13 @@
     @include('includes.main.header')
 
     <!-- hero-section-3 -->
-    <!-- La classe "swiper" est ajoutée pour l'initialisation JS -->
     <section class="hero-section-3">
-
-        <!-- Les formes restent en arrière-plan global de la section -->
-        <div class="shapes">
+        <!-- <div class="shapes">
             <div class="shape shape-1"><img src="{{ asset('assets/main/img/shapes/hero-bg-shape-2.png') }}" alt="forme"></div>
             <div class="shape shape-2"><img src="{{ asset('assets/main/img/shapes/hero-bg-shape-3.png') }}" alt="forme"></div>
-        </div>
-
-        <!-- CORRECTION : On groupe tout le carrousel dans un conteneur positionné -->
+        </div> -->
         <div class="swiper-container-wrapper swiper">
-
-            <!-- Le conteneur obligatoire pour les slides -->
             <div class="swiper-wrapper">
-
-                <!-- SLIDE 1 -->
                 <div class="swiper-slide hero-slide-1" data-background="{{ asset('assets/images/banner.jpg') }}" loading="lazy">
                     <div class="container-2">
                         <div class="hero-content hero-content-3">
@@ -78,8 +282,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- SLIDE 2 -->
                 <div class="swiper-slide hero-slide-2" data-background="{{ asset('assets/images/banner-1.jpg') }}" loading="lazy">
                     <div class="container-2">
                         <div class="hero-content hero-content-3">
@@ -95,8 +297,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- SLIDE 3 (contenu identique pour l'exemple) -->
                 <div class="swiper-slide hero-slide-3" data-background="{{ asset('assets/images/banner-2.jpg') }}" loading="lazy">
                     <div class="container-2">
                         <div class="hero-content hero-content-3">
@@ -112,18 +312,11 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
-            <!-- Flèches de Navigation -->
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
-
-            <!-- Points de Pagination -->
             <div class="swiper-pagination"></div>
-
         </div>
-
     </section>
     <!-- ./ hero-section -->
 
@@ -164,7 +357,7 @@
                         </div>
                         <h3 class="title">Accompagnement Financier</h3>
                         <p class="text-justify">Bénéficiez de conseils personnalisés et de services comme le transfert d’argent pour gérer efficacement vos finances avec le soutien de la COCEC.</p>
-                                                    <a href="{{route('product.index') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
+                        <a href="{{route('product.index') }}" class="bz-primary-btn red-btn">En savoir plus <i class="fa-regular fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -175,29 +368,21 @@
     <section class="about-section-3 pb-120">
         <div class="container-2">
             <div class="row align-items-center">
-
-                <!-- Colonne Image -->
                 <div class="col-lg-6">
                     <div class="about-img-3 img-reveal">
                         <div class="img-overlay overlay-2"></div>
                         <img src="{{ asset('assets/images/director.jpeg') }}" alt="about" loading="lazy">
                     </div>
                 </div>
-
-                <!-- Colonne Contenu -->
-                <!-- Colonne Contenu (Refonte) -->
                 <div class="col-lg-6">
                     <div class="about-content-3 fade-wrapper">
                         <div class="section-heading red-content mb-20">
                             <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Mot du Directeur Général</h4>
                             <h2 class="section-title" data-text-animation data-split="word" data-duration="1">Bâtir un Avenir Financier Inclusif et Moderne</h2>
                         </div>
-
                         <p class="fade-top text-justify">
                             Depuis 2001, la COCEC a placé l’amélioration de vos conditions de vie au centre de ses stratégies. Notre plus grande fierté réside dans les témoignages de ceux qui, partis de rien, subviennent aujourd’hui aux besoins de leur famille grâce à notre accompagnement.
                         </p>
-
-                        <!-- Liste des piliers transformée en cartes -->
                         <ul class="about-list-revisited fade-top">
                             <li>
                                 <div class="list-icon-revisited"><i class="fas fa-rocket"></i></div>
@@ -214,11 +399,7 @@
                                 </div>
                             </li>
                         </ul>
-
-                        <!-- Séparateur visuel -->
                         <hr class="section-divider fade-top">
-
-                        <!-- Bloc combinant la signature et le bouton -->
                         <div class="director-cta-block fade-top">
                             <div class="director-signature-block">
                                 <strong>M. Kokou GABIAM</strong>
@@ -230,13 +411,11 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
     <!-- ./ about-section -->
 
-    <!-- SECTION SERVICES - VERSION OPTIMISÉE ET REFAITE -->
     <section class="service-section-3 pt-120 pb-120" data-background="{{ asset('assets/images/shapes/service-bg-shape.png') }}">
         <div class="container-2">
             <div class="section-heading text-center red-content">
@@ -244,8 +423,6 @@
                 <h2 class="section-title mb-0">Des Solutions Financières Conçues Pour Vous</h2>
             </div>
             <div class="row gy-lg-0 gy-4 justify-content-center">
-
-                <!-- Produit 1 : Compte d'Épargne -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item-3">
                         <div class="service-thumb">
@@ -258,8 +435,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Produit 2 : Compte Courant -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item-3">
                         <div class="service-thumb">
@@ -272,8 +447,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Produit 3 : Crédits & Financements -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item-3">
                         <div class="service-thumb">
@@ -286,7 +459,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -300,7 +472,6 @@
             <div class="cta-wrap">
                 <div class="cta-content">
                     <div class="section-heading mb-0 white-content">
-                        {{-- Titres mis à jour pour décrire les produits --}}
                         <h4 class="sub-heading">
                             <span class="left-shape"></span>Une Gamme Complète de Produits
                         </h4>
@@ -309,7 +480,6 @@
                     </div>
                 </div>
                 <div class="cta-btn-wrap">
-                    {{-- Bouton mis à jour pour pointer vers la page des produits --}}
                     <a href="{{-- route('produits.index') --}}" class="bz-primary-btn red-btn">Voir tous les produits</a>
                 </div>
             </div>
@@ -317,500 +487,143 @@
     </section>
     <!-- ./ cta-section -->
 
+    <!-- Simulateur de Prêt Section -->
+    <section class="loan-simulator-section pt-120 pb-120">
+        <div class="container-2">
+            <div class="section-heading text-center red-content mb-60">
+                <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5">
+                    <span class="left-shape"></span>Simulateur de Prêt
+                </h4>
+                <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">
+                    Calculez votre échéance de prêt
+                </h2>
+                <p class="mt-20">Simulez votre prêt en quelques clics et obtenez un tableau d'amortissement détaillé</p>
+            </div>
 
-<!-- Styles pour le simulateur -->
-<style>
-    .loan-simulator-section .form-control.is-invalid,
-    .loan-simulator-section .form-select.is-invalid {
-        border-color: #dc3545;
-        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-    }
-    
-    .loan-simulator-section .form-control.is-invalid:focus,
-    .loan-simulator-section .form-select.is-invalid:focus {
-        border-color: #dc3545;
-        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-    }
-    
-    .loan-simulator-section .form-label {
-        font-weight: 600;
-        color: #495057;
-        margin-bottom: 8px;
-    }
-    
-    .loan-simulator-section .form-control,
-    .loan-simulator-section .form-select {
-        border-radius: 8px;
-        border: 2px solid #e9ecef;
-        transition: all 0.3s ease;
-    }
-    
-    .loan-simulator-section .form-control:focus,
-    .loan-simulator-section .form-select:focus {
-        border-color: #EC281C;
-        box-shadow: 0 0 0 0.2rem rgba(236, 40, 28, 0.25);
-    }
-</style>
-
-<!-- Simulateur de Prêt Section -->
-<section class="loan-simulator-section pt-120 pb-120" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-    <div class="container-2">
-        <div class="section-heading text-center red-content mb-60">
-            <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5">
-                <span class="left-shape"></span>Simulateur de Prêt
-            </h4>
-            <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">
-                Calculez votre échéance de prêt
-            </h2>
-            <p class="mt-20">Simulez votre prêt en quelques clics et obtenez un tableau d'amortissement détaillé</p>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="loan-simulator-card">
-                    <div class="simulator-header">
-                        <h3><i class="fas fa-calculator"></i> Simulateur de Prêt COCEC</h3>
-                        <p>Entrez vos informations pour calculer votre échéance et voir le tableau d'amortissement</p>
-                    </div>
-
-                    <!-- Formulaire de simulation -->
-                    <div class="simulation-form mb-4">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="loan-type" class="form-label">Type de prêt</label>
-                                <select class="form-select" id="loan-type">
-                                    <option value="">Sélectionner le type</option>
-                                    <option value="commerce">Commerce</option>
-                                    <option value="construction">Construction</option>
-                                    <option value="equipement">Équipement</option>
-                                    <option value="personnel">Prêt Personnel</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="loan-amount" class="form-label">Montant (FCFA)</label>
-                                <input type="number" class="form-control" id="loan-amount" placeholder="Ex: 5000000" min="0" step="10000">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="loan-duration" class="form-label">Durée (mois)</label>
-                                <input type="number" class="form-control" id="loan-duration" placeholder="Ex: 24" min="1" step="1">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">&nbsp;</label>
-                                <button type="button" class="bz-primary-btn red-btn w-100" id="calculate-loan" onclick="calculateLoan()">
-                                    <span class="btn-text">Calculer</span>
-                                    <span class="btn-loading" style="display: none;">
-                                        <i class="fa-solid fa-spinner fa-spin"></i> Calcul...
-                                    </span>
-                                </button>
-                            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="loan-simulator-card">
+                        <div class="simulator-header">
+                            <h3><i class="fas fa-calculator"></i> Simulateur de Prêt COCEC</h3>
+                            <p>Entrez vos informations pour calculer votre échéance et voir le tableau d'amortissement</p>
                         </div>
-                    </div>
 
-                    <!-- Résultats -->
-                    <div id="loan-results" class="loan-results" style="display: none;">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="result-card">
-                                    <h4>Résumé du Prêt</h4>
-                                    <div class="result-item">
-                                        <span>Montant emprunté :</span>
-                                        <strong id="borrowed-amount">0 FCFA</strong>
-                                    </div>
-                                    <div class="result-item">
-                                        <span>Durée :</span>
-                                        <strong id="loan-period">0 mois</strong>
-                                    </div>
-                                    <div class="result-item">
-                                        <span>Taux d'intérêt :</span>
-                                        <strong id="interest-rate">0%</strong>
-                                    </div>
-                                    <div class="result-item">
-                                        <span>Échéance mensuelle :</span>
-                                        <strong id="monthly-payment">0 FCFA</strong>
-                                    </div>
-                                    <div class="result-item">
-                                        <span>Total à rembourser :</span>
-                                        <strong id="total-amount">0 FCFA</strong>
-                                    </div>
+                        <!-- Formulaire de simulation -->
+                        <div class="simulation-form mb-4">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="loan-type" class="form-label">Type de prêt</label>
+                                    <select class="form-select" id="loan-type">
+                                        <option value="" selected disabled>Sélectionner le type</option>
+                                        <option value="ORDINAIRE">CREDIT ORDINAIRE</option>
+                                        <option value="MARCHE">FINANCEMENT DE MARCHE</option>
+                                        <option value="SCOLAIRE">CRÉDIT SPECIAL R (PRÊT SCOLAIRE)</option>
+                                        <option value="COMMERCE">CREDIT COMMERCE & AUTRES AGR</option>
+                                        <option value="IMMOBILIER">CREDIT IMMOBILIER</option>
+                                        <option value="ENERGIE">CRÉDIT ENERGIE RENOUVELABLE</option>
+                                        <option value="FONCIER">CREDIT OBTENTION DE TITRE FONCIER</option>
+                                        <option value="TONTINE">CREDIT TONTINE</option>
+                                        <option value="SALAIRE">CREDIT SUR VIREMENT SALAIRE</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="loan-amount" class="form-label">Montant (FCFA)</label>
+                                    <input type="number" class="form-control" id="loan-amount" placeholder="Ex: 1000000" min="0" step="10000">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="loan-duration" class="form-label">Durée (mois)</label>
+                                    <input type="number" class="form-control" id="loan-duration" placeholder="Ex: 12" min="1" step="1">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">&nbsp;</label>
+                                    <button type="button" class="bz-primary-btn red-btn w-100" id="calculate-loan">
+                                        <span class="btn-text">Calculer</span>
+                                        <span class="btn-loading" style="display: none;">
+                                            <i class="fa-solid fa-spinner fa-spin"></i> Calcul...
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                                <div class="amortization-table-wrapper">
-                                    <h4>Tableau d'Amortissement</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped" id="amortization-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Échéance</th>
-                                                    <th>Capital</th>
-                                                    <th>Intérêts</th>
-                                                    <th>Échéance</th>
-                                                    <th>Capital Restant</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="amortization-body">
-                                            </tbody>
-                                        </table>
+                        </div>
+
+                        <!-- Loading -->
+                        <div id="loan-loading" class="text-center py-5" style="display: none;">
+                            <div class="loading-spinner">
+                                <div class="spinner"></div>
+                            </div>
+                            <p class="mt-3">Calcul en cours...</p>
+                        </div>
+
+                        <!-- Résultats -->
+                        <div id="loan-results" class="loan-results" style="display: none;">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="result-card">
+                                        <h4>Résumé du Prêt</h4>
+                                        <div class="result-item">
+                                            <span>Montant emprunté</span>
+                                            <strong id="borrowed-amount">0 FCFA</strong>
+                                        </div>
+                                        <div class="result-item">
+                                            <span>Durée</span>
+                                            <strong id="loan-period">0 mois</strong>
+                                        </div>
+                                        <div class="result-item">
+                                            <span>Taux Annuel</span>
+                                            <strong id="interest-rate">0%</strong>
+                                        </div>
+                                        <div class="result-item">
+                                            <span>Première Échéance</span>
+                                            <strong id="first-payment">0 FCFA</strong>
+                                        </div>
+                                        <div class="result-item">
+                                            <span>Dernière Échéance</span>
+                                            <strong id="last-payment">0 FCFA</strong>
+                                        </div>
+                                        <div class="result-item">
+                                            <span>Total des Intérêts</span>
+                                            <strong id="total-interest">0 FCFA</strong>
+                                        </div>
+                                        <div class="result-item">
+                                            <span>Total à Rembourser</span>
+                                            <strong id="total-amount">0 FCFA</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="amortization-table-wrapper">
+                                        <h4>Tableau d'Amortissement</h4>
+                                        <div class="table-responsive">
+                                            <table class="table" id="amortization-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>N°</th>
+                                                        <th>Capital Remboursé</th>
+                                                        <th>Intérêts</th>
+                                                        <th>Mensualité</th>
+                                                        <th>Capital Restant</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="amortization-body">
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Loading -->
-                    <div id="loan-loading" class="text-center py-5" style="display: none;">
-                        <div class="loading-spinner">
-                            <div class="spinner"></div>
+                        <!-- Actions -->
+                        <div class="simulation-actions text-center mt-4">
+                            <button type="button" class="bz-primary-btn hero-btn" id="refresh-loan">
+                                <i class="fas fa-redo"></i> Actualiser
+                            </button>
                         </div>
-                        <p class="mt-3">Calcul en cours...</p>
                     </div>
-
-                    <!-- Actions -->
-                    <div class="simulation-actions text-center mt-4">
-                        <button type="button" class="bz-primary-btn hero-btn" onclick="refreshLoanSimulator()">
-                            <i class="fas fa-redo"></i> Actualiser
-                        </button>
-                    </div>
-
-                    <!-- Script de test et simulateur autonome -->
-                    <script>
-                        // Configuration des taux d'intérêt
-                        const loanRates = {
-                            'commerce': 12.5,
-                            'construction': 15.0,
-                            'equipement': 13.5,
-                            'personnel': 18.0
-                        };
-
-                        // Fonction pour calculer l'échéance mensuelle
-                        function calculateMonthlyPayment(principal, annualRate, months) {
-                            const monthlyRate = annualRate / 100 / 12;
-                            if (monthlyRate === 0) return principal / months;
-                            
-                            return principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
-                        }
-
-                        // Fonction pour formater les montants
-                        function formatCurrency(amount) {
-                            return new Intl.NumberFormat('fr-FR', {
-                                style: 'currency',
-                                currency: 'XOF',
-                                minimumFractionDigits: 0
-                            }).format(amount);
-                        }
-
-                        // Fonction pour générer le tableau d'amortissement
-                        function generateAmortizationTable(principal, annualRate, months) {
-                            const monthlyRate = annualRate / 100 / 12;
-                            const monthlyPayment = calculateMonthlyPayment(principal, annualRate, months);
-                            const table = [];
-                            
-                            let remainingBalance = principal;
-                            
-                            for (let month = 1; month <= months; month++) {
-                                const interestPayment = remainingBalance * monthlyRate;
-                                let principalPayment = monthlyPayment - interestPayment;
-                                
-                                // Pour le dernier mois, ajuster le principal pour éviter les arrondis
-                                if (month === months) {
-                                    principalPayment = remainingBalance;
-                                }
-                                
-                                remainingBalance -= principalPayment;
-                                
-                                table.push({
-                                    month: month,
-                                    principal: principalPayment,
-                                    interest: interestPayment,
-                                    payment: month === months ? principalPayment + interestPayment : monthlyPayment,
-                                    remaining: Math.max(0, remainingBalance)
-                                });
-                            }
-                            
-                            return table;
-                        }
-
-                        // Fonction principale de calcul
-                        function calculateLoan() {
-                            console.log('Fonction calculateLoan appelée (version autonome)');
-                            
-                            const loanType = document.getElementById('loan-type');
-                            const loanAmount = document.getElementById('loan-amount');
-                            const loanDuration = document.getElementById('loan-duration');
-                            
-                            if (!loanType || !loanAmount || !loanDuration) {
-                                console.error('Éléments manquants');
-                                return;
-                            }
-                            
-                            const type = loanType.value;
-                            const amount = parseFloat(loanAmount.value);
-                            const duration = parseInt(loanDuration.value);
-                            
-                            console.log('Valeurs:', { type, amount, duration });
-                            
-                            // Validation avec feedback visuel
-                            let hasError = false;
-                            
-                            // Réinitialiser les styles d'erreur
-                            loanType.classList.remove('is-invalid');
-                            loanAmount.classList.remove('is-invalid');
-                            loanDuration.classList.remove('is-invalid');
-                            
-                            if (!type || type === '') {
-                                loanType.classList.add('is-invalid');
-                                hasError = true;
-                            }
-                            
-                            if (!amount || isNaN(amount)) {
-                                loanAmount.classList.add('is-invalid');
-                                hasError = true;
-                            }
-                            
-                            if (!duration || isNaN(duration)) {
-                                loanDuration.classList.add('is-invalid');
-                                hasError = true;
-                            }
-                            
-                            if (hasError) {
-                                if (typeof Swal !== 'undefined') {
-                                    Swal.fire({
-                                        icon: 'warning',
-                                        title: 'Champs manquants',
-                                        text: 'Veuillez remplir tous les champs correctement',
-                                        confirmButtonColor: '#EC281C'
-                                    });
-                                } else {
-                                    alert('Veuillez remplir tous les champs correctement');
-                                }
-                                return;
-                            }
-                            
-                            if (amount <= 0) {
-                                alert('Le montant doit être supérieur à 0 FCFA');
-                                return;
-                            }
-                            
-                            if (duration < 1) {
-                                alert('La durée doit être d\'au moins 1 mois');
-                                return;
-                            }
-                            
-                            // Afficher le loading
-                            const loadingEl = document.getElementById('loan-loading');
-                            const resultsEl = document.getElementById('loan-results');
-                            const calculateBtn = document.getElementById('calculate-loan');
-                            
-                            if (loadingEl) loadingEl.style.display = 'block';
-                            if (resultsEl) resultsEl.style.display = 'none';
-                            if (calculateBtn) {
-                                calculateBtn.disabled = true;
-                                const btnText = calculateBtn.querySelector('.btn-text');
-                                const btnLoading = calculateBtn.querySelector('.btn-loading');
-                                if (btnText) btnText.style.display = 'none';
-                                if (btnLoading) btnLoading.style.display = 'inline-block';
-                            }
-                            
-                            // Calcul
-                            setTimeout(() => {
-                                console.log('Calcul en cours...');
-                                
-                                const annualRate = loanRates[type];
-                                const monthlyPayment = calculateMonthlyPayment(amount, annualRate, duration);
-                                const totalAmount = monthlyPayment * duration;
-                                
-                                console.log('Résultats calculés:', { annualRate, monthlyPayment, totalAmount });
-                                
-                                // Mettre à jour le résumé
-                                const borrowedAmount = document.getElementById('borrowed-amount');
-                                const loanPeriod = document.getElementById('loan-period');
-                                const interestRate = document.getElementById('interest-rate');
-                                const monthlyPaymentEl = document.getElementById('monthly-payment');
-                                const totalAmountEl = document.getElementById('total-amount');
-                                
-                                if (borrowedAmount) borrowedAmount.textContent = formatCurrency(amount);
-                                if (loanPeriod) loanPeriod.textContent = `${duration} mois`;
-                                if (interestRate) interestRate.textContent = `${annualRate}% annuel`;
-                                if (monthlyPaymentEl) monthlyPaymentEl.textContent = formatCurrency(monthlyPayment);
-                                if (totalAmountEl) totalAmountEl.textContent = formatCurrency(totalAmount);
-                                
-                                // Générer le tableau d'amortissement
-                                const amortizationTable = generateAmortizationTable(amount, annualRate, duration);
-                                const tbody = document.getElementById('amortization-body');
-                                
-                                if (tbody) {
-                                    tbody.innerHTML = '';
-                                    
-                                    amortizationTable.forEach(row => {
-                                        const tr = document.createElement('tr');
-                                        tr.innerHTML = `
-                                            <td>${row.month}</td>
-                                            <td>${formatCurrency(row.principal)}</td>
-                                            <td>${formatCurrency(row.interest)}</td>
-                                            <td>${formatCurrency(row.payment)}</td>
-                                            <td>${formatCurrency(row.remaining)}</td>
-                                        `;
-                                        tbody.appendChild(tr);
-                                    });
-                                }
-                                
-                                // Masquer le loading et afficher les résultats
-                                if (loadingEl) loadingEl.style.display = 'none';
-                                if (resultsEl) resultsEl.style.display = 'block';
-                                if (calculateBtn) {
-                                    calculateBtn.disabled = false;
-                                    const btnText = calculateBtn.querySelector('.btn-text');
-                                    const btnLoading = calculateBtn.querySelector('.btn-loading');
-                                    if (btnText) btnText.style.display = 'inline-block';
-                                    if (btnLoading) btnLoading.style.display = 'none';
-                                }
-                                
-                                console.log('Calcul terminé, résultats affichés');
-                                
-                                // Scroll vers les résultats
-                                if (resultsEl) {
-                                    resultsEl.scrollIntoView({ behavior: 'smooth' });
-                                }
-                                
-                            }, 1500);
-                        }
-
-                        // Fonction pour actualiser le simulateur de prêt
-                        function refreshLoanSimulator() {
-                            // Réinitialiser les champs
-                            const loanType = document.getElementById('loan-type');
-                            const loanAmount = document.getElementById('loan-amount');
-                            const loanDuration = document.getElementById('loan-duration');
-                            
-                            // Réinitialiser le select (retour à la première option)
-                            loanType.selectedIndex = 0;
-                            
-                            // Vider les champs numériques
-                            loanAmount.value = '';
-                            loanDuration.value = '';
-                            
-                            // Supprimer les styles d'erreur
-                            loanType.classList.remove('is-invalid');
-                            loanAmount.classList.remove('is-invalid');
-                            loanDuration.classList.remove('is-invalid');
-                            
-                            // Remettre le focus sur le premier champ
-                            loanType.focus();
-                            
-                            // Masquer les résultats
-                            document.getElementById('loan-results').style.display = 'none';
-                            
-                            // Masquer le loading
-                            document.getElementById('loan-loading').style.display = 'none';
-                            
-                            // Réactiver le bouton de calcul
-                            const calculateBtn = document.getElementById('calculate-loan');
-                            if (calculateBtn) {
-                                calculateBtn.disabled = false;
-                                const btnText = calculateBtn.querySelector('.btn-text');
-                                const btnLoading = calculateBtn.querySelector('.btn-loading');
-                                if (btnText) btnText.style.display = 'inline-block';
-                                if (btnLoading) btnLoading.style.display = 'none';
-                            }
-                            
-                            // Scroll vers le haut du simulateur
-                            document.querySelector('.loan-simulator-section').scrollIntoView({ behavior: 'smooth' });
-                            
-                            // Message de confirmation
-                            if (typeof Swal !== 'undefined') {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Simulateur actualisé !',
-                                    text: 'Vous pouvez maintenant effectuer une nouvelle simulation',
-                                    confirmButtonColor: '#EC281C'
-                                });
-                            } else {
-                                alert('Simulateur actualisé ! Vous pouvez maintenant effectuer une nouvelle simulation.');
-                            }
-                        }
-
-                        // Rendre les fonctions globales
-                        window.calculateLoan = calculateLoan;
-                        window.refreshLoanSimulator = refreshLoanSimulator;
-                    </script>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-    <!-- <section class="process-section-2 pt-120 pb-120">
-        <div class="container-2">
-            <div class="section-heading text-center red-content">
-                <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Notre Démarche</h4>
-                <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">Votre Parcours vers la Réussite Financière</h2>
-            </div>
-            <div class="row gy-lg-0 gy-4 fade-wrapper"> -->
-
-    <!-- Étape 1 -->
-    <!-- <div class="col-lg-3 col-md-6">
-                    <div class="process-item fade-top">
-                        <div class="process-thumb img-reveal">
-                            <div class="img-overlay overlay-2"></div>
-                            <img src="{{ asset('assets/main/img/images/process-img-1.png') }}" alt="Devenir Membre">
-                            <span>Étape 1</span>
-                        </div>
-                        <div class="process-content">
-                            <h3 class="title">Devenez Membre</h3>
-                            <p class="text-justify">Ouvrez votre compte en quelques minutes en agence ou en ligne et rejoignez une communauté financière solide.</p>
-                        </div>
-                    </div>
-                </div> -->
-
-    <!-- Étape 2 -->
-    <!-- <div class="col-lg-3 col-md-6">
-                    <div class="process-item fade-top">
-                        <div class="process-thumb img-reveal">
-                            <div class="img-overlay overlay-2"></div>
-                            <img src="{{ asset('assets/main/img/images/process-img-2.png') }}" alt="Épargner">
-                            <span>Étape 2</span>
-                        </div>
-                        <div class="process-content">
-                            <h3 class="title">Épargnez & Grandissez</h3>
-                            <p class="text-justify">Faites fructifier votre argent en toute sécurité grâce à nos solutions d'épargne flexibles et rentables.</p>
-                        </div>
-                    </div>
-                </div> -->
-
-    <!-- Étape 3 -->
-    <!-- <div class="col-lg-3 col-md-6">
-                    <div class="process-item fade-top">
-                        <div class="process-thumb img-reveal">
-                            <div class="img-overlay overlay-2"></div>
-                            <img src="{{ asset('assets/main/img/images/process-img-3.png') }}" alt="Financer un projet">
-                            <span>Étape 3</span>
-                        </div>
-                        <div class="process-content">
-                            <h3 class="title">Financez Vos Projets</h3>
-                            <p class="text-justify">Que ce soit pour un projet personnel ou professionnel, nous vous offrons des crédits adaptés avec un accompagnement sur-mesure.</p>
-                        </div>
-                    </div>
-                </div> -->
-
-    <!-- Étape 4 -->
-    <!-- <div class="col-lg-3 col-md-6">
-                    <div class="process-item fade-top">
-                        <div class="process-thumb img-reveal">
-                            <div class="img-overlay overlay-2"></div>
-                            <img src="{{ asset('assets/main/img/images/process-img-4.png') }}" alt="Réussir">
-                            <span>Étape 4</span>
-                        </div>
-                        <div class="process-content">
-                            <h3 class="title">Prospérez & Réussissez</h3>
-                            <p class="text-justify">Grâce à nos conseils et nos outils digitaux, atteignez vos objectifs et assurez votre indépendance financière.</p>
-                        </div>
-                    </div>
-                </div> -->
-    <!-- 
-            </div>
-        </div>
-    </section> -->
-    <!-- ./ process-section -->
+    </section>
 
     <!-- SECTION STATISTIQUES - VERSION OPTIMISÉE -->
     <section class="strength-section pt-120 pb-120">
@@ -839,43 +652,30 @@
                         <p class="fade-top text-justify mb-40">
                             Depuis plus de 20 ans, notre force réside dans la confiance de nos membres et notre engagement indéfectible pour leur réussite financière.
                         </p>
-                        
-                        <!-- Statistiques en grille 2x2 -->
                         <div class="strength-items-grid">
                             <div class="strength-item fade-top">
-                                <div class="strength-icon">
-                                    <i class="fas fa-heart"></i>
-                                </div>
+                                <div class="strength-icon"><i class="fas fa-heart"></i></div>
                                 <div class="strength-content">
                                     <h3 class="title"><span class="odometer" data-count="95">0</span>%</h3>
                                     <p>Taux de Satisfaction</p>
                                 </div>
                             </div>
-                            
                             <div class="strength-item fade-top">
-                                <div class="strength-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
+                                <div class="strength-icon"><i class="fas fa-users"></i></div>
                                 <div class="strength-content">
                                     <h3 class="title">+<span class="odometer" data-count="50000">0</span></h3>
                                     <p>Membres Accompagnés</p>
                                 </div>
                             </div>
-                            
                             <div class="strength-item fade-top">
-                                <div class="strength-icon">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
+                                <div class="strength-icon"><i class="fas fa-chart-line"></i></div>
                                 <div class="strength-content">
                                     <h3 class="title"><span class="odometer" data-count="20">0</span>+</h3>
                                     <p>Années d'Expérience</p>
                                 </div>
                             </div>
-                            
                             <div class="strength-item fade-top">
-                                <div class="strength-icon">
-                                    <i class="fas fa-handshake"></i>
-                                </div>
+                                <div class="strength-icon"><i class="fas fa-handshake"></i></div>
                                 <div class="strength-content">
                                     <h3 class="title"><span class="odometer" data-count="1000">0</span>+</h3>
                                     <p>Projets Financés</p>
@@ -894,135 +694,13 @@
     </section>
     <!-- ./ process-section -->
 
-    <section class="team-section-3 pt-120 pb-120">
-        <div class="container-2">
-            <div class="section-heading text-center red-content">
-                {{-- Titres mis à jour en français et adaptés à COCEC --}}
-                <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Notre Équipe</h4>
-                <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">Des Experts Engagés Pour Votre Réussite</h2>
-            </div>
-            <div class="row gy-xl-0 gy-4 justify-content-center fade-wrapper">
-
-                <!-- Membre 1 -->
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="team-card fade-top">
-                        <div class="overlay"></div>
-                        <div class="team-member">
-                            <img src="{{ asset('assets/images/team.jpg') }}" alt="Photo de membre d'équipe">
-                        </div>
-                        <div class="team-content">
-                            <h4 class="title"><a href="#">M. Kokou GABIAM</a></h4>
-                            <span>Directeur Général</span>
-                        </div>
-                        <div class="hover-content-wrap">
-                            <div class="hover-content">
-                                <h4 class="title"><a href="#">M. Kokou GABIAM</a></h4>
-                                <span>Directeur Général</span>
-                                <p class="text-justify">Leader visionnaire, il guide la COCEC avec une passion pour l'inclusion financière et un engagement total envers la prospérité de nos membres.</p>
-                                <ul class="team-social">
-                                    <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="behance"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#" class="google"><i class="fab fa-twitter"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Membre 2 -->
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="team-card fade-top">
-                        <div class="overlay"></div>
-                        <div class="team-member">
-                            <img src="{{ asset('assets/images/team.jpg') }}" alt="Photo de membre d'équipe">
-                        </div>
-                        <div class="team-content">
-                            <h4 class="title"><a href="#">Adjoa AKOUETE</a></h4>
-                            <span>Responsable des Opérations</span>
-                        </div>
-                        <div class="hover-content-wrap">
-                            <div class="hover-content">
-                                <h4 class="title"><a href="#">Adjoa AKOUETE</a></h4>
-                                <span>Responsable des Opérations</span>
-                                <p class="text-justify">Elle assure l'excellence et la fluidité de tous nos services pour vous garantir une expérience client irréprochable au quotidien.</p>
-                                <ul class="team-social">
-                                    <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="behance"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#" class="google"><i class="fab fa-twitter"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Membre 3 -->
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="team-card fade-top">
-                        <div class="overlay"></div>
-                        <div class="team-member">
-                            <img src="{{ asset('assets/images/team.jpg') }}" alt="Photo de membre d'équipe">
-                        </div>
-                        <div class="team-content">
-                            <h4 class="title"><a href="#">Koffi LAWSON</a></h4>
-                            <span>Responsable du Crédit</span>
-                        </div>
-                        <div class="hover-content-wrap">
-                            <div class="hover-content">
-                                <h4 class="title"><a href="#">Koffi LAWSON</a></h4>
-                                <span>Responsable du Crédit</span>
-                                <p class="text-justify">Expert en financement, il analyse et accompagne vos projets pour vous aider à concrétiser vos ambitions en toute sécurité.</p>
-                                <ul class="team-social">
-                                    <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="behance"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#" class="google"><i class="fab fa-twitter"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Membre 4 -->
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="team-card fade-top">
-                        <div class="overlay"></div>
-                        <div class="team-member">
-                            <img src="{{ asset('assets/images/team.jpg') }}" alt="Photo de membre d'équipe">
-                        </div>
-                        <div class="team-content">
-                            <h4 class="title"><a href="#">Fati BAMBA</a></h4>
-                            <span>Chef d'Agence Principale</span>
-                        </div>
-                        <div class="hover-content-wrap">
-                            <div class="hover-content">
-                                <h4 class="title"><a href="#">Fati BAMBA</a></h4>
-                                <span>Chef d'Agence Principale</span>
-                                <p class="text-justify">Au cœur de notre réseau, elle incarne la proximité et l'écoute, veillant à ce que chaque membre reçoive un conseil personnalisé.</p>
-                                <ul class="team-social">
-                                    <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="behance"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#" class="google"><i class="fab fa-twitter"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- ./ team-section -->
-
-
     <section class="home-agencies-section">
         <div class="container">
-            {{-- En-tête de la section --}}
             <div class="section-heading text-center">
                 <h4 class="sub-heading"><span class="left-shape"></span>Notre Réseau</h4>
                 <h2>Trouvez un point de service proche de vous</h2>
                 <p>Avec un réseau en pleine expansion, la COCEC est toujours à vos côtés. Découvrez nos agences principales.</p>
             </div>
-
-            {{-- Grille des agences --}}
             <div class="agency-grid">
                 @foreach ($agencies as $agency)
                 <a href="{{ route('agencies') }}" class="mini-agency-card">
@@ -1031,9 +709,7 @@
                     </div>
                     <div class="card-status">
                         <?php
-                        // Récupérer l'heure actuelle dans le fuseau horaire de l'application
                         $currentHour = now()->hour;
-                        // Vérifier si l'heure est entre 9h et 17h
                         $isOpen = ($currentHour >= 9 && $currentHour < 17);
                         $status = $isOpen ? 'Ouvert' : 'Fermé';
                         ?>
@@ -1045,13 +721,7 @@
                 </a>
                 @endforeach
             </div>
-
-            {{-- Si aucune agence n'est trouvée --}}
-
-            {{-- Bouton "Tout Voir" --}}
             <div class="text-center" style="margin-top: 50px;">
-                {{-- Assurez-vous que la route 'agences.index' existe dans votre fichier web.php --}}
-                {{-- Exemple: Route::get('/agences', [AgenceController::class, 'index'])->name('agences.index'); --}}
                 <a href="{{ route('agencies') }}" class="btn-see-all">
                     Voir toutes nos agences <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
                 </a>
@@ -1059,32 +729,22 @@
         </div>
     </section>
 
-
     <section class="cta-section-3">
         <div class="container-2">
             <div class="cta-wrap-3">
                 <div class="shapes">
-                    <div class="shape-1">
-                        <img src="{{ asset('assets/images/shapes/cta-shape-1.png') }}" alt="cta">
-                    </div>
-                    <div class="shape-2">
-                        <img src="{{ asset('assets/images/shapes/cta-shape-2.png') }}" alt="cta">
-                    </div>
+                    <div class="shape-1"><img src="{{ asset('assets/images/shapes/cta-shape-1.png') }}" alt="cta"></div>
+                    <div class="shape-2"><img src="{{ asset('assets/images/shapes/cta-shape-2.png') }}" alt="cta"></div>
                 </div>
                 <div class="cta-mask-img">
                     <div class="overlay"></div>
                     <img src="{{ asset('assets/images/job-offer.jpg') }}" alt="cta">
                 </div>
-
-                {{-- Contenu mis à jour en français et adapté pour COCEC --}}
                 <h3 class="title">Rejoignez Notre Équipe</h3>
                 <p>Nous sommes toujours à la recherche de professionnels talentueux et passionnés, <br> désireux de contribuer à notre mission d'inclusion financière.</p>
-
-                {{-- Bouton d'action ajouté pour compléter la section --}}
                 <div style="margin-top: 30px;">
                     <a href="{{ route('career') }}" class="bz-primary-btn red-btn">Voir les Offres d'Emploi <i class="fa-regular fa-arrow-right"></i></a>
                 </div>
-
             </div>
         </div>
     </section>
@@ -1093,19 +753,15 @@
     <section class="testimonial-section-3 overflow-hidden pb-120" data-background="{{ URL::asset('assets/images/shapes/testi-bg-2.png') }}">
         <div class="container-2">
             <div class="section-heading text-center red-content">
-                {{-- Titres traduits et adaptés --}}
                 <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Témoignages de nos Membres</h4>
                 <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">Leurs Mots, Notre Plus Grande Fierté</h2>
             </div>
             <div class="testi-carousel-2 swiper">
                 <div class="swiper-wrapper">
-
-                    <!-- Témoignage 1 -->
                     <div class="swiper-slide">
                         <div class="testi-item-2">
                             <div class="testi-top no-image">
                                 <div class="testi-author">
-                                    <!-- <img src="{{ asset('assets/main/img/testi/testi-author-1.png') }}" alt="Photo d'un membre"> -->
                                     <h3 class="name">Mme Akouvi MENSAH <span>Enseignante & Mère de famille</span></h3>
                                 </div>
                                 <ul class="review">
@@ -1119,13 +775,10 @@
                             <p>Grâce au compte épargne projet de la COCEC, j'ai pu financer les études supérieures de mon fils sans stress. Leur accompagnement a été précieux à chaque étape.</p>
                         </div>
                     </div>
-
-                    <!-- Témoignage 2 -->
                     <div class="swiper-slide">
                         <div class="testi-item-2">
                             <div class="testi-top no-image">
                                 <div class="testi-author">
-                                    <!-- <img src="{{ asset('assets/main/img/testi/testi-author-2.png') }}" alt="Photo d'un membre"> -->
                                     <h3 class="name">M. Koffi SOSSOU <span>Commerçant au grand marché</span></h3>
                                 </div>
                                 <ul class="review">
@@ -1139,13 +792,10 @@
                             <p>Obtenir un crédit pour développer mon commerce a été simple et rapide. L'équipe de la COCEC a vraiment compris mes besoins et m'a fait confiance.</p>
                         </div>
                     </div>
-
-                    <!-- Témoignage 3 -->
                     <div class="swiper-slide">
                         <div class="testi-item-2">
                             <div class="testi-top no-image">
                                 <div class="testi-author">
-                                    <!-- <img src="{{ asset('assets/main/img/testi/testi-author-3.png') }}" alt="Photo d'un membre"> -->
                                     <h3 class="name">Mlle Fati ALI <span>Jeune Entrepreneure</span></h3>
                                 </div>
                                 <ul class="review">
@@ -1159,7 +809,6 @@
                             <p>Avec COCEC Mobile, je gère mes finances directement depuis ma boutique. C'est un gain de temps incroyable qui me permet de me concentrer sur mon business.</p>
                         </div>
                     </div>
-
                 </div>
                 <div class="swiper-pagination" style="--bz-color-theme-primary: #EC281C"></div>
             </div>
@@ -1172,7 +821,6 @@
             <div class="blog-top heading-space">
                 <div class="section-heading red-content mb-0">
                     <h4 class="sub-heading" data-text-animation="fade-in" data-duration="1.5"><span class="left-shape"></span>Nos actualités</h4>
-                    {{-- Titre mis à jour en français et adapté --}}
                     <h2 class="section-title mb-0" data-text-animation data-split="word" data-duration="1">L'actualité financière décryptée <br>par nos experts</h2>
                 </div>
                 <a href="{{ route('blogs') }}" class="bz-primary-btn red-btn">Voir tous les Posts <i class="fa-regular fa-arrow-right"></i></a>
@@ -1188,30 +836,26 @@
                         </div>
                         <div class="post-content">
                             <ul class="post-meta">
-                                {{-- Date formatée en français (nécessite la locale 'fr' dans config/app.php) --}}
                                 <li><i class="fa-regular fa-calendar"></i>{{ $blog->created_at->translatedFormat('d F Y') }}</li>
-                                {{-- Auteur traduit --}}
                                 <li><i class="fa-regular fa-user"></i>par Admin</li>
                             </ul>
-                            {{-- Le lien du titre doit pointer vers la page de détail du blog --}}
                             <h3 class="title"><a href="{{ route('blogs.show', $blog->id) }}">{{ $blog->title }}</a></h3>
-                            {{-- Bouton traduit --}}
                             <a href="{{ route('blogs.show', $blog->id) }}" class="blog-btn"><i class="fa-regular fa-arrow-right"></i>Lire la suite</a>
                         </div>
                     </div>
                 </div>
                 @endforeach
                 @else
-                    <div class="col-12">
-                        <div class="text-center py-5">
-                            <div class="empty-blog-message">
-                                <i class="fa-regular fa-newspaper" style="font-size: 4rem; color: #EC281C; margin-bottom: 1rem;"></i>
-                                <h3 class="mb-3">Aucun article disponible</h3>
-                                <p class="text-muted mb-4">Nous travaillons actuellement sur de nouveaux contenus. Revenez bientôt pour découvrir nos derniers articles !</p>
-                                <a href="{{ route('blogs') }}" class="bz-primary-btn red-btn">Voir tous les Posts <i class="fa-regular fa-arrow-right"></i></a>
-                            </div>
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <div class="empty-blog-message">
+                            <i class="fa-regular fa-newspaper" style="font-size: 4rem; color: #EC281C; margin-bottom: 1rem;"></i>
+                            <h3 class="mb-3">Aucun article disponible</h3>
+                            <p class="text-muted mb-4">Nous travaillons actuellement sur de nouveaux contenus. Revenez bientôt pour découvrir nos derniers articles !</p>
+                            <a href="{{ route('blogs') }}" class="bz-primary-btn red-btn">Voir tous les Posts <i class="fa-regular fa-arrow-right"></i></a>
                         </div>
                     </div>
+                </div>
                 @endif
             </div>
         </div>
@@ -1222,61 +866,40 @@
         <div class="container">
             <h3 class="sponsor-text-wrap">
                 <span></span>
-                {{-- Texte mis à jour en français et adapté pour COCEC --}}
                 <span class="sponsor-text">Nos Partenaires Institutionnels & Techniques Nous Font Confiance</span>
                 <span></span>
             </h3>
             <div class="sponsor-carousel swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="sponsor-item text-center">
-                            <a href="#"><img src="{{ asset('assets/images/fnfi.png') }}" alt="sponsor"></a>
-                        </div>
+                        <div class="sponsor-item text-center"><a href="#"><img src="{{ asset('assets/images/fnfi.png') }}" alt="sponsor"></a></div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="sponsor-item text-center">
-                            <a href="#"><img src="{{ asset('assets/images/ada.jpg') }}" alt="sponsor"></a>
-                        </div>
+                        <div class="sponsor-item text-center"><a href="#"><img src="{{ asset('assets/images/ada.jpg') }}" alt="sponsor"></a></div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="sponsor-item text-center">
-                            <a href="#"><img src="{{ asset('assets/images/apsfd.png') }}" alt="sponsor"></a>
-                        </div>
+                        <div class="sponsor-item text-center"><a href="#"><img src="{{ asset('assets/images/apsfd.png') }}" alt="sponsor"></a></div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="sponsor-item text-center">
-                            <a href="#"><img src="{{ asset('assets/images/btci.png') }}" alt="sponsor"></a>
-                        </div>
+                        <div class="sponsor-item text-center"><a href="#"><img src="{{ asset('assets/images/btci.png') }}" alt="sponsor"></a></div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="sponsor-item text-center">
-                            <a href="#"><img src="{{ asset('assets/images/ecobank.jpg') }}" alt="sponsor"></a>
-                        </div>
+                        <div class="sponsor-item text-center"><a href="#"><img src="{{ asset('assets/images/ecobank.jpg') }}" alt="sponsor"></a></div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="sponsor-item text-center">
-                            <a href="#"><img src="{{ asset('assets/images/mainnetwork.jpg') }}" alt="sponsor"></a>
-                        </div>
+                        <div class="sponsor-item text-center"><a href="#"><img src="{{ asset('assets/images/mainnetwork.jpg') }}" alt="sponsor"></a></div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="sponsor-item text-center">
-                            <a href="#"><img src="{{ asset('assets/images/nsia.png') }}" alt="sponsor"></a>
-                        </div>
+                        <div class="sponsor-item text-center"><a href="#"><img src="{{ asset('assets/images/nsia.png') }}" alt="sponsor"></a></div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="sponsor-item text-center">
-                            <a href="#"><img src="{{ asset('assets/images/orabank.jpg') }}" alt="sponsor"></a>
-                        </div>
+                        <div class="sponsor-item text-center"><a href="#"><img src="{{ asset('assets/images/orabank.jpg') }}" alt="sponsor"></a></div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="sponsor-item text-center">
-                            <a href="#"><img src="{{ asset('assets/images/poste.jpg') }}" alt="sponsor"></a>
-                        </div>
+                        <div class="sponsor-item text-center"><a href="#"><img src="{{ asset('assets/images/poste.jpg') }}" alt="sponsor"></a></div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="sponsor-item text-center">
-                            <a href="#"><img src="{{ asset('assets/images/sunu.jpg') }}" alt="sponsor"></a>
-                        </div>
+                        <div class="sponsor-item text-center"><a href="#"><img src="{{ asset('assets/images/sunu.jpg') }}" alt="sponsor"></a></div>
                     </div>
                 </div>
             </div>
@@ -1284,272 +907,199 @@
     </div>
 
     @include('includes.main.scroll')
-
-    <!-- ./ sponsor-section -->
     @include('includes.main.footer')
-
 </body>
 @endsection
 
 @section('js')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialisation du Swiper pour le hero
-        const heroSwiper = new Swiper('.swiper-container-wrapper', {
-            loop: true,
-            effect: 'fade',
-            fadeEffect: {
-                crossFade: true
-            },
-            autoplay: {
-                delay: 7000,
-                disableOnInteraction: false,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev'
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true
-            },
-            a11y: {
-                prevSlideMessage: 'Slide précédent',
-                nextSlideMessage: 'Slide suivant'
-            },
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Initialisation de tous les sliders Swiper de la page ---
 
-        // Optimisation du lazy loading pour les images
-        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.classList.add('loaded');
-                        observer.unobserve(img);
-                    }
-        });
+    // 1. Slider du HÉROS (bannière principale)
+    new Swiper('.hero-section-3 .swiper-container-wrapper', {
+        loop: true,
+        effect: 'fade',
+        fadeEffect: { crossFade: true },
+        autoplay: { delay: 7000, disableOnInteraction: false },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        pagination: { el: '.swiper-pagination', clickable: true },
     });
 
-            lazyImages.forEach(img => imageObserver.observe(img));
+    // 2. Slider des TÉMOIGNAGES
+    new Swiper('.testi-carousel-2', {
+        loop: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            // Pour mobile
+            320: { slidesPerView: 1 },
+            // Pour tablettes
+            768: { slidesPerView: 2 },
+            // Pour ordinateurs
+            992: { slidesPerView: 2 }
         }
+    });
 
-        // Animation des compteurs optimisée
-        const counters = document.querySelectorAll('.odometer');
-        let countersAnimated = new Set();
-
-        if ('IntersectionObserver' in window) {
-            const counterObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !countersAnimated.has(entry.target)) {
-                        const target = parseInt(entry.target.getAttribute('data-count') || '0');
-                        // Utiliser requestAnimationFrame pour éviter le blocage du scroll
-                        requestAnimationFrame(() => {
-                            animateCounter(entry.target, target);
-                        });
-                        countersAnimated.add(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            counters.forEach(counter => counterObserver.observe(counter));
+    // 3. Slider des PARTENAIRES (Sponsors)
+    new Swiper('.sponsor-carousel', {
+        loop: true,
+        speed: 1000,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        slidesPerView: 2,
+        spaceBetween: 30,
+        breakpoints: {
+            768: { slidesPerView: 4, spaceBetween: 40 },
+            992: { slidesPerView: 5, spaceBetween: 50 }
         }
+    });
 
-        function animateCounter(element, target) {
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
-            
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    element.textContent = target;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current);
+    // --- Animation des compteurs (Odometer) ---
+    const counters = document.querySelectorAll('.odometer');
+    if ('IntersectionObserver' in window) {
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const odometer = entry.target;
+                    const target = parseInt(odometer.getAttribute('data-count'), 10);
+                    odometer.innerHTML = target; // Remplacé par une animation simple pour éviter les dépendances lourdes
+                    observer.unobserve(odometer);
                 }
-            }, 16);
-        }
+            });
+        }, { threshold: 0.1 });
+        counters.forEach(counter => counterObserver.observe(counter));
+    }
+    
+    // --- LOGIQUE DU SIMULATEUR DE PRÊT ---
+    const loanSimulatorSection = document.querySelector('.loan-simulator-section');
+    if (loanSimulatorSection) {
+    
+        const loanRates = {
+            'ORDINAIRE': 14.0, 'MARCHE': 14.0, 'SCOLAIRE': 0.0, 'COMMERCE': 14.0,
+            'IMMOBILIER': 14.0, 'ENERGIE': 0.0, 'FONCIER': 14.0, 'TONTINE': 14.0, 'SALAIRE': 13.0
+        };
 
-        // ===== TABLEAU DES TARIFS DE PRÊT =====
+        const loanTypeEl = document.getElementById('loan-type');
+        const loanAmountEl = document.getElementById('loan-amount');
+        const loanDurationEl = document.getElementById('loan-duration');
+        const calculateBtn = document.getElementById('calculate-loan');
+        const refreshBtn = document.getElementById('refresh-loan');
+        const loadingEl = document.getElementById('loan-loading');
+        const resultsEl = document.getElementById('loan-results');
         
-        // Données prédéfinies des tarifs
-        const loanTariffs = [
-            // Prêts de 100,000 FCFA
-            { amount: 100000, duration: 6, type: 'personal', monthly: 18500, interest: 11000, fees: 5000, total: 111000 },
-            { amount: 100000, duration: 12, type: 'personal', monthly: 10200, interest: 22400, fees: 5000, total: 122400 },
-            { amount: 100000, duration: 18, type: 'personal', monthly: 7200, interest: 29600, fees: 5000, total: 129600 },
-            { amount: 100000, duration: 24, type: 'personal', monthly: 5800, interest: 39200, fees: 5000, total: 139200 },
-            
-            // Prêts de 200,000 FCFA
-            { amount: 200000, duration: 6, type: 'personal', monthly: 37000, interest: 22000, fees: 8000, total: 222000 },
-            { amount: 200000, duration: 12, type: 'personal', monthly: 20400, interest: 44800, fees: 8000, total: 244800 },
-            { amount: 200000, duration: 18, type: 'personal', monthly: 14400, interest: 59200, fees: 8000, total: 259200 },
-            { amount: 200000, duration: 24, type: 'personal', monthly: 11600, interest: 78400, fees: 8000, total: 278400 },
-            
-            // Prêts de 500,000 FCFA
-            { amount: 500000, duration: 6, type: 'business', monthly: 92500, interest: 55000, fees: 15000, total: 555000 },
-            { amount: 500000, duration: 12, type: 'business', monthly: 51000, interest: 112000, fees: 15000, total: 612000 },
-            { amount: 500000, duration: 18, type: 'business', monthly: 36000, interest: 148000, fees: 15000, total: 648000 },
-            { amount: 500000, duration: 24, type: 'business', monthly: 29000, interest: 196000, fees: 15000, total: 696000 },
-            
-            // Prêts de 1,000,000 FCFA
-            { amount: 1000000, duration: 6, type: 'business', monthly: 185000, interest: 110000, fees: 25000, total: 1110000 },
-            { amount: 1000000, duration: 12, type: 'business', monthly: 102000, interest: 224000, fees: 25000, total: 1224000 },
-            { amount: 1000000, duration: 18, type: 'business', monthly: 72000, interest: 296000, fees: 25000, total: 1296000 },
-            { amount: 1000000, duration: 24, type: 'business', monthly: 58000, interest: 392000, fees: 25000, total: 1392000 },
-            
-            // Prêts de 2,000,000 FCFA
-            { amount: 2000000, duration: 12, type: 'agricultural', monthly: 204000, interest: 448000, fees: 40000, total: 2448000 },
-            { amount: 2000000, duration: 18, type: 'agricultural', monthly: 144000, interest: 592000, fees: 40000, total: 2592000 },
-            { amount: 2000000, duration: 24, type: 'agricultural', monthly: 116000, interest: 784000, fees: 40000, total: 2784000 },
-            { amount: 2000000, duration: 36, type: 'agricultural', monthly: 82000, interest: 952000, fees: 40000, total: 2952000 },
-            
-            // Prêts de 5,000,000 FCFA
-            { amount: 5000000, duration: 24, type: 'education', monthly: 290000, interest: 1960000, fees: 80000, total: 6960000 },
-            { amount: 5000000, duration: 36, type: 'education', monthly: 205000, interest: 2380000, fees: 80000, total: 7380000 },
-        ];
-
-        // Initialisation du tableau
-        let currentTariffs = [...loanTariffs];
-        
-        // Éléments DOM
-        const loanTableBody = document.getElementById('loanTableBody');
-        const loanTableLoading = document.getElementById('loanTableLoading');
-        const filterAmount = document.getElementById('filterAmount');
-        const filterDuration = document.getElementById('filterDuration');
-        const filterType = document.getElementById('filterType');
-
-        // Fonction de formatage des montants
-        function formatCurrency(amount) {
+        const formatCurrency = (amount) => {
             return new Intl.NumberFormat('fr-FR', {
-                style: 'currency',
-                currency: 'XOF',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            }).format(amount);
-        }
+                style: 'currency', currency: 'XOF', minimumFractionDigits: 0
+            }).format(Math.round(amount));
+        };
 
-        // Fonction de formatage des types de prêt
-        function formatLoanType(type) {
-            const types = {
-                'personal': 'Personnel',
-                'business': 'Commercial',
-                'agricultural': 'Agricole',
-                'education': 'Scolaire'
-            };
-            return types[type] || type;
-        }
+        const calculateLoan = () => {
+            let hasError = false;
+            [loanTypeEl, loanAmountEl, loanDurationEl].forEach(el => {
+                el.classList.remove('is-invalid');
+                if (!el.value) {
+                    el.classList.add('is-invalid');
+                    hasError = true;
+                }
+            });
 
-        // Fonction d'affichage du tableau
-        function displayLoanTable(tariffs) {
-            if (!loanTableBody) return;
-
-            loanTableBody.innerHTML = '';
-
-            if (tariffs.length === 0) {
-                loanTableBody.innerHTML = `
-                    <tr>
-                        <td colspan="8" class="text-center py-4">
-                            <i class="fas fa-search text-muted"></i>
-                            <p class="mt-2 text-muted">Aucun tarif trouvé pour les critères sélectionnés</p>
-                        </td>
-                    </tr>
-                `;
+            if (hasError) {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({ icon: 'warning', title: 'Champs manquants', text: 'Veuillez remplir tous les champs correctement.', confirmButtonColor: '#EC281C' });
+                }
                 return;
             }
 
-            tariffs.forEach(tariff => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="amount">${formatCurrency(tariff.amount)}</td>
-                    <td><span class="duration">${tariff.duration} mois</span></td>
-                    <td><span class="type">${formatLoanType(tariff.type)}</span></td>
-                    <td class="monthly">${formatCurrency(tariff.monthly)}</td>
-                    <td class="interest">${formatCurrency(tariff.interest)}</td>
-                    <td class="fees">${formatCurrency(tariff.fees)}</td>
-                    <td class="total">${formatCurrency(tariff.total)}</td>
-                    <td>
-                        <a href="{{ route('contact') }}?loan=${tariff.amount}&duration=${tariff.duration}&type=${tariff.type}" 
-                           class="loan-info" title="Demander ce prêt">
-                            <i class="fas fa-info-circle"></i> Détails
-                        </a>
-                    </td>
-                `;
-                loanTableBody.appendChild(row);
-            });
-        }
+            const type = loanTypeEl.value;
+            const principal = parseFloat(loanAmountEl.value);
+            const duration = parseInt(loanDurationEl.value);
+            const annualRate = loanRates[type];
 
-        // Fonction de filtrage
-        function filterTariffs() {
-            const amountFilter = filterAmount.value;
-            const durationFilter = filterDuration.value;
-            const typeFilter = filterType.value;
+            loadingEl.style.display = 'block';
+            resultsEl.style.display = 'none';
+            calculateBtn.disabled = true;
+            calculateBtn.querySelector('.btn-text').style.display = 'none';
+            calculateBtn.querySelector('.btn-loading').style.display = 'inline-block';
 
-            console.log('Filtres appliqués:', { amountFilter, durationFilter, typeFilter });
-
-            let filtered = loanTariffs.filter(tariff => {
-                const amountMatch = amountFilter === 'all' || tariff.amount === parseInt(amountFilter);
-                const durationMatch = durationFilter === 'all' || tariff.duration === parseInt(durationFilter);
-                const typeMatch = typeFilter === 'all' || tariff.type === typeFilter;
-
-                console.log('Tariff:', tariff, 'Matches:', { amountMatch, durationMatch, typeMatch });
-
-                return amountMatch && durationMatch && typeMatch;
-            });
-
-            console.log('Résultats filtrés:', filtered.length);
-            currentTariffs = filtered;
-            displayLoanTable(filtered);
-        }
-
-        // Fonction de chargement initial
-        function loadLoanTable() {
-            if (loanTableLoading) {
-                loanTableLoading.style.display = 'block';
-            }
-
-            // Simulation d'un délai de chargement
             setTimeout(() => {
-                if (loanTableLoading) {
-                    loanTableLoading.style.display = 'none';
+                const capitalPerMonth = principal / duration;
+                let remainingCapital = principal;
+                let totalInterestPaid = 0;
+                
+                const amortizationTable = [];
+                for (let i = 1; i <= duration; i++) {
+                    const interestForMonth = remainingCapital * (annualRate / 100 / 12);
+                    totalInterestPaid += interestForMonth;
+                    
+                    let capitalToPay = (i === duration) ? remainingCapital : capitalPerMonth;
+                    const monthlyPayment = capitalToPay + interestForMonth;
+                    remainingCapital -= capitalToPay;
+
+                    amortizationTable.push({
+                        month: i,
+                        capital: capitalToPay,
+                        interest: interestForMonth,
+                        payment: monthlyPayment,
+                        remaining: Math.max(0, remainingCapital)
+                    });
                 }
-                displayLoanTable(currentTariffs);
+                
+                const firstPayment = amortizationTable.length > 0 ? amortizationTable[0].payment : 0;
+                const lastPayment = amortizationTable.length > 0 ? amortizationTable[amortizationTable.length - 1].payment : 0;
+
+                document.getElementById('borrowed-amount').textContent = formatCurrency(principal);
+                document.getElementById('loan-period').textContent = `${duration} mois`;
+                document.getElementById('interest-rate').textContent = `${annualRate}%`;
+                document.getElementById('first-payment').textContent = formatCurrency(firstPayment);
+                document.getElementById('last-payment').textContent = formatCurrency(lastPayment);
+                document.getElementById('total-interest').textContent = formatCurrency(totalInterestPaid);
+                document.getElementById('total-amount').textContent = formatCurrency(principal + totalInterestPaid);
+                
+                const tbody = document.getElementById('amortization-body');
+                tbody.innerHTML = '';
+                amortizationTable.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.month}</td>
+                        <td>${formatCurrency(row.capital)}</td>
+                        <td>${formatCurrency(row.interest)}</td>
+                        <td>${formatCurrency(row.payment)}</td>
+                        <td>${formatCurrency(row.remaining)}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                loadingEl.style.display = 'none';
+                resultsEl.style.display = 'block';
+                calculateBtn.disabled = false;
+                calculateBtn.querySelector('.btn-text').style.display = 'inline-block';
+                calculateBtn.querySelector('.btn-loading').style.display = 'none';
+                resultsEl.scrollIntoView({ behavior: 'smooth' });
             }, 1000);
-        }
+        };
+        
+        const refreshLoanSimulator = () => {
+            loanTypeEl.selectedIndex = 0;
+            loanAmountEl.value = '';
+            loanDurationEl.value = '';
+            [loanTypeEl, loanAmountEl, loanDurationEl].forEach(el => el.classList.remove('is-invalid'));
+            resultsEl.style.display = 'none';
+            document.querySelector('.loan-simulator-section').scrollIntoView({ behavior: 'smooth' });
+        };
 
-        // Fonction de réinitialisation des filtres
-        function resetFilters() {
-            filterAmount.value = 'all';
-            filterDuration.value = 'all';
-            filterType.value = 'all';
-            
-            currentTariffs = [...loanTariffs];
-            displayLoanTable(currentTariffs);
-        }
-
-        // Fonction de rafraîchissement
-        function refreshTable() {
-            loadLoanTable();
-            resetFilters();
-        }
-
-        // Écouteurs d'événements pour les filtres
-        const applyFiltersBtn = document.getElementById('applyFilters');
-        const resetFiltersBtn = document.getElementById('resetFilters');
-
-        if (applyFiltersBtn) {
-            applyFiltersBtn.addEventListener('click', filterTariffs);
-        }
-        if (resetFiltersBtn) {
-            resetFiltersBtn.addEventListener('click', resetFilters);
-        }
-
-        // Chargement initial du tableau
-        loadLoanTable();
-
-
-    });
+        calculateBtn.addEventListener('click', calculateLoan);
+        refreshBtn.addEventListener('click', refreshLoanSimulator);
+    }
+});
 </script>
 @endsection

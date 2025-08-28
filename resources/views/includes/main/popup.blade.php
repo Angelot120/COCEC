@@ -6,7 +6,7 @@
 
         <!-- Votre contenu original est maintenant ici à l'intérieur -->
         <section id="popup-data">
-            @if($announcement)
+            @if(isset($announcement) && $announcement)
             <div id="popup-announcement" class="popup-content">
                 <h2>{{ $announcement->title }}</h2>
                 @if($announcement->image)

@@ -1,0 +1,21 @@
+[33mcommit ff4e922b6ac242aa6f7cc5b5b5faeab4b3bcd201[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev[m[33m)[m
+Merge: 6b2596c 63cf662
+Author: = <=>
+Date:   Mon Aug 25 10:27:43 2025 +0000
+
+    Resolve merge conflicts and add digital finance features - Add digital finance contracts and updates functionality - Update admin dashboard with new features - Fix account creation forms and validation - Add PDF generation capabilities - Update routes and controllers - Resolve merge conflicts across 29 files
+
+app/Http/Controllers/DigitalFinanceContractController.php
+app/Http/Controllers/DigitalFinanceUpdateController.php
+app/Http/Controllers/ViewsController.php
+resources/views/admin/digitalfinance/contracts/index.blade.php
+resources/views/admin/digitalfinance/updates/index.blade.php
+resources/views/admin/digitalfinance/updates/show.blade.php
+resources/views/layout/main.blade.php
+resources/views/main/account/morale.blade.php
+resources/views/main/account/physic.blade.php
+resources/views/main/digitalfinance/contract.blade.php
+resources/views/main/digitalfinance/updatesheet.blade.php
+resources/views/welcome.blade.php
+routes/web.php
+storage/logs/laravel.log

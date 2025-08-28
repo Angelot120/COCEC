@@ -53,6 +53,8 @@ Route::get('/products-old', function() {
 })->name('products');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/contact', [ViewsController::class, 'contact'])->name('contact');
+Route::get('/complaint', [ViewsController::class, 'complaint'])->name('complaint');
+Route::post('/complaint/store', [App\Http\Controllers\ComplaintController::class, 'store'])->name('complaint.store');
 
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
@@ -155,7 +157,7 @@ Route::post('/login/processing', [AuthController::class, 'login'])->name('login.
 Route::prefix('digitalfinance')->group(function () {
     Route::get('/updates/create', [App\Http\Controllers\DigitalFinanceUpdateController::class, 'create'])->name('digitalfinance.updates.create');
     Route::post('/updates', [App\Http\Controllers\DigitalFinanceUpdateController::class, 'store'])->name('digitalfinance.updates.store');
-    
+
     // Routes pour les contrats
     Route::get('/contracts/create', [App\Http\Controllers\DigitalFinanceContractController::class, 'create'])->name('digitalfinance.contracts.create');
     Route::post('/contracts', [App\Http\Controllers\DigitalFinanceContractController::class, 'store'])->name('digitalfinance.contracts.store');
@@ -174,7 +176,7 @@ Route::middleware('auth:sanctum')->prefix('admin/digitalfinance')->group(functio
         Route::put('/{id}/status', 'updateStatus')->name('admin.digitalfinance.updates.updateStatus');
         Route::get('/{id}/pdf', 'generatePdf')->name('admin.digitalfinance.updates.pdf');
     });
-    
+
     // Routes admin pour les contrats
     Route::prefix('contracts')->controller(App\Http\Controllers\DigitalFinanceContractController::class)->group(function () {
         Route::get('/', 'index')->name('admin.digitalfinance.contracts.index');

@@ -18,13 +18,13 @@ class DigitalFinanceUpdateController extends Controller
     {
         // Récupérer les formulaires avec pagination
         $updates = DigitalFinanceUpdate::latest()->paginate(15);
-        
+
         // Calculer les statistiques
         $totalUpdates = DigitalFinanceUpdate::count();
         $pendingUpdates = DigitalFinanceUpdate::where('status', 'pending')->count();
         $approvedUpdates = DigitalFinanceUpdate::where('status', 'approved')->count();
         $rejectedUpdates = DigitalFinanceUpdate::where('status', 'rejected')->count();
-        
+
         return view('admin.digitalfinance.updates.index', compact(
             'updates',
             'totalUpdates',
@@ -89,7 +89,7 @@ class DigitalFinanceUpdateController extends Controller
         ]);
 
         $data = $request->all();
-        
+
         // Forcer la conversion en booléen pour les checkboxes
         $data['mobile_banking_togocel'] = (bool) $request->input('mobile_banking_togocel');
         $data['mobile_banking_moov'] = (bool) $request->input('mobile_banking_moov');
@@ -152,7 +152,7 @@ class DigitalFinanceUpdateController extends Controller
     public function update(Request $request, string $id)
     {
         $update = DigitalFinanceUpdate::findOrFail($id);
-        
+
         $request->validate([
             'account_number' => 'nullable|string|max:255',
             'cni_number' => 'nullable|string|max:255',
@@ -178,7 +178,7 @@ class DigitalFinanceUpdateController extends Controller
         ]);
 
         $data = $request->all();
-        
+
         // Forcer la conversion en booléen pour les checkboxes
         $data['mobile_banking_togocel'] = (bool) $request->input('mobile_banking_togocel');
         $data['mobile_banking_moov'] = (bool) $request->input('mobile_banking_moov');
@@ -206,7 +206,7 @@ class DigitalFinanceUpdateController extends Controller
     public function updateStatus(Request $request, string $id)
     {
         $update = DigitalFinanceUpdate::findOrFail($id);
-        
+
         $request->validate([
             'status' => 'required|in:pending,approved,rejected',
             'notes' => 'nullable|string',
@@ -239,7 +239,7 @@ class DigitalFinanceUpdateController extends Controller
     {
         $update = DigitalFinanceUpdate::findOrFail($id);
         $update->update(['status' => 'approved']);
-        
+
         return redirect()->back()->with('success', 'Formulaire approuvé avec succès !');
     }
 
@@ -250,7 +250,7 @@ class DigitalFinanceUpdateController extends Controller
     {
         $update = DigitalFinanceUpdate::findOrFail($id);
         $update->update(['status' => 'rejected']);
-        
+
         return redirect()->back()->with('success', 'Formulaire rejeté avec succès !');
     }
 
@@ -260,13 +260,13 @@ class DigitalFinanceUpdateController extends Controller
     public function generatePdf(string $id)
     {
         $update = DigitalFinanceUpdate::findOrFail($id);
-        
+
         $data = [
             'update' => $update,
         ];
 
         $pdf = \PDF::loadView('admin.digitalfinance.updates.pdf', $data);
-        
+
         return $pdf->download('formulaire_mise_a_jour_' . $update->id . '.pdf');
     }
 }

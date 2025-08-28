@@ -42,7 +42,7 @@ return new class extends Migration
             $table->string('residence_plan_path')->nullable();
             $table->decimal('residence_lat', 10, 7)->nullable();
             $table->decimal('residence_lng', 10, 7)->nullable();
-            $table->text('workplace_description');
+            $table->text('workplace_description')->nullable();
             $table->string('workplace_plan_path')->nullable();
             $table->decimal('workplace_lat', 10, 7)->nullable();
             $table->decimal('workplace_lng', 10, 7)->nullable();
