@@ -371,10 +371,10 @@
     }
 
     .comment-replies {
-        list-style: none;
-        padding: 15px 0 0 15px;
-        margin-top: 25px;
-        border-left: 2px solid var(--border-color);
+        margin-left: 30px;
+        margin-top: 15px;
+        padding-left: 20px;
+        border-left: 2px solid #eee;
     }
 
     .reply-form-wrapper {
@@ -465,10 +465,33 @@
             grid-template-columns: 1fr;
         }
     }
+
+    /* Avatar avec initiale */
+    .comment-thumb {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #EC281C;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    .comment-item {
+        display: flex;
+        align-items: flex-start;
+    }
 </style>
 @endsection
 
 @section('content')
+
 <body>
     @include('includes.main.loading')
     @include('includes.main.header')
@@ -844,27 +867,80 @@
                     <ol class="comments-list">
                         @forelse ($comments as $comment)
                         <li class="comment-item" id="comment-{{ $comment->id }}">
+                            <div class="comment-thumb">
+                                {{ strtoupper(substr($comment->user->name, 0, 1)) }}
+                            </div>
                             <div class="comment-content">
-                                <div class="comment-header"><span class="comment-author">{{ $comment->name }} @if ($comment->user && $comment->user->is_admin)<span class="support-tag">Officiel</span>@endif</span><span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span></div>
+                                <div class="comment-header">
+                                    <span class="comment-author">
+                                        {{ $comment->user->name }}
+                                        @if ($comment->user && $comment->user->is_admin)
+                                        <span class="support-tag">Officiel</span>
+                                        @endif
+                                    </span>
+                                    <span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
+                                </div>
                                 <div class="comment-body">
                                     <p>{{ $comment->body }}</p>
                                 </div>
-                                <div class="comment-actions">@auth<button class="comment-reply-btn" data-comment-id="{{ $comment->id }}"><i class="fas fa-reply"></i> Répondre</button>@if (Auth::user()->is_admin || Auth::id() == $comment->user_id)<button class="comment-delete-btn" data-comment-id="{{ $comment->id }}" data-delete-url="{{ route('faq.comments.destroy', $comment) }}" data-csrf="{{ csrf_token() }}"><i class="fas fa-trash"></i> Supprimer</button>@endif @endauth</div>
+                                <div class="comment-actions">
+                                    @auth
+                                    <button class="comment-reply-btn" data-comment-id="{{ $comment->id }}">
+                                        <i class="fas fa-reply"></i> Répondre
+                                    </button>
+                                    @if (Auth::user()->is_admin || Auth::id() == $comment->user_id)
+                                    <button class="comment-delete-btn" data-comment-id="{{ $comment->id }}"
+                                        data-delete-url="{{ route('faq.comments.destroy', $comment) }}"
+                                        data-csrf="{{ csrf_token() }}">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                    @endif
+                                    @endauth
+                                </div>
                                 <div class="reply-form-wrapper" id="reply-form-{{ $comment->id }}">
-                                    <form class="reply-form" action="{{ route('faq.comments.store') }}" method="POST" novalidate>@csrf<input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                                    <form class="reply-form" action="{{ route('faq.comments.store') }}" method="POST" novalidate>
+                                        @csrf
+                                        <input type="hidden" name="parent_id" value="{{ $comment->id }}">
                                         <div class="form-group">
                                             <textarea name="body" class="form-control-pro" rows="3" style="width:100%; min-width:300px;" placeholder="Écrivez votre réponse à {{ $comment->name }}..." required></textarea>
                                             <div class="invalid-feedback"></div>
-                                        </div><button type="submit" class="btn-submit-comment"><span>Répondre</span></button>
+                                        </div>
+                                        <button type="submit" class="btn-submit-comment">
+                                            <span>Répondre</span>
+                                        </button>
                                     </form>
                                 </div>
-                                @if ($comment->replies->isNotEmpty())<ol class="comment-replies">@foreach ($comment->replies as $reply)<li class="comment-item" id="comment-{{ $reply->id }}">
+                                @if ($comment->replies->isNotEmpty())
+                                <ol class="comment-replies">
+                                    @foreach ($comment->replies as $reply)
+                                    <li class="comment-item" id="comment-{{ $reply->id }}">
+                                        <div class="comment-thumb">
+                                            {{ strtoupper(substr($reply->user->name, 0, 1)) }}
+                                        </div>
                                         <div class="comment-content">
-                                            <div class="comment-header"><span class="comment-author">{{ $reply->name }} @if ($reply->user && $reply->user->is_admin)<span class="support-tag">Officiel</span>@endif</span><span class="comment-date">{{ $reply->created_at->diffForHumans() }}</span></div>
+                                            <div class="comment-header">
+                                                <span class="comment-author">
+                                                    {{ $reply->user->name }}
+                                                    @if ($reply->user && $reply->user->is_admin)
+                                                    <span class="support-tag">Officiel</span>
+                                                    @endif
+                                                </span>
+                                                <span class="comment-date">{{ $reply->created_at->diffForHumans() }}</span>
+                                            </div>
                                             <div class="comment-body">
                                                 <p>{{ $reply->body }}</p>
                                             </div>
-                                            <div class="comment-actions">@auth<button class="comment-reply-btn" data-comment-id="{{ $comment->id }}"><i class="fas fa-reply"></i> Répondre</button>@if (Auth::user()->is_admin || Auth::id() == $reply->user_id)<button class="comment-delete-btn" data-comment-id="{{ $reply->id }}" data-delete-url="{{ route('faq.comments.destroy', $reply) }}" data-csrf="{{ csrf_token() }}"><i class="fas fa-trash"></i> Supprimer</button>@endif @endauth</div>
+                                            <div class="comment-actions">
+                                                @auth
+                                                @if (Auth::user()->is_admin || Auth::id() == $reply->user_id)
+                                                <button class="comment-delete-btn" data-comment-id="{{ $reply->id }}"
+                                                    data-delete-url="{{ route('faq.comments.destroy', $reply) }}"
+                                                    data-csrf="{{ csrf_token() }}">
+                                                    <i class="fas fa-trash"></i> Supprimer
+                                                </button>
+                                                @endif
+                                                @endauth
+                                            </div>
                                         </div>
                                     </li>
                                     @endforeach
@@ -873,7 +949,8 @@
                             </div>
                         </li>
                         @empty
-                        <p class="text-center text-muted">Soyez la première personne à poser une question ou à laisser un avis !</p>@endforelse
+                        <p class="text-center text-muted">Soyez la première personne à poser une question ou à laisser un avis !</p>
+                        @endforelse
                     </ol>
                 </div>
             </div>

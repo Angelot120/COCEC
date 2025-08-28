@@ -27,4 +27,8 @@ yarn-error.log
 !/storage/framework/views/.gitkeep
 !/storage/logs/.gitkeep
 !/storage/app/public/.gitkeep
+<<<<<<< HEAD
 !/bootstrap/cache/.gitkeep
+=======
+!/bootstrap/cache/.gitkeep
+>>>>>>> e0d88f18b45255631e8b8368994dc3a169b9781b

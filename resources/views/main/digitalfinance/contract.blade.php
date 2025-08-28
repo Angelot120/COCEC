@@ -157,7 +157,7 @@
         color: white;
         border: none;
         padding: 15px 40px;
-        border-radius: 8px;
+        border-radius: 12px;
         font-size: 1.1rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -166,8 +166,6 @@
         transition: all 0.3s ease;
         width: 100%;
         margin-top: 20px;
-        position: relative;
-        overflow: hidden;
         min-height: 60px;
         display: flex;
         align-items: center;
@@ -183,31 +181,6 @@
         opacity: 0.7;
         cursor: not-allowed;
         transform: none;
-    }
-
-    .submit-btn .btn-text {
-        display: inline-block;
-        transition: all 0.3s ease;
-    }
-
-    .submit-btn .btn-loading {
-        display: none;
-        align-items: center;
-        gap: 10px;
-        transition: all 0.3s ease;
-    }
-
-    .submit-btn.loading .btn-text {
-        display: none !important;
-    }
-
-    .submit-btn.loading .btn-loading {
-        display: flex !important;
-    }
-
-    .submit-btn.loading {
-
-        cursor: wait;
     }
 
     .alert {
@@ -433,11 +406,7 @@
                         </div>
 
                         <button type="submit" class="submit-btn" id="submit-btn">
-                            <span class="btn-text">Soumettre le contrat</span>
-                            <span class="btn-loading">
-                                <i class="fas fa-spinner fa-spin"></i>
-                                Envoi en cours...
-                            </span>
+                            Soumettre le contrat
                         </button>
                     </form>
                 </div>
@@ -450,84 +419,91 @@
 
 @section('js')
 <script>
-    $(document).ready(function() {
-        // Gestion du formulaire avec AJAX
-        const $form = $('form');
-        
-        $form.on('submit', function(e) {
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Nettoyer les erreurs précédentes
-            $('.form-input').removeClass('error');
-            $('.error-message').remove();
+            // Afficher le loading avec SweetAlert
+            Swal.fire({
+                title: 'Envoi en cours...',
+                text: 'Veuillez patienter pendant l\'envoi de votre contrat',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
 
-            $.ajax({
-                url: $form.attr("action"),
-                method: "POST",
-                data: new FormData(this),
-                processData: false,
-                contentType: false,
+            document.querySelectorAll('.error-message').forEach(el => el.remove());
+            document.querySelectorAll('.form-input').forEach(el => el.classList.remove('error'));
+
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
                 headers: {
-                    "X-CSRF-TOKEN": $form.find('input[name="_token"]').val(),
-                },
-                success: function(response) {
-                    // Afficher le message de succès
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => response.json().then(data => ({ status: response.status, body: data })))
+                            .then(({ status, body }) => {
+                    // Fermer le loading
+                    Swal.close();
+                    
+                    if (status === 200 || status === 201) {
                     Swal.fire({
                         icon: "success",
                         title: "Contrat soumis avec succès ! 🎉",
                         text: "Votre contrat d'adhésion a été enregistré. Nous vous contacterons bientôt.",
                         confirmButtonColor: "#EC281C",
-                        confirmButtonText: "Parfait !"
                     }).then(() => {
-                        // Réinitialiser le formulaire au lieu de rediriger
-                        $form[0].reset();
+                        form.reset();
                         // Nettoyer les erreurs
-                        $('.form-input').removeClass('error');
-                        $('.error-message').remove();
+                        document.querySelectorAll('.form-input').forEach(el => el.classList.remove('error'));
+                        document.querySelectorAll('.error-message').forEach(el => el.remove());
                     });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    if (jqXHR.status === 422) {
-                        // Erreurs de validation
-                        const errors = jqXHR.responseJSON.errors;
-                        Object.keys(errors).forEach(field => {
-                            const $input = $(`[name="${field}"]`);
-                            if ($input.length) {
-                                $input.addClass('error');
-
-                                // Ajouter le message d'erreur
-                                const errorMessage = errors[field][0];
-                                $input.after(`<span class="error-message">${errorMessage}</span>`);
-                            }
-                        });
-
-                        // Afficher un popup d'erreur
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Veuillez corriger les erreurs",
-                            text: "Certains champs contiennent des erreurs. Veuillez les corriger et réessayer.",
-                            confirmButtonColor: "#EC281C",
-                            confirmButtonText: "Je corrige"
-                        });
-                    } else {
-                        // Erreur générale
-                        let errorMessage = "Une erreur est survenue. Veuillez réessayer.";
-                        if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
-                            errorMessage = jqXHR.responseJSON.message;
+                } else if (status === 422) {
+                    Object.keys(body.errors).forEach(field => {
+                        const input = document.querySelector(`[name="${field}"]`);
+                        if (input) {
+                            input.classList.add('error');
+                            const errorSpan = document.createElement('span');
+                            errorSpan.className = 'error-message';
+                            errorSpan.textContent = body.errors[field][0];
+                            input.closest('.form-group').appendChild(errorSpan);
                         }
-
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oups...",
-                            text: errorMessage,
-                            confirmButtonColor: "#EC281C",
-                            confirmButtonText: "D'accord"
-                        });
-                    }
-                },
+                    });
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Veuillez corriger les erreurs",
+                        text: "Certains champs contiennent des erreurs. Veuillez les corriger et réessayer.",
+                        confirmButtonColor: "#EC281C",
+                    });
+                } else {
+                    throw new Error(body.message || 'Une erreur inattendue est survenue.');
+                }
+            })
+                            .catch(error => {
+                    // Fermer le loading en cas d'erreur
+                    Swal.close();
+                    
+                    Swal.fire({
+                    icon: "error",
+                    title: "Oups...",
+                    text: "Une erreur de communication est survenue. Veuillez réessayer plus tard.",
+                    confirmButtonColor: "#EC281C",
+                });
+                            });
             });
-        });
-    });
+        }
+});
 </script>
 @endsection
 

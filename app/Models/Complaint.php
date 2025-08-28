@@ -35,7 +35,7 @@ class Complaint extends Model
      */
     protected $casts = [
         'resolved_at' => 'datetime',
-        'attachments' => 'array',
+        // 'attachments' => 'array', // Commenté car les attachments sont stockés comme chaînes
     ];
 
     /**

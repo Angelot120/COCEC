@@ -284,7 +284,9 @@
 
     /* Responsive pour les boutons */
     @media (max-width: 768px) {
-        .btn-nav, .btn-submit-form {
+
+        .btn-nav,
+        .btn-submit-form {
             padding: 10px 20px;
             font-size: 0.9rem;
         }
@@ -521,25 +523,51 @@
     }
 
     @keyframes errorShake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        75% { transform: translateX(5px); }
+
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        25% {
+            transform: translateX(-5px);
+        }
+
+        75% {
+            transform: translateX(5px);
+        }
     }
 
     @keyframes errorPulse {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.1); opacity: 0.8; }
+
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        50% {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
     }
 
     @keyframes errorGlow {
-        0%, 100% { box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3); }
-        50% { box-shadow: 0 4px 25px rgba(220, 53, 69, 0.6); }
+
+        0%,
+        100% {
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        50% {
+            box-shadow: 0 4px 25px rgba(220, 53, 69, 0.6);
+        }
     }
 </style>
 @endsection
 
 @section('content')
-<section class="account-form-section py-5">
+<section class="account-form-section">
     @include('includes.main.loading')
     @include('includes.main.header')
 
@@ -547,6 +575,7 @@
         <div class="page-header-overlay"></div>
         <div class="container">
             <div class="page-header-content-pro" data-aos="fade-up">
+                <br>
                 <h1 class="title-pro">Compte en Ligne - Personne Physique</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb-pro">
@@ -1091,49 +1120,49 @@
                         </div>
 
                         <div class="col-12">
-                    <div class="row choice-container @error('signature_method') is-invalid @enderror">
-                        <div class="col-6">
-                            <input type="radio" name="signature_method" id="draw_physique" value="draw" {{ old('signature_method', 'draw') == 'draw' ? 'checked' : '' }} required>
-                            <label for="draw_physique" class="choice-label"><i class="fas fa-pencil-alt"></i> Dessiner</label>
-                        </div>
-                        <div class="col-6">
-                            <input type="radio" name="signature_method" id="upload_physique" value="upload" {{ old('signature_method') == 'upload' ? 'checked' : '' }}>
-                            <label for="upload_physique" class="choice-label"><i class="fas fa-upload"></i> Importer</label>
-                        </div>
-                        <div class="invalid-feedback" id="signature-method-error">@error('signature_method') {{ $message }} @else Une méthode de signature est requise. @enderror</div>
-                    </div>
+                            <div class="row choice-container @error('signature_method') is-invalid @enderror">
+                                <div class="col-6">
+                                    <input type="radio" name="signature_method" id="draw_physique" value="draw" {{ old('signature_method', 'draw') == 'draw' ? 'checked' : '' }} required>
+                                    <label for="draw_physique" class="choice-label"><i class="fas fa-pencil-alt"></i> Dessiner</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="radio" name="signature_method" id="upload_physique" value="upload" {{ old('signature_method') == 'upload' ? 'checked' : '' }}>
+                                    <label for="upload_physique" class="choice-label"><i class="fas fa-upload"></i> Importer</label>
+                                </div>
+                                <div class="invalid-feedback" id="signature-method-error">@error('signature_method') {{ $message }} @else Une méthode de signature est requise. @enderror</div>
+                            </div>
 
-                    <div class="method-area" id="draw-area-physique">
-                        <p class="text-muted small">Signez dans le cadre ci-dessous.</p>
-                        <canvas id="signature-pad" width="600" height="200"></canvas>
-                                                 <div class="signature-controls">
-                             <button type="button" class="btn btn-outline-danger btn-sm" id="clear-signature-btn">
-                                 <i class="fas fa-eraser me-2"></i>Effacer
-                             </button>
-                         </div>
-                        <input type="hidden" name="signature_data" id="signature-data-physique" value="{{ old('signature_data') }}">
-                        <div id="signature-draw-error-physique" class="custom-error-message" style="display:none;">
-                            <div class="error-content">
-                                <i class="fas fa-exclamation-triangle error-icon"></i>
-                                <div class="error-text">
-                                    <strong>Attention !</strong>
-                                    <span>Veuillez dessiner une signature.</span>
+                            <div class="method-area" id="draw-area-physique">
+                                <p class="text-muted small">Signez dans le cadre ci-dessous.</p>
+                                <canvas id="signature-pad" width="600" height="200"></canvas>
+                                <div class="signature-controls">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" id="clear-signature-btn">
+                                        <i class="fas fa-eraser me-2"></i>Effacer
+                                    </button>
+                                </div>
+                                <input type="hidden" name="signature_data" id="signature-data-physique" value="{{ old('signature_data') }}">
+                                <div id="signature-draw-error-physique" class="custom-error-message" style="display:none;">
+                                    <div class="error-content">
+                                        <i class="fas fa-exclamation-triangle error-icon"></i>
+                                        <div class="error-text">
+                                            <strong>Attention !</strong>
+                                            <span>Veuillez dessiner une signature.</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="method-area" id="upload-area-physique">
-                        <div class="@error('signature_upload') is-invalid @enderror file-upload-wrapper">
-                            <div class="file-upload-content">
-                                <i class="fas fa-file-image file-upload-icon"></i>
-                                <p class="file-upload-text">Importer (PNG)</p>
+                            <div class="method-area" id="upload-area-physique">
+                                <div class="@error('signature_upload') is-invalid @enderror file-upload-wrapper">
+                                    <div class="file-upload-content">
+                                        <i class="fas fa-file-image file-upload-icon"></i>
+                                        <p class="file-upload-text">Importer (PNG)</p>
+                                    </div>
+                                    <div class="file-upload-preview"></div>
+                                    <input type="file" name="signature_upload" accept="image/png" />
+                                    <div class="invalid-feedback">@error('signature_upload') {{ $message }} @else L'import de la signature est requis. @enderror</div>
+                                </div>
                             </div>
-                            <div class="file-upload-preview"></div>
-                            <input type="file" name="signature_upload" accept="image/png" />
-                            <div class="invalid-feedback">@error('signature_upload') {{ $message }} @else L'import de la signature est requis. @enderror</div>
-                        </div>
-                    </div>
                         </div>
                     </div>
                 </div>
@@ -1569,25 +1598,25 @@
                     } else if (radio.value === 'map') {
                         descArea.style.display = 'none';
                         mapArea.style.display = 'block';
-                        
+
                         const mapObj = maps.get('map-container-workplace');
                         if (mapObj) {
                             setTimeout(() => mapObj.invalidate(), 100);
                         }
                     }
-                    
+
                     // JAMAIS d'attribut required - TOUJOURS facultatif
                     descInput.removeAttribute('required');
                     latInput.removeAttribute('required');
                     lngInput.removeAttribute('required');
                 });
-                
+
                 // Afficher la zone par défaut selon le choix initial
                 if (radio.checked) {
                     radio.dispatchEvent(new Event('change'));
                 }
             });
-            
+
             // Afficher la zone de description par défaut si aucune méthode n'est sélectionnée
             const defaultWorkplaceMethod = form.querySelector('input[name="loc_method_workplace"]:checked');
             if (!defaultWorkplaceMethod) {
@@ -1937,6 +1966,5 @@
             errorAlert.remove();
         }
     });
-
 </script>
 @endsection

@@ -4871,6 +4871,7 @@ namespace App\Models {
     /**
      * App\Models\MoralPersonSubmission
      *
+     * @property string $statut
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $remarks
@@ -4999,6 +5000,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereRemarks($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereStatut($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission query()

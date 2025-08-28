@@ -10,11 +10,11 @@
     }
 
     .hero-section {
-        background: linear-gradient(135deg, #EC281C 0%, #d4241a 100%);
         color: white;
         padding: 80px 0;
         position: relative;
         overflow: hidden;
+        text-align: center;
     }
 
     .hero-section::before {
@@ -38,7 +38,7 @@
         font-size: 3.5rem;
         font-weight: 800;
         margin-bottom: 20px;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .hero-content p {
@@ -128,14 +128,14 @@
         z-index: 1;
         position: relative;
     }
-    
+
     .input-group-custom .form-select {
         cursor: pointer;
         pointer-events: auto;
         z-index: 10;
         position: relative;
     }
-    
+
     .input-group-custom .form-select:focus {
         z-index: 100;
     }
@@ -147,7 +147,7 @@
         outline: none;
         z-index: 100;
     }
-    
+
     /* Correction spécifique pour le select */
     .form-select {
         cursor: pointer !important;
@@ -155,11 +155,11 @@
         z-index: 10 !important;
         position: relative !important;
     }
-    
+
     .form-select:focus {
         z-index: 100 !important;
     }
-    
+
     .form-select option {
         background: white;
         color: #333;
@@ -188,12 +188,12 @@
         accent-color: #EC281C;
         filter: hue-rotate(0deg) saturate(100%) brightness(100%);
     }
-    
+
     .form-check-input:checked {
         background-color: #EC281C !important;
         border-color: #EC281C !important;
     }
-    
+
     .form-check-input:focus {
         border-color: #EC281C !important;
         box-shadow: 0 0 0 0.2rem rgba(236, 40, 28, 0.25) !important;
@@ -352,12 +352,12 @@
         .hero-content h1 {
             font-size: 2.5rem;
         }
-        
+
         .form-container {
             margin: -30px 20px 0;
             padding: 30px 25px;
         }
-        
+
         .form-section {
             padding: 20px;
         }
@@ -371,21 +371,36 @@
     @include('includes.main.popup')
     @include('includes.main.header')
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container-2">
-            <div class="hero-content">
-                <h1>Gestion des Plaintes</h1>
-                <p>Votre satisfaction est notre priorité. Nous sommes là pour vous écouter et résoudre vos préoccupations dans les meilleurs délais.</p>
+    <!-- ================================== -->
+    <!--          SECTION HÉROS             -->
+    <!-- ================================== -->
+    <section class="page-header-pro">
+        <div class="page-header-overlay"></div>
+        <div class="container">
+            <div class="page-header-content-pro" data-aos="fade-up">
+                <h1 class="title-pro">Gestion des Plaintes
+                </h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb-pro">
+                        <li class="breadcrumb-item"><a href="{{ route('index') }}">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Gestion des plaintes</li>
+                    </ol>
+                </nav>
             </div>
         </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+
+        <p>Votre satisfaction est notre priorité. Nous sommes là pour vous écouter et résoudre vos préoccupations dans les meilleurs délais.</p>
     </section>
 
     <!-- Formulaire Section -->
     <section class="py-120">
         <div class="container-2">
             <div class="form-container">
-                
+
                 <!-- En-tête -->
                 <div class="section-heading">
                     <h2>Déposer une Plainte</h2>
@@ -410,7 +425,7 @@
                 <!-- Formulaire -->
                 <form class="complaint-form" id="complaintForm" action="{{ route('complaint.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    
+
                     <!-- Identification -->
                     <div class="form-section">
                         <h5 class="form-section-title">
@@ -453,8 +468,8 @@
                         </h5>
                         <div class="input-group-custom">
                             <label for="complaint_subject" class="form-label">Objet de la plainte *</label>
-                            <input type="text" class="form-control" id="complaint_subject" name="complaint_subject" required 
-                                   placeholder="Ex: Problème avec un service, Retard dans le traitement...">
+                            <input type="text" class="form-control" id="complaint_subject" name="complaint_subject" required
+                                placeholder="Ex: Problème avec un service, Retard dans le traitement...">
                         </div>
                         <div class="input-group-custom">
                             <label for="complaint_category" class="form-label">Catégorie *</label>
@@ -467,10 +482,11 @@
                                 <option value="autre">Autre</option>
                             </select>
                         </div>
+                        <br><br>
                         <div class="input-group-custom">
                             <label for="complaint_description" class="form-label">Description détaillée *</label>
-                            <textarea class="form-control" id="complaint_description" name="complaint_description" rows="5" required 
-                                      placeholder="Décrivez en détail le problème rencontré, les circonstances, les personnes impliquées..."></textarea>
+                            <textarea class="form-control" id="complaint_description" name="complaint_description" rows="5" required
+                                placeholder="Décrivez en détail le problème rencontré, les circonstances, les personnes impliquées..."></textarea>
                         </div>
                     </div>
 
@@ -486,8 +502,8 @@
                                 <div class="file-upload-text">Cliquez pour sélectionner des fichiers</div>
                                 <div class="file-upload-info">Formats acceptés : JPG, PNG, PDF, DOC, DOCX. Taille max : 5MB par fichier.</div>
                             </div>
-                            <input type="file" class="form-control" id="complaint_attachments" name="complaint_attachments[]" multiple 
-                                   accept="image/*,.pdf,.doc,.docx" style="display: none;">
+                            <input type="file" class="form-control" id="complaint_attachments" name="complaint_attachments[]" multiple
+                                accept="image/*,.pdf,.doc,.docx" style="display: none;">
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="data_consent" name="data_consent" required>
@@ -507,141 +523,176 @@
             </div>
         </div>
     </section>
-
+    <br><br>
     @include('includes.main.footer')
 </div>
-
+@endsection
 <!-- Script pour la gestion du formulaire avec SweetAlert -->
+@section('js')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const complaintForm = document.getElementById('complaintForm');
-    
-    // Gestion de la soumission du formulaire
-    if (complaintForm) {
-        complaintForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validation du formulaire
-            if (!validateForm()) {
-                return;
-            }
-            
-            // Afficher le loader
-            Swal.fire({
-                title: 'Envoi en cours...',
-                text: 'Votre plainte est en cours de transmission',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
+    document.addEventListener('DOMContentLoaded', function() {
+        const complaintForm = document.getElementById('complaintForm');
+
+        // Gestion de la soumission du formulaire
+        if (complaintForm) {
+            complaintForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Validation du formulaire
+                if (!validateForm()) {
+                    return;
                 }
-            });
-            
-            // Envoyer le formulaire via AJAX
-            const formData = new FormData(complaintForm);
-            
-            fetch(complaintForm.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Plainte déposée avec succès !',
-                        text: data.message,
-                        confirmButtonText: 'Parfait',
-                        confirmButtonColor: '#EC281C'
-                    }).then((result) => {
-                        // Réinitialiser le formulaire
-                        complaintForm.reset();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erreur lors de la soumission',
-                        text: 'Veuillez vérifier les informations saisies et réessayer.',
-                        confirmButtonText: 'Compris',
-                        confirmButtonColor: '#EC281C'
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
+
+                // Afficher le loader
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Erreur de connexion',
-                    text: 'Une erreur est survenue lors de la transmission. Veuillez réessayer.',
-                    confirmButtonText: 'Compris',
-                    confirmButtonColor: '#EC281C'
+                    title: 'Envoi en cours...',
+                    text: 'Votre plainte est en cours de transmission',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
                 });
+
+                // Envoyer le formulaire via AJAX
+                const formData = new FormData(complaintForm);
+
+                fetch(complaintForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Fermer le loading
+                        Swal.close();
+                        
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Plainte déposée avec succès !',
+                                text: data.message,
+                                confirmButtonText: 'Parfait',
+                                confirmButtonColor: '#EC281C'
+                            }).then((result) => {
+                                // Réinitialiser le formulaire
+                                complaintForm.reset();
+                                // Réinitialiser l'interface des fichiers
+                                const fileUploadArea = document.querySelector('.file-upload-area');
+                                if (fileUploadArea) {
+                                    fileUploadArea.innerHTML = `
+                                        <i class="fa-solid fa-cloud-upload-alt"></i>
+                                        <div class="file-upload-text">Cliquez pour sélectionner des fichiers</div>
+                                        <div class="file-upload-info">Formats acceptés : JPG, PNG, PDF, DOC, DOCX. Taille max : 5MB par fichier.</div>
+                                    `;
+                                    fileUploadArea.style.borderColor = '#e9ecef';
+                                    fileUploadArea.style.background = '#f8f9fa';
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur lors de la soumission',
+                                text: data.message || 'Veuillez vérifier les informations saisies et réessayer.',
+                                confirmButtonText: 'Compris',
+                                confirmButtonColor: '#EC281C'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        // Fermer le loading en cas d'erreur
+                        Swal.close();
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur de connexion',
+                            text: 'Une erreur est survenue lors de la transmission. Veuillez réessayer.',
+                            confirmButtonText: 'Compris',
+                            confirmButtonColor: '#EC281C'
+                        });
+                    });
             });
-        });
-    }
-    
-    function validateForm() {
-        const requiredFields = complaintForm.querySelectorAll('[required]');
-        let isValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                isValid = false;
-                field.classList.add('is-invalid');
-                
+        }
+
+        function validateForm() {
+            const requiredFields = complaintForm.querySelectorAll('[required]');
+            let isValid = true;
+            let firstInvalidField = null;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('is-invalid');
+                    
+                    if (!firstInvalidField) {
+                        firstInvalidField = field;
+                    }
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            if (!isValid && firstInvalidField) {
                 // Afficher l'erreur avec SweetAlert
                 Swal.fire({
                     icon: 'error',
                     title: 'Champ obligatoire manquant',
-                    text: `Le champ "${field.previousElementSibling.textContent.replace('*', '').trim()}" est obligatoire.`,
+                    text: `Le champ "${firstInvalidField.previousElementSibling.textContent.replace('*', '').trim()}" est obligatoire.`,
                     confirmButtonText: 'Compris',
                     confirmButtonColor: '#EC281C'
+                }).then(() => {
+                    // Focus sur le premier champ invalide
+                    if (firstInvalidField && firstInvalidField.style.display !== 'none') {
+                        firstInvalidField.focus();
+                    }
                 });
-            } else {
-                field.classList.remove('is-invalid');
             }
+
+            return isValid;
+        }
+
+        // Validation en temps réel
+        const inputs = complaintForm.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.classList.add('is-invalid');
+                } else {
+                    this.classList.remove('is-invalid');
+                }
+            });
+
+            input.addEventListener('input', function() {
+                if (this.classList.contains('is-invalid') && this.value.trim()) {
+                    this.classList.remove('is-invalid');
+                }
+            });
         });
-        
-        return isValid;
-    }
-    
-    // Validation en temps réel
-    const inputs = complaintForm.querySelectorAll('input, select, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            if (this.hasAttribute('required') && !this.value.trim()) {
-                this.classList.add('is-invalid');
-            } else {
-                this.classList.remove('is-invalid');
-            }
-        });
-        
-        input.addEventListener('input', function() {
-            if (this.classList.contains('is-invalid') && this.value.trim()) {
-                this.classList.remove('is-invalid');
-            }
-        });
-    });
-    
-    // Gestion des fichiers
-    const fileInput = document.getElementById('complaint_attachments');
-    const fileUploadArea = document.querySelector('.file-upload-area');
-    
-    if (fileInput) {
-        fileInput.addEventListener('change', function() {
-            if (this.files.length > 0) {
-                fileUploadArea.innerHTML = `
+
+        // Gestion des fichiers
+        const fileInput = document.getElementById('complaint_attachments');
+        const fileUploadArea = document.querySelector('.file-upload-area');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    fileUploadArea.innerHTML = `
                     <i class="fa-solid fa-check-circle"></i>
                     <div class="file-upload-text">${this.files.length} fichier(s) sélectionné(s)</div>
                     <div class="file-upload-info">Cliquez pour changer</div>
                 `;
-                fileUploadArea.style.borderColor = '#EC281C';
-                fileUploadArea.style.background = '#fff5f5';
-            }
-        });
-    }
-});
+                    fileUploadArea.style.borderColor = '#EC281C';
+                    fileUploadArea.style.background = '#fff5f5';
+                }
+            });
+        }
+    });
 </script>
 @endsection
