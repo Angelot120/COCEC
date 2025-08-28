@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('company_postal_box')->nullable(); // Boîte postale
             $table->string('company_city')->nullable(); // Ville
             $table->string('company_neighborhood')->nullable(); // Quartier
-            $table->text('company_address'); // Adresse générale
+            $table->text('company_address')->nullable(); // Adresse générale
             $table->string('company_plan_path')->nullable(); // Schéma/plan
             $table->decimal('company_lat', 10, 7)->nullable(); // Coordonnées
             $table->decimal('company_lng', 10, 7)->nullable();
@@ -87,6 +87,10 @@ return new class extends Migration
             $table->text('remarks')->nullable(); // Remarques particulières
 
             $table->timestamps();
+
+
+            $table->enum('statut',['en_attente','accepter','refuser'])->default('en_attente');
+
         });
     }
 

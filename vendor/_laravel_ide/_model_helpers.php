@@ -2252,8 +2252,44 @@ namespace App\Models {
     /**
      * App\Models\Complaint
      *
+     * @property \Illuminate\Support\Carbon|null $deleted_at
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string|null $user_agent
+     * @property string|null $ip_address
+     * @property array|null $attachments
+     * @property \Illuminate\Support\Carbon|null $resolved_at
+     * @property string|null $admin_notes
+     * @property string $reference
+     * @property string $status
+     * @property string $description
+     * @property string $category
+     * @property string $subject
+     * @property string|null $member_email
+     * @property string $member_phone
+     * @property string $member_number
+     * @property string $member_name
+     * @property int $id
      * @property-read mixed $status_label
      * @property-read mixed $category_label
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereMemberName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereMemberNumber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereMemberPhone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereMemberEmail($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereSubject($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereCategory($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereDescription($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereStatus($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereReference($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereAdminNotes($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereResolvedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereAttachments($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereIpAddress($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereUserAgent($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint whereDeletedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint pending()
      * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint processing()
      * @method static \Illuminate\Database\Eloquent\Builder<Complaint>|Complaint resolved()
@@ -3563,6 +3599,10 @@ namespace App\Models {
     /**
      * App\Models\JobApplication
      *
+     * @property string|null $identity_document_number
+     * @property string|null $identity_document_type
+     * @property string|null $passport_photo_path
+     * @property string|null $identity_document_path
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property int|null $job_offer_id
@@ -3588,6 +3628,10 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<JobApplication>|JobApplication whereJobOfferId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<JobApplication>|JobApplication whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<JobApplication>|JobApplication whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<JobApplication>|JobApplication whereIdentityDocumentPath($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<JobApplication>|JobApplication wherePassportPhotoPath($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<JobApplication>|JobApplication whereIdentityDocumentType($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<JobApplication>|JobApplication whereIdentityDocumentNumber($value)
      * @method static \Illuminate\Database\Eloquent\Builder<JobApplication>|JobApplication newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<JobApplication>|JobApplication newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<JobApplication>|JobApplication query()
@@ -4827,7 +4871,6 @@ namespace App\Models {
     /**
      * App\Models\MoralPersonSubmission
      *
-     * @property string $statut
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $remarks
@@ -4872,7 +4915,7 @@ namespace App\Models {
      * @property float|null $company_lng
      * @property float|null $company_lat
      * @property string|null $company_plan_path
-     * @property string $company_address
+     * @property string|null $company_address
      * @property string|null $company_neighborhood
      * @property string|null $company_city
      * @property string|null $company_postal_box
@@ -4885,7 +4928,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $company_id_date
      * @property string|null $company_id_number
      * @property string|null $company_id_type
-     * @property string $rccm
+     * @property string|null $rccm
      * @property string|null $category
      * @property string $company_name
      * @property int $id
@@ -4956,7 +4999,6 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereRemarks($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereUpdatedAt($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission whereStatut($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<MoralPersonSubmission>|MoralPersonSubmission query()
@@ -5893,11 +5935,11 @@ namespace App\Models {
      * @property float|null $workplace_lng
      * @property float|null $workplace_lat
      * @property string|null $workplace_plan_path
-     * @property string $workplace_description
+     * @property string|null $workplace_description
      * @property float|null $residence_lng
      * @property float|null $residence_lat
      * @property string|null $residence_plan_path
-     * @property string $residence_description
+     * @property string|null $residence_description
      * @property string|null $activity_description
      * @property string|null $activity_type
      * @property string|null $company_name_activity

@@ -370,136 +370,85 @@
         </div>
     </div>
 
-    {{-- ADRESSES ET COORDONNÉES --}}
-    <div class="section">
-        <div class="section-title">Adresses et coordonnées</div>
-        <div class="info-grid">
-            <div class="info-item">
-                <span class="info-label">Résidence</span>
-                <span class="info-value">{{ $submission->residence_description ?? 'N/A' }}</span>
-            </div>
-            @if (!empty($submission->residence_lat) && !empty($submission->residence_lng))
+{{-- ADRESSES ET COORDONNÉES --}}
+<div class="section">
+    <div class="section-title">Adresses et coordonnées</div>
+    <div class="info-grid">
+        {{-- Résidence --}}
+        <div class="info-item">
+            <span class="info-label">Résidence</span>
+            <span class="info-value">{{ $submission->residence_description ?? 'N/A' }}</span>
+        </div>
+        @if (empty(trim($submission->residence_description)) && !empty($submission->residence_lat) && !empty($submission->residence_lng))
             <div class="info-item">
                 <span class="info-label">Coordonnées résidence</span>
                 <span class="info-value">{{ $submission->residence_lat }}, {{ $submission->residence_lng }}</span>
             </div>
-            @endif
+        @endif
+        @if ($submission->residence_plan_path)
             <div class="info-item">
-                <span class="info-label">Lieu de travail</span>
-                <span class="info-value">{{ $submission->workplace_description ?? 'N/A' }}</span>
+                <span class="info-label">Plan de résidence</span>
+                <span class="info-value">
+                    <a href="{{ Storage::url($submission->residence_plan_path) }}" target="_blank">Télécharger le plan</a>
+                </span>
             </div>
-            @if (!empty($submission->workplace_lat) && !empty($submission->workplace_lng))
+        @endif
+
+        {{-- Lieu de travail --}}
+        <div class="info-item">
+            <span class="info-label">Lieu de travail</span>
+            <span class="info-value">{{ $submission->workplace_description ?? 'N/A' }}</span>
+        </div>
+        @if (empty(trim($submission->workplace_description)) && !empty($submission->workplace_lat) && !empty($submission->workplace_lng))
             <div class="info-item">
                 <span class="info-label">Coordonnées travail</span>
                 <span class="info-value">{{ $submission->workplace_lat }}, {{ $submission->workplace_lng }}</span>
             </div>
-            @endif
-        </div>
-        
-        {{-- CARTES STATIQUES --}}
-        @if (!empty($submission->residence_lat) && !empty($submission->residence_lng))
+        @endif
+        @if ($submission->workplace_plan_path)
+            <div class="info-item">
+                <span class="info-label">Plan du lieu de travail</span>
+                <span class="info-value">
+                    <a href="{{ Storage::url($submission->workplace_plan_path) }}" target="_blank">Télécharger le plan</a>
+                </span>
+            </div>
+        @endif
+    </div>
+
+    {{-- Cartes statiques pour la résidence --}}
+    @if (empty(trim($submission->residence_description)) && !empty($submission->residence_lat) && !empty($submission->residence_lng))
         <div style="margin-top: 10mm;">
             <div style="text-align: center; margin-bottom: 5mm;">
                 <strong style="color: #EC281C; font-size: 11pt;">Carte de résidence</strong>
             </div>
             <div style="text-align: center; border: 2px solid #EC281C; padding: 5mm; background: #f8f9fa; border-radius: 5px;">
-                <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s+ff0000({{ $submission->residence_lng }},{{ $submission->residence_lat }})/{{ $submission->residence_lng }},{{ $submission->residence_lat }},15,0/400x200@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" 
-                     style="width: 100%; height: 40mm; object-fit: cover; border-radius: 3px;" 
+                <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s+ff0000({{ $submission->residence_lng }},{{ $submission->residence_lat }})/{{ $submission->residence_lng }},{{ $submission->residence_lat }},15,0/400x200@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+                     style="width: 100%; height: 40mm; object-fit: cover; border-radius: 3px;"
                      alt="Carte de résidence">
                 <div style="margin-top: 3mm; font-size: 8pt; color: #666;">
                     Coordonnées : {{ $submission->residence_lat }}, {{ $submission->residence_lng }}
                 </div>
             </div>
         </div>
-        @endif
-        
-        @if (!empty($submission->workplace_lat) && !empty($submission->workplace_lng))
+    @endif
+
+    {{-- Cartes statiques pour le lieu de travail --}}
+    @if (empty(trim($submission->workplace_description)) && !empty($submission->workplace_lat) && !empty($submission->workplace_lng))
         <div style="margin-top: 10mm;">
             <div style="text-align: center; margin-bottom: 5mm;">
                 <strong style="color: #EC281C; font-size: 11pt;">Carte du lieu de travail</strong>
             </div>
             <div style="text-align: center; border: 2px solid #EC281C; padding: 5mm; background: #f8f9fa; border-radius: 5px;">
-                <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s+ff0000({{ $submission->workplace_lng }},{{ $submission->workplace_lat }})/{{ $submission->workplace_lng }},{{ $submission->workplace_lat }},15,0/400x200@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" 
-                     style="width: 100%; height: 40mm; object-fit: cover; border-radius: 3px;" 
+                <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s+ff0000({{ $submission->workplace_lng }},{{ $submission->workplace_lat }})/{{ $submission->workplace_lng }},{{ $submission->workplace_lat }},15,0/400x200@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+                     style="width: 100%; height: 40mm; object-fit: cover; border-radius: 3px;"
                      alt="Carte du lieu de travail">
                 <div style="margin-top: 3mm; font-size: 8pt; color: #666;">
                     Coordonnées : {{ $submission->workplace_lat }}, {{ $submission->workplace_lng }}
                 </div>
             </div>
         </div>
-        @endif
-
-        {{-- CSS pour les cartes Leaflet --}}
-        <style>
-            @media print {
-                .leaflet-container,
-                .leaflet-tile-container,
-                .leaflet-layer,
-                .leaflet-pane {
-                    position: static !important;
-                    width: 100% !important;
-                    height: 40mm !important;
-                }
-                
-                .leaflet-tile {
-                    visibility: visible !important;
-                    opacity: 1 !important;
-                }
-                
-                .leaflet-marker-icon {
-                    display: block !important;
-                }
-            }
-        </style>
-
-        {{-- JavaScript pour les cartes Leaflet --}}
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-        <script>
-            @if (!empty($submission->residence_lat) && !empty($submission->residence_lng))
-            // Carte de résidence
-            const residenceMap = L.map('residence-map').setView([{{ $submission->residence_lat }}, {{ $submission->residence_lng }}], 15);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(residenceMap);
-            L.marker([{{ $submission->residence_lat }}, {{ $submission->residence_lng }}]).addTo(residenceMap)
-                .bindPopup('Résidence')
-                .openPopup();
-            @endif
-
-            @if (!empty($submission->workplace_lat) && !empty($submission->workplace_lng))
-            // Carte du lieu de travail
-            const workplaceMap = L.map('workplace-map').setView([{{ $submission->workplace_lat }}, {{ $submission->workplace_lng }}], 15);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(workplaceMap);
-            L.marker([{{ $submission->workplace_lat }}, {{ $submission->workplace_lng }}]).addTo(workplaceMap)
-                .bindPopup('Lieu de travail')
-                .openPopup();
-            @endif
-
-            // Forcer le rechargement des tuiles pour l'impression
-            window.addEventListener('beforeprint', () => {
-                @if (!empty($submission->residence_lat) && !empty($submission->residence_lng))
-                residenceMap.invalidateSize();
-                residenceMap.eachLayer(function (layer) {
-                    if (layer instanceof L.TileLayer) {
-                        layer.redraw();
-                    }
-                });
-                @endif
-
-                @if (!empty($submission->workplace_lat) && !empty($submission->workplace_lng))
-                workplaceMap.invalidateSize();
-                workplaceMap.eachLayer(function (layer) {
-                    if (layer instanceof L.TileLayer) {
-                        layer.redraw();
-                    }
-                });
-                @endif
-            });
-        </script>
-    </div>
+    @endif
+</div>
 
     {{-- INFORMATIONS SUPPLÉMENTAIRES --}}
     <div class="section">

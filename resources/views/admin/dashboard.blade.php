@@ -65,8 +65,8 @@
                         Dashboard
                     </a>
                 </li>
-                <li>-</li>
-                <li class="fw-medium">AI</li>
+                <li></li>
+                <li class="fw-medium"></li>
             </ul>
         </div>
 

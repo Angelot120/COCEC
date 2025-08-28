@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\AccountInterface;
+use App\Mail\AccountSubmissionMail;
 use App\Models\MoralPersonSubmission;
 use App\Models\PhysicalPersonSubmission;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+
 
 class AccountController extends Controller
 {
@@ -33,8 +36,8 @@ class AccountController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('last_name', 'like', "%{$search}%")
-                  ->orWhere('first_names', 'like', "%{$search}%")
-                  ->orWhere('account_number', 'like', "%{$search}%");
+                    ->orWhere('first_names', 'like', "%{$search}%")
+                    ->orWhere('account_number', 'like', "%{$search}%");
             });
         }
 
@@ -91,7 +94,7 @@ class AccountController extends Controller
         ];
 
         $pdf = Pdf::loadView('admin.accounts.physical.pdf', $data);
-        
+
         return $pdf->download('submission_' . $submission->id . '.pdf');
     }
 
@@ -111,19 +114,19 @@ class AccountController extends Controller
         // Récupérer les comptes physiques et moraux
         $physicalSubmissions = PhysicalPersonSubmission::latest()->take(5)->get();
         $moralSubmissions = MoralPersonSubmission::latest()->take(5)->get();
-        
+
         // Statistiques
         $totalPhysical = PhysicalPersonSubmission::count();
         $totalMoral = MoralPersonSubmission::count();
         $pendingPhysical = PhysicalPersonSubmission::where('statut', 'en_attente')->count();
         $pendingMoral = MoralPersonSubmission::where('statut', 'en_attente')->count();
-        
+
         return view('admin.accounts.index', compact(
-            'physicalSubmissions', 
-            'moralSubmissions', 
-            'totalPhysical', 
-            'totalMoral', 
-            'pendingPhysical', 
+            'physicalSubmissions',
+            'moralSubmissions',
+            'totalPhysical',
+            'totalMoral',
+            'pendingPhysical',
             'pendingMoral'
         ));
     }
@@ -143,6 +146,7 @@ class AccountController extends Controller
      */
     public function storePhysical(Request $request)
     {
+        $mail = 'douvonangelotadn@gmail.com';
         $validated = $request->validate([
             'last_name' => 'required|string|max:255',
             'first_names' => 'required|string|max:255',
@@ -152,7 +156,7 @@ class AccountController extends Controller
             'nationality' => 'required|string|max:255',
             'father_name' => 'required|string|max:255',
             'mother_name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'required|string|max:20',
             'category' => 'nullable|string|max:255',
             'marital_status' => 'required|string|max:255',
             'spouse_name' => 'nullable|string|max:255',
@@ -171,10 +175,10 @@ class AccountController extends Controller
             'residence_lat' => 'required_if:loc_method_residence,map|nullable|numeric',
             'residence_lng' => 'required_if:loc_method_residence,map|nullable|numeric',
             'residence_plan_path' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:30720',
-            'loc_method_workplace' => 'required|in:description,map',
-            'workplace_description' => 'required_if:loc_method_workplace,description|nullable|string',
-            'workplace_lat' => 'required_if:loc_method_workplace,map|nullable|numeric',
-            'workplace_lng' => 'required_if:loc_method_workplace,map|nullable|numeric',
+            'loc_method_workplace' => 'nullable|in:description,map',
+            'workplace_description' => 'nullable|string',
+            'workplace_lat' => 'nullable|numeric',
+            'workplace_lng' => 'nullable|numeric',
             'workplace_plan_path' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:30720',
             'id_type' => 'required|string|max:255',
             'id_number' => 'required|string|max:255',
@@ -242,10 +246,11 @@ class AccountController extends Controller
                 'company_name_activity' => $request->company_name_activity,
                 'activity_type' => $request->activity_type,
                 'activity_description' => $request->activity_description,
-                'residence_description' => $request->loc_method_residence === 'description' ? $request->residence_description : 'Adresse via carte',
+                'residence_description' => $request->loc_method_residence === 'description' ? $request->residence_description : null, // Change ici                
                 'residence_lat' => $request->residence_lat,
                 'residence_lng' => $request->residence_lng,
-                'workplace_description' => $request->loc_method_workplace === 'description' ? $request->workplace_description : 'Adresse via carte',
+
+                'workplace_description' => $request->workplace_description ? $request->workplace_description : null,
                 'workplace_lat' => $request->workplace_lat,
                 'workplace_lng' => $request->workplace_lng,
                 'residence_plan_path' => $residencePlanPath,
@@ -285,6 +290,11 @@ class AccountController extends Controller
             }
 
             DB::commit();
+            // Récupérer les références et bénéficiaires
+            $references = $submission->references()->get();
+            $beneficiaries = $submission->beneficiaries()->get();
+
+            Mail::to($mail)->send(new AccountSubmissionMail($submission, $data, $references, $beneficiaries, 'physique'));
             return redirect()->route('account.create.physic')->with('success', "Votre demande d'ouverture de compte (Personne Physique) a été soumise avec succès !");
         } catch (\Exception $e) {
             DB::rollBack();
@@ -298,6 +308,7 @@ class AccountController extends Controller
      */
     public function storeMoral(Request $request)
     {
+        $mail = 'douvonangelotadn@gmail.com';
         $validated = $request->validate([
             'company_name' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
@@ -418,7 +429,7 @@ class AccountController extends Controller
                 'company_postal_box' => $request->company_postal_box,
                 'company_city' => $request->company_city,
                 'company_neighborhood' => $request->company_neighborhood,
-                'company_address' => $request->loc_method_company === 'description' ? $request->company_address : 'Adresse via carte',
+                'company_address' => $request->loc_method_company === 'description' ? $request->company_address : null,
                 'company_plan_path' => $companyPlanPath,
                 'company_lat' => $request->company_lat,
                 'company_lng' => $request->company_lng,
@@ -489,11 +500,11 @@ class AccountController extends Controller
             }
 
             DB::commit();
-            
+
             // Récupérer les références et bénéficiaires
             $references = collect(); // Pas de références pour les personnes morales
             $beneficiaries = $submission->beneficiaries()->get();
-            
+
             Mail::to($mail)->send(new AccountSubmissionMail($submission, $data, $references, $beneficiaries, 'morale'));
             return back()->with('success', "Votre demande d'ouverture de compte (Personne Morale) a été soumise avec succès !");
         } catch (\Exception $e) {
@@ -807,7 +818,7 @@ class AccountController extends Controller
                 'company_postal_box' => $request->company_postal_box,
                 'company_city' => $request->company_city,
                 'company_neighborhood' => $request->company_neighborhood,
-                'company_address' => $request->loc_method_company === 'description' ? $request->company_address : 'Adresse via carte',
+                'company_address' => $request->loc_method_company === 'description' ? $request->company_address : null,
                 'company_plan_path' => $companyPlanPath,
                 'company_lat' => $request->company_lat,
                 'company_lng' => $request->company_lng,
@@ -934,9 +945,9 @@ class AccountController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('company_name', 'like', "%{$search}%")
-                  ->orWhere('director_name', 'like', "%{$search}%")
-                  ->orWhere('account_number', 'like', "%{$search}%")
-                  ->orWhere('rccm', 'like', "%{$search}%");
+                    ->orWhere('director_name', 'like', "%{$search}%")
+                    ->orWhere('account_number', 'like', "%{$search}%")
+                    ->orWhere('rccm', 'like', "%{$search}%");
             });
         }
 
@@ -993,7 +1004,7 @@ class AccountController extends Controller
         ];
 
         $pdf = Pdf::loadView('admin.accounts.moral.pdf', $data);
-        
+
         return $pdf->download('moral_submission_' . $submission->id . '.pdf');
     }
 }

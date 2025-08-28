@@ -38,7 +38,7 @@ return new class extends Migration
             $table->text('activity_description')->nullable();
 
             // Step 3: Residence & KYC
-            $table->text('residence_description');
+            $table->text('residence_description')->nullable();
             $table->string('residence_plan_path')->nullable();
             $table->decimal('residence_lat', 10, 7)->nullable();
             $table->decimal('residence_lng', 10, 7)->nullable();

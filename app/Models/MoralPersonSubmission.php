@@ -71,6 +71,7 @@ class MoralPersonSubmission extends Model
         'terrorism_financing',
         'remarks',
         'statut',
+        
     ];
 
     protected $casts = [

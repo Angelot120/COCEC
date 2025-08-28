@@ -1125,7 +1125,20 @@
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
                             <label class="form-label">Type de pièce d'identification</label>
-                            <input type="text" class="form-control @error('company_id_type') is-invalid @enderror" name="company_id_type" value="{{ old('company_id_type') }}">
+
+                            <select class="form-control @error('company_id_type') is-invalid @enderror" name="company_id_type" required>
+                                <option value="">Sélectionner...</option>
+                                <option value="CNI" {{ old('company_id_type') == 'CNI' ? 'selected' : '' }}>Carte Nationale d'Identité</option>
+                                <option value="Passeport" {{ old('company_id_type') == 'Passeport' ? 'selected' : '' }}>Passeport</option>
+                                <option value="Carte de Résident" {{ old('company_id_type') == 'Carte de Résident' ? 'selected' : '' }}>Carte de Résident</option>
+                            </select>
+                            <div class="invalid-feedback">@error('company_id_type') {{ $message }} @else Ce champ est requis. @enderror</div>
+
+
+
+
+
+                            {{-- <input type="text" class="form-control @error('company_id_type') is-invalid @enderror" name="company_id_type" value="{{ old('company_id_type') }}"> --}}
                             <div class="invalid-feedback">@error('company_id_type') {{ $message }} @else Ce champ est optionnel. @enderror</div>
                         </div>
                         <div class="col-md-6 mb-3 input-group-custom">
