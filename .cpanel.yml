@@ -1,0 +1,73 @@
+---
+deployment:
+  tasks:
+    # Définir le chemin de destination (public_html)
+    - export DEPLOYPATH=/home/cocectogo/public_html/
+    
+    # Créer le dossier temporaire pour le build
+    - mkdir -p /tmp/laravel-build
+    
+    # Copier les fichiers du projet vers le dossier temporaire
+    - /bin/cp -R * /tmp/laravel-build/
+    
+    # Aller dans le dossier temporaire
+    - cd /tmp/laravel-build
+    
+    # Installer les dépendances PHP avec Composer
+    - composer install --no-dev --optimize-autoloader
+    
+    # Installer les dépendances Node.js et construire les assets
+    - npm install
+    - npm run build
+    
+    # Supprimer les fichiers de développement
+    - rm -rf node_modules
+    - rm -rf tests
+    - rm -rf .git
+    - rm -rf .github
+    - rm -rf storage/logs/*
+    - rm -rf storage/framework/cache/*
+    - rm -rf storage/framework/sessions/*
+    - rm -rf storage/framework/views/*
+    
+    # Créer le dossier storage s'il n'existe pas
+    - mkdir -p storage/framework/cache
+    - mkdir -p storage/framework/sessions
+    - mkdir -p storage/framework/views
+    - mkdir -p storage/logs
+    
+    # Définir les permissions appropriées
+    - chmod -R 755 storage
+    - chmod -R 755 bootstrap/cache
+    
+    # Supprimer les anciens fichiers du serveur (optionnel)
+    - /bin/rm -rf $DEPLOYPATH/*
+    
+    # Copier tous les fichiers vers le serveur
+    - /bin/cp -R * $DEPLOYPATH/
+    
+    # Aller dans le dossier de destination
+    - cd $DEPLOYPATH
+    
+    # Générer la clé d'application Laravel (si nécessaire)
+    - php artisan key:generate --force
+    
+    # Vider les caches
+    - php artisan config:clear
+    - php artisan cache:clear
+    - php artisan view:clear
+    - php artisan route:clear
+    
+    # Optimiser l'application pour la production
+    - php artisan config:cache
+    - php artisan route:cache
+    - php artisan view:cache
+    
+    # Exécuter les migrations de base de données
+    - php artisan migrate --force
+    
+    # Exécuter les seeders si nécessaire (optionnel)
+    - php artisan db:seed --force
+    
+    # Nettoyer le dossier temporaire
+    - rm -rf /tmp/laravel-build

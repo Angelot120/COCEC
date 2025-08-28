@@ -5,8 +5,8 @@
 @section('content')
 @include('includes.admin.sidebar')
 <main class="dashboard-main">
-    @include('includes.admin.appbar')
     @include('includes.main.loading')
+    @include('includes.admin.appbar')
 
     <div class="dashboard-main-body">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
