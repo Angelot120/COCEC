@@ -1,2 +1,3 @@
 /storage/logs/*.log
 /public/storage
+/storage/framework/views/*.php
