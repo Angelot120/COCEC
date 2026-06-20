@@ -511,7 +511,7 @@
 @section('content')
 
 <body>
-    @include('includes.main.loading')
+    {{-- @include('includes.main.loading') --}}{{-- Commenté pour améliorer les performances de chargement --}}
     @include('includes.main.popup')
     <!-- ./ preloader -->
 
